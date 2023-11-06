@@ -1,265 +1,162 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 <head>
-  
-
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>easy-con [ p0l1&#39;s blog ]</title>
-
-  <link rel="icon" href="/img/favicon.ico">
-
-
-    <meta name="author" content="p0l1">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml " title="p0l1&#39;s blog" type="application/atom+xml">
-
-
-  
-    <link rel="stylesheet" href="/css/main.css">
-  
-
-<meta name="generator" content="Hexo 6.3.0"></head>
-  <body data-theme="light" class="notransition">
-    <script>
-      const body = document.body;
-      const data = body.getAttribute("data-theme");
-      const initTheme = (state) => {
-        if (state === "dark") {
-          body.setAttribute("data-theme", "dark");
-        } else if (state === "light") {
-          body.removeAttribute("data-theme");
-        } else {
-          localStorage.setItem("theme", data);
-        }
-      };
-   
-      initTheme(localStorage.getItem("theme"));
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="访问环境  尝试访问&#x2F;index.php  命令执行POST传参cmd ls查看  看了一圈没有和flag相关的文件，先查看bbbbbbbbb.txt  应该是base64加密，解密一下  这是个图片内容 这里用html引用  访问，得到flag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="easy-con">
+<meta property="og:url" content="http://example.com/2023/11/03/easy-con/index.html">
+<meta property="og:site_name" content="p0l1&#39;s blog">
+<meta property="og:description" content="访问环境  尝试访问&#x2F;index.php  命令执行POST传参cmd ls查看  看了一圈没有和flag相关的文件，先查看bbbbbbbbb.txt  应该是base64加密，解密一下  这是个图片内容 这里用html引用  访问，得到flag">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20231103080107447.png">
+<meta property="og:image" content="http://example.com/images/image-20231103080149812.png">
+<meta property="og:image" content="http://example.com/images/image-20231103080323604.png">
+<meta property="og:image" content="http://example.com/images/image-20231103080427553.png">
+<meta property="og:image" content="http://example.com/images/image-20231103080449791.png">
+<meta property="og:image" content="http://example.com/images/image-20231103080527789.png">
+<meta property="og:image" content="http://example.com/images/image-20231103080614734.png">
+<meta property="article:published_time" content="2023-11-03T00:30:20.000Z">
+<meta property="article:modified_time" content="2023-11-03T00:30:47.107Z">
+<meta property="article:author" content="p0l1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20231103080107447.png">
+    
+    
       
-      setTimeout(() => body.classList.remove("notransition"), 75);
-    </script>
-  <div class="navbar" role="navigation">
-    <nav class="menu">
-      <input type="checkbox" id="menu-trigger" class="menu-trigger" />
-      <label for="menu-trigger">
-        <span class="menu-icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
-            />
-          </svg>
-        </span>
-      </label>
-      <a id="mode">
-        <svg
-          class="mode-sunny"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 512 512"
-        >
-          <title>LIGHT</title>
-          <line
-            x1="256"
-            y1="48"
-            x2="256"
-            y2="96"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="256"
-            y1="416"
-            x2="256"
-            y2="464"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="403.08"
-            y1="108.92"
-            x2="369.14"
-            y2="142.86"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="142.86"
-            y1="369.14"
-            x2="108.92"
-            y2="403.08"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="464"
-            y1="256"
-            x2="416"
-            y2="256"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="96"
-            y1="256"
-            x2="48"
-            y2="256"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="403.08"
-            y1="403.08"
-            x2="369.14"
-            y2="369.14"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="142.86"
-            y1="142.86"
-            x2="108.92"
-            y2="108.92"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <circle
-            cx="256"
-            cy="256"
-            r="80"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-        </svg>
-        <svg
-          class="mode-moon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 512 512"
-        >
-          <title>DARK</title>
-          <line
-            x1="256"
-            y1="48"
-            x2="256"
-            y2="96"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="256"
-            y1="416"
-            x2="256"
-            y2="464"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="403.08"
-            y1="108.92"
-            x2="369.14"
-            y2="142.86"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="142.86"
-            y1="369.14"
-            x2="108.92"
-            y2="403.08"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="464"
-            y1="256"
-            x2="416"
-            y2="256"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="96"
-            y1="256"
-            x2="48"
-            y2="256"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="403.08"
-            y1="403.08"
-            x2="369.14"
-            y2="369.14"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <line
-            x1="142.86"
-            y1="142.86"
-            x2="108.92"
-            y2="108.92"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-          <circle
-            cx="256"
-            cy="256"
-            r="80"
-            style="stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
-          />
-        </svg>
-      </a>
-      <div class="trigger">
-        <div class="trigger-container">
-          
-            
-            
-            
-            
-            
-            
-            <a class="menu-link " href="/"> Home</a>
-          
-            
-            
-            
-            
-            
-            
-            <a class="menu-link " href="/about/"> About</a>
-          
-            
-            
-            
-            
-            
-            
-            <a class="menu-link " href="/archives/"> Archives</a>
-          
-            
-            
-            
-            
-            
-            
-            <a class="menu-link " href="/tags/"> Tags</a>
-          
-        </div>
-      </div>
-    </nav>
-  </div>
-  
-<div class="wrapper post">
-  <main class="page-content" aria-label="Content">
-      <header class="header">
         
-        <h1 class="header-title" itemprop="headline">easy-con</h1>
-          <div class="post-meta">
-            <time>Nov 03, 2023</time>
-            <span itemprop="author">
-              <span itemprop="name">p0l1</span>
-            </span>
-          </div>
-        </header>
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>easy-con</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-          <div class="page-content"><p>访问环境</p>
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/10/30/111/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/11/03/easy-con/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/11/03/easy-con/&text=easy-con"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/11/03/easy-con/&is_video=false&description=easy-con"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=easy-con&body=Check out this article: http://example.com/2023/11/03/easy-con/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/11/03/easy-con/&name=easy-con&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/11/03/easy-con/&t=easy-con"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        easy-con
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">p0l1</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-11-03T00:30:20.000Z" class="dt-published" itemprop="datePublished">2023-11-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>访问环境</p>
 <p><img src="/../images/image-20231103080107447.png" alt="avatar"></p>
 <p>尝试访问&#x2F;index.php</p>
 <p><img src="/../images/image-20231103080149812.png" alt="avatar"></p>
@@ -275,45 +172,138 @@
 <p><img src="/../images/image-20231103080527789.png" alt="avatar"></p>
 <p>访问，得到flag</p>
 <p><img src="/../images/image-20231103080614734.png" alt="avatar"></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/11/03/easy-con/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/11/03/easy-con/&text=easy-con"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/11/03/easy-con/&is_video=false&description=easy-con"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=easy-con&body=Check out this article: http://example.com/2023/11/03/easy-con/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/11/03/easy-con/&title=easy-con"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/11/03/easy-con/&name=easy-con&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/11/03/easy-con/&t=easy-con"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
 </div>
-          <nav class="post-nav">
-    
-    
-    <a class="post-nav-item post-nav-next" href="/2023/10/30/111/">
-      <div class="nav-arrow">OLDER&nbsp;&gt;</div>
-      <span class="post-title">111</span>
-    </a>
-    
-  </nav>
 
-   </main>
-</div>
-
-  <footer class="footer">
-    <small class="footer_copyright">
-      <div id="bottom-inner">
-        © 2021 Site by p0l1 using
-        <a target="_blank" rel="noopener" href="http://hexo.io">hexo blog framework</a>.
-        <br>
-        <p> Theme is <a target="_blank" rel="noopener" href="https://github.com/dewjohn/hexo-theme-klise">Klise</a></p>
-      </div>
-    </small>
-  </footer>
-  
-  
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-      <script src="/js/main.js"></script>
     
+    2016-2023
+    p0l1
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script>
-    window.FPConfig = {
-      delay: 0,
-      ignoreKeywords: [],
-      maxRPS: 3,
-      hoverDelay: 50,
-    };
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
   </script>
-  <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
 </body>
 </html>
