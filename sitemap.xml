@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2024/01/14/upload-labs%E9%80%9A%E5%85%B3/</loc>
+    
+    <lastmod>2024-01-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2023/12/31/SSI%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</loc>
     
     <lastmod>2023-12-31</lastmod>
@@ -121,7 +130,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -129,49 +138,56 @@
   
   <url>
     <loc>http://example.com/tags/CTF/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/php/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/http/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/ctf-web%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Crypto/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/CTF-php/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/ctf-RCE/</loc>
-    <lastmod>2023-12-31</lastmod>
+    <lastmod>2024-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-web%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2024-01-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
