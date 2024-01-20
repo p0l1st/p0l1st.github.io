@@ -20,15 +20,6 @@
   </url>
   
   <url>
-    <loc>http://example.com/2024/01/16/ctfshow%E5%85%83%E6%97%A6%E6%B0%B4%E5%8F%8B%E8%B5%9Bweb%E5%A4%8D%E7%9B%98/</loc>
-    
-    <lastmod>2024-01-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://example.com/2024/01/14/upload-labs%E9%80%9A%E5%85%B3/</loc>
     
     <lastmod>2024-01-14</lastmod>
@@ -214,13 +205,6 @@
   
   <url>
     <loc>http://example.com/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-web%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2024-01-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/tags/ctf/</loc>
     <lastmod>2024-01-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
