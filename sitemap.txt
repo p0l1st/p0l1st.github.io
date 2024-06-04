@@ -1,4 +1,5 @@
 http://example.com/2024/06/03/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%BA%8C/
+http://example.com/2024/06/04/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%B8%89/
 http://example.com/2024/06/01/LitCTF2024-web%E9%A2%98%E8%A7%A3/
 http://example.com/2024/06/01/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%B8%80/
 http://example.com/2024/04/29/XYCTF-Web%E9%A2%98%E8%A7%A3/
