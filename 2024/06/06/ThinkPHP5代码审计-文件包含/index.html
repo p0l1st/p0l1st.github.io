@@ -15,7 +15,7 @@
 
 
 
-<title>ThinkPHP5代码审计:SQL注入(四) | p0l1st&#39;s blog</title>
+<title>ThinkPHP5代码审计:文件包含 | p0l1st&#39;s blog</title>
 
 
 
@@ -191,7 +191,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">ThinkPHP5代码审计:SQL注入(四)</h1>
+            <h1 class="post-title">ThinkPHP5代码审计:文件包含</h1>
             
                 <div class="post-meta">
                     
@@ -200,7 +200,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 5, 2024&nbsp;&nbsp;19:12:54</a>
+                        Date: <a href="#">June 6, 2024&nbsp;&nbsp;19:20:41</a>
                         </span>
                     
                     
@@ -209,31 +209,32 @@
         </header>
 
         <div class="post-content">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.21  5.1.3&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.25</p>
-<p>application&#x2F;index&#x2F;controller&#x2F;Index.php </p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$options</span> = <span class="title function_ invoke__">request</span>()-&gt;<span class="title function_ invoke__">get</span>(<span class="string">&#x27;options&#x27;</span>);</span><br><span class="line">        <span class="variable">$result</span> = <span class="title function_ invoke__">db</span>(<span class="string">&#x27;users&#x27;</span>)-&gt;<span class="title function_ invoke__">max</span>(<span class="variable">$options</span>);</span><br><span class="line">        <span class="title function_ invoke__">var_dump</span>(<span class="variable">$result</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.18  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.10</p>
+<p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">assign</span>(<span class="title function_ invoke__">request</span>()-&gt;<span class="title function_ invoke__">get</span>());</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fetch</span>(); <span class="comment">// 当前模块/默认视图目录/当前控制器（小写）/当前操作（小写）.html</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>payload随版本需要调整：</p>
-<p>5.0.0<del>5.0.21  5.1.3</del>5.1.10 ： id)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</p>
-<p>5.1.11~5.1.25 ：id&#96;)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</p>
-<p><img src="/../images/image-20240605192126421.png" alt="image-20240605192126421"></p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>数据没有过滤就传入max方法进行聚合查询语句构造，所以我们先跟进max方法</p>
-<p><img src="/../images/image-20240605192506812.png" alt="image-20240605192506812"></p>
-<p>而max方法调用了本类的aggregate方法，aggregate方法又调用了Mysql类的aggregate方法</p>
-<p><img src="/../images/image-20240605192809733.png" alt="image-20240605192809733"></p>
-<p><img src="/../images/image-20240605203943732.png" alt="image-20240605203943732"></p>
-<p>可以看到，在aggregate方法中，对变量使用了parseKey方法进行处理，然后拼接SQL语句</p>
-<p>我们再跟进parseKey方法，这里只是对变量两端添加了反引号</p>
-<p><img src="/../images/image-20240605204813207.png" alt="image-20240605204813207"></p>
-<p>那么再回到上图的$this-&gt;value方法，该方法调用了Builder类的select方法</p>
-<p><img src="/../images/image-20240605205202722.png" alt="image-20240605205202722"></p>
-<p>用户传入的数据存储在$options[‘field’]变量中，传入parseField方法，跟进这个方法</p>
-<p><img src="/../images/image-20240605205453069.png" alt="image-20240605205453069"></p>
-<p>数据在这里只是经过了parseKey方法，然后使用逗号拼接，并没有经过任何过滤，那么就可以直接构造SQL语句</p>
-<p><img src="/../images/image-20240605205817721.png" alt="image-20240605205817721"></p>
-<h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>匹配到字母、点号、星号以外的字符直接抛出异常</p>
-<p><img src="/../images/image-20240605210535967.png" alt="image-20240605210535967"></p>
-<h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BSQL%E6%B3%A8%E5%85%A56/7.png" alt="7"></p>
+<p>创建application&#x2F;index&#x2F;view&#x2F;index&#x2F;index.html文件，将图片马放到public目录下</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index/index/index?cacheFile=123.jpg</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20240606192452782.png" alt="image-20240606192452782"></p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>用户输入的数据未经过滤，直接通过Controller类的assign方法进行模板变量赋值</p>
+<p><img src="/../images/image-20240606193202886.png" alt="image-20240606193202886"></p>
+<p><img src="/../images/image-20240606193218869.png" alt="image-20240606193218869"></p>
+<p>并且assign方法又调用了view类的assign方法，将数据存储到$data</p>
+<p><img src="/../images/image-20240606193424205.png" alt="image-20240606193424205"></p>
+<p>然后调用fetch方法加载模板输出，如果没有指定模板名称，就会使用默认的文件作为模板，默认路径模板不存在，就会报错</p>
+<p><img src="/../images/image-20240606193641967.png" alt="image-20240606193641967"></p>
+<p><img src="/../images/image-20240606194209788.png" alt="image-20240606194209788"></p>
+<p><img src="/../images/image-20240606194355531.png" alt="image-20240606194355531"></p>
+<p>跟进到Template类的fetch方法，可控变量$vars首先赋值给$this-&gt;$data，最终传入File类的read方法</p>
+<p><img src="/../images/image-20240606194627385.png" alt="image-20240606194627385"></p>
+<p><img src="/../images/image-20240606194644620.png" alt="image-20240606194644620"></p>
+<p>而read方法使用了extract函数后，直接包含了$cacheFile,这样就产生了文件包含漏洞</p>
+<p><img src="/../images/image-20240606195009007.png" alt="image-20240606195009007"></p>
+<h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>先将$cacheFile变量存储在$this-&gt;cacheFile中，使用extract函数后，最终include包含$this-&gt;cacheFile,避免include包含的值被覆盖</p>
+<p><img src="/../images/image-20240606195227631.png" alt="image-20240606195227631"></p>
+<h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB7/7.png" alt="7"></p>
 
         </div>
 
@@ -248,7 +249,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://example.com/2024/06/05/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E5%9B%9B/">http://example.com/2024/06/05/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E5%9B%9B/</a></span>
+                        <span><a href="http://example.com/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">http://example.com/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</a></span>
                     </p>
                 
                 
@@ -285,10 +286,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">ThinkPHP5代码审计:文件包含</a>
             
-            
-            <a class="next" rel="next" href="/2024/06/04/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%B8%89/">ThinkPHP5代码审计:SQL注入(三)</a>
+            <a class="next" rel="next" href="/2024/06/05/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E5%9B%9B/">ThinkPHP5代码审计:SQL注入(四)</a>
             
         </section>
 
