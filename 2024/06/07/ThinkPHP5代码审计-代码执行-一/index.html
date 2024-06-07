@@ -15,7 +15,7 @@
 
 
 
-<title>ThinkPHP5代码审计:文件包含 | p0l1st&#39;s blog</title>
+<title>ThinkPHP5代码审计:代码执行(一) | p0l1st&#39;s blog</title>
 
 
 
@@ -191,7 +191,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">ThinkPHP5代码审计:文件包含</h1>
+            <h1 class="post-title">ThinkPHP5代码审计:代码执行(一)</h1>
             
                 <div class="post-meta">
                     
@@ -200,7 +200,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">June 6, 2024&nbsp;&nbsp;19:20:41</a>
+                        Date: <a href="#">June 7, 2024&nbsp;&nbsp;18:35:35</a>
                         </span>
                     
                     
@@ -209,32 +209,25 @@
         </header>
 
         <div class="post-content">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.18  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.10</p>
+            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10</p>
 <p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Controller</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">assign</span>(<span class="title function_ invoke__">request</span>()-&gt;<span class="title function_ invoke__">get</span>());</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">fetch</span>(); <span class="comment">// 当前模块/默认视图目录/当前控制器（小写）/当前操作（小写）.html</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Cache</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title class_">Cache</span>::<span class="title function_ invoke__">set</span>(<span class="string">&quot;name&quot;</span>,<span class="title function_ invoke__">input</span>(<span class="string">&quot;get.username&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Cache success&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>创建application&#x2F;index&#x2F;view&#x2F;index&#x2F;index.html文件，将图片马放到public目录下</p>
 <p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/index/index/index?cacheFile=123.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username=p0l1st123%0d%0a@eval($_GET[_]);//</span><br></pre></td></tr></table></figure>
 
-<p><img src="/../images/image-20240606192452782.png" alt="image-20240606192452782"></p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>用户输入的数据未经过滤，直接通过Controller类的assign方法进行模板变量赋值</p>
-<p><img src="/../images/image-20240606193202886.png" alt="image-20240606193202886"></p>
-<p><img src="/../images/image-20240606193218869.png" alt="image-20240606193218869"></p>
-<p>并且assign方法又调用了view类的assign方法，将数据存储到$data</p>
-<p><img src="/../images/image-20240606193424205.png" alt="image-20240606193424205"></p>
-<p>然后调用fetch方法加载模板输出，如果没有指定模板名称，就会使用默认的文件作为模板，默认路径模板不存在，就会报错</p>
-<p><img src="/../images/image-20240606193641967.png" alt="image-20240606193641967"></p>
-<p><img src="/../images/image-20240606194209788.png" alt="image-20240606194209788"></p>
-<p><img src="/../images/image-20240606194355531.png" alt="image-20240606194355531"></p>
-<p>跟进到Template类的fetch方法，可控变量$vars首先赋值给$this-&gt;$data，最终传入File类的read方法</p>
-<p><img src="/../images/image-20240606194627385.png" alt="image-20240606194627385"></p>
-<p><img src="/../images/image-20240606194644620.png" alt="image-20240606194644620"></p>
-<p>而read方法使用了extract函数后，直接包含了$cacheFile,这样就产生了文件包含漏洞</p>
-<p><img src="/../images/image-20240606195009007.png" alt="image-20240606195009007"></p>
-<h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>先将$cacheFile变量存储在$this-&gt;cacheFile中，使用extract函数后，最终include包含$this-&gt;cacheFile,避免include包含的值被覆盖</p>
-<p><img src="/../images/image-20240606195227631.png" alt="image-20240606195227631"></p>
-<h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB7/7.png" alt="7"></p>
+<p><img src="/../images/image-20240607183904083.png" alt="image-20240607183904083"></p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>首先跟进Cache类的set方法，其首先通过单例模式init方法，创建了一个类实例，该类由cache的配置项type决定，默认情况下值为File</p>
+<p>本例中，self::$handler为library\think\cache\driver\File类实例</p>
+<p><img src="/../images/image-20240607184726294.png" alt="image-20240607184726294"></p>
+<p><img src="/../images/image-20240607184905731.png" alt="image-20240607184905731"></p>
+<p>跟进File类的set方法，这里的$data首先经过了序列化处理，但是默认情况下$this-&gt;options[‘data_compress’]为false，所以$data不会经过gzcompress处理，虽然被序列化的数据前面拼接了注释，但是我们可以使用换行符绕过</p>
+<p><img src="/../images/image-20240607191333361.png" alt="image-20240607191333361"></p>
+<p>而文件名则调用了getCacheKey方法，跟进发现缓存文件的子目录和文件名均和缓存类设置的键($name)有关,首先获取键名的md5值，md5值的前两个字符作为缓存子目录，后三十字符作为缓存文件名，如果设置了$this-&gt;options[‘prefix’]，那么缓存文件还多一个上级目录</p>
+<p><img src="/../images/image-20240607191131248.png" alt="image-20240607191131248"></p>
+<p>如果想要利用这个漏洞，首先得知道缓存类设置的键名，才能找到webshell路径，这里的shell是写入到了runtime目录下，但是如果写入public目录下，无法访问到。并且如果设置$this-&gt;options[‘prefix’]，没有源码还是无法获取webshell的路径</p>
+<h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>将数据拼接在php标签之外，并在php标签中拼接exit()函数</p>
+<h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C8/6.png" alt="6"></p>
 
         </div>
 
@@ -249,7 +242,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://example.com/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">http://example.com/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</a></span>
+                        <span><a href="http://example.com/2024/06/07/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%80/">http://example.com/2024/06/07/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%80/</a></span>
                     </p>
                 
                 
@@ -286,10 +279,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2024/06/07/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%80/">ThinkPHP5代码审计:代码执行(一)</a>
             
-            
-            <a class="next" rel="next" href="/2024/06/05/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E5%9B%9B/">ThinkPHP5代码审计:SQL注入(四)</a>
+            <a class="next" rel="next" href="/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">ThinkPHP5代码审计:文件包含</a>
             
         </section>
 
