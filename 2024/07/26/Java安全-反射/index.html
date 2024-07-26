@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="p0l1st">
+
+
+
+    <meta name="description" content="blog">
+
+
+
+<title>Java安全-反射 | p0l1st&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/b.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Links</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Links</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Java安全-反射</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 26, 2024&nbsp;&nbsp;14:25:49</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>Java安全可以从反序列化说起，而反序列化可以从反射说起。</p>
+<p><strong>Java反射机制</strong>：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。</p>
+<p><strong>反射的作用</strong>：让Java具有动态性</p>
+<h1 id="正射与反射"><a href="#正射与反射" class="headerlink" title="正射与反射"></a>正射与反射</h1><h2 id="正射"><a href="#正射" class="headerlink" title="正射"></a>正射</h2><p>我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student st= <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">st.dohomework();</span><br></pre></td></tr></table></figure>
+
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>而反射就是，一开始并不知道我们要初始化的对象是什么，自然也就无法使用new关键字来创建对象了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> p.getClass();</span><br></pre></td></tr></table></figure>
+
+<p>理解反射的第一步就是要搞清楚Class是什么</p>
+<h1 id="Java-Class对象"><a href="#Java-Class对象" class="headerlink" title="Java Class对象"></a>Java Class对象</h1><p>Class类全称java.lang.Class类。</p>
+<p>Java是面向对象的语言，讲究万物皆对象，即使再强大的一个类，依然是另一个类(Class类)的对象。也就是说，普通类是Class类的对象，Class类是所有类的类。</p>
+<p>程序在运行的时候会编译生成一个.class文件，而这个.class为文件中的内容就是相对应类的所有信息。</p>
+<p>比如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Test</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> t.getClass();</span><br><span class="line">        System.out.println(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252123591.png" alt="img"></p>
+<p>Class类的对象作用是运行时提供或获得某个对象的类型信息。</p>
+<h1 id="反射组成相关的类"><a href="#反射组成相关的类" class="headerlink" title="反射组成相关的类"></a>反射组成相关的类</h1><p>反射机制相关操作一般位于java.lang.reflect包中</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252128476.png" alt="img"></p>
+<p>重点注意以下类：</p>
+<ul>
+<li>java.lang.class：类对象</li>
+<li>java.lang.reflect.Constructor：类的构造器对象</li>
+<li>java.lang.reflect.Field：类的属性对象</li>
+<li>java.lang.reflect.Method：类的方法对象</li>
+</ul>
+<h1 id="反射常用方法"><a href="#反射常用方法" class="headerlink" title="反射常用方法"></a>反射常用方法</h1><ul>
+<li>获取类的方法：forName</li>
+<li>实例化类对象的方法：newInstance</li>
+<li>获取函数的方法：getMethod</li>
+<li>执行函数的方法：invoke</li>
+</ul>
+<h2 id="class对象的获取方法"><a href="#class对象的获取方法" class="headerlink" title="class对象的获取方法"></a>class对象的获取方法</h2><p>理解Java反射机制首先要理解Class类，而在反射中想要获取一个类或调用一个类的方法，首先需要获取到该类的Class对象</p>
+<p>普通类采用以下方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br></pre></td></tr></table></figure>
+
+<p>创建Class类时不能使用上述方法，会报错</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252138950.png" alt="QQ截图20240712184804"></p>
+<p>跟进源码看看，发现构造器是私有的，只有JVM才能创建对象，所以无法通过创建对象的方式来获取class对象</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252140446.png" alt="QQ截图20240712184908"></p>
+<p>一般获取class对象有以下三种方法：</p>
+<ul>
+<li><strong>实例化对象的getClass方法</strong></li>
+</ul>
+<p>存在某个类的实例，通过obj.getClass获取它的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> p.getClass();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用类的.class方法</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Person.class;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Class.forName(String className)动态加载类</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">c1</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>下面来看一个demo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Class c1=Person.class;</span><br><span class="line">System.out.println(c1);</span><br><span class="line"><span class="comment">//类.class</span></span><br><span class="line"></span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">Class c2=person.getClass();</span><br><span class="line">System.out.println(c2);</span><br><span class="line"><span class="comment">//实例化对象的getClass</span></span><br><span class="line"></span><br><span class="line">Class c3=Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line">System.out.println(c3);</span><br><span class="line"><span class="comment">//Class.forName(String classname)动态加载类</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261141710.png" alt="img"></p>
+<p>上面三种获取Class类的方式中，一般使用第三种通过Class.forName方式动态加载类，这种方式不需要再导入其他类，可以加载任意的类</p>
+<p>使用类.class，需要导入类的包，依赖性太强</p>
+<p>使用实例化对象的getClass方法，需要本身就创建一个对象，这样就失去了使用反射机制的意义</p>
+<p>所以获取class对象，一般使用Class.forName方法获取</p>
+<h2 id="获取成员变量Field"><a href="#获取成员变量Field" class="headerlink" title="获取成员变量Field"></a>获取成员变量Field</h2><p>获取成员变量Field位于java.lang.reflect.Field包中</p>
+<ul>
+<li>Field[] getFields()：获取所有public修饰的成员变量</li>
+<li>Field[] getDeclaredFields()：获取所有的成员变量，不包括修饰符</li>
+<li>Field getField(String name)：获取指定名称的public修饰的成员变量</li>
+<li>Field getDeclaredField(String name)：获取指定的成员变量</li>
+</ul>
+<h2 id="获取成员方法Method"><a href="#获取成员方法Method" class="headerlink" title="获取成员方法Method"></a>获取成员方法Method</h2><ul>
+<li>Method getMethod(String name,类&lt;?&gt;…parameterTypes)：返回该类声明的public方法</li>
+<li>Method getDeclaredMethod(String name,类&lt;?&gt;…parameterTypes)：返回该类声明的所有方法</li>
+</ul>
+<p>第一个参数获取该方法的名字，第二个参数获取标识该方法的参数类型</p>
+<ul>
+<li>Method[] getMethods()：获取所有public方法，包括类自身声明的public方法，父类public方法，实现的接口方法</li>
+<li>Method[] getDeclaredMethods()：获取该类中所有方法</li>
+</ul>
+<p>Person.java添加以下内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">study</span><span class="params">(String s)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;学习中...&quot;</span>+s);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">sleep</span><span class="params">(<span class="type">int</span> age)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;睡眠中...&quot;</span>+age);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>abc.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line">        Method[] method1 = c.getMethods();<span class="comment">//所有public方法，包括类自身声明的public方法，父类public方法，实现的接口方法</span></span><br><span class="line">        Method[] method2 = c.getDeclaredMethods();<span class="comment">//获取该类中的所有方法</span></span><br><span class="line">        System.out.println(<span class="string">&quot;以下是该类中的所有public方法&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m:method1)&#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;以下是所有方法&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m:method2)&#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;以下是public的study方法&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">method3</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;study&quot;</span>, String.class);<span class="comment">//获取public的study方法</span></span><br><span class="line">        System.out.println(method3);</span><br><span class="line">        System.out.println(<span class="string">&quot;以下是pricate的sleep方法&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">method4</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;sleep&quot;</span>, <span class="type">int</span>.class);<span class="comment">//获取pricate的sleep方法</span></span><br><span class="line">        System.out.println(method4);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261435962.png" alt="img"></p>
+<h2 id="获取构造函数Constructor"><a href="#获取构造函数Constructor" class="headerlink" title="获取构造函数Constructor"></a>获取构造函数Constructor</h2><ul>
+<li>Constructor&lt;?&gt;[] getConstructors()：只返回public构造函数</li>
+<li>Constructor&lt;?&gt;[] getDeclaredConstructors()：返回所有构造函数</li>
+<li>Constructor&lt;&gt; getConstructor(类&lt;?&gt;…parameterTypes)：匹配和参数配型相符的public构造函数</li>
+<li>Constructor&lt;&gt; getDeclaredConstructor(类&lt;?&gt;…parameterTypes)：匹配和参数配型相符的构造函数</li>
+</ul>
+<p>Person.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line"><span class="comment">//无参构造</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//私有构造函数</span></span><br><span class="line"><span class="keyword">private</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>abc.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line">        Constructor[] constructor1= c.getDeclaredConstructors();</span><br><span class="line">        Constructor[] constructor2= c.getConstructors();</span><br><span class="line">        System.out.println(<span class="string">&quot;所有构造函数&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(Constructor con:constructor1)&#123;</span><br><span class="line">            System.out.println(con);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;所有public构造函数&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Constructor con:constructor2)&#123;</span><br><span class="line">            System.out.println(con);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;public构造函数&quot;</span>);</span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">constructor3</span> <span class="operator">=</span> c.getConstructor(String.class,<span class="type">int</span>.class);</span><br><span class="line">        System.out.println(constructor3);</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">constructor4</span> <span class="operator">=</span> c.getDeclaredConstructor(String.class);</span><br><span class="line">        System.out.println(constructor4);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261443022.png" alt="img"></p>
+<h2 id="反射创建类对象"><a href="#反射创建类对象" class="headerlink" title="反射创建类对象"></a>反射创建类对象</h2><p>通过反射来生成实例对象，一般使用Class对象的newInstance()方法来创建类对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span>Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> c.newInstance();</span><br></pre></td></tr></table></figure>
+
+<p>invoke方法，位于java.lang.reflect.Method类中，用于执行某个对象的目标方法，一般和getMethod方法配合使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object obj,Object... args)</span></span><br></pre></td></tr></table></figure>
+
+<p>第一个参数为类的实例，第二个参数为相应函数中的参数</p>
+<ul>
+<li>obj：从中调用底层方法的对象，必须是实例化对象</li>
+<li>args：用于方法的调用，是一个object的数组，参数可能是多个</li>
+</ul>
+<p>但是第一个参数不固定，<strong>如果调用的方法是普通方法，那么第一个参数就是类对象，如果是静态方法，那么第一个参数就是类</strong></p>
+<p>写个小demo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reflect</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;reflect&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.abc&quot;</span>);<span class="comment">//创建class对象</span></span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> c.newInstance();<span class="comment">//创建类实例对象</span></span><br><span class="line">            <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;reflect&quot;</span>);<span class="comment">//获取reflect方法</span></span><br><span class="line">            m.invoke(o);<span class="comment">//调用类实例对象方法</span></span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261405669.png" alt="img"></p>
+<h1 id="反射构造Runtime类执行"><a href="#反射构造Runtime类执行" class="headerlink" title="反射构造Runtime类执行"></a>反射构造Runtime类执行</h1><p>直接使用上面的demo会报错</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261408566.png" alt="img"></p>
+<p>这是因为Runtime类的构造方法是私有的</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261409960.png" alt="img"></p>
+<p>但是可以通过getRuntime来获取Runtime对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reflect</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;reflect&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">m1</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> m1.invoke(c);</span><br><span class="line">            m.invoke(o,<span class="string">&quot;calc&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261416398.png" alt="img"></p>
+<p>也可以简化一下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">	c.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(c.getMethod(<span class="string">&quot;getRuntime&quot;</span>).invoke(c),<span class="string">&quot;calc&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261418703.png" alt="img"></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>说白了反射也就是先获取类，并进行实例化对象，然后获取类里面的属性，调用类里面的方法。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Java%E5%AE%89%E5%85%A8/"># Java安全</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2024/07/16/ThinkPHP8%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/">ThinkPHP8反序列化利用链分析</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
