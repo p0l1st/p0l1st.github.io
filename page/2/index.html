@@ -1,168 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="p0l1st">
-
-
-
+    
+    <title>
+        
+        p0l1st&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="blog">
-
-
-
-<title>p0l1st&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/b.png">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="p0l1st&#39;s blog">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="p0l1st">
+<meta name="twitter:card" content="summary">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
     
     
         
+            <link rel="stylesheet" href="http://example.com/css/markdown.css">
+        
+            <link rel="stylesheet" href="http://example.com/css/july.css">
+        
     
-
-
 <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
 </head>
-
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
 
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://www.gravatar.com/avatar/7a585313ed855e8d652cbb3154a6056e?s=300&amp;d=mm&amp;r=g" id="avatar">
+</div>
+
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="http://example.com/index.html">Home</a>
+        
+            <a class="false" href="http://example.com/archives/index.html">Archives</a>
+        
+            <a class="false" href="http://example.com/about/index.html">About</a>
+        
+    </div>
+</div>
+
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        
+
+
+  <div id="recent-posts">
+    <h3 class="widget-title">Recent Posts</h3>
+    
+      <div class="recent-post-item">
+        <a href="/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">ThinkPHP5代码审计:文件包含</a>
+        <time datetime="2024-06-06T11:20:41.000Z">
+          Jun 06, 2024
+        </time>
+      </div>
+    
+      <div class="recent-post-item">
+        <a href="/2024/06/05/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E5%9B%9B/">ThinkPHP5代码审计:SQL注入(四)</a>
+        <time datetime="2024-06-05T11:12:54.000Z">
+          Jun 05, 2024
+        </time>
+      </div>
+    
+      <div class="recent-post-item">
+        <a href="/2024/06/04/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%B8%89/">ThinkPHP5代码审计:SQL注入(三)</a>
+        <time datetime="2024-06-04T13:48:36.000Z">
+          Jun 04, 2024
+        </time>
+      </div>
+    
+      <div class="recent-post-item">
+        <a href="/2024/06/03/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%BA%8C/">ThinkPHP5代码审计:SQL注入(二)</a>
+        <time datetime="2024-06-03T13:29:08.000Z">
+          Jun 03, 2024
+        </time>
+      </div>
+    
+      <div class="recent-post-item">
+        <a href="/2024/06/01/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%B8%80/">ThinkPHP5代码审计:SQL注入(一)</a>
+        <time datetime="2024-06-01T08:47:17.000Z">
+          Jun 01, 2024
+        </time>
+      </div>
+    
+      <div class="recent-post-item">
+        <a href="/2024/06/01/LitCTF2024-web%E9%A2%98%E8%A7%A3/">LitCTF2024 Web题解</a>
+        <time datetime="2024-06-01T06:01:01.000Z">
+          Jun 01, 2024
+        </time>
+      </div>
+    
+      <div class="recent-post-item">
+        <a href="/2024/02/19/SICTF-Round-3-Web%E9%83%A8%E5%88%86wp/">SICTF Round3 Web题解</a>
+        <time datetime="2024-02-19T02:01:29.000Z">
+          Feb 19, 2024
+        </time>
+      </div>
+    
+  </div>
+
+
+
+<div id="paginator">
+  <a class="extend prev" rel="prev" href="/">Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+</div>
+
+    </div>
+</div>
+
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2024 p0l1st 皖ICP备16011445号
+    </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
 
     
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-            </div>
-        </div>
-    </nav>
+        <script src="http://example.com/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="http://example.com/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="http://example.com/js/transition.js"></script>
+    
+        <script src="http://example.com/js/smooth-scroll.min.js"></script>
+    
 
-</header>
+
+
+
 <script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
 </script>
-            <div class="main">
-                
-    <div class="container profile-container">
-    <div class="intro">
-        <div class="avatar">
-            <a href="/archives"><img src="/image/avatar.jpeg"></a>
-        </div>
-        <div class="nickname">p0l1st</div>
-        <div class="description"><p>悲观者正确，乐观者前行</p>
-</div>
-        <div class="links">
-            
-                
-                    <a class="link-item" title="Blog" href="/archives">
-                        
-                        
-                            <i class="iconfont icon-blog"></i>
-                        
-                    </a>
-                
-                    <a class="link-item" title="Github" target="_blank" rel="noopener" href="https://github.com/p0l1st">
-                        
-                        
-                            <i class="iconfont icon-github"></i>
-                        
-                    </a>
-                
-            
-        </div>
-    </div>
-</div>
-
-
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
-    </div>
-</footer>
-
-    </div>
 </body>
-
 </html>

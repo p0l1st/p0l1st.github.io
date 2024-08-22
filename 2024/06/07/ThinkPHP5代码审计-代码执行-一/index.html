@@ -1,287 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="p0l1st">
-
-
-
-    <meta name="description" content="blog">
-
-
-
-<title>ThinkPHP5代码审计:代码执行(一) | p0l1st&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/b.png">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
+    <title>
+        ThinkPHP5代码审计:代码执行(一) |
+        
+        p0l1st&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="漏洞环境漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10 application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller; use think\Cache; class Index &amp;#123;     public funct">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP5代码审计:代码执行(一)">
+<meta property="og:url" content="http://example.com/2024/06/07/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%80/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="漏洞环境漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10 application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller; use think\Cache; class Index &amp;#123;     public funct">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815389.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815382.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815875.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815799.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815965.png">
+<meta property="og:image" content="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C8/6.png">
+<meta property="article:published_time" content="2024-06-07T10:35:35.000Z">
+<meta property="article:modified_time" content="2024-08-22T10:15:38.326Z">
+<meta property="article:author" content="p0l1st">
+<meta property="article:tag" content="代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815389.png">
     
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
     
     
         
+            <link rel="stylesheet" href="http://example.com/css/markdown.css">
+        
+            <link rel="stylesheet" href="http://example.com/css/july.css">
+        
     
-
-
 <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
 </head>
-
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
 
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://www.gravatar.com/avatar/7a585313ed855e8d652cbb3154a6056e?s=300&amp;d=mm&amp;r=g" id="avatar">
+</div>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="http://example.com/index.html">Home</a>
+        
+            <a class="false" href="http://example.com/archives/index.html">Archives</a>
+        
+            <a class="false" href="http://example.com/about/index.html">About</a>
+        
     </div>
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">ThinkPHP5代码审计:代码执行(一)</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">June 7, 2024&nbsp;&nbsp;18:35:35</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10</p>
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">ThinkPHP5代码审计:代码执行(一)</h1>
+    <time id="post-date" datetime="2024-06-07T10:35:35.000Z">
+        June 07, 2024
+    </time>
+    <div id="post-content" class="markdown-body">
+        <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10</p>
 <p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Cache</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title class_">Cache</span>::<span class="title function_ invoke__">set</span>(<span class="string">&quot;name&quot;</span>,<span class="title function_ invoke__">input</span>(<span class="string">&quot;get.username&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Cache success&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="php">&lt;?php
+namespace app\index\controller;
+use think\Cache;
+class Index
+&#123;
+    public function index()
+    &#123;
+        Cache::set(&quot;name&quot;,input(&quot;get.username&quot;));
+        return &#39;Cache success&#39;;
+    &#125;
+&#125;
+</code></pre>
 <p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username=p0l1st123%0d%0a@eval($_GET[_]);//</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../images/image-20240607183904083.png" alt="image-20240607183904083"></p>
+<pre><code>?username=p0l1st123%0d%0a@eval($_GET[_]);//
+</code></pre>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815389.png" alt="image-20240607183904083"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>首先跟进Cache类的set方法，其首先通过单例模式init方法，创建了一个类实例，该类由cache的配置项type决定，默认情况下值为File</p>
 <p>本例中，self::$handler为library\think\cache\driver\File类实例</p>
-<p><img src="/../images/image-20240607184726294.png" alt="image-20240607184726294"></p>
-<p><img src="/../images/image-20240607184905731.png" alt="image-20240607184905731"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815382.png" alt="image-20240607184726294"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815875.png" alt="image-20240607184905731"></p>
 <p>跟进File类的set方法，这里的$data首先经过了序列化处理，但是默认情况下$this-&gt;options[‘data_compress’]为false，所以$data不会经过gzcompress处理，虽然被序列化的数据前面拼接了注释，但是我们可以使用换行符绕过</p>
-<p><img src="/../images/image-20240607191333361.png" alt="image-20240607191333361"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815799.png" alt="image-20240607191333361"></p>
 <p>而文件名则调用了getCacheKey方法，跟进发现缓存文件的子目录和文件名均和缓存类设置的键($name)有关,首先获取键名的md5值，md5值的前两个字符作为缓存子目录，后三十字符作为缓存文件名，如果设置了$this-&gt;options[‘prefix’]，那么缓存文件还多一个上级目录</p>
-<p><img src="/../images/image-20240607191131248.png" alt="image-20240607191131248"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815965.png" alt="image-20240607191131248"></p>
 <p>如果想要利用这个漏洞，首先得知道缓存类设置的键名，才能找到webshell路径，这里的shell是写入到了runtime目录下，但是如果写入public目录下，无法访问到。并且如果设置$this-&gt;options[‘prefix’]，没有源码还是无法获取webshell的路径</p>
 <h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>将数据拼接在php标签之外，并在php标签中拼接exit()函数</p>
 <h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C8/6.png" alt="6"></p>
 
-        </div>
+    </div>
+</article>
 
-        
-            <section class="post-copyright">
-                
-                
-                
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"># 代码审计</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2024/06/12/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%BA%8C/">ThinkPHP5代码审计:代码执行(二)</a>
-            
-            
-            <a class="next" rel="next" href="/2024/06/06/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">ThinkPHP5代码审计:文件包含</a>
-            
-        </section>
-
-
-    </article>
+<div id="paginator">
+    
 </div>
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
+</div>
 
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2024 p0l1st 皖ICP备16011445号
     </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="http://example.com/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="http://example.com/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="http://example.com/js/transition.js"></script>
+    
+        <script src="http://example.com/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
 </body>
-
 </html>

