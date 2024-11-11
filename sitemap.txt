@@ -1,3 +1,4 @@
+http://example.com/2024/02/06/BeginCTF2024web%E9%83%A8%E5%88%86wp/
 http://example.com/tags/index.html
 http://example.com/links/index.html
 http://example.com/2024/02/19/SICTF-Round-3-Web%E9%83%A8%E5%88%86wp/
