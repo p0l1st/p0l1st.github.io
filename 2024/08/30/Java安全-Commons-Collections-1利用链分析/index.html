@@ -13,15 +13,15 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/08/30/java安全-common-collections-1利用链分析/"/>
+    <link rel="canonical" href="http://example.com/2024/08/30/java安全-commons-collections-1利用链分析/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
         <meta name="description" content="false">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java安全-Common-Collections 1利用链分析">
-<meta property="og:url" content="http://example.com/2024/08/30/Java%E5%AE%89%E5%85%A8-Common-Collections-1%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="Java安全-Commons-Collections 1利用链分析">
+<meta property="og:url" content="http://example.com/2024/08/30/Java%E5%AE%89%E5%85%A8-Commons-Collections-1%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="p0l1st&#39;s blog">
 <meta property="og:description" content="false">
 <meta property="og:locale" content="en_US">
@@ -78,7 +78,7 @@
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408302329561.png">
 <meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202408302329295.png">
 <meta property="article:published_time" content="2024-08-30T15:28:35.000Z">
-<meta property="article:modified_time" content="2024-11-04T02:49:54.892Z">
+<meta property="article:modified_time" content="2025-01-22T06:37:07.067Z">
 <meta property="article:author" content="p0l1st">
 <meta property="article:tag" content="Java安全">
 <meta name="twitter:card" content="summary">
@@ -94,7 +94,7 @@
     
     <title>
         
-            Java安全-Common-Collections 1利用链分析 -
+            Java安全-Commons-Collections 1利用链分析 -
         
         p0l1st&#39;s blog
     </title>
@@ -391,7 +391,7 @@
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -417,7 +417,7 @@
         <div class="article-title relative w-full">
             
                 <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Java安全-Common-Collections 1利用链分析</h1>
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Java安全-Commons-Collections 1利用链分析</h1>
                 </div>
             
             </div>
@@ -445,8 +445,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-11-04 10:49:54</span>
-            <span class="mobile">2024-11-04 10:49:54</span>
+            <span class="desktop">2025-01-22 14:37:07</span>
+            <span class="mobile">2025-01-22 14:37:07</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -729,18 +729,18 @@
             <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
                 <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> Java安全-Common-Collections 1利用链分析</li>
+        <li><strong>Title:</strong> Java安全-Commons-Collections 1利用链分析</li>
         <li><strong>Author:</strong> p0l1st</li>
         <li><strong>Created at
                 :</strong> 2024-08-30 23:28:35</li>
         
             <li>
                 <strong>Updated at
-                    :</strong> 2024-11-04 10:49:54
+                    :</strong> 2025-01-22 14:37:07
             </li>
         
         <li>
-            <strong>Link:</strong> https://blog.p0l1st.top/2024/08/30/Java安全-Common-Collections-1利用链分析/
+            <strong>Link:</strong> https://blog.p0l1st.top/2024/08/30/Java安全-Commons-Collections-1利用链分析/
         </li>
         <li>
             <strong>
@@ -859,7 +859,7 @@
             <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">Java安全-Common-Collections 1利用链分析</div>
+        <div class="page-title">Java安全-Commons-Collections 1利用链分析</div>
         <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Common-Collections"><span class="nav-text">Common-Collections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E7%BB%93%E6%9E%84"><span class="nav-text">包结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TransformMap%E7%89%88CC1%E6%94%BB%E5%87%BB%E9%93%BE"><span class="nav-text">TransformMap版CC1攻击链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E5%B0%BE%E9%83%A8%E7%9A%84exec%E6%96%B9%E6%B3%95"><span class="nav-text">寻找尾部的exec方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E5%AF%BB%E6%89%BE%E9%93%BE%E5%AD%90"><span class="nav-text">初步寻找链子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E9%93%BE%E5%AD%90"><span class="nav-text">完整链子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E9%93%BE%E9%A6%96%E7%9A%84readObject"><span class="nav-text">寻找链首的readObject</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0Exp"><span class="nav-text">构造Exp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3Runtime%E4%B8%8D%E8%83%BD%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">解决Runtime不能序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5setValue%E6%96%B9%E6%B3%95"><span class="nav-text">进入setValue方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%9C%80%E7%BB%88Exp"><span class="nav-text">编写最终Exp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LazyMap%E7%89%88CC1%E6%94%BB%E5%87%BB%E9%93%BE"><span class="nav-text">LazyMap版CC1攻击链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E9%93%BE%E5%B0%BE%E7%9A%84exec%E6%96%B9%E6%B3%95"><span class="nav-text">寻找链尾的exec方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E9%93%BE%E5%AD%90"><span class="nav-text">寻找链子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99Exp"><span class="nav-text">编写Exp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%B3%95"><span class="nav-text">修复方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TransformMap"><span class="nav-text">TransformMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LazyMap"><span class="nav-text">LazyMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-text">参考文章</span></a></li></ol>
 
     </div>
@@ -893,7 +893,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        5 posts in total
+                        6 posts in total
                     </span>
                     
                 </p>
