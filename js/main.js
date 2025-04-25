@@ -1,85 +1,158 @@
-/* main function */
-import initUtils from "./utils.js";
-import initTyped from "./plugins/typed.js";
-import initModeToggle from "./tools/lightDarkSwitch.js";
-import initLazyLoad from "./layouts/lazyload.js";
-import initScrollTopBottom from "./tools/scrollTopBottom.js";
-import initLocalSearch from "./tools/localSearch.js";
-import initCopyCode from "./tools/codeBlock.js";
-import initBookmarkNav from "./layouts/bookmarkNav.js";
+(() => {
+    var navEl = document.getElementById('theme-nav');
+    navEl.addEventListener('click', (e) => {
+        if (window.innerWidth <= 600) {
+            if (navEl.classList.contains('open')) {
+                navEl.style.height = ''
+            } else {
+                navEl.style.height = 48 + document.querySelector('#theme-nav .nav-items').clientHeight + 'px'
+            }
+            navEl.classList.toggle('open')
+        } else {
+            if (navEl.classList.contains('open')) {
+                navEl.style.height = ''
+                navEl.classList.remove('open')
+            }
+        }
+    })
+    window.addEventListener('resize', (e) => {
+        if (navEl.classList.contains('open')) {
+            navEl.style.height = 48 + document.querySelector('#theme-nav .nav-items').clientHeight + 'px'
+        }
+        if (window.innerWidth > 600) {
+            if (navEl.classList.contains('open')) {
+                navEl.style.height = ''
+                navEl.classList.remove('open')
+            }
+        }
+    })
 
-export const main = {
-  themeInfo: {
-    theme: `Redefine v${theme.version}`,
-    author: "EvanNotFound",
-    repository: "https://github.com/EvanNotFound/hexo-theme-redefine",
-  },
-  localStorageKey: "REDEFINE-THEME-STATUS",
-  styleStatus: {
-    isExpandPageWidth: false,
-    isDark: theme.colors.default_mode && theme.colors.default_mode === "dark",
-    fontSizeLevel: 0,
-    isOpenPageAside: true,
-  },
-  printThemeInfo: () => {
-    console.log(
-      `      ______ __  __  ______  __    __  ______                       \r\n     \/\\__  _\/\\ \\_\\ \\\/\\  ___\\\/\\ \"-.\/  \\\/\\  ___\\                      \r\n     \\\/_\/\\ \\\\ \\  __ \\ \\  __\\\\ \\ \\-.\/\\ \\ \\  __\\                      \r\n        \\ \\_\\\\ \\_\\ \\_\\ \\_____\\ \\_\\ \\ \\_\\ \\_____\\                    \r\n         \\\/_\/ \\\/_\/\\\/_\/\\\/_____\/\\\/_\/  \\\/_\/\\\/_____\/                    \r\n                                                               \r\n ______  ______  _____   ______  ______ __  __   __  ______    \r\n\/\\  == \\\/\\  ___\\\/\\  __-.\/\\  ___\\\/\\  ___\/\\ \\\/\\ \"-.\\ \\\/\\  ___\\   \r\n\\ \\  __<\\ \\  __\\\\ \\ \\\/\\ \\ \\  __\\\\ \\  __\\ \\ \\ \\ \\-.  \\ \\  __\\   \r\n \\ \\_\\ \\_\\ \\_____\\ \\____-\\ \\_____\\ \\_\\  \\ \\_\\ \\_\\\\\"\\_\\ \\_____\\ \r\n  \\\/_\/ \/_\/\\\/_____\/\\\/____\/ \\\/_____\/\\\/_\/   \\\/_\/\\\/_\/ \\\/_\/\\\/_____\/\r\n                                                               \r\n  Github: https:\/\/github.com\/EvanNotFound\/hexo-theme-redefine`,
-    ); // console log message
-  },
-  setStyleStatus: () => {
-    localStorage.setItem(
-      main.localStorageKey,
-      JSON.stringify(main.styleStatus),
-    );
-  },
-  getStyleStatus: () => {
-    let temp = localStorage.getItem(main.localStorageKey);
-    if (temp) {
-      temp = JSON.parse(temp);
-      for (let key in main.styleStatus) {
-        main.styleStatus[key] = temp[key];
-      }
-      return temp;
-    } else {
-      return null;
-    }
-  },
-  refresh: () => {
-    initUtils();
-    initModeToggle();
-    initScrollTopBottom();
-    initBookmarkNav();
-    
-    if (
-      theme.home_banner.subtitle.text.length !== 0 &&
-      location.pathname === config.root
-    ) {
-      initTyped("subtitle");
+    // a simple solution for managing cookies
+    const Cookies = new class {
+        get(key, fallback) {
+            const temp = document.cookie.split('; ').find(row => row.startsWith(key + '='))
+            if (temp) {
+                return temp.split('=')[1];
+            } else {
+                return fallback
+            }
+        }
+        set(key, value) {
+            document.cookie = key + '=' + value + '; path=' + document.body.getAttribute('data-config-root')
+        }
     }
 
-    if (theme.navbar.search.enable === true) {
-      initLocalSearch();
+    const ColorScheme = new class {
+        constructor() {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { this.updateCurrent(Cookies.get('color-scheme', 'auto')) })
+        }
+        get() {
+            const stored = Cookies.get('color-scheme', 'auto')
+            this.updateCurrent(stored)
+            return stored
+        }
+        set(value) {
+            bodyEl.setAttribute('data-color-scheme', value)
+            Cookies.set('color-scheme', value)
+            this.updateCurrent(value)
+            return value
+        }
+        updateCurrent(value) {
+            var current = 'light'
+            if (value == 'auto') {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    current = 'dark'
+                }
+            } else {
+                current = value
+            }
+            document.body.setAttribute('data-current-color-scheme', current)
+        }
     }
 
-    if (theme.articles.code_block.copy === true) {
-      initCopyCode();
+    if (document.getElementById('theme-color-scheme-toggle')) {
+        var bodyEl = document.body
+        var themeColorSchemeToggleEl = document.getElementById('theme-color-scheme-toggle')
+        var options = themeColorSchemeToggleEl.getElementsByTagName('input')
+
+        if (ColorScheme.get()) {
+            bodyEl.setAttribute('data-color-scheme', ColorScheme.get())
+        }
+
+        for (const option of options) {
+            if (option.value == bodyEl.getAttribute('data-color-scheme')) {
+                option.checked = true
+            }
+            option.addEventListener('change', (ev) => {
+                var value = ev.target.value
+                ColorScheme.set(value)
+                for (const o of options) {
+                    if (o.value != value) {
+                        o.checked = false
+                    }
+                }
+            })
+        }
     }
 
-    if (theme.articles.lazyload === true) {
-      initLazyLoad();
+    if (document.body.attributes['data-rainbow-banner']) {
+        var shown = false
+        switch (document.body.attributes['data-rainbow-banner-shown'].value) {
+            case 'always':
+                shown = true
+                break;
+            case 'auto':
+                shown = new Date().getMonth() + 1 == parseInt(document.body.attributes['data-rainbow-banner-month'].value, 10)
+                break;
+            default:
+                break;
+        }
+        if (shown) {
+            var banner = document.createElement('div')
+
+            banner.style.setProperty('--gradient', `linear-gradient(90deg, ${document.body.attributes['data-rainbow-banner-colors'].value})`)
+            banner.classList.add('rainbow-banner')
+
+            navEl.after(banner)
+        }
     }
-  },
-};
 
-export function initMain() {
-  main.printThemeInfo();
-  main.refresh();
-}
+    if (document.body.attributes['data-toc']) {
+        const content = document.getElementsByClassName('content')[0]
+        const maxDepth = document.body.attributes['data-toc-max-depth'].value
 
-document.addEventListener("DOMContentLoaded", initMain);
+        var headingSelector = ''
+        for (var i = 1; i <= maxDepth; i++) {
+            headingSelector += 'h' + i + ','
+        }
+        headingSelector = headingSelector.slice(0, -1)
+        const headings = content.querySelectorAll(headingSelector)
 
-try {
-  swup.hooks.on("page:view", () => {
-    main.refresh();
-  });
-} catch (e) {}
+        var source = []
+        headings.forEach((heading) => {
+            source.push({
+                html: heading.innerHTML,
+                href: heading.getElementsByClassName('headerlink')[0].attributes['href'].value
+            })
+        })
+
+        const toc = document.createElement('div')
+        toc.classList.add('toc')
+        for (const i in source) {
+            const item = document.createElement('p')
+            const link = document.createElement('a')
+            link.href = source[i].href
+            link.innerHTML = source[i].html
+            link.removeChild(link.getElementsByClassName('headerlink')[0])
+            item.appendChild(link)
+            toc.appendChild(item)
+        }
+
+        if (toc.children.length != 0) {
+            document.getElementsByClassName('post')[0].getElementsByClassName('divider')[0].after(toc)
+            const divider = document.createElement('div')
+            divider.classList.add('divider')
+            toc.after(divider)
+        }
+    }
+})()
