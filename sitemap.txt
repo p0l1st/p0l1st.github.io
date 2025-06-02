@@ -1,3 +1,4 @@
+http://example.com/2025/06/02/D-3CTF2025-jtar-%E5%A4%8D%E7%8E%B0/
 http://example.com/friends/index.html
 http://example.com/2025/04/28/ACTF2025-Web-Writeup/
 http://example.com/search/index.html

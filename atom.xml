@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-04-27T15:27:12.650Z</updated>
+  <updated>2025-06-02T14:07:43.022Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>D^3CTF2025 jtar(复现)</title>
+    <link href="http://example.com/2025/06/02/D-3CTF2025-jtar-%E5%A4%8D%E7%8E%B0/"/>
+    <id>http://example.com/2025/06/02/D-3CTF2025-jtar-%E5%A4%8D%E7%8E%B0/</id>
+    <published>2025-06-02T14:05:27.000Z</published>
+    <updated>2025-06-02T14:07:43.022Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote><p>题目所给附件为war，由于只有部分源码，加上本地tomcat+idea调试没搞好，这里就用springboot直接搭了一个</p></blockquote><p>根据sq师傅的writeup复现，具体参考<a href="https://mp.weixin.qq.com/s/UKUQMdaGZ-JXobUn-82G1w">D^3CTF 2025 writeup by Mini-Venom</a></p><h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>Controller中给出三个路由</p><ul><li><code>view</code></li></ul><p>page可控，这里可以直接解析jsp文件</p><ul><li><code>Upload</code></li></ul><p>可以上传文件，但是有黑名单，过滤了jsp jspx这些</p><ul><li><code>BackUp</code></li></ul><p>打包和解压两个操作，deepseek生成的流程图：</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207982.png" alt="image-20250602212632467"></p><p>这里的文件上传没有问题，我们直接来看<code>BackUp</code>路由，跟进<code>tarDirectory</code>方法</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207038.png" alt="image-20250602213802912"></p><p>这里有<code>putNextEntry</code>和<code>new TarEntry</code>方法</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207087.png" alt="image-20250602213831820"></p><p>继续跟进<code>putNextEntry</code>方法</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207998.png" alt="image-20250602214026456"></p><p>这里调用了<code>writeEntryHeader</code>方法</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207032.png" alt="image-20250602214159250"></p><p>然后调用了<code>TarHeader#getNameBytes</code>方法</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207059.png" alt="image-20250602214735308"></p><p><code>(byte)name.charAt(i)</code>这里存在强制类型转换，会把char强制转换成byte，也就是字符转换为字节数组</p><blockquote><p>Java的char是16位Unicode字符，而byte[]是8位字节数组，这里的转换就相当于取字符的低八位</p></blockquote><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207682.png" alt="image-20250602215411370"></p><p>那么思路就很明显了，我们只要构造低八位是0x70的Unicode字符，经过tar-&gt;untar就可以得到jsp文件</p><p>这里借用sq师傅的脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">target_byte_value = <span class="number">0x70</span>  <span class="comment"># 对应 ASCII 字符 &#x27;p&#x27;</span></span><br><span class="line"></span><br><span class="line">matching_chars = []</span><br><span class="line"><span class="keyword">for</span> code_point <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x10000</span>):</span><br><span class="line">    <span class="keyword">if</span> (code_point &amp; <span class="number">0xFF</span>) == target_byte_value:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            char = <span class="built_in">chr</span>(code_point)</span><br><span class="line">            matching_chars.append((char, <span class="built_in">hex</span>(code_point)))</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"><span class="keyword">for</span> char, code_hex <span class="keyword">in</span> matching_chars:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;字符: <span class="subst">&#123;char&#125;</span> | Unicode: <span class="subst">&#123;code_hex&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207684.png" alt="image-20250602215601809"></p><p>生成了很多，我们随便选一个，构造exp.jsɰ</p><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">由于是本地测试，内容就不写了，一个回显马就行</span><br></pre></td></tr></table></figure><p>上传</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207700.png" alt="image-20250602215909329"></p><p>打包解包后得到jsp文件</p><p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202506022207749.png" alt="image-20250602220107448"></p>]]></content>
+    
+    
+    <summary type="html">false</summary>
+    
+    
+    
+    
+    <category term="CTF" scheme="http://example.com/tags/CTF/"/>
+    
+  </entry>
   
   <entry>
     <title>ACTF2025 Web Writeup</title>
