@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2025/08/28/LilCTF-blade-cc/</loc>
+    
+    <lastmod>2025-08-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2025/08/14/Polar%E9%9D%B6%E5%9C%BA-Java/</loc>
     
     <lastmod>2025-08-14</lastmod>
@@ -211,7 +220,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2025-08-14</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -219,21 +228,28 @@
   
   <url>
     <loc>http://example.com/tags/CTF/</loc>
-    <lastmod>2025-08-14</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Java%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2025-08-14</lastmod>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Python/</loc>
-    <lastmod>2025-08-14</lastmod>
+    <lastmod>2025-08-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/Java%E5%AE%89%E5%85%A8-CTF/</loc>
+    <lastmod>2025-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
