@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2026/03/08/Fastjson-write-ascii-JAR-RCE/</loc>
+    
+    <lastmod>2026-03-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2026/03/03/Express%E5%BA%94%E2%BD%A4%E9%A2%84%E5%A4%84%E7%90%86%E7%89%B9%E6%80%A7%E7%BB%95%E8%BF%87%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C%E5%AE%9E%E7%8E%B0XSS/</loc>
     
     <lastmod>2026-03-03</lastmod>
@@ -256,7 +265,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -264,35 +273,35 @@
   
   <url>
     <loc>http://example.com/tags/CTF/</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Java%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Python/</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Java%E5%AE%89%E5%85%A8-CTF/</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/Web%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2026-03-03</lastmod>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

