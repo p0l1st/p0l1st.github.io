@@ -17,5 +17,33 @@
       <guid>https://p0l1st.github.io/tags/java%E5%AE%89%E5%85%A8/</guid>
       <description></description>
     </item>
+    <item>
+      <title>JavaScript</title>
+      <link>https://p0l1st.github.io/tags/javascript/</link>
+      <pubDate>Tue, 03 Mar 2026 20:25:51 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web安全</title>
+      <link>https://p0l1st.github.io/tags/web%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Tue, 03 Mar 2026 20:25:51 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/tags/web%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CTF</title>
+      <link>https://p0l1st.github.io/tags/ctf/</link>
+      <pubDate>Fri, 27 Feb 2026 17:15:29 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python安全</title>
+      <link>https://p0l1st.github.io/tags/python%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Fri, 24 Jan 2025 23:19:23 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/tags/python%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

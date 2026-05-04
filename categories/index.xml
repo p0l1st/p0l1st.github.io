@@ -17,5 +17,19 @@
       <guid>https://p0l1st.github.io/categories/ctf/</guid>
       <description></description>
     </item>
+    <item>
+      <title>Web安全</title>
+      <link>https://p0l1st.github.io/categories/web%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Tue, 03 Mar 2026 20:25:51 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/categories/web%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java安全</title>
+      <link>https://p0l1st.github.io/categories/java%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Thu, 14 Aug 2025 18:28:34 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/categories/java%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
