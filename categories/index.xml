@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on p0l1st&#39;s blog</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>https://p0l1st.github.io/categories/</link>
     <description>Recent content in Categories on p0l1st&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
-    <lastBuildDate>Mon, 04 May 2026 14:05:53 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 May 2026 23:49:55 +0800</lastBuildDate>
+    <atom:link href="https://p0l1st.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java安全</title>
+      <link>https://p0l1st.github.io/categories/java%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Thu, 14 May 2026 23:49:55 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://p0l1st.github.io/categories/java%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
     <item>
       <title>CTF</title>
-      <link>http://localhost:1313/categories/ctf/</link>
+      <link>https://p0l1st.github.io/categories/ctf/</link>
       <pubDate>Mon, 04 May 2026 14:05:53 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/categories/ctf/</guid>
+      <guid>https://p0l1st.github.io/categories/ctf/</guid>
       <description></description>
     </item>
     <item>
       <title>Web安全</title>
-      <link>http://localhost:1313/categories/web%E5%AE%89%E5%85%A8/</link>
+      <link>https://p0l1st.github.io/categories/web%E5%AE%89%E5%85%A8/</link>
       <pubDate>Tue, 03 Mar 2026 20:25:51 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/categories/web%E5%AE%89%E5%85%A8/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java安全</title>
-      <link>http://localhost:1313/categories/java%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Thu, 14 Aug 2025 18:28:34 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/categories/java%E5%AE%89%E5%85%A8/</guid>
+      <guid>https://p0l1st.github.io/categories/web%E5%AE%89%E5%85%A8/</guid>
       <description></description>
     </item>
   </channel>
