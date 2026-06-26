@@ -8,12 +8,12 @@
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
-    <lastBuildDate>Thu, 14 May 2026 23:49:55 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 14:05:53 +0800</lastBuildDate>
     <atom:link href="https://p0l1st.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java安全</title>
       <link>https://p0l1st.github.io/tags/java%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Thu, 14 May 2026 23:49:55 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <pubDate>Mon, 04 May 2026 14:05:53 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
       <guid>https://p0l1st.github.io/tags/java%E5%AE%89%E5%85%A8/</guid>
       <description></description>
     </item>
@@ -36,13 +36,6 @@
       <link>https://p0l1st.github.io/tags/ctf/</link>
       <pubDate>Fri, 27 Feb 2026 17:15:29 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
       <guid>https://p0l1st.github.io/tags/ctf/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python安全</title>
-      <link>https://p0l1st.github.io/tags/python%E5%AE%89%E5%85%A8/</link>
-      <pubDate>Fri, 24 Jan 2025 23:19:23 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>https://p0l1st.github.io/tags/python%E5%AE%89%E5%85%A8/</guid>
       <description></description>
     </item>
   </channel>

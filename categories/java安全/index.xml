@@ -8,16 +8,8 @@
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
-    <lastBuildDate>Thu, 14 May 2026 23:49:55 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 14 Aug 2025 18:28:34 +0000</lastBuildDate>
     <atom:link href="https://p0l1st.github.io/categories/java%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>[Java Puzzle #2]  Tomcat&#39;s Secret Chamber学习</title>
-      <link>https://p0l1st.github.io/post/java-puzzle-%232-tomcats-secret-chamber%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Thu, 14 May 2026 23:49:55 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>https://p0l1st.github.io/post/java-puzzle-%232-tomcats-secret-chamber%E5%AD%A6%E4%B9%A0/</guid>
-      <category domain="https://p0l1st.github.io/categories/java%E5%AE%89%E5%85%A8/">Java安全</category>
-      <description>&lt;p&gt;直接看 &lt;a href=&#34;https://www.yuque.com/p0l1st/dddqt7/mw7qxhhxvi56ggu4&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://www.yuque.com/p0l1st/dddqt7/mw7qxhhxvi56ggu4&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Polar靶场-Java</title>
       <link>https://p0l1st.github.io/post/polar%E9%9D%B6%E5%9C%BA-java/</link>
