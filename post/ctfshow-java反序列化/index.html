@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
@@ -12,7 +12,7 @@
   <meta itemprop="datePublished" content="2025-03-19T18:53:24+00:00">
   <meta itemprop="dateModified" content="2025-03-19T18:53:24+00:00">
   <meta itemprop="wordCount" content="937">
-  <meta itemprop="keywords" content="CTF,Java安全"><meta property="og:url" content="http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+  <meta itemprop="keywords" content="CTF,Java安全"><meta property="og:url" content="https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
   <meta property="og:site_name" content="p0l1st&#39;s blog">
   <meta property="og:title" content="CTFSHOW-Java反序列化">
   <meta property="og:description" content="web846 ctfshow会对你post提交的ctfshow参数进行base64解码 然后进行反序列化 构造出对当前题目地址的dns查询即可获得flag">
@@ -28,7 +28,7 @@
   <meta name="twitter:title" content="CTFSHOW-Java反序列化">
   <meta name="twitter:description" content="web846 ctfshow会对你post提交的ctfshow参数进行base64解码 然后进行反序列化 构造出对当前题目地址的dns查询即可获得flag">
 <meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="CTFSHOW-Java反序列化 - p0l1st&#39;s blog" /><link rel="prev" type="text/html" href="http://localhost:1313/post/hgame2025-week1-web-writeup/" title="HGAME2025 WEEK1 Web Writeup" /><link rel="next" type="text/html" href="http://localhost:1313/post/actf2025-web-writeup/" title="ACTF2025 Web Writeup" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="CTFSHOW-Java反序列化 - p0l1st&#39;s blog" /><link rel="prev" type="text/html" href="https://p0l1st.github.io/post/past/hgame2025-week1-web-writeup/" title="HGAME2025 WEEK1 Web Writeup" /><link rel="next" type="text/html" href="https://p0l1st.github.io/post/actf2025-web-writeup/" title="ACTF2025 Web Writeup" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -38,9 +38,9 @@
     "inLanguage": "en-us",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/post\/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/"
+      "@id": "https:\/\/p0l1st.github.io\/post\/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/"
     },"genre": "posts","keywords": "CTF, Java安全","wordcount":  937 ,
-    "url": "http:\/\/localhost:1313\/post\/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/","datePublished": "2025-03-19T18:53:24+00:00","dateModified": "2025-03-19T18:53:24+00:00","publisher": {
+    "url": "https:\/\/p0l1st.github.io\/post\/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/","datePublished": "2025-03-19T18:53:24+00:00","dateModified": "2025-03-19T18:53:24+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -561,11 +561,11 @@
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="vscode://file//Users/p0l1st/blog/content/post/CTFSHOW-Java%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96.md" title="Open in editor" target="_blank" rel="external nofollow noopener noreferrer" class="link-to-vscode">Open in editor</a></span></div>
+        <div class="post-info-md"></div>
         <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="CTFSHOW-Java反序列化" data-hashtags="CTF,Java安全"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="CTFSHOW-Java反序列化"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="CTFSHOW-Java反序列化" data-hashtags="CTF,Java安全"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-hashtag="CTF"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="CTFSHOW-Java反序列化"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
   </span>
         </div>
       </div></div>
@@ -574,7 +574,7 @@
     <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/ctf/" class="post-tag" title="Tags - CTF">CTF</a><a href="/tags/java%E5%AE%89%E5%85%A8/" class="post-tag" title="Tags - Java安全">Java安全</a></section>
     <section><span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
     </section>
-  </div><div class="post-nav"><a href="/post/hgame2025-week1-web-writeup/" class="post-nav-item" rel="prev" title="HGAME2025 WEEK1 Web Writeup"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>HGAME2025 WEEK1 Web Writeup</a><a href="/post/actf2025-web-writeup/" class="post-nav-item" rel="next" title="ACTF2025 Web Writeup">ACTF2025 Web Writeup<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
+  </div><div class="post-nav"><a href="/post/past/hgame2025-week1-web-writeup/" class="post-nav-item" rel="prev" title="HGAME2025 WEEK1 Web Writeup"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>HGAME2025 WEEK1 Web Writeup</a><a href="/post/actf2025-web-writeup/" class="post-nav-item" rel="next" title="ACTF2025 Web Writeup">ACTF2025 Web Writeup<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article>
 

@@ -2,84 +2,84 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CTF - Tag - p0l1st&#39;s blog</title>
-    <link>http://localhost:1313/tags/ctf/</link>
+    <link>https://p0l1st.github.io/tags/ctf/</link>
     <description>p0l1st&#39;s blog</description>
     <generator>Hugo 0.161.1 &amp; FixIt v0.4.5</generator>
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
     <lastBuildDate>Fri, 27 Feb 2026 17:15:29 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://p0l1st.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>阿里CTF 2026部分复现</title>
-      <link>http://localhost:1313/post/%E9%98%BF%E9%87%8Cctf-2026%E9%83%A8%E5%88%86%E5%A4%8D%E7%8E%B0/</link>
+      <link>https://p0l1st.github.io/post/%E9%98%BF%E9%87%8Cctf-2026%E9%83%A8%E5%88%86%E5%A4%8D%E7%8E%B0/</link>
       <pubDate>Fri, 27 Feb 2026 17:15:29 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/%E9%98%BF%E9%87%8Cctf-2026%E9%83%A8%E5%88%86%E5%A4%8D%E7%8E%B0/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/%E9%98%BF%E9%87%8Cctf-2026%E9%83%A8%E5%88%86%E5%A4%8D%E7%8E%B0/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;easy-login&#34;&gt;&lt;span&gt;Easy Login&lt;/span&gt;&#xA;  &lt;a href=&#34;#easy-login&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;懒得写详细了&lt;/p&gt;</description>
     </item>
     <item>
       <title>强网拟态2025初赛 Web Writeup</title>
-      <link>http://localhost:1313/post/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%812025%E5%88%9D%E8%B5%9B-web-writeup/</link>
+      <link>https://p0l1st.github.io/post/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%812025%E5%88%9D%E8%B5%9B-web-writeup/</link>
       <pubDate>Mon, 27 Oct 2025 11:04:24 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%812025%E5%88%9D%E8%B5%9B-web-writeup/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%812025%E5%88%9D%E8%B5%9B-web-writeup/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;smallcode&#34;&gt;&lt;span&gt;smallcode&lt;/span&gt;&#xA;  &lt;a href=&#34;#smallcode&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;?php&#xA;    highlight_file(__FILE__);&#xA;    if(isset($_POST[&amp;#39;context&amp;#39;])){&#xA;        $context = $_POST[&amp;#39;context&amp;#39;];&#xA;        file_put_contents(&amp;#34;1.txt&amp;#34;,base64_decode($context));&#xA;    }&#xA;&#xA;    if(isset($_POST[&amp;#39;env&amp;#39;])){&#xA;        $env = $_POST[&amp;#39;env&amp;#39;];&#xA;        putenv($env);&#xA;    }&#xA;    system(&amp;#34;nohup wget --content-disposition -N hhhh &amp;amp;&amp;#34;);&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;写so，编译&lt;/p&gt;</description>
     </item>
     <item>
       <title>LilCTF blade_cc</title>
-      <link>http://localhost:1313/post/lilctf-blade-cc/</link>
+      <link>https://p0l1st.github.io/post/past/lilctf-blade-cc/</link>
       <pubDate>Thu, 28 Aug 2025 23:28:34 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/lilctf-blade-cc/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/past/lilctf-blade-cc/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;transformedlist触发transform&#34;&gt;&lt;span&gt;TransformedList触发transform&lt;/span&gt;&#xA;  &lt;a href=&#34;#transformedlist%e8%a7%a6%e5%8f%91transform&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;从&lt;code&gt;EventListenerList#readObject&lt;/code&gt;触发&lt;code&gt;toString&lt;/code&gt;开始&lt;/p&gt;</description>
     </item>
     <item>
-      <title>2025磐石初赛Web两道Java</title>
-      <link>http://localhost:1313/post/2025%E7%A3%90%E7%9F%B3%E5%88%9D%E8%B5%9Bweb%E4%B8%A4%E9%81%93java/</link>
+      <title>2025磐石初赛Web</title>
+      <link>https://p0l1st.github.io/post/2025%E7%A3%90%E7%9F%B3%E5%88%9D%E8%B5%9Bweb/</link>
       <pubDate>Thu, 07 Aug 2025 17:07:49 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/2025%E7%A3%90%E7%9F%B3%E5%88%9D%E8%B5%9Bweb%E4%B8%A4%E9%81%93java/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/2025%E7%A3%90%E7%9F%B3%E5%88%9D%E8%B5%9Bweb/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;web-java_ez&#34;&gt;&lt;span&gt;web-java_ez&lt;/span&gt;&#xA;  &lt;a href=&#34;#web-java_ez&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;VulnController&lt;/p&gt;</description>
     </item>
     <item>
       <title>第一届OpenHarmony CTF专题赛 Web Writeup</title>
-      <link>http://localhost:1313/post/%E7%AC%AC%E4%B8%80%E5%B1%8Aopenharmony-ctf%E4%B8%93%E9%A2%98%E8%B5%9B-web-writeup/</link>
+      <link>https://p0l1st.github.io/post/%E7%AC%AC%E4%B8%80%E5%B1%8Aopenharmony-ctf%E4%B8%93%E9%A2%98%E8%B5%9B-web-writeup/</link>
       <pubDate>Fri, 06 Jun 2025 16:33:50 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/%E7%AC%AC%E4%B8%80%E5%B1%8Aopenharmony-ctf%E4%B8%93%E9%A2%98%E8%B5%9B-web-writeup/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/%E7%AC%AC%E4%B8%80%E5%B1%8Aopenharmony-ctf%E4%B8%93%E9%A2%98%E8%B5%9B-web-writeup/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;layers-of-compromise&#34;&gt;&lt;span&gt;Layers of Compromise&lt;/span&gt;&#xA;  &lt;a href=&#34;#layers-of-compromise&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;弱口令user password123登录&lt;/p&gt;</description>
     </item>
     <item>
       <title>ACTF2025 Web Writeup</title>
-      <link>http://localhost:1313/post/actf2025-web-writeup/</link>
+      <link>https://p0l1st.github.io/post/actf2025-web-writeup/</link>
       <pubDate>Mon, 28 Apr 2025 09:31:57 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/actf2025-web-writeup/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/actf2025-web-writeup/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;actf-upload&#34;&gt;&lt;span&gt;ACTF upload&lt;/span&gt;&#xA;  &lt;a href=&#34;#actf-upload&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;随便登录就是普通用户，进去可以上传文件，然后有任意文件读取，先读/app/app.py得到源码&lt;/p&gt;</description>
     </item>
     <item>
       <title>CTFSHOW-Java反序列化</title>
-      <link>http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <link>https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
       <pubDate>Wed, 19 Mar 2025 18:53:24 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/ctfshow-java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;web846&#34;&gt;&lt;span&gt;web846&lt;/span&gt;&#xA;  &lt;a href=&#34;#web846&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;ctfshow会对你post提交的&lt;strong&gt;ctfshow&lt;/strong&gt;参数进行base64解码&#xA;然后进行反序列化&#xA;构造出对当前题目地址的&lt;strong&gt;dns查询即可&lt;/strong&gt;获得flag&lt;/p&gt;</description>
     </item>
     <item>
       <title>HGAME2025 WEEK1 Web Writeup</title>
-      <link>http://localhost:1313/post/hgame2025-week1-web-writeup/</link>
+      <link>https://p0l1st.github.io/post/past/hgame2025-week1-web-writeup/</link>
       <pubDate>Mon, 10 Feb 2025 13:28:16 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/hgame2025-week1-web-writeup/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/past/hgame2025-week1-web-writeup/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;level-24-pacman&#34;&gt;&lt;span&gt;Level 24 Pacman&lt;/span&gt;&#xA;  &lt;a href=&#34;#level-24-pacman&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;index.js&lt;/p&gt;</description>
     </item>
     <item>
       <title>2024 第八届强网杯线上赛Web Writeup</title>
-      <link>http://localhost:1313/post/2024-%E7%AC%AC%E5%85%AB%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E7%BA%BF%E4%B8%8A%E8%B5%9Bweb-writeup/</link>
+      <link>https://p0l1st.github.io/post/2024-%E7%AC%AC%E5%85%AB%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E7%BA%BF%E4%B8%8A%E8%B5%9Bweb-writeup/</link>
       <pubDate>Mon, 04 Nov 2024 10:38:00 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
-      <guid>http://localhost:1313/post/2024-%E7%AC%AC%E5%85%AB%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E7%BA%BF%E4%B8%8A%E8%B5%9Bweb-writeup/</guid>
-      <category domain="http://localhost:1313/categories/ctf/">CTF</category>
+      <guid>https://p0l1st.github.io/post/2024-%E7%AC%AC%E5%85%AB%E5%B1%8A%E5%BC%BA%E7%BD%91%E6%9D%AF%E7%BA%BF%E4%B8%8A%E8%B5%9Bweb-writeup/</guid>
+      <category domain="https://p0l1st.github.io/categories/ctf/">CTF</category>
       <description>&lt;h1 class=&#34;heading-element&#34; id=&#34;pyblockly&#34;&gt;&lt;span&gt;PyBlockly&lt;/span&gt;&#xA;  &lt;a href=&#34;#pyblockly&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;python沙箱逃逸，关键是过滤了很多符号，但是使用了unicode.unicode，可以把unicode字符转换成最相似的ASCII字符，使用中文符号绕过即可&lt;/p&gt;</description>
     </item>
   </channel>
