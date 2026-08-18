@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fastjson - Category - p0l1st&#39;s blog</title>
-    <link>https://p0l1st.github.io/categories/fastjson/</link>
+    <link>http://localhost:1313/categories/fastjson/</link>
     <description>p0l1st&#39;s blog</description>
     <generator>Hugo 0.161.1 &amp; FixIt v0.4.5</generator>
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="https://p0l1st.github.io/categories/fastjson/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/fastjson/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
