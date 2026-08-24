@@ -1,1 +1,49 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Categories on p0l1st's blog</title><link>https://blog.p0l1st.top/categories/</link><description>Recent content in Categories on p0l1st's blog</description><generator>Hugo</generator><language>en-us</language><managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor><webMaster>p0l1st@venomsec.org (p0l1st)</webMaster><lastBuildDate>Wed, 22 Jul 2026 23:20:28 +0800</lastBuildDate><atom:link href="https://blog.p0l1st.top/categories/index.xml" rel="self" type="application/rss+xml"/><item><title>Fastjson</title><link>https://blog.p0l1st.top/categories/fastjson/</link><pubDate>Wed, 22 Jul 2026 23:20:28 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author><guid>https://blog.p0l1st.top/categories/fastjson/</guid><description/></item><item><title>Java安全</title><link>https://blog.p0l1st.top/categories/java%E5%AE%89%E5%85%A8/</link><pubDate>Mon, 04 May 2026 14:05:53 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author><guid>https://blog.p0l1st.top/categories/java%E5%AE%89%E5%85%A8/</guid><description/></item><item><title>Web安全</title><link>https://blog.p0l1st.top/categories/web%E5%AE%89%E5%85%A8/</link><pubDate>Tue, 03 Mar 2026 20:25:51 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author><guid>https://blog.p0l1st.top/categories/web%E5%AE%89%E5%85%A8/</guid><description/></item><item><title>CTF</title><link>https://blog.p0l1st.top/categories/ctf/</link><pubDate>Fri, 27 Feb 2026 17:15:29 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author><guid>https://blog.p0l1st.top/categories/ctf/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on p0l1st&#39;s blog</title>
+    <link>https://blog.p0l1st.top/categories/</link>
+    <description>Recent content in Categories on p0l1st&#39;s blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
+    <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
+    <lastBuildDate>Mon, 24 Aug 2026 21:07:02 +0800</lastBuildDate>
+    <atom:link href="https://blog.p0l1st.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.NET</title>
+      <link>https://blog.p0l1st.top/categories/.net/</link>
+      <pubDate>Mon, 24 Aug 2026 21:07:02 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/categories/.net/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fastjson</title>
+      <link>https://blog.p0l1st.top/categories/fastjson/</link>
+      <pubDate>Wed, 22 Jul 2026 23:20:28 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/categories/fastjson/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java安全</title>
+      <link>https://blog.p0l1st.top/categories/java%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Mon, 04 May 2026 14:05:53 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/categories/java%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web安全</title>
+      <link>https://blog.p0l1st.top/categories/web%E5%AE%89%E5%85%A8/</link>
+      <pubDate>Tue, 03 Mar 2026 20:25:51 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/categories/web%E5%AE%89%E5%85%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CTF</title>
+      <link>https://blog.p0l1st.top/categories/ctf/</link>
+      <pubDate>Fri, 27 Feb 2026 17:15:29 +0000</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/categories/ctf/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

