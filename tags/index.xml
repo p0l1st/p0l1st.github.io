@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
-    <lastBuildDate>Mon, 24 Aug 2026 21:07:02 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 23:30:16 +0800</lastBuildDate>
     <atom:link href="https://blog.p0l1st.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>.NET Challenge</title>
+      <link>https://blog.p0l1st.top/tags/.net-challenge/</link>
+      <pubDate>Tue, 25 Aug 2026 23:30:16 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/tags/.net-challenge/</guid>
+      <description></description>
+    </item>
     <item>
       <title>.NET ViewState</title>
       <link>https://blog.p0l1st.top/tags/.net-viewstate/</link>

