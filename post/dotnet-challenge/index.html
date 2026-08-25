@@ -11,7 +11,7 @@
   <meta itemprop="description" content="HDCTF2024 Ezdotnet 题目使用版本是.NET 6.0.0">
   <meta itemprop="datePublished" content="2026-08-25T23:30:16+08:00">
   <meta itemprop="dateModified" content="2026-08-25T23:30:16+08:00">
-  <meta itemprop="wordCount" content="863">
+  <meta itemprop="wordCount" content="860">
   <meta itemprop="keywords" content=".NET Challenge"><meta property="og:url" content="https://blog.p0l1st.top/post/dotnet-challenge/">
   <meta property="og:site_name" content="p0l1st&#39;s blog">
   <meta property="og:title" content="Dotnet Challenge">
@@ -38,7 +38,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.p0l1st.top\/post\/dotnet-challenge\/"
-    },"genre": "posts","keywords": ".NET Challenge","wordcount":  863 ,
+    },"genre": "posts","keywords": ".NET Challenge","wordcount":  860 ,
     "url": "https:\/\/blog.p0l1st.top\/post\/dotnet-challenge\/","datePublished": "2026-08-25T23:30:16+08:00","dateModified": "2026-08-25T23:30:16+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -80,7 +80,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Dotnet Challenge</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/.net/" class="post-category" title="Category - .NET"><i class="fa-regular fa-folder" aria-hidden="true"></i> .NET</a></span></div><div class="post-meta-line"><span title="published on 2026-08-25 23:30:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-25">2026-08-25</time></span>&nbsp;<span title="863 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 900 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>5 minutes</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/.net/" class="post-category" title="Category - .NET"><i class="fa-regular fa-folder" aria-hidden="true"></i> .NET</a></span></div><div class="post-meta-line"><span title="published on 2026-08-25 23:30:16"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-25">2026-08-25</time></span>&nbsp;<span title="860 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 900 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>5 minutes</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>Contents</span>
@@ -151,23 +151,22 @@
 </span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="n">MyBinaryFormatter</span><span class="p">().</span><span class="n">Deserialize</span><span class="p">((</span><span class="kt">string</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Form</span><span class="p">[</span><span class="s">&#34;base64str&#34;</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">IActionResult</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="n">View</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>接收POST传参base64str，并调用<code>MyBinaryFormatter().Deserialize</code>对其进行反序列化</p>
-<pre tabindex="0"><code>MyBinaryFormatter().Deserialize
-namespace Ezdotnet.Utils;
-
-public class MyBinaryFormatter
-{
-  public void Deserialize(string base64String)
-  {
-    AppContext.SetSwitch(&#34;Switch.System.Data.AllowArbitraryDataSetTypeInstantiation&#34;, true);
-    AppContext.SetSwitch(&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowProcessCreation&#34;, true);
-    AppContext.SetSwitch(&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowAssembliesFromByteArrays&#34;, true);
-    using (MemoryStream serializationStream = new MemoryStream(Convert.FromBase64String(base64String)))
-      new BinaryFormatter()
-      {
-        Binder = ((SerializationBinder) new SecurityBinder())
-      }.Deserialize((Stream) serializationStream);
-  }
-}</code></pre><p>这里通过<code>AppContext.SetSwitch</code>关闭.NET安全防护机制</p>
+<div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-c#"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Utils</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">MyBinaryFormatter</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="k">void</span> <span class="n">Deserialize</span><span class="p">(</span><span class="kt">string</span> <span class="n">base64String</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Data.AllowArbitraryDataSetTypeInstantiation&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowProcessCreation&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AppContext</span><span class="p">.</span><span class="n">SetSwitch</span><span class="p">(</span><span class="s">&#34;Switch.System.Runtime.Serialization.SerializationGuard.AllowAssembliesFromByteArrays&#34;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="p">(</span><span class="n">MemoryStream</span> <span class="n">serializationStream</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MemoryStream</span><span class="p">(</span><span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">base64String</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">      <span class="k">new</span> <span class="n">BinaryFormatter</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Binder</span> <span class="p">=</span> <span class="p">((</span><span class="n">SerializationBinder</span><span class="p">)</span> <span class="k">new</span> <span class="n">SecurityBinder</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}.</span><span class="n">Deserialize</span><span class="p">((</span><span class="n">Stream</span><span class="p">)</span> <span class="n">serializationStream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>这里通过<code>AppContext.SetSwitch</code>关闭.NET安全防护机制</p>
 <p>对应关系如下</p>
 <div class="table-wrapper">
   <table>
@@ -228,8 +227,7 @@ public class MyBinaryFormatter
 </span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="n">_transformer</span><span class="p">.</span><span class="n">transform</span><span class="p">((</span><span class="kt">object</span><span class="p">)</span> <span class="k">new</span> <span class="n">GoodBean</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">base</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-c#"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="na">
 </span></span></span><span class="line"><span class="cl"><span class="na">[Serializable]</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">ChainedTransformer</span> <span class="p">:</span> <span class="n">Transformer</span>
@@ -248,8 +246,7 @@ public class MyBinaryFormatter
 </span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">string</span> <span class="n">methodName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">InvokerTransformer</span><span class="p">[]</span> <span class="n">_transformers</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><div class="code-block highlight line-wrapping line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-c#"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="100" data-line-digit="2" style="--fi-max-shown-lines:100;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nn">Ezdotnet.Beans</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="na">
 </span></span></span><span class="line"><span class="cl"><span class="na">[Serializable]</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">InvokerTransformer</span> <span class="p">:</span> <span class="n">Transformer</span>
