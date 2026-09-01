@@ -8,8 +8,15 @@
     <language>en-us</language>
     <managingEditor>p0l1st@venomsec.org (p0l1st)</managingEditor>
     <webMaster>p0l1st@venomsec.org (p0l1st)</webMaster>
-    <lastBuildDate>Tue, 25 Aug 2026 23:30:16 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2026 15:08:05 +0800</lastBuildDate>
     <atom:link href="https://blog.p0l1st.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Log4j2</title>
+      <link>https://blog.p0l1st.top/categories/log4j2/</link>
+      <pubDate>Tue, 01 Sep 2026 15:08:05 +0800</pubDate><author>p0l1st@venomsec.org (p0l1st)</author>
+      <guid>https://blog.p0l1st.top/categories/log4j2/</guid>
+      <description></description>
+    </item>
     <item>
       <title>.NET</title>
       <link>https://blog.p0l1st.top/categories/.net/</link>
